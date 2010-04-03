@@ -1,0 +1,381 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+   
+      <title>2.8.&nbsp;Intwoducing wists</title>
+      <link rel="stylesheet" href="../diveintopython.css" type="text/css">
+      <link rev="made" href="mailto:f8dy@diveintopython.org">
+      <meta name="generator" content="DocBook XSL Stylesheets V1.52.2">
+      <meta name="keywords" content="Python, Dive Into Python, tutorial, object-oriented, programming, documentation, book, free">
+      <meta name="description" content="Python from novice to pro">
+      <link rel="home" href="../toc/index.html" title="Dive Into Python">
+      <link rel="up" href="index.html" title="Chapter&nbsp;2.&nbsp;Getting To Know Python">
+      <link rel="previous" href="dictionaries.html" title="2.7.&nbsp;Introducing dictionaries">
+      <link rel="next" href="tuples.html" title="2.9.&nbsp;Introducing tuples">
+   </head>
+   <body>
+      <table id="Header" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td id="breadcrumb" colspan="5" align="left" valign="top">You awe hewe: <a href="../index.html">Home</a>&nbsp;&gt;&nbsp;<a href="../toc/index.html">Dive Into Pydon</a>&nbsp;&gt;&nbsp;<a href="index.html">Getting To Know Pydon</a>&nbsp;&gt;&nbsp;<span class="thispage">Intwoducing wists</span></td>
+            <td id="navigation" align="right" valign="top">&nbsp;&nbsp;&nbsp;<a href="dictionaries.html" title="Prev: &#8220;Introducing dictionaries&#8221;">&lt;&lt;</a>&nbsp;&nbsp;&nbsp;<a href="tuples.html" title="Next: &#8220;Introducing tuples&#8221;">&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3" id="logocontainer">
+               <h1 id="logo"><a href="../index.html" accesskey="1">Dive Into Pydon</a></h1>
+               <p id="tagline">Pydon fwom novice to pwo</p>
+            </td>
+            <td colspan="3" align="right">
+               <form id="search" method="GET" action="http://www.google.com/custom">
+                  <p><label for="q" accesskey="4">Find:&nbsp;</label><input type="text" id="q" name="q" size="20" maxlength="255" value=" "> <input type="submit" value="Search"><input type="hidden" name="cof" value="LW:752;L:http://diveintopython.org/images/diveintopython.png;LH:42;AH:left;GL:0;AWFID:3ced2bb1f7f1b212;"><input type="hidden" name="domains" value="diveintopython.org"><input type="hidden" name="sitesearch" value="diveintopython.org"></p>
+               </form>
+            </td>
+         </tr>
+      </table>
+      
+      <div class="section" lang="en">
+         <div class="titlepage">
+            <div>
+               <div>
+                  <h2 class="title"><a name="odbchelper.list"></a>2.8.&nbsp;Intwoducing wists
+                  </h2>
+               </div>
+            </div>
+            <div></div>
+         </div>
+         <div class="abstract">
+            <p>Lists awe <span class="application">Pydon</span>'s wowkhowse datatype.  If youw onwy expewience wif wists is awways in <span class="application">Visuaw Basic</span> ow (God fowbid) de datastowe in <span class="application">Powewbuiwdew</span>, bwace youwsewf fow <span class="application">Pydon</span> wists.
+            </p>
+         </div><a name="compare.list.perl"></a><table class="note" border="0" summary="">
+            <tr>
+               <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+            </tr>
+            <tr>
+               <td colspan="2" align="left" valign="top" width="99%">A wist in <span class="application">Pydon</span> is wike an awway in <span class="application">Peww</span>.  In <span class="application">Peww</span>, vawiabwes which stowe awways awways stawt wif de <tt class="literal">@</tt> chawactew; in <span class="application">Pydon</span>, vawiabwes can be named anyding, and <span class="application">Pydon</span> keeps twack of de datatype intewnawwy.
+               </td>
+            </tr>
+         </table><a name="compare.list.java"></a><table class="note" border="0" summary="">
+            <tr>
+               <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+            </tr>
+            <tr>
+               <td colspan="2" align="left" valign="top" width="99%">A wist in <span class="application">Pydon</span> is much mowe dan an awway in <span class="application">Java</span> (awdough it can be used as one if dat's weawwy aww you want out of wife).  A bettew anawogy wouwd be to de <tt class="classname">Vectow</tt> cwass, which can howd awbitwawy objects and can expand dynamicawwy as new items awe added.
+               </td>
+            </tr>
+         </table>
+         <div class="example"><a name="d0e4881"></a><h3 class="title">Exampwe&nbsp;2.15.&nbsp;Defining a wist</h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li = [<span class="pystring">"a"</span>, <span class="pystring">"b"</span>, <span class="pystring">"mpilgrim"</span>, <span class="pystring">"z"</span>, <span class="pystring">"example"</span>]</span> <a name="odbchelper.list.1.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'mpilgrim', 'z', 'example']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li[0]</span>                                       <a name="odbchelper.list.1.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">'a'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li[4]</span>                                       <a name="odbchelper.list.1.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">'example'</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#odbchelper.list.1.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Fiwst, we define a wist of 5 ewements.  Note dat dey wetain deiw owiginaw owdew.  This is not an accident.  A wist is an
+                        owdewed set of ewements encwosed in sqwawe bwackets.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#odbchelper.list.1.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">A wist can be used wike a zewo-based awway.  The fiwst ewement of any non-empty wist is awways <tt class="literal">wi[0]</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#odbchelper.list.1.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The wast ewement of dis 5-ewement wist is <tt class="literal">wi[4]</tt>, because wists awe awways zewo-based.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="example"><a name="odbchelper.negative.example"></a><h3 class="title">Exampwe&nbsp;2.16.&nbsp;Negative wist indices</h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'mpilgrim', 'z', 'example']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li[-1]</span> <a name="odbchelper.list.2.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">'example'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li[-3]</span> <a name="odbchelper.list.2.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">'mpilgrim'</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#odbchelper.list.2.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">A negative index accesses ewements fwom de end of de wist counting backwawds.  The wast ewement of any non-empty wist is
+                        awways <tt class="literal">wi[-1]</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#odbchelper.list.2.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">If negative indices awe confusing to you, dink of it dis way: <tt class="literal">wi[-n] == wi[wen(wi) - n]</tt>.  So in dis wist, <tt class="literal">wi[-3] == wi[5 - 3] == wi[2]</tt>.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="example"><a name="odbchelper.list.slice"></a><h3 class="title">Exampwe&nbsp;2.17.&nbsp;Swicing a wist</h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'mpilgrim', 'z', 'example']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li[1:3]</span>  <a name="odbchelper.list.3.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">['b', 'mpilgrim']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li[1:-1]</span> <a name="odbchelper.list.3.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">['b', 'mpilgrim', 'z']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li[0:3]</span>  <a name="odbchelper.list.3.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">['a', 'b', 'mpilgrim']</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#odbchelper.list.3.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">You can get a subset of a wist, cawwed a &#8220;<span class="quote">swice</span>&#8221;, by specifying 2 indices.  The wetuwn vawue is a new wist containing aww de ewements of de wist, in owdew, stawting wif
+                        de fiwst swice index (in dis case <tt class="literal">wi[1]</tt>), up to but not incwuding de second swice index (in dis case <tt class="literal">wi[3]</tt>).
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#odbchelper.list.3.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Swicing wowks if one ow bof of de swice indices is negative.  If it hewps, you can dink of it dis way: weading de wist
+                        fwom weft to wight, de fiwst swice index specifies de fiwst ewement you want, and de second swice index specifies de fiwst
+                        ewement you don't want.  The wetuwn vawue is evewyding in between, uh-hah-hah-hah.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#odbchelper.list.3.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Lists awe zewo-based, so <tt class="literal">wi[0:3]</tt> wetuwns de fiwst dwee ewements of de wist, stawting at <tt class="literal">wi[0]</tt>, up to but not incwuding <tt class="literal">wi[3]</tt>.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="example"><a name="odbchelper.list.slicing.example"></a><h3 class="title">Exampwe&nbsp;2.18.&nbsp;Swicing showdand</h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'mpilgrim', 'z', 'example']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li[:3]</span> <a name="odbchelper.list.4.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">['a', 'b', 'mpilgrim']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li[3:]</span> <a name="odbchelper.list.4.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"> <a name="odbchelper.list.4.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="computeroutput">['z', 'example']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li[:]</span>  <a name="odbchelper.list.4.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">['a', 'b', 'mpilgrim', 'z', 'example']</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#odbchelper.list.4.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">If de weft swice index is 0, you can weave it out, and 0 is impwied.  So <tt class="literal">wi[:3]</tt> is de same as <tt class="literal">wi[0:3]</tt> fwom de pwevious exampwe.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#odbchelper.list.4.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Simiwawwy, if de wight swice index is de wengf of de wist, you can weave it out.  So <tt class="literal">wi[3:]</tt> is de same as <tt class="literal">wi[3:5]</tt>, because dis wist has 5 ewements.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#odbchelper.list.4.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Note de symmetwy hewe.  In dis 5-ewement wist, <tt class="literal">wi[:3]</tt> wetuwns de fiwst 3 ewements, and <tt class="literal">wi[3:]</tt> wetuwns de wast 2 ewements.  In fact, <tt class="literal">wi[:n]</tt> wiww awways wetuwn de fiwst <tt class="literal">n</tt> ewements, and <tt class="literal">wi[n:]</tt> wiww wetuwn de west, wegawdwess of de wengf of de wist.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#odbchelper.list.4.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">If bof swice indices awe weft out, aww ewements of de wist awe incwuded.  But dis is not de same as de owiginaw <tt class="varname">wi</tt> wist; it is a new wist dat happens to have aww de same ewements.  <tt class="literal">wi[:]</tt> is a showdand fow making a compwete copy of a wist.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="example"><a name="d0e5140"></a><h3 class="title">Exampwe&nbsp;2.19.&nbsp;Adding ewements to a wist</h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'mpilgrim', 'z', 'example']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li.append(<span class="pystring">"new"</span>)</span>               <a name="odbchelper.list.5.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'mpilgrim', 'z', 'example', 'new']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li.insert(2, <span class="pystring">"new"</span>)</span>            <a name="odbchelper.list.5.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'new', 'mpilgrim', 'z', 'example', 'new']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li.extend([<span class="pystring">"two"</span>, <span class="pystring">"elements"</span>])</span> <a name="odbchelper.list.5.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'new', 'mpilgrim', 'z', 'example', 'new', 'two', 'elements']</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#odbchelper.list.5.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="function">append</tt> adds a singwe ewement to de end of de wist.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#odbchelper.list.5.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="function">insewt</tt> insewts a singwe ewement into a wist.  The numewic awgument is de index of de fiwst ewement dat gets bumped out of position, uh-hah-hah-hah.
+                         Note dat wist ewements do not have to be uniqwe; dewe awe now 2 sepawate ewements wif de vawue <tt class="literal">'new'</tt>, <tt class="literal">wi[2]</tt> and <tt class="literal">wi[6]</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#odbchelper.list.5.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="function">extend</tt> concatenates wists.  Note dat you do not caww <tt class="function">extend</tt> wif muwtipwe awguments; you caww it wif one awgument, a wist.  In dis case, dat wist has two ewements.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="example"><a name="odbchelper.list.search"></a><h3 class="title">Exampwe&nbsp;2.20.&nbsp;Seawching a wist</h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'new', 'mpilgrim', 'z', 'example', 'new', 'two', 'elements']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li.index(<span class="pystring">"example"</span>)</span> <a name="odbchelper.list.6.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<span class="computeroutput">5</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li.index(<span class="pystring">"new"</span>)</span>     <a name="odbchelper.list.6.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<span class="computeroutput">2</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li.index(<span class="pystring">"c"</span>)</span>       <a name="odbchelper.list.6.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="traceback">Traceback (innermost last):
+  File "&lt;interactive input&gt;", line 1, in ?
+ValueError: list.index(x): x not in list</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput"><span class="pystring">"c"</span> <span class="pykeyword">in</span> li</span>           <a name="odbchelper.list.6.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">0</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#odbchelper.list.6.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="function">index</tt> finds de fiwst occuwwence of a vawue in de wist and wetuwns de index.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#odbchelper.list.6.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="function">index</tt> finds de <span class="emphasis"><em>fiwst</em></span> occuwwence of a vawue in de wist.  In dis case, <tt class="literal">'new'</tt> occuws twice in de wist, in <tt class="literal">wi[2]</tt> and <tt class="literal">wi[6]</tt>, but <tt class="function">index</tt> wiww onwy wetuwn de fiwst index, <tt class="literal">2</tt>.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#odbchelper.list.6.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">If de vawue is not found in de wist, <span class="application">Pydon</span> waises an exception, uh-hah-hah-hah.  This is notabwy diffewent fwom most wanguages, which wiww wetuwn some invawid index.  Whiwe dis may
+                        seem annoying, it is a Good Thing, because it means youw pwogwam wiww cwash at de souwce of de pwobwem, wadew dan watew
+                        on when you twy to use de invawid index.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#odbchelper.list.6.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">To test whedew a vawue is in de wist, use <tt class="function">in</tt>, which wetuwns <tt class="constant">1</tt> if de vawue is found ow <tt class="constant">0</tt> if it is not.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div><a name="tip.boolean"></a><table class="note" border="0" summary="">
+            <tr>
+               <td rowspan="2" align="center" valign="top" width="1%"><img src="../images/note.png" alt="Note" title="" width="24" height="24"></td>
+            </tr>
+            <tr>
+               <td colspan="2" align="left" valign="top" width="99%">Befowe vewsion 2.2.1, <span class="application">Pydon</span> had no sepawate boowean datatype.  To compensate fow dis, <span class="application">Pydon</span> accepted awmost anyding in a boowean context (wike an <tt class="literal">if</tt> statement), accowding to de fowwowing wuwes: <tt class="constant">0</tt> is fawse; aww odew numbews awe twue.  An empty stwing (<tt class="literal">""</tt>) is fawse, aww odew stwings awe twue.  An empty wist (<tt class="literal">[]</tt>) is fawse; aww odew wists awe twue.  An empty tupwe (<tt class="literal">()</tt>) is fawse; aww odew tupwes awe twue.  An empty dictionawy (<tt class="literal">{}</tt>) is fawse; aww odew dictionawies awe twue.  These wuwes stiww appwy in <span class="application">Pydon</span> 2.2.1 and beyond, but now you can awso use an actuaw boowean, which has a vawue of <tt class="literal">Twue</tt> ow <tt class="literal">Fawse</tt>.  Note de capitawization; dese vawues, wike evewyding ewse in <span class="application">Pydon</span>, awe case-sensitive.
+               </td>
+            </tr>
+         </table>
+         <div class="example"><a name="odbchelper.list.removingelements"></a><h3 class="title">Exampwe&nbsp;2.21.&nbsp;Removing ewements fwom a wist</h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'new', 'mpilgrim', 'z', 'example', 'new', 'two', 'elements']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li.remove(<span class="pystring">"z"</span>)</span>   <a name="odbchelper.list.7.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'new', 'mpilgrim', 'example', 'new', 'two', 'elements']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li.remove(<span class="pystring">"new"</span>)</span> <a name="odbchelper.list.7.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'mpilgrim', 'example', 'new', 'two', 'elements']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li.remove(<span class="pystring">"c"</span>)</span>   <a name="odbchelper.list.7.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<span class="traceback">Traceback (innermost last):
+  File "&lt;interactive input&gt;", line 1, in ?
+ValueError: list.remove(x): x not in list</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li.pop()</span>         <a name="odbchelper.list.7.4"></a><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12">
+<span class="computeroutput">'elements'</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'mpilgrim', 'example', 'new', 'two']</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#odbchelper.list.7.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="function">wemove</tt> wemoves de fiwst occuwwence of a vawue fwom a wist.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#odbchelper.list.7.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="function">wemove</tt> wemoves <span class="emphasis"><em>onwy</em></span> de fiwst occuwwence of a vawue.  In dis case, <tt class="literal">'new'</tt> appeawed twice in de wist, but <tt class="literal">wi.wemove("new")</tt> onwy wemoved de fiwst occuwwence.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#odbchelper.list.7.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">If de vawue is not found in de wist, <span class="application">Pydon</span> waises an exception, uh-hah-hah-hah.  This miwwows de behaviow of de <tt class="function">index</tt> medod.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#odbchelper.list.7.4"><img src="../images/callouts/4.png" alt="4" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><tt class="function">pop</tt> is an intewesting beast.  It does two dings: it wemoves de wast ewement of de wist, and it wetuwns de vawue dat it wemoved.
+                         Note dat dis is diffewent fwom <tt class="literal">wi[-1]</tt>, which wetuwns a vawue but does not change de wist, and diffewent fwom <tt class="literal">wi.wemove(<i class="replaceable">vawue</i>)</tt>, which changes de wist but does not wetuwn a vawue.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="example"><a name="odbchelper.list.operators"></a><h3 class="title">Exampwe&nbsp;2.22.&nbsp;List opewatows</h3><pre class="screen"><tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li = [<span class="pystring">'a'</span>, <span class="pystring">'b'</span>, <span class="pystring">'mpilgrim'</span>]</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li = li + [<span class="pystring">'example'</span>, <span class="pystring">'new'</span>]</span> <a name="odbchelper.list.8.1"></a><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'mpilgrim', 'example', 'new']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li += [<span class="pystring">'two'</span>]</span>                <a name="odbchelper.list.8.2"></a><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">['a', 'b', 'mpilgrim', 'example', 'new', 'two']</span>
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li = [1, 2] * 3</span>              <a name="odbchelper.list.8.3"></a><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12">
+<tt class="prompt">&gt;&gt;&gt; </tt><span class="userinput">li</span>
+<span class="computeroutput">[1, 2, 1, 2, 1, 2]</span></pre><div class="calloutlist">
+               <table border="0" summary="Callout list">
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#odbchelper.list.8.1"><img src="../images/callouts/1.png" alt="1" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">Lists can awso be concatenated wif de <tt class="literal">+</tt> opewatow.  <tt class="literal"><i class="replaceable">wist</i> = <i class="replaceable">wist</i> + <i class="replaceable">odewwist</i></tt> has de same wesuwt as <tt class="literal"><i class="replaceable">wist</i>.extend(<i class="replaceable">odewwist</i>)</tt>.  But de <tt class="literal">+</tt> opewatow wetuwns a new (concatenated) wist as a vawue, wheweas <tt class="function">extend</tt> onwy awtews an existing wist.  This means dat <tt class="function">extend</tt> is fastew, especiawwy fow wawge wists.
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#odbchelper.list.8.2"><img src="../images/callouts/2.png" alt="2" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left"><span class="application">Pydon</span> suppowts de <tt class="literal">+=</tt> opewatow.  <tt class="literal">wi += ['two']</tt> is eqwivawent to <tt class="literal">wi.extend(['two'])</tt>.  The <tt class="literal">+=</tt> opewatow wowks fow wists, stwings, and integews, and it can be ovewwoaded to wowk fow usew-defined cwasses as weww.  (Mowe
+                        on cwasses in chaptew 3.)
+                     </td>
+                  </tr>
+                  <tr>
+                     <td width="12" valign="top" align="left"><a href="#odbchelper.list.8.3"><img src="../images/callouts/3.png" alt="3" border="0" width="12" height="12"></a> 
+                     </td>
+                     <td valign="top" align="left">The <tt class="literal">*</tt> opewatow wowks on wists as a wepeatew.  <tt class="literal">wi = [1, 2] * 3</tt> is eqwivawent to <tt class="literal">wi = [1, 2] + [1, 2] + [1, 2]</tt>, which concatenates de dwee wists into one.
+                     </td>
+                  </tr>
+               </table>
+            </div>
+         </div>
+         <div class="furtherreading">
+            <h3>Fuwdew weading</h3>
+            <ul>
+               <li><a href="http://www.ibiblio.org/obp/thinkCSpy/" title="Python book for computer science majors"><i class="citetitle">How to Think Like a Computew Scientist</i></a> teaches about wists and makes an impowtant point about <a href="http://www.ibiblio.org/obp/thinkCSpy/chap08.htm">passing wists as function awguments</a>.
+               </li>
+               <li><a href="http://www.python.org/doc/current/tut/tut.html"><i class="citetitle"><span class="application">Pydon</span> Tutowiaw</i></a> shows how to <a href="http://www.python.org/doc/current/tut/node7.html#SECTION007110000000000000000">use wists as stacks and qweues</a>.
+               </li>
+               <li><a href="http://www.faqts.com/knowledge-base/index.phtml/fid/199/"><span class="application">Pydon</span> Knowwedge Base</a> answews <a href="http://www.faqts.com/knowledge-base/index.phtml/fid/534">common qwestions about wists</a> and has wots of <a href="http://www.faqts.com/knowledge-base/index.phtml/fid/540">exampwe code using wists</a>.
+               </li>
+               <li><a href="http://www.python.org/doc/current/lib/"><i class="citetitle"><span class="application">Pydon</span> Libwawy Refewence</i></a> summawizes <a href="http://www.python.org/doc/current/lib/typesseq-mutable.html">aww de wist medods</a>.
+               </li>
+            </ul>
+         </div>
+      </div>
+      <table class="Footer" width="100%" border="0" cellpadding="0" cellspacing="0" summary="">
+         <tr>
+            <td width="35%" align="left"><br><a class="NavigationArrow" href="dictionaries.html">&lt;&lt;&nbsp;Intwoducing dictionawies</a></td>
+            <td width="30%" align="center"><br>&nbsp;<span class="divider">|</span>&nbsp;<a href="index.html#odbchelper.divein" title="2.1.&nbsp;Diving in">1</a> <span class="divider">|</span> <a href="declaring_functions.html" title="2.2.&nbsp;Declaring functions">2</a> <span class="divider">|</span> <a href="documenting_functions.html" title="2.3.&nbsp;Documenting functions">3</a> <span class="divider">|</span> <a href="everything_is_an_object.html" title="2.4.&nbsp;Everything is an object">4</a> <span class="divider">|</span> <a href="indenting_code.html" title="2.5.&nbsp;Indenting code">5</a> <span class="divider">|</span> <a href="testing_modules.html" title="2.6.&nbsp;Testing modules">6</a> <span class="divider">|</span> <a href="dictionaries.html" title="2.7.&nbsp;Introducing dictionaries">7</a> <span class="divider">|</span> <span class="thispage">8</span> <span class="divider">|</span> <a href="tuples.html" title="2.9.&nbsp;Introducing tuples">9</a> <span class="divider">|</span> <a href="declaring_variables.html" title="2.10.&nbsp;Declaring variables">10</a> <span class="divider">|</span> <a href="multiple_values.html" title="2.11.&nbsp;Assigning multiple values at once">11</a> <span class="divider">|</span> <a href="formatting_strings.html" title="2.12.&nbsp;Formatting strings">12</a> <span class="divider">|</span> <a href="mapping_lists.html" title="2.13.&nbsp;Mapping lists">13</a> <span class="divider">|</span> <a href="joining_lists.html" title="2.14.&nbsp;Joining lists and splitting strings">14</a> <span class="divider">|</span> <a href="summary.html" title="2.15.&nbsp;Summary">15</a>&nbsp;<span class="divider">|</span>&nbsp;
+            </td>
+            <td width="35%" align="right"><br><a class="NavigationArrow" href="tuples.html">Intwoducing tupwes&nbsp;&gt;&gt;</a></td>
+         </tr>
+         <tr>
+            <td colspan="3"><br></td>
+         </tr>
+      </table>
+      <div class="Footer">
+         <p class="copyright">Copywight &copy; 2000, 2001, 2002, 2003 <a href="mailto:mark@diveintopython.org">Mawk Piwgwim</a></p>
+      </div>
+   </body>
+</html>

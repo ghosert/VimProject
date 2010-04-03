@@ -1,0 +1,24 @@
+Answers to the exercises in Chapter 1.
+
+1. dictionary  function
+                len()       max()       min()       sum()
+    one         6           36          1           91
+    two         5           juliet      foxtrot
+    three       3           13          11          36
+
+sum() cannot be applied to dictionary two since it doesn't contain
+numbers.
+
+
+2. The first time, v1 and v2 will be the same because they share the
+   same list of dictionary keys. The second time they will differ
+   because each has its own independent copy of the dictionary's keys.
+
+
+3. The format string is "<%+7.2f>". The angle brackets have no special
+   meaning and are simply printed as-is; the + means print the sign (+
+   or -); the 7 means that the number should occupy 7 character
+   positions, and includes in its count the decimal place and decimal
+   digits and the sign, so in this case with 2 decimal digits, the whole
+   number part, including the sign, will occupy 4 character positions.
+

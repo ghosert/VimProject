@@ -1,0 +1,97 @@
+WARNING: wxMac 2.4.1 has a serious bug in wxNotebook that makes it IMPOSSIBLE
+to run Audacity successfully with this version.  Please use wxMac 2.4.0
+instead and apply the patch labeled wxMac-2.4.0.patch.
+
+See the compile.txt file in this directory for more information.
+
+*** include/wx/font.h~	Sun Oct 27 17:51:41 2002
+--- include/wx/font.h	Sun Jun 29 22:03:07 2003
+***************
+*** 143,148 ****
+  
+      // Unofficial API, don't use
+!     virtual void SetNoAntiAliasing( bool no = TRUE ) {  }
+!     virtual bool GetNoAntiAliasing() { return FALSE; }
+  
+      // the default encoding is used for creating all fonts with default
+--- 143,148 ----
+  
+      // Unofficial API, don't use
+!     virtual void SetNoAntiAliasing( bool no = TRUE ) { mNoAntiAliasing = no; }
+!     virtual bool GetNoAntiAliasing() { return mNoAntiAliasing; }
+  
+      // the default encoding is used for creating all fonts with default
+***************
+*** 155,158 ****
+--- 155,160 ----
+      wxFontRefData *GetFontData() const
+          { return (wxFontRefData *)m_refData; }
++ 
++     bool mNoAntiAliasing;
+      
+  private:
+*** src/mac/font.cpp~	Sun Nov 24 09:34:15 2002
+--- src/mac/font.cpp	Sun Jun 29 22:04:20 2003
+***************
+*** 162,165 ****
+--- 162,167 ----
+                      wxFontEncoding encoding)
+  {
++     mNoAntiAliasing = false;
++ 
+      UnRef();
+      m_refData = new wxFontRefData(pointSize, family, style, weight,
+*** src/mac/corersrc.r~	Sun Jun 29 23:55:47 2003
+--- src/mac/corersrc.r	Sun Jun 29 23:56:17 2003
+***************
+*** 158,162 ****
+  };
+  
+! resource 'ICN#' (129) {
+  	{	/* array: 2 elements */
+  		/* [1] */
+--- 158,162 ----
+  };
+  
+! resource 'ICN#' (256) {
+  	{	/* array: 2 elements */
+  		/* [1] */
+***************
+*** 181,185 ****
+  };
+  
+! resource 'ics#' (129) {
+  	{	/* array: 2 elements */
+  		/* [1] */
+--- 181,185 ----
+  };
+  
+! resource 'ics#' (256) {
+  	{	/* array: 2 elements */
+  		/* [1] */
+***************
+*** 192,196 ****
+  };
+  
+! resource 'ics4' (129) {
+  	$"0000 EC0D 6FC0 0000 00DE BDD6 666F C000"
+  	$"DEBB EE65 6666 6FC0 E2CD BEBB 6666 666E"
+--- 192,196 ----
+  };
+  
+! resource 'ics4' (256) {
+  	$"0000 EC0D 6FC0 0000 00DE BDD6 666F C000"
+  	$"DEBB EE65 6666 6FC0 E2CD BEBB 6666 666E"
+***************
+*** 203,207 ****
+  };
+  
+! resource 'ics8' (129) {
+  	$"0000 00F5 81F7 017F EBF1 2BF5 0000 0000"
+  	$"0000 F888 8256 7FD2 D2D2 ECF1 F800 0000"
+--- 203,207 ----
+  };
+  
+! resource 'ics8' (256) {
+  	$"0000 00F5 81F7 017F EBF1 2BF5 0000 0000"
+  	$"0000 F888 8256 7FD2 D2D2 ECF1 F800 0000"

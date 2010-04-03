@@ -1,0 +1,473 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.4: http://docutils.sourceforge.net/" />
+<title>twill language reference</title>
+<style type="text/css">
+
+/*
+:Author: David Goodger
+:Contact: goodger@users.sourceforge.net
+:Date: $Date: 2005-12-18 01:56:14 +0100 (Sun, 18 Dec 2005) $
+:Revision: $Revision: 4224 $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+
+See http://docutils.sf.net/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin-left: 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left {
+  clear: left }
+
+img.align-right {
+  clear: right }
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font-family: serif ;
+  font-size: 100% }
+
+pre.literal-block, pre.doctest-block {
+  margin-left: 2em ;
+  margin-right: 2em ;
+  background-color: #eeeeee }
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+tt.docutils {
+  background-color: #eeeeee }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document" id="twill-language-reference">
+<h1 class="title">twill language reference</h1>
+<p>The following commands are built into twill.  Note that all text after
+a '#' is ignored as a comment, unless it's in a quoted string.</p>
+<div class="section">
+<h1><a id="browsing" name="browsing">Browsing</a></h1>
+<p><strong>go</strong> <em>&lt;url&gt;</em> -- visit the given URL.  The Python function returns the
+final URL visited, after all redirects.</p>
+<p><strong>back</strong> -- return to the previous URL.  The Python function returns that
+URL, if any.</p>
+<p><strong>reload</strong> -- reload the current URL.  The Python function returns that URL,
+if any.</p>
+<p><strong>follow</strong> <em>&lt;link name&gt;</em> -- follow the given link.  The Python function
+returns the final URL visited, after all redirects.</p>
+</div>
+<div class="section">
+<h1><a id="assertions" name="assertions">Assertions</a></h1>
+<p><strong>code</strong> <em>&lt;code&gt;</em> -- assert that the last page loaded had this HTTP status,
+e.g. <tt class="docutils literal"><span class="pre">code</span> <span class="pre">200</span></tt> asserts that the page loaded fine.</p>
+<p><strong>find</strong> <em>&lt;regexp&gt;</em> -- assert that the page contains this regular expression. The variable <tt class="docutils literal"><span class="pre">__match__</span></tt> is set to the first matching subgroup (or the entire matching string, if no subgroups are specified).  When called from Python,
+the matching string is returned.</p>
+<p><strong>notfind</strong> <em>&lt;regexp&gt;</em> -- assert that the page <em>does not</em> contain this
+regular expression.</p>
+<p><strong>url</strong> <em>&lt;regexp&gt;</em> -- assert that the current URL matches the given regexp.  The variable <tt class="docutils literal"><span class="pre">__match__</span></tt> is set to the first matching subgroup (or the entire matching string, if no subgroups are specified).  When called from Python, the matching string is returned.</p>
+<p><strong>title</strong> <em>&lt;regexp&gt;</em> -- assert that the title of this page matches this regular expression.  The variable <tt class="docutils literal"><span class="pre">__match__</span></tt> is set to the first matching subgroup (or the entire matching string, if no subgroups are specified).  When called from Python, the matching string is returned.</p>
+</div>
+<div class="section">
+<h1><a id="display" name="display">Display</a></h1>
+<p><strong>echo</strong> <em>&lt;string&gt;</em> -- echo the string to the screen.</p>
+<p><strong>info</strong> -- display information about the current page.</p>
+<p><strong>redirect_output</strong> <em>&lt;filename&gt;</em> -- append all twill output to the given file.</p>
+<p><strong>reset_output</strong> -- display all output to the screen.</p>
+<p><strong>save_html</strong> <em>[&lt;filename&gt;]</em> -- save the current page's HTML into a file.  If
+no filename is given, derive the filename from the URL.</p>
+<p><strong>show</strong> -- show the current page's HTML.  When called from Python, this function will also return a string containing the HTML.</p>
+<p><strong>showlinks</strong> -- show all of the links on the current page.  When called from Python, this function returns a list of the link objects.</p>
+<p><strong>showforms</strong> -- show all of the forms on the current page.  When called from Python, this function returns a list of the forms.</p>
+<p><strong>showhistory</strong> -- show the browser history.  When called from Python, this function returns the history.</p>
+</div>
+<div class="section">
+<h1><a id="forms" name="forms">Forms</a></h1>
+<p><strong>submit</strong> <em>[&lt;n&gt;]</em> -- click the n'th submit button, if given;
+otherwise submit via the last submission button clicked; if nothing
+clicked, use the first submit button on the form.  See <a class="reference" href="#id1">details on
+form handling</a> for more information.</p>
+<p><strong>formvalue</strong> <em>&lt;formnum&gt; &lt;fieldname&gt; &lt;value&gt;</em> --- set the given field in the
+given form to the given value.  For read-only form widgets/controls, the
+click may be recorded for use by <strong>submit</strong>, but the value is not changed
+unless the 'config' command has changed the default behavior.
+See 'config' and <a class="reference" href="#id1">details on form handling</a> for more information on
+the 'formvalue' command.</p>
+<p>For list widgets, you can use 'formvalue &lt;formnum&gt; &lt;fieldname&gt; +value' or
+'formvalue &lt;formnum&gt; &lt;fieldname&gt; -value' to select or deselect a particular
+value.</p>
+<p><strong>fv</strong> -- abbreviation for 'formvalue'.</p>
+<p><strong>formaction</strong> <em>&lt;formnum&gt; &lt;action&gt;</em> -- change the form action URL to the given URL.</p>
+<p><strong>fa</strong> -- abbreviation for 'fa'.</p>
+<p><strong>formclear</strong> -- clear all values in the form.</p>
+<p><strong>formfile</strong> <em>&lt;formspec&gt; &lt;fieldspec&gt; &lt;filename&gt; [ &lt;content_type&gt; ]</em> -- attach a file to a file upload button by filename.</p>
+</div>
+<div class="section">
+<h1><a id="cookies" name="cookies">Cookies</a></h1>
+<p><strong>save_cookies</strong> <em>&lt;filename&gt;</em> -- save current cookie jar into a file.</p>
+<p><strong>load_cookies</strong> <em>&lt;filename&gt;</em> -- replace current cookie jar with file contents.</p>
+<p><strong>clear_cookies</strong> -- clear all of the current cookies.</p>
+<p><strong>show_cookies</strong> -- show all of the current cookies.</p>
+</div>
+<div class="section">
+<h1><a id="debugging" name="debugging">Debugging</a></h1>
+<dl class="docutils">
+<dt><strong>debug</strong> <em>&lt;what&gt;</em> <em>&lt;level&gt;</em> -- turn on or off debugging/tracing for</dt>
+<dd>various functions.  The first argument is either 'http' to show HTTP
+headers, 'equiv-refresh' to test HTTP EQUIV-REFRESH headers, or
+'commands' to show twill commands.  The second argument is '0' for off,
+'1' for on.</dd>
+</dl>
+</div>
+<div class="section">
+<h1><a id="variable-handling" name="variable-handling">Variable handling</a></h1>
+<p><strong>setglobal</strong> <em>&lt;name&gt; &lt;value&gt;</em> -- set variable &lt;name&gt; to value &lt;value&gt; in
+global dictionary.  The value can be retrieved with '$value'.</p>
+<p><strong>setlocal</strong> <em>&lt;name&gt; &lt;value&gt;</em> -- set variable &lt;name&gt; to value &lt;value&gt; in
+local dictionary.  The value can be retrieved with '$value'.</p>
+<p>The local dictionary is file-specific, while the global module is general
+to all the commands.  Local variables will override global variables if
+they exist.</p>
+<p>Note that you can do variable interpolation in strings with ${var}, e.g.</p>
+<pre class="literal-block">
+setglobal a 1
+setglobal b 2
+
+fv thisform thatfield &quot;${a}${b}&quot;
+</pre>
+</div>
+<div class="section">
+<h1><a id="other-commands" name="other-commands">Other commands</a></h1>
+<p><strong>tidy_ok</strong> -- check to see if 'tidy' runs on this page without any errors or warnings.  (<cite>tidy</cite> is very stringent -- you've been warned!)</p>
+<p><strong>exit</strong> <em>[&lt;code&gt;]</em> -- exit with the given integer code, if specified.  'code' defaults to 0.</p>
+<p><strong>run</strong> <em>&lt;command&gt;</em> -- execute the given Python command.</p>
+<p><strong>runfile</strong> <em>&lt;file1&gt; [ &lt;file2&gt; ... ]</em> -- execute the given files.</p>
+<p><strong>agent</strong> -- set the browser's &quot;User-agent&quot; string.</p>
+<p><strong>sleep</strong> <em>[&lt;seconds&gt;]</em> -- sleep the given number of seconds.  Defaults to 1 second.</p>
+<p><strong>reset_browser</strong> -- reset the browser.</p>
+<p><strong>extend_with</strong> <em>&lt;module&gt;</em> -- import commands from Python module.  This acts
+like <tt class="docutils literal"><span class="pre">from</span> <span class="pre">&lt;module&gt;</span> <span class="pre">import</span> <span class="pre">*</span></tt> does in Python, so e.g. a function
+<tt class="docutils literal"><span class="pre">fn</span></tt> in <tt class="docutils literal"><span class="pre">extmodule</span></tt> would be available as <tt class="docutils literal"><span class="pre">fn</span></tt>.  See <em>examples/extend_example.py</em> for an example.</p>
+<p><strong>getinput</strong> <em>&lt;prompt&gt;</em> -- get keyboard input and store it in <tt class="docutils literal"><span class="pre">__input__</span></tt>.  When called from Python, this function returns the input value.</p>
+<p><strong>getpassword</strong> <em>&lt;prompt&gt;</em> -- get <em>silent</em> keyboard input and store
+it in <tt class="docutils literal"><span class="pre">__password__</span></tt>.  When called from Python, this function returns the input value.</p>
+<p><strong>add_auth</strong> <em>&lt;realm&gt; &lt;uri&gt; &lt;user&gt; &lt;password&gt;</em> -- add HTTP Basic Authentication information for the given realm/URI combination.  For example,</p>
+<pre class="literal-block">
+add_auth IdyllStuff http://www.idyll.org/ titus test
+</pre>
+<p>tells twill that a request from the authentication realm
+&quot;IdyllStuff&quot; under <a class="reference" href="http://www.idyll.org/">http://www.idyll.org/</a> should be answered with
+username 'titus', password 'test'.  If the 'with_default_realm' option
+is set to True, ignore 'realm'.</p>
+<p><strong>config</strong> [<em>&lt;key&gt;</em> [<em>&lt;value&gt;</em>]] -- show/set configuration options.</p>
+<p><strong>add_extra_headers</strong> <em>&lt;name&gt;</em> <em>&lt;value&gt;</em> -- add an extra HTTP header to
+each HTTP request.</p>
+<p><strong>show_extra_headers</strong> -- show the headers being added to each HTTP request.</p>
+<p><strong>clear_extra_headers</strong> -- clear the headers being added to each HTTP request.</p>
+</div>
+<div class="section">
+<h1><a id="special-variables" name="special-variables">Special variables</a></h1>
+<p><strong>__input__</strong> -- result of last <strong>getinput</strong>.</p>
+<p><strong>__match__</strong> -- matched text from last <strong>find</strong>, <strong>title</strong>, or <strong>url</strong>.</p>
+<p><strong>__password__</strong> -- result of last <strong>getpassword</strong>.</p>
+<p><strong>__url__</strong> -- current URL.</p>
+</div>
+<div class="section">
+<h1><a id="details-on-form-handling" name="details-on-form-handling">Details on form handling</a></h1>
+<p id="id1">Both the <cite>formvalue</cite> (or <cite>fv</cite>) and <cite>submit</cite> commands rely on a certain
+amount of implicit cleverness to do their work.  In odd situations, it
+can be annoying to determine exactly what form field <cite>formvalue</cite> is
+going to pick based on your field name, or what form &amp; field <cite>submit</cite>
+is going to &quot;click&quot; on.</p>
+<p>Here is the pseudocode for how <cite>formvalue</cite> and <cite>submit</cite> figure out
+what form to use (function <cite>twill.commands.browser.get_form</cite>):</p>
+<pre class="literal-block">
+for each form on page:
+    if supplied regexp pattern matches the form name, select
+
+if no form name, try converting to an integer N &amp; using N-1 as
+an index into the list or forms on the page (i.e. form 1 is the
+first form on the page).
+</pre>
+<p>Here is the pseudocode for how <cite>formvalue</cite> and <cite>submit</cite> figure out
+what form field to use (function <cite>twill.commands.browser.get_form_field</cite>):</p>
+<pre class="literal-block">
+search current form for control name with exact match to fieldname;
+if single (unique) match, select.
+
+if no match, convert fieldname into a number and use as an index, if
+possible.
+
+if no match, search current form for control name with regexp match to fieldname;
+if single (unique) match, select.
+
+if *still* no match, look for exact matches to submit-button values.
+if single (unique) match, select.
+</pre>
+<p>Here is the pseudocode for <cite>submit</cite>:</p>
+<pre class="literal-block">
+if a form was _not_ previously selected by formvalue:
+   if there's only one form on the page, select it.
+   otherwise, fail.
+
+if a field is not explicitly named:
+   if a submit button was &quot;clicked&quot; with formvalue, use it.
+   otherwise, use the first submit button on the form, if any.
+otherwise:
+   find the field using the same rules as formvalue
+
+finally, if a button has been picked, submit using it;
+otherwise, submit without using a button
+</pre>
+</div>
+</div>
+</body>
+</html>

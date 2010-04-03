@@ -1,0 +1,279 @@
+<html>
+	<head>
+	</head>
+	<body>
+		<div id='timer'></div>
+
+		<!-- Timer -->
+		<input type="checkbox" onclick="startTimer();"/>Click Me To Start Timer.<br/>
+		<input type="checkbox" onclick="stopTimer();"/>Click Me To Stop Timer.<br/>
+
+		<!-- Loading New Documents -->
+		<!-- Reset location will redirect the current page to a new location. -->
+		<input type="checkbox" onclick="location='http://www.google.com'"/>Click Me To Reset window.location.<br/>
+		<!-- location.reload() will reload the current page. -->
+		<input type="checkbox" onclick="location.reload()"/>Click Me To Reload Current Page.<br/>
+		<!-- location.replace('url') will redirect the current page to a new location. -->
+		<!-- But compared resetting location above, it can not back to the original page after redirecting(no new entry in window browsing history). -->
+		<input type="checkbox" onclick="location.replace('http://www.google.com')"/>Click Me To Replace Current Page.<br/>
+
+		<!-- The History Object -->
+		<input type="checkbox" onclick="window.history.forward()"/>Click Me To forward To Page.<br/>
+
+		<!-- Opening and Manipulating Windows -->
+		<input type="checkbox" onclick="openNewWindow();"/>Click Me To Open New Window.<br/>
+		<input type="checkbox" onclick="closeNewWindow();"/>Click Me To Close New Window.<br/>
+
+		<!-- Scrolling by anchor> -->
+		<input type="checkbox" onclick="window.location.hash='#bottom';"/>Click Me To Scroll to bottom.<br/>
+		<input type="checkbox" onclick="window.location.replace('#bottom');"/>Click Me To Scroll to bottom without generating a new history entry.<br/>
+
+		<!-- Error Handling -->
+		<input type="checkbox" onclick="unknownvariable;"/>Click Me To Produce A js error to be captured by window.onerror properties below.<br/>
+
+		<!-- Window and Frame Names -->
+		<a href="test2.html" target="mainwin">Click Me To Redirect New Page in iframe named 'mainwin'.</a><br/>
+		<a href="test2.html">Click Me To Redirect New Page without target iframe named 'mainwin'.</a><br/>
+		<a href="javascript:alert(parent.mainwin.location);">Click Me To Get iframe window by parent.iframename.</a><br/>
+
+		<iframe name="mainwin" src="test.html">
+		</iframe>
+
+		<br/>
+
+		<script>
+
+			function println(obj) {
+				document.write(obj + '<br/>');
+			}
+
+			function refreshTimerDiv() {
+				document.getElementById('timer').innerHTML = new Date();
+			}
+
+			// Timers
+			// Both setTimeout/setInterval can take function or string as first arguments to perform the actions.
+			// setInterval can perform the function repeatedly at intervals while setTimeout only perform once.
+			// The two methods above can be cancelled by clearTimeout/clearInterval
+			// setInterval can be used for animation.
+			// setTimeout(function, 0) can be used to defer execution of their code until the document is in a stable state.
+			var opaque;
+			var opaque2;
+			function startTimer() {
+				opaque = window.setTimeout(refreshTimerDiv, 1000);
+				opaque2 = window.setInterval("refreshTimerDiv()", 1000)
+			}
+
+			function stopTimer() {
+				window.clearTimeout(opaque);
+				window.clearInterval(opaque2);
+			}
+
+			// Browser Location and History
+			println(window.location);
+			for (var prop in window.location) {
+				println(prop + ": " + window.location[prop]);
+			}
+			// window.locaction.search contains query string in url.
+
+			// Loading New Documents
+			// See the sample html above.
+			println(window.location);
+			println(window.location.href); // location.toString() is equal to location.href
+			println(window.document.location); // same to above in most cases, but When there is a server redirect, document.location
+											   // contains the URL as loaded, and location.href contains the URL as originally requested.
+											   // And document.loaction(deprecated) is equal to document.URL
+			// The History Object
+			// See the sample html above.
+			// history.forward(), history.back() and history.go(number)
+
+
+			// Obtaining Window, Screen and Browser Information
+
+			// Window Geometry
+			// The window properties below for geometry only works for non-ie browser, for ie, see sample in Geometry.js file.
+			// The overall size of the browser window on the desktop
+			var windowWidth = window.outerWidth;
+			var windowHeight = window.outerHeight;
+			println("windowWidth: " + windowWidth);
+			println("windowHeight: " + windowHeight);
+			// This is the position of the browser window on the desktop
+			var windowX = window.screenX;
+			var windowY = window.screenY;
+			println("windowX: " + windowX);
+			println("windowY: " + windowY);
+			// The size of the viewport in which the HTML document is displayed
+			// This is the window size minus the menu bars, toolbars, scrollbars, etc.
+			var viewportWidth = window.innerWidth;
+			var viewportHeight = window.innerWidth;
+			println("viewportWidth: " + viewportWidth);
+			println("viewportHeight: " + viewportHeight);
+			// These values specify the horizontal and vertical scrollbar positions.
+			// They are used to convert between document coordinates and window coordinates.
+			// These values specify what part of the document appears in the
+			// upper-left corner of the screen.
+			var horizontalScroll = window.pageXOffset;
+			var verticalScroll = window.pageYOffset;
+			println("horizontalScroll: " + horizontalScroll);
+			println("verticalScroll: " + verticalScroll);
+
+			// The Screen Object
+			println(screen.width); // may be used to decide size of images to include in a document.
+			println(screen.height);
+			println(screen.availWidth); // exclude the sapce required by features such as a desktop taskbar.
+			println(screen.availHeight); // exclude the sapce required by features such as a desktop taskbar.
+			println(screen.availLeft); // ie does not support, help you center a new opening browser window.
+			println(screen.availTop);  // ie does not support, help you center a new opening browser window.
+
+			// The Navigator Object
+			println("");
+			println("The Navigator Object");
+			for (var prop in window.navigator) {
+				println(prop + ": " + window.navigator[prop]);
+			}
+			println("");
+			// Example 14-3. Determining browser vendor and version
+			/**
+			* browser.js: a simple client sniffer
+			*
+			* This module defines an object named "browser" that is easier to use than
+			* the "navigator" object.
+			*/
+			var browser = {
+				version: parseInt(navigator.appVersion),
+				isNetscape: navigator.appName.indexOf("Netscape") != -1,
+				isMicrosoft: navigator.appName.indexOf("Microsoft") != -1
+			};
+			println(browser.version);
+			println(browser.isNetscape);
+
+
+			// Opening and Manipulating Windows
+			// See the sample html above.
+			var w;
+			function openNewWindow() {
+				// 1: target url, 2: window name, 3: a list of features that specify the window size and GUI decorations.
+				// 4: The fourth argument only works when the second arugment names an existing window, true: replace the current entry in
+				//    window's browsing history, false: create a new entry in the window's browsing history(default behavior).
+				w = window.open("test.html", "test", "width=400,height=350,status=yes,resizable=yes");
+				// Return value of the open() mehtod is the window object.
+				alert(w.location);
+				alert(w.opener.location); // the window object can get its opener's window object. null, if window is opened by user rather than js.
+			}
+
+			// Closing Windows
+			function closeNewWindow() {
+				alert(w);
+				w.close(); // most browsers allow you to close only the windows that your own JavaScript code has been created.
+				alert(w.closed); // test whether the window has been closed.
+			}
+
+			// The content below may not be robust, refer the pdf correspondingly.
+			// Window Geometry
+			// window.moveTo, window.moveBy(), window.resizeTo(), window.resizeBy()
+
+			// Keyboard Focus and Visibility
+			// window.focus(), window.blur(), you may need to follow calls to open() with a call to focus() so that make new window visible.
+			// since if the same window to the second arugment of open() method already exists, it will not make new window visible, use focus() then.
+
+			// Scrolling
+			// Several ways to scroll
+			// 1. window.scrollTo(), window.scrollBy()
+			// 2. calling focus() method on any document elements(form fields and buttons) that can accept keyboard focus, the document is scrolled
+			// to make the element visible.
+			// 3. scrollIntoView() on any HTML element to make that element visible.
+			// 4. define anchors with <a name=> tags: click the html checkbox above.
+			println('<a name="bottom">I am the bottom place where is to be scrolled to.</a>');
+
+			// Example 14-4. Creating and manipulating windows. pdf version page 363
+
+
+			// Simple Dialog Boxes
+			// alert(): display message and waits for the user to dismiss the dialog.
+			// confirm(): OK or Cancel button
+			// prompt(): asks the user to enter a string
+			// Dialog Boxes will disrupt users' browsing experience.
+			// Use them in debugging purpose.
+			// Example 14-5. Using the confirm() method
+			/**
+				function submitQuery( ) {
+					// This is what we want to ask the user.
+					// Limited formatting is possible with underscores and newlines.
+					var message = "\n\n\n\n" +
+					"_________________________________________________\n\n" +
+					"Please be aware that complex queries such as yours\n" +
+					"may require a minute or more of search time.\n" +
+					"_________________________________________________\n\n\n" +
+					"Click Ok to proceed or Cancel to abort";
+					// Ask for confirmation, and abort if we don't get it.
+					if (!confirm(message)) return;
+					/* The code to perform the query would go here *\/
+				}
+			**/
+
+
+			// Scripting the Status Line
+			// occasional reasons to use status line today.
+			var WastedTime = {
+				start: new Date( ), // Remember the time we started
+				displayElapsedTime: function( ) {
+					var now = new Date( ); // What time is it now
+					// compute elapsed minutes
+					var elapsed = Math.round((now - WastedTime.start)/60000);
+					// And try to display this in the status bar
+					window.defaultStatus = "You have wasted " + elapsed + " minutes.";
+				}
+			}
+			// Update the status line every minute
+			setInterval(WastedTime.displayElapsedTime, 60000);
+
+
+			// Error Handling
+			window.onerror = function(errorMessage, url, lineNumber) {alert(errorMessage + '\n' + url + '\n' + lineNumber); return true;}
+			// return true above means error handler onerror method has already handled the error, the browser should not display its own error message.
+
+
+			// Multiple Windows and Frames
+			// Any frame in a window can refer to any other frame through the use of the "frames, parent, and top" properties of the Window object.
+			// Using window.frames[number] to access any child window: frames[1].frames[2]
+			// frames.length = 0; if a window doesn't have any frames.
+			// Using window.parent property to access parent window: parent.frames[1]
+			// parent == self; for any top-level window
+			// Using window.top as a general-case shortcut for the case like parent.parent which represents a top-level window.
+
+			// Window and Frame Names
+			// See HTML sample above.
+
+
+			// JavaScript in Interacting Windows
+			/**
+			   Suppose we have frame A and sibling frame B
+			   in frame A: var i = 3;
+			   in frame B: parent.frames[0].i = 4; // so that you can modify the variable from window context A in window context B
+
+				<head>
+					<script src="Complex.js"><//script>
+				</head>
+				<frameset rows="50%,50%">
+					<frame name="frame1" src="frame1.html">
+					<frame name="frame2" src="frame2.html">
+				</frameset>
+
+				JavaScript code in the files frame1.html and frame2.html cannot create a Complex object with an expression like this:
+
+				var c = new Complex(1,2); // Won't work from either frame
+
+				Instead, code in these files must explicitly refer to the constructor function:
+
+				var c = new top.Complex(3,4);
+							   
+			**/
+
+
+			// Example 14-7. A navigation bar
+			// See the details in file navigation.html
+			
+
+		</script>
+	</body>
+</html>

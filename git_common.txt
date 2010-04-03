@@ -1,0 +1,5 @@
+Reference:
+
+http://www.kernel.org/pub/software/scm/git/docs/gittutorial.html
+http://www.spheredev.org/wiki/Git_for_the_lazy
+http://www.kernel.org/pub/software/scm/git/docs/everyday.html

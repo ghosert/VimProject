@@ -1,0 +1,295 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+	<head>
+		<style type="text/css">
+			<!--
+
+			table {
+				border-collapse: collapse;
+				width: 50em;
+				border: 1px solid #666;
+			}
+			th, td {
+				padding: 0.1em 1em; /* top, left padding. */
+				/* padding: 0.1em 1em 1em 1em; top, right, bottom, left padding. */
+			}
+			caption {
+				font-size: 1.2em;
+				font-weight: bold;
+				margin: 1em 0;
+			}
+			col {
+				border-right: 1px solid #ccc;
+			}
+			col#albumCol {
+				border: none;
+			}
+			thead {
+				background: #ccc url(images/bar.gif) repeat-x left center;
+				border-top: 1px solid #a5a5a5;
+				border-bottom: 1px solid #a5a5a5;
+			}
+			th {
+				font-weight: normal;
+				text-align: left;
+			}
+			#playlistPosHead { /* Hide Track number here. */
+				text-indent: -1000em;
+			}
+			.odd {
+				background-color: #edf5ff;
+			}
+			tr:hover {
+				background-color:#3d80df;
+				color: #fff;
+			}
+			thead tr:hover {
+				background-color: transparent;
+				color: inherit;
+			}
+
+			fieldset {
+				margin: 1em 0;
+				padding: 1em;
+				border : 1px solid #ccc;
+				background: #f8f8f8;
+			}
+			legend {
+				font-weight: bold;
+			}
+			label { /* Set display: block; to make sure the input element will vertically beneath the label. */
+				display: block;
+			}
+			input {
+				width: 200px;
+			}
+			textarea {
+				width: 300px;
+				height: 100px;
+			}
+			input.radio, input.checkbox, input.submit { /* Exclude the elements to apply input width: 200px; above. */
+				width: auto;
+			}
+			input.radio { /* Make sure the radio element on the same level as their labels. */
+				float: left;
+				margin-right: 1em;
+			}
+			input:focus, textarea:focus {
+				background: #ffc;
+			}
+			input[type="text"], textarea { /* IE6 can't understand type="text" here. */
+				border-top: 2px solid #999;
+				border-left: 2px solid #999;
+				border-bottom: 1px solid #ccc;
+				border-right: 1px solid #ccc;
+			}
+			.required {
+				font-size: 0.75em;
+				color:#760000;
+			}
+			.horizontalLabel {
+				/* Use this technology rather than display block; above to horizontal elements nicely to save space. */
+				float: left;
+				width: 10em;
+			}
+			#monthOfBirthLabel, #yearOfBirthLabel {
+				text-indent: -1000em; /* We don't need the label visually, but it should be there for screen reader. */
+				width: 0;
+			}
+			input#dateOfBirth {
+				width: 3em;
+				margin-right: 0.5em;
+			}
+			select#monthOfBirth {
+				width: 10em;
+				margin-right: 0.5em;
+			}
+			input#yearOfBirth {
+				width: 5em;
+			}
+			#favoriteColor label {
+				width: 3em;
+				float: none;
+				display: inline;
+			}
+			fieldset#favoriteColor {
+				margin: 0;
+				padding: 0;
+				border: none;
+				background: transparent;
+			}
+			#favoriteColor h2 {
+				width: 10em;
+				float: left;
+				font-size: 1em;
+				font-weight: normal;
+			}
+			#favoriteColor div {
+				width: 8em;
+				float: left;
+			}
+			.clear {
+				clear: both;
+			}
+			#favoriteColor p {
+				margin: 0.3em 0;
+			}
+
+			#formP {
+				position: relative;
+			}
+			.feedback {
+				position: absolute;
+				margin-left: 11em;
+				left: 200px;
+				font-weight: bold;
+				color: #760000;
+				padding-left: 18px;
+				background: url(images/error.png) no-repeat left top;
+			}
+
+			-->
+		</style>
+	</head>
+	<body>
+
+		<!-- Check the book CSS Mastery, page 114, 115 to see the meaning of table specific elements below.  -->
+
+		<table cellspacing="0" id="playlistTable" summary="Top 15 songs played.
+		Top artists include Cold Play, Yeah Yeah Yeahs, Snow Patrol, Deeper 
+		Water, Kings of Leon, Embrace, Oasis, Franz Ferdinand, Jet, The Bees,
+		Blue States, Kaiser Chiefs and Athlete."> <!-- summary here like image alt is for screen reader. -->
+			<caption>Top 15 Playlist</caption>
+			<colgroup> <!-- This element is for applying a style to an entire column. But not many browsers support this. -->
+				<col id="PlaylistCol" />
+				<col id="trackCol" />
+				<col id="artistCol" />
+				<col id="albumCol" />
+			</colgroup>
+			<thead> <!-- thead, tbody, tfoot is used for sperated styling purpose. -->
+				<tr>
+					<!-- scope attribute of row or col here is used to difine whether they are row or column headings. -->
+					<th id="playlistPosHead" scope="col">Playlist Position</th>
+					<th scope="col">Track Name</th>
+					<th scope="col">Artist</th>
+					<th scope="col">Album</th>
+				</tr>
+			</thead>
+			<tbody> <!-- If you use a thead or tfoot element, you must use at least one tbody element or more.-->
+				<tr class="odd">
+					<td>1</td>
+					<td>Hide You</td>
+					<td>Kosheen</td>
+					<td>Resist</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>.38.45</td>
+					<td>Thievery Corporation</td>
+					<td>Sounds From the Thievery Hi-Fi</td>
+				</tr>
+				<tr class="odd">
+					<td>3</td>
+					<td>Fix You</td>
+					<td>Cold Play</td>
+					<td>X&amp;Y</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<br/>
+
+		<fieldset>
+			<legend>Your Contact Details</legend>
+			<p> <!-- You can use div instead paragraph elements here, as there is no paragraphs of text inside.-->
+			    <!--label here can be used for screen reader and click on label the corresponding input will get focus. -->
+			    <label for="author">Name:</label>
+				<input name="author" id="author" type="text" />
+			</p>
+			<p>
+				<label for="email">Email Address:</label>
+				<input name="email" id="email" type="text" />
+			</p>
+			<p>
+				<label for="url">Web Address:</label>
+				<input name="url" id="url" type="text" />
+			</p>
+		</fieldset>
+		<fieldset>
+			<legend>Comments</legend>
+			<p>
+				<label for="text">Message: </label>
+				<textarea name="text" id="text" cols="20" rows="10">
+				</textarea>
+			</p>
+		</fieldset>
+		<fieldset>
+			<legend>Remember Me</legend>
+			<p>
+				<input id="remember-yes" class="radio" name="remember" type="radio" value="yes" />
+				<label for="remember-yes">Yes</label>
+			</p>
+			<p>
+				<input id="remember-no" class="radio" name="remember" type="radio" value="no" checked="checked" />
+				<label for="remember-no">No</label>
+			</p>
+		</fieldset>
+		<p>
+			<label class="horizontalLabel" for="author">Name:<em class="required">(required)</em></label>
+			<input name="author" id="author" type="text" />
+		</p>
+		<p>
+			<label class="horizontalLabel" for="sex">Sex:<em class="required">(required)</em></label>
+			<input name="sex" id="sex" type="text" />
+		</p>
+		<p>
+			<label class="horizontalLabel" for="dateOfBirth">Date of Birth:</label>
+			<input name="dateOfBirth" id="dateOfBirth" type="text" />
+			<label class="horizontalLabel" id="monthOfBirthLabel" for="monthOfBirth">Month of Birth:</label>
+			<select name="monthOfBirth" id="monthOfBirth">
+				<option value="1">January</option>
+				<option value="2">February</option>
+				<option value="3">March</option>
+			</select>
+			<label class="horizontalLabel" id="yearOfBirthLabel" for="yearOfBirth">Year of Birth:</label>
+			<input name="yearOfBirth" id="yearOfBirth" type="text" />
+		</p>
+
+		<fieldset id="favoriteColor">
+			<h2>Favorite Color:</h2>
+			<div>
+				<p>
+					<input class="checkbox" id="red" name="red" type="checkbox" value="red" />
+					<label>red</label>
+				</p>
+				<p>
+					<input class="checkbox" id="yellow" name="yellow" type="checkbox" value="yellow" />
+					<label>yellow</label>
+				</p>
+			</div>
+			<div>
+				<p>
+					<input class="checkbox" id="orange" name="orange" type="checkbox"~CCC value="orange" />
+					<label>orange</label>
+				</p>
+				<p>
+					<input class="checkbox" id="purple" name="purple" type="checkbox"~CCC value="purple" />
+					<label>purple</label>
+				</p>
+			</div>
+			<br class="clear" />
+		</fieldset>
+
+		<p id="formP">
+			<label class="horizontalLabel" for="email">Email Address:
+				<span class="feedback">Incorrect email address. Please try again.</span> <!-- insert text into label for screen reader. -->
+			</label>
+			<input name="email" id="email" type="text" />
+		</p>
+		
+		
+			
+	</body>
+</html>
+
+

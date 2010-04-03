@@ -1,0 +1,270 @@
+**Welcome To The World of Free Plain Vanilla Electronic Texts**
+
+**Etexts Readable By Both Humans and By Computers, Since 1971**
+
+*These Etexts Prepared By Hundreds of Volunteers and Donations*
+
+
+December, 1972  [Etext #2]
+
+
+****The Project Gutenberg Etext of The U. S. Bill of Rights****
+*******This file should be named bill11.txt or bill11.zip******
+
+Corrected EDITIONS of our etexts get a new NUMBER, bill12.txt
+VERSIONS based on separate sources get new LETTER, bill10a.txt
+
+We apologize for the fact that the legal small print is longer,
+and more complicated, than the Etext itself, our legal beagles,
+of whom there are now a half dozen or so, insist this must be a
+part of any Project Gutenberg Etext we post, for our protection
+from the rest of the legal beagles out there.  The US has twice
+as many lawyers as the rest of the world combined!
+
+You are free to delete the headers and just keep the Etexts, we
+are not free not to post it this way.  Again my apologies.  The
+normal Project Gutenberg blurb has been deleted, you can get it
+in this location in most Project Gutenberg Etexts.  Thanks,  mh
+
+
+***START**THE SMALL PRINT!**FOR PUBLIC DOMAIN ETEXTS**START***
+Why is this "Small Print!" statement here?  You know: lawyers.
+They tell us you might sue us if there is something wrong with
+your copy of this etext, even if you got it for free from
+someone other than us, and even if what's wrong is not our
+fault.  So, among other things, this "Small Print!" statement
+disclaims most of our liability to you.  It also tells you how
+you can distribute copies of this etext if you want to.
+
+*BEFORE!* YOU USE OR READ THIS ETEXT
+By using or reading any part of this PROJECT GUTENBERG-tm
+etext, you indicate that you understand, agree to and accept
+this "Small Print!" statement.  If you do not, you can receive
+a refund of the money (if any) you paid for this etext by
+sending a request within 30 days of receiving it to the person
+you got it from.  If you received this etext on a physical
+medium (such as a disk), you must return it with your request.
+
+ABOUT PROJECT GUTENBERG-TM ETEXTS
+This PROJECT GUTENBERG-tm etext, like most PROJECT GUTENBERG-
+tm etexts, is a "public domain" work distributed by Professor
+Michael S. Hart through the Project Gutenberg Association at
+Illinois Benedictine College (the "Project").  Among other
+things, this means that no one owns a United States copyright
+on or for this work, so the Project (and you!) can copy and
+distribute it in the United States without permission and
+without paying copyright royalties.  Special rules, set forth
+below, apply if you wish to copy and distribute this etext
+under the Project's "PROJECT GUTENBERG" trademark.
+
+To create these etexts, the Project expends considerable
+efforts to identify, transcribe and proofread public domain
+works.  Despite these efforts, the Project's etexts and any
+medium they may be on may contain "Defects".  Among other
+things, Defects may take the form of incomplete, inaccurate or
+corrupt data, transcription errors, a copyright or other
+intellectual property infringement, a defective or damaged
+disk or other etext medium, a computer virus, or computer
+codes that damage or cannot be read by your equipment.
+
+LIMITED WARRANTY; DISCLAIMER OF DAMAGES
+But for the "Right of Replacement or Refund" described below,
+[1] the Project (and any other party you may receive this
+etext from as a PROJECT GUTENBERG-tm etext) disclaims all
+liability to you for damages, costs and expenses, including
+legal fees, and [2] YOU HAVE NO REMEDIES FOR NEGLIGENCE OR
+UNDER STRICT LIABILITY, OR FOR BREACH OF WARRANTY OR CONTRACT,
+INCLUDING BUT NOT LIMITED TO INDIRECT, CONSEQUENTIAL, PUNITIVE
+OR INCIDENTAL DAMAGES, EVEN IF YOU GIVE NOTICE OF THE
+POSSIBILITY OF SUCH DAMAGES.
+
+If you discover a Defect in this etext within 90 days of
+receiving it, you can receive a refund of the money (if any)
+you paid for it by sending an explanatory note within that
+time to the person you received it from.  If you received it
+on a physical medium, you must return it with your note, and
+such person may choose to alternatively give you a replacement
+copy.  If you received it electronically, such person may
+choose to alternatively give you a second opportunity to
+receive it electronically.
+
+THIS ETEXT IS OTHERWISE PROVIDED TO YOU "AS-IS".  NO OTHER
+WARRANTIES OF ANY KIND, EXPRESS OR IMPLIED, ARE MADE TO YOU AS
+TO THE ETEXT OR ANY MEDIUM IT MAY BE ON, INCLUDING BUT NOT
+LIMITED TO WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A
+PARTICULAR PURPOSE.
+
+Some states do not allow disclaimers of implied warranties or
+the exclusion or limitation of consequential damages, so the
+above disclaimers and exclusions may not apply to you, and you
+may have other legal rights.
+
+INDEMNITY
+You will indemnify and hold the Project, its directors,
+officers, members and agents harmless from all liability, cost
+and expense, including legal fees, that arise directly or
+indirectly from any of the following that you do or cause:
+[1] distribution of this etext, [2] alteration, modification,
+or addition to the etext, or [3] any Defect.
+
+DISTRIBUTION UNDER "PROJECT GUTENBERG-tm"
+You may distribute copies of this etext electronically, or by
+disk, book or any other medium if you either delete this
+"Small Print!" and all other references to Project Gutenberg,
+or:
+
+[1]  Only give exact copies of it.  Among other things, this
+     requires that you do not remove, alter or modify the
+     etext or this "small print!" statement.  You may however,
+     if you wish, distribute this etext in machine readable
+     binary, compressed, mark-up, or proprietary form,
+     including any form resulting from conversion by word pro-
+     cessing or hypertext software, but only so long as
+     *EITHER*:
+
+     [*]  The etext, when displayed, is clearly readable, and
+          does *not* contain characters other than those
+          intended by the author of the work, although tilde
+          (~), asterisk (*) and underline (_) characters may
+          be used to convey punctuation intended by the
+          author, and additional characters may be used to
+          indicate hypertext links; OR
+
+     [*]  The etext may be readily converted by the reader at
+          no expense into plain ASCII, EBCDIC or equivalent
+          form by the program that displays the etext (as is
+          the case, for instance, with most word processors);
+          OR
+
+     [*]  You provide, or agree to also provide on request at
+          no additional cost, fee or expense, a copy of the
+          etext in its original plain ASCII form (or in EBCDIC
+          or other equivalent proprietary form).
+
+[2]  Honor the etext refund and replacement provisions of this
+     "Small Print!" statement.
+
+[3]  Pay a trademark license fee to the Project of 20% of the
+     net profits you derive calculated using the method you
+     already use to calculate your applicable taxes.  If you
+     don't derive profits, no royalty is due.  Royalties are
+     payable to "Project Gutenberg Association / Illinois
+     Benedictine College" within the 60 days following each
+     date you prepare (or were legally required to prepare)
+     your annual (or equivalent periodic) tax return.
+
+WHAT IF YOU *WANT* TO SEND MONEY EVEN IF YOU DON'T HAVE TO?
+The Project gratefully accepts contributions in money, time,
+scanning machines, OCR software, public domain etexts, royalty
+free copyright licenses, and every other sort of contribution
+you can think of.  Money should be paid to "Project Gutenberg
+Association / Illinois Benedictine College".
+
+This "Small Print!" by Charles B. Kramer, Attorney
+Internet (72600.2026@compuserve.com); TEL: (212-254-5093)
+*END*THE SMALL PRINT! FOR PUBLIC DOMAIN ETEXTS*Ver.04.29.93*END*
+
+
+All of the original Project Gutenberg Etexts from the
+1970's were produced in ALL CAPS, no lower case.  The
+computers we used then didn't have lower case at all.
+
+***
+
+These original Project Gutenberg Etexts will be compiled into a file
+containing them all, in order to improve the content ratios of Etext
+to header material.
+
+***
+
+
+
+The United States Bill of Rights.
+
+The Ten Original Amendments to the Constitution of the United States
+Passed by Congress September 25, 1789
+Ratified December 15, 1791
+
+
+
+I
+
+Congress shall make no law respecting an establishment of religion, or
+prohibiting the free exercise thereof; or abridging the freedom of
+speech, or of the press, or the right of the people peaceably to
+assemble, and to petition the Government for a redress of grievances.
+
+
+II
+
+A well-regulated militia, being necessary to the security of a free
+State, the right of the people to keep and bear arms, shall not be
+infringed.
+
+
+III
+
+No soldier shall, in time of peace be quartered in any house, without
+the consent of the owner, nor in time of war, but in a manner to be
+prescribed by law.
+
+
+IV
+
+The right of the people to be secure in their persons, houses, papers,
+and effects, against unreasonable searches and seizures, shall not be
+violated, and no Warrants shall issue, but upon probable cause,
+supported by oath or affirmation, and particularly describing the place
+to be searched, and the persons or things to be seized.
+
+
+V
+
+No person shall be held to answer for a capital, or otherwise infamous
+crime, unless on a presentment or indictment of a Grand Jury, except in
+cases arising in the land or naval forces, or in the Militia, when in
+actual service in time of War or public danger; nor shall any person be
+subject for the same offense to be twice put in jeopardy of life or
+limb; nor shall be compelled in any criminal case to be a witness
+against himself, nor be deprived of life, liberty, or property, without
+due process of law; nor shall private property be taken for public use
+without just compensation.
+
+
+VI
+
+In all criminal prosecutions, the accused shall enjoy the right to a
+speedy and public trial, by an impartial jury of the State and district
+wherein the crime shall have been committed, which district shall have
+been previously ascertained by law, and to be informed of the nature and
+cause of the accusation; to be confronted with the witnesses against
+him; to have compulsory process for obtaining witnesses in his favor,
+and to have the assistance of counsel for his defense.
+
+
+VII
+
+In suits at common law, where the value in controversy shall exceed
+twenty dollars, the right of trial by jury shall be preserved, and no
+fact tried by a jury shall be otherwise re-examined in any court of the
+United States, than according to the rules of the common law.
+
+
+VIII
+
+Excessive bail shall not be required nor excessive fines imposed, nor
+cruel and unusual punishments inflicted.
+
+
+IX
+
+The enumeration in the Constitution, of certain rights, shall not be
+construed to deny or disparage others retained by the people.
+ 
+X
+
+The powers not delegated to the United States by the Constitution, nor
+prohibited by it to the States, are reserved to the States respectively,
+or to the people.
+
+

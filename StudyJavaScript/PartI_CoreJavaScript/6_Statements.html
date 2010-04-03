@@ -1,0 +1,109 @@
+<html>
+	<head>
+	</head>
+	<body>
+		<form>
+			<input type="textbox" name="name" value="jiawei"/>
+			<input type="textbox" name="address" value="Shanghai"/>
+			<input type="textbox" name="email" value="ghosert@gmail.com"/>
+		</form>
+	</body>
+	<script>
+
+		function println(object) {
+			document.write(object + '<br/>');
+		}
+
+		// switch
+		/*
+			Note that:
+			[*] This makes the JavaScript switch statement much different from the switch statement of C, C++, and Java. In those languages, the
+			case expressions must be compile-time constants, must evaluate to integers or other integral types, and must all evaluate to the same
+			type.
+			And switch-case is using === rather than == to identify whether the operands are equal.
+		*/
+		// Comment the var below one by one to see the result.
+		var n = 1;
+		var n = "jiawei"; // Note: "jiawei" == "jiawei": true but "jiawei" === new String("jiawei"): false, so this can prove swich-case is using ===
+		var n = new String("jiawei");
+		switch(n) {
+			case 1 - 1 + 1: // expression can be followed with 'case' keyword
+			    println("I'm in the first case.");
+				break;
+			case "jiawei":
+			    println("I'm in the second case.");
+				break;
+			default:
+			    println("I'm in the default case.");
+			    break;
+		}
+
+		// for/in clause
+		// variable should be either the name of a variable, a var statement declaring a variable, an element of an array, or a property of an object.
+		/*
+		    for (variable in object)
+			    statement
+		*/
+		person = new Object();
+		person.firstname = 'jiawei';
+		person.lastname = 'zhang';
+		println("object person: ");
+		for (var prop in person) {
+			println("name: " + prop + " value: " + person[prop]);
+		}
+
+		// copy object properties to arrays.
+		var o = {x:1, y:2, z:3};
+		var a = new Array( );
+		var i = 0;
+		for(a[i++] in o) /* empty loop body */;
+
+		// print array index rather than array elements, not like python.
+		for (var i in a) println(i);
+		
+		// return
+		function returnValue() {
+			return; // or no return;
+		}
+		println(returnValue());
+
+		// throw
+		function factorial(x) {
+			// If the input argument is invalid, throw an exception!
+			if (x < 0) throw new Error("x must not be negative");
+			// Otherwise, compute a value and return normally
+			for(var f = 1; x > 1; f *= x, x--) /* empty */ ;
+			return f;
+		}
+
+		// try-catch/finally
+		try {
+			// Ask the user to enter a number
+			var n = prompt("Please enter a positive integer", "");
+			// Compute the factorial of the number, assuming that the user's
+			// input is valid
+			var f = factorial(n);
+			// Display the result
+			alert(n + "! = " + f);
+		} catch (ex) { // If the user's input was not valid, we end up here
+			// Tell the user what the error is
+			alert(ex);
+		}
+
+		// with
+		// used to temporarily modify the scope chain.
+		// in practice, you can use with statement to save yourself a lot of typing.
+		// eg. you don't have to add 'document.forms[0]' to prefix every form property name.
+		with (document.forms[0]) {
+			println(name.value)
+			println(address.value)
+			println(email.value)
+		}
+		// with keyword slow down the performance, not prefer to use it. instead of above use below:
+		var form = document.forms[0];
+		println(form.name.value)
+		println(form.address.value)
+		println(form.email.value)
+
+	</script>
+</html>

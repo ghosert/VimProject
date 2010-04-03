@@ -1,0 +1,10 @@
+# visit google homepage
+go http://www.google.com
+
+# fill the search textbox which is named "q" with the keyword "jiawei"
+fv 1 q "jiawei"
+
+# submit the search request
+submit
+
+open_html "temp.html"

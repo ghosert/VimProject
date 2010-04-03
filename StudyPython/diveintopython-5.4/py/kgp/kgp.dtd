@@ -1,0 +1,9 @@
+<!ELEMENT grammar (ref)+>
+<!ELEMENT ref (p)+>
+<!ATTLIST ref id ID #REQUIRED>
+<!ELEMENT xref EMPTY>
+<!ATTLIST xref id IDREF #REQUIRED>
+<!ELEMENT choice (p)+>
+<!ELEMENT p (#PCDATA|p|xref|choice)*>
+<!ATTLIST p class CDATA #IMPLIED>
+<!ATTLIST p chance CDATA #IMPLIED>

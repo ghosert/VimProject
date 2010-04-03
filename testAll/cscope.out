@@ -1,0 +1,104 @@
+cscope 16 E:\VimProject\testAll"               0000000588
+	@test.cpp
+
+1 
+	~<¡dio.h
+>
+
+2 
+	~<wšdows.h
+>
+
+4 
+	s_Te¡SŒuù
+ {
+
+5 
+	mi
+;
+
+6 *
+	m¡ršg
+;
+
+7 } 
+	tTe¡SŒuù
+;
+
+9 
+	$maš
+(
+¬gc
+, *
+¬gv
+[])
+
+11 
+OSVERSIONINFO
+ 
+osv”siÚšfo
+;
+
+12 
+osv”siÚšfo
+.
+dwOSV”siÚInfoSize
+ = (
+OSVERSIONINFO
+);
+
+13 
+BOOL
+ 
+isSucûss
+ = 
+	`G‘V”siÚEx
+(&
+osv”siÚšfo
+);
+
+14 ià(
+isSucûss
+) {
+
+15 
+	`´štf
+("MajÜ V”siÚ:%d\n", 
+osv”siÚšfo
+.
+dwMajÜV”siÚ
+);
+
+16 
+	`´štf
+("MšÜ V”siÚ:%d\n", 
+osv”siÚšfo
+.
+dwMšÜV”siÚ
+);
+
+18 
+	`´štf
+("Invoking failed.");
+
+20 
+	`g‘ch¬
+();
+
+21  
+isSucûss
+ =ð
+TRUE
+ ? 0 : 1;
+
+22 
+	}
+}
+
+	@
+1
+.
+0
+1
+9
+test.cpp

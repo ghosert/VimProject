@@ -1,0 +1,2762 @@
+cscope 16 E:\VimProject\testSound"               0000016982
+	@include/pa_trace.h
+
+1 #i‚de‡
+PA_TRACE_H
+
+
+2 
+	#PA_TRACE_H
+
+
+	)
+
+36 
+	#TRACE_REALTIME_EVENTS
+ (0Ë
+
+	)
+
+37 
+	#MAX_TRACE_RECORDS
+ (2048)
+
+	)
+
+39 #ifde‡
+__˝lu•lus
+
+
+49 #i‡
+TRACE_REALTIME_EVENTS
+
+
+51 
+DumpTø˚Mesßges
+();
+
+52 
+Re£tTø˚Mesßges
+();
+
+53 
+AddTø˚Mesßge
+–*
+msg
+, 
+d©a
+ );
+
+57 
+	#AddTø˚Mesßge
+(
+msg
+,
+d©a
+Ë
+
+	)
+
+58 
+	#Re£tTø˚Mesßges
+(Ë
+
+	)
+
+59 
+	#DumpTø˚Mesßges
+(Ë
+
+	)
+
+63 #ifde‡
+__˝lu•lus
+
+
+	@include/portaudio.h
+
+1 #i‚de‡
+PORT_AUDIO_H
+
+
+2 
+	#PORT_AUDIO_H
+
+
+	)
+
+4 #ifde‡
+__˝lu•lus
+
+
+42 
+	tPaEº‹
+;
+
+44 
+∑NoEº‹
+ = 0,
+
+46 
+∑Ho°Eº‹
+ = -10000,
+
+47 
+∑InvÆidCh™√lCou¡
+,
+
+48 
+∑InvÆidSam∂eR©e
+,
+
+49 
+∑InvÆidDevi˚Id
+,
+
+50 
+∑InvÆidFœg
+,
+
+51 
+∑Sam∂eF‹m©NŸSuµ‹ãd
+,
+
+52 
+∑BadIODevi˚Combö©i⁄
+,
+
+53 
+∑Insufficõ¡Mem‹y
+,
+
+54 
+∑Buf„rTooBig
+,
+
+55 
+∑Buf„rTooSmÆl
+,
+
+56 
+∑NuŒCÆlback
+,
+
+57 
+∑BadSåómPå
+,
+
+58 
+∑TimedOut
+,
+
+59 
+∑I¡î«lEº‹
+,
+
+60 
+∑Devi˚U«vaûabÀ
+
+
+61 } 
+	tPaEº‹Num
+;
+
+69 
+PaEº‹
+ 
+Pa_Inôülize
+( );
+
+77 
+PaEº‹
+ 
+Pa_Tîmö©e
+( );
+
+85 
+Pa_GëHo°Eº‹
+( );
+
+93 c⁄° *
+Pa_GëEº‹Text
+–
+PaEº‹
+ 
+î∫um
+ );
+
+112 
+	tPaSam∂eF‹m©
+;
+
+113 
+	#∑Flﬂt32
+ ((
+PaSam∂eF‹m©
+Ë(1<<0)Ë
+
+	)
+
+114 
+	#∑I¡16
+ ((
+PaSam∂eF‹m©
+Ë(1<<1)Ë
+
+	)
+
+115 
+	#∑I¡32
+ ((
+PaSam∂eF‹m©
+Ë(1<<2)Ë
+
+	)
+
+116 
+	#∑I¡24
+ ((
+PaSam∂eF‹m©
+Ë(1<<3))
+
+	)
+
+117 
+	#∑PackedI¡24
+ ((
+PaSam∂eF‹m©
+Ë(1<<4))
+
+	)
+
+118 
+	#∑I¡8
+ ((
+PaSam∂eF‹m©
+Ë(1<<5))
+
+	)
+
+119 
+	#∑UI¡8
+ ((
+PaSam∂eF‹m©
+Ë(1<<6))
+
+	)
+
+120 
+	#∑Cu°omF‹m©
+ ((
+PaSam∂eF‹m©
+Ë(1<<16))
+
+	)
+
+131 
+	tPaDevi˚ID
+;
+
+132 
+	#∑NoDevi˚
+ -1
+
+	)
+
+134 
+Pa_Cou¡Devi˚s
+( );
+
+138 
+°ru˘Vîsi⁄
+;
+
+139 c⁄° *
+«me
+;
+
+140 
+maxI≈utCh™√ls
+;
+
+141 
+maxOuçutCh™√ls
+;
+
+143 
+numSam∂eR©es
+;
+
+145 c⁄° *
+ßm∂eR©es
+;
+
+146 
+PaSam∂eF‹m©
+ 
+«tiveSam∂eF‹m©s
+;
+
+148 
+	tPaDevi˚Info
+;
+
+166 
+PaDevi˚ID
+ 
+Pa_GëDeÁu…I≈utDevi˚ID
+( );
+
+167 
+PaDevi˚ID
+ 
+Pa_GëDeÁu…OuçutDevi˚ID
+( );
+
+182 c⁄° 
+PaDevi˚Info
+* 
+Pa_GëDevi˚Info
+–
+PaDevi˚ID
+ 
+devi˚
+ );
+
+191 
+	tPaTime°amp
+;
+
+221 (
+P‹tAudioCÆlback
+)(
+
+222 *
+	töputBuf„r
+, *
+	touçutBuf„r
+,
+
+223 
+	t‰amesPîBuf„r
+,
+
+224 
+	tPaTime°amp
+ 
+	toutTime
+, *
+	tu£rD©a
+ );
+
+235 
+	#∑NoFœg
+ (0)
+
+	)
+
+236 
+	#∑ClùOff
+ (1<<0Ë
+
+	)
+
+237 
+	#∑DôhîOff
+ (1<<1Ë
+
+	)
+
+238 
+	#∑Pœtf‹mS≥cificFœgs
+ (0x00010000)
+
+	)
+
+239 
+	tPaSåómFœgs
+;
+
+247 
+	tP‹tAudioSåóm
+;
+
+248 
+	#PaSåóm
+ 
+P‹tAudioSåóm
+
+
+	)
+
+325 
+PaEº‹
+ 
+Pa_O≥nSåóm
+–
+P‹tAudioSåóm
+** 
+°ªam
+,
+
+326 
+PaDevi˚ID
+ 
+öputDevi˚
+,
+
+327 
+numI≈utCh™√ls
+,
+
+328 
+PaSam∂eF‹m©
+ 
+öputSam∂eF‹m©
+,
+
+329 *
+öputDrivîInfo
+,
+
+330 
+PaDevi˚ID
+ 
+ouçutDevi˚
+,
+
+331 
+numOuçutCh™√ls
+,
+
+332 
+PaSam∂eF‹m©
+ 
+ouçutSam∂eF‹m©
+,
+
+333 *
+ouçutDrivîInfo
+,
+
+334 
+ßm∂eR©e
+,
+
+335 
+‰amesPîBuf„r
+,
+
+336 
+numbîOfBuf„rs
+,
+
+337 
+PaSåómFœgs
+ 
+°ªamFœgs
+,
+
+338 
+P‹tAudioCÆlback
+ *
+ˇŒback
+,
+
+339 *
+u£rD©a
+ );
+
+355 
+PaEº‹
+ 
+Pa_O≥nDeÁu…Såóm
+–
+P‹tAudioSåóm
+** 
+°ªam
+,
+
+356 
+numI≈utCh™√ls
+,
+
+357 
+numOuçutCh™√ls
+,
+
+358 
+PaSam∂eF‹m©
+ 
+ßm∂eF‹m©
+,
+
+359 
+ßm∂eR©e
+,
+
+360 
+‰amesPîBuf„r
+,
+
+361 
+numbîOfBuf„rs
+,
+
+362 
+P‹tAudioCÆlback
+ *
+ˇŒback
+,
+
+363 *
+u£rD©a
+ );
+
+370 
+PaEº‹
+ 
+Pa_Clo£Såóm
+–
+P‹tAudioSåóm
+* );
+
+380 
+PaEº‹
+ 
+Pa_SèπSåóm
+–
+P‹tAudioSåóm
+ *
+°ªam
+ );
+
+382 
+PaEº‹
+ 
+Pa_St›Såóm
+–
+P‹tAudioSåóm
+ *
+°ªam
+ );
+
+384 
+PaEº‹
+ 
+Pa_Ab‹tSåóm
+–
+P‹tAudioSåóm
+ *
+°ªam
+ );
+
+397 
+PaEº‹
+ 
+Pa_SåómA˘ive
+–
+P‹tAudioSåóm
+ *
+°ªam
+ );
+
+406 
+PaTime°amp
+ 
+Pa_SåómTime
+–
+P‹tAudioSåóm
+ *
+°ªam
+ );
+
+419 
+Pa_GëCPULﬂd
+–
+P‹tAudioSåóm
+* 
+°ªam
+ );
+
+436 
+Pa_GëMöNumBuf„rs
+–
+‰amesPîBuf„r
+, 
+ßm∂eR©e
+ );
+
+448 
+Pa_SÀï
+–
+m£c
+ );
+
+457 
+PaEº‹
+ 
+Pa_GëSam∂eSize
+–
+PaSam∂eF‹m©
+ 
+f‹m©
+ );
+
+460 #ifde‡
+__˝lu•lus
+
+
+	@include/portmixer.h
+
+1 #i‚de‡
+PORT_MIXER_H
+
+
+2 
+	#PORT_MIXER_H
+
+
+	)
+
+4 #ifde‡
+__˝lu•lus
+
+
+47 
+	~"p‹èudio.h
+"
+
+49 
+	tPxMixî
+;
+
+51 
+	tPxVﬁume
+;
+
+52 
+	tPxBÆ™˚
+;
+
+62 
+Px_GëNumMixîs
+–*
+∑_°ªam
+ );
+
+63 c⁄° *
+Px_GëMixîName
+–*
+∑_°ªam
+, 
+i
+ );
+
+70 
+PxMixî
+ *
+Px_O≥nMixî
+–*
+∑_°ªam
+, 
+i
+ );
+
+77 
+Px_Clo£Mixî
+(
+PxMixî
+ *
+mixî
+);
+
+83 
+PxVﬁume
+ 
+Px_GëMa°îVﬁume
+–
+PxMixî
+ *
+mixî
+ );
+
+84 
+Px_SëMa°îVﬁume
+–
+PxMixî
+ *
+mixî
+, 
+PxVﬁume
+ 
+vﬁume
+ );
+
+90 
+PxVﬁume
+ 
+Px_GëPCMOuçutVﬁume
+–
+PxMixî
+ *
+mixî
+ );
+
+91 
+Px_SëPCMOuçutVﬁume
+–
+PxMixî
+ *
+mixî
+, 
+PxVﬁume
+ 
+vﬁume
+ );
+
+92 
+Px_Suµ‹tsPCMOuçutVﬁume
+–
+PxMixî
+* 
+mixî
+ ) ;
+
+98 
+Px_GëNumOuçutVﬁumes
+–
+PxMixî
+ *
+mixî
+ );
+
+99 c⁄° *
+Px_GëOuçutVﬁumeName
+–
+PxMixî
+ *
+mixî
+, 
+i
+ );
+
+100 
+PxVﬁume
+ 
+Px_GëOuçutVﬁume
+–
+PxMixî
+ *
+mixî
+, 
+i
+ );
+
+101 
+Px_SëOuçutVﬁume
+–
+PxMixî
+ *
+mixî
+, 
+i
+, 
+PxVﬁume
+ 
+vﬁume
+ );
+
+107 
+Px_GëNumI≈utSour˚s
+–
+PxMixî
+ *
+mixî
+ );
+
+108 c⁄° *
+Px_GëI≈utSour˚Name
+–
+PxMixî
+ *
+mixî
+, 
+i
+);
+
+109 
+Px_GëCuºítI≈utSour˚
+–
+PxMixî
+ *
+mixî
+ );
+
+110 
+Px_SëCuºítI≈utSour˚
+–
+PxMixî
+ *
+mixî
+, 
+i
+ );
+
+116 
+PxVﬁume
+ 
+Px_GëI≈utVﬁume
+–
+PxMixî
+ *
+mixî
+ );
+
+117 
+Px_SëI≈utVﬁume
+–
+PxMixî
+ *
+mixî
+, 
+PxVﬁume
+ 
+vﬁume
+ );
+
+123 
+Px_Suµ‹tsOuçutBÆ™˚
+–
+PxMixî
+ *
+mixî
+ );
+
+124 
+PxBÆ™˚
+ 
+Px_GëOuçutBÆ™˚
+–
+PxMixî
+ *
+mixî
+ );
+
+125 
+Px_SëOuçutBÆ™˚
+–
+PxMixî
+ *
+mixî
+, 
+PxBÆ™˚
+ 
+bÆ™˚
+ );
+
+131 
+Px_Suµ‹tsPœythrough
+–
+PxMixî
+ *
+mixî
+ );
+
+132 
+PxVﬁume
+ 
+Px_GëPœythrough
+–
+PxMixî
+ *
+mixî
+ );
+
+133 
+Px_SëPœythrough
+–
+PxMixî
+ *
+mixî
+, 
+PxVﬁume
+ 
+vﬁume
+ );
+
+135 #ifde‡
+__˝lu•lus
+
+
+	@include/sndfile.h
+
+26 #i‚de‡
+SNDFILE_H
+
+
+27 
+	#SNDFILE_H
+
+
+	)
+
+30 
+	#SNDFILE_1
+
+
+	)
+
+32 
+	~<°dio.h
+>
+
+36 #if (
+deföed
+ (
+__MWERKS__
+))
+
+37 
+	~<unix.h
+>
+
+39 
+	~<sys/ty≥s.h
+>
+
+42 #ifde‡
+__˝lu•lus
+
+
+55 
+SF_FORMAT_WAV
+ = 0x010000,
+
+56 
+SF_FORMAT_AIFF
+ = 0x020000,
+
+57 
+SF_FORMAT_AU
+ = 0x030000,
+
+58 
+SF_FORMAT_RAW
+ = 0x040000,
+
+59 
+SF_FORMAT_PAF
+ = 0x050000,
+
+60 
+SF_FORMAT_SVX
+ = 0x060000,
+
+61 
+SF_FORMAT_NIST
+ = 0x070000,
+
+62 
+SF_FORMAT_VOC
+ = 0x080000,
+
+63 
+SF_FORMAT_IRCAM
+ = 0x0A0000,
+
+64 
+SF_FORMAT_W64
+ = 0x0B0000,
+
+65 
+SF_FORMAT_MAT4
+ = 0x0C0000,
+
+66 
+SF_FORMAT_MAT5
+ = 0x0D0000,
+
+67 
+SF_FORMAT_PVF
+ = 0x0E0000,
+
+68 
+SF_FORMAT_XI
+ = 0x0F0000,
+
+69 
+SF_FORMAT_HTK
+ = 0x100000,
+
+70 
+SF_FORMAT_SDS
+ = 0x110000,
+
+71 
+SF_FORMAT_AVR
+ = 0x120000,
+
+72 
+SF_FORMAT_WAVEX
+ = 0x130000,
+
+73 
+SF_FORMAT_SD2
+ = 0x160000,
+
+74 
+SF_FORMAT_FLAC
+ = 0x170000,
+
+75 
+SF_FORMAT_CAF
+ = 0x180000,
+
+79 
+SF_FORMAT_PCM_S8
+ = 0x0001,
+
+80 
+SF_FORMAT_PCM_16
+ = 0x0002,
+
+81 
+SF_FORMAT_PCM_24
+ = 0x0003,
+
+82 
+SF_FORMAT_PCM_32
+ = 0x0004,
+
+84 
+SF_FORMAT_PCM_U8
+ = 0x0005,
+
+86 
+SF_FORMAT_FLOAT
+ = 0x0006,
+
+87 
+SF_FORMAT_DOUBLE
+ = 0x0007,
+
+89 
+SF_FORMAT_ULAW
+ = 0x0010,
+
+90 
+SF_FORMAT_ALAW
+ = 0x0011,
+
+91 
+SF_FORMAT_IMA_ADPCM
+ = 0x0012,
+
+92 
+SF_FORMAT_MS_ADPCM
+ = 0x0013,
+
+94 
+SF_FORMAT_GSM610
+ = 0x0020,
+
+95 
+SF_FORMAT_VOX_ADPCM
+ = 0x0021,
+
+97 
+SF_FORMAT_G721_32
+ = 0x0030,
+
+98 
+SF_FORMAT_G723_24
+ = 0x0031,
+
+99 
+SF_FORMAT_G723_40
+ = 0x0032,
+
+101 
+SF_FORMAT_DWVW_12
+ = 0x0040,
+
+102 
+SF_FORMAT_DWVW_16
+ = 0x0041,
+
+103 
+SF_FORMAT_DWVW_24
+ = 0x0042,
+
+104 
+SF_FORMAT_DWVW_N
+ = 0x0043,
+
+106 
+SF_FORMAT_DPCM_8
+ = 0x0050,
+
+107 
+SF_FORMAT_DPCM_16
+ = 0x0051,
+
+111 
+SF_ENDIAN_FILE
+ = 0x00000000,
+
+112 
+SF_ENDIAN_LITTLE
+ = 0x10000000,
+
+113 
+SF_ENDIAN_BIG
+ = 0x20000000,
+
+114 
+SF_ENDIAN_CPU
+ = 0x30000000,
+
+116 
+SF_FORMAT_SUBMASK
+ = 0x0000FFFF,
+
+117 
+SF_FORMAT_TYPEMASK
+ = 0x0FFF0000,
+
+118 
+SF_FORMAT_ENDMASK
+ = 0x30000000
+
+128 { 
+SFC_GET_LIB_VERSION
+ = 0x1000,
+
+129 
+SFC_GET_LOG_INFO
+ = 0x1001,
+
+131 
+SFC_GET_NORM_DOUBLE
+ = 0x1010,
+
+132 
+SFC_GET_NORM_FLOAT
+ = 0x1011,
+
+133 
+SFC_SET_NORM_DOUBLE
+ = 0x1012,
+
+134 
+SFC_SET_NORM_FLOAT
+ = 0x1013,
+
+135 
+SFC_SET_SCALE_FLOAT_INT_READ
+ = 0x1014,
+
+137 
+SFC_GET_SIMPLE_FORMAT_COUNT
+ = 0x1020,
+
+138 
+SFC_GET_SIMPLE_FORMAT
+ = 0x1021,
+
+140 
+SFC_GET_FORMAT_INFO
+ = 0x1028,
+
+142 
+SFC_GET_FORMAT_MAJOR_COUNT
+ = 0x1030,
+
+143 
+SFC_GET_FORMAT_MAJOR
+ = 0x1031,
+
+144 
+SFC_GET_FORMAT_SUBTYPE_COUNT
+ = 0x1032,
+
+145 
+SFC_GET_FORMAT_SUBTYPE
+ = 0x1033,
+
+147 
+SFC_CALC_SIGNAL_MAX
+ = 0x1040,
+
+148 
+SFC_CALC_NORM_SIGNAL_MAX
+ = 0x1041,
+
+149 
+SFC_CALC_MAX_ALL_CHANNELS
+ = 0x1042,
+
+150 
+SFC_CALC_NORM_MAX_ALL_CHANNELS
+ = 0x1043,
+
+151 
+SFC_GET_SIGNAL_MAX
+ = 0x1044,
+
+152 
+SFC_GET_MAX_ALL_CHANNELS
+ = 0x1045,
+
+154 
+SFC_SET_ADD_PEAK_CHUNK
+ = 0x1050,
+
+156 
+SFC_UPDATE_HEADER_NOW
+ = 0x1060,
+
+157 
+SFC_SET_UPDATE_HEADER_AUTO
+ = 0x1061,
+
+159 
+SFC_FILE_TRUNCATE
+ = 0x1080,
+
+161 
+SFC_SET_RAW_START_OFFSET
+ = 0x1090,
+
+163 
+SFC_SET_DITHER_ON_WRITE
+ = 0x10A0,
+
+164 
+SFC_SET_DITHER_ON_READ
+ = 0x10A1,
+
+166 
+SFC_GET_DITHER_INFO_COUNT
+ = 0x10A2,
+
+167 
+SFC_GET_DITHER_INFO
+ = 0x10A3,
+
+169 
+SFC_GET_EMBED_FILE_INFO
+ = 0x10B0,
+
+171 
+SFC_SET_CLIPPING
+ = 0x10C0,
+
+172 
+SFC_GET_CLIPPING
+ = 0x10C1,
+
+174 
+SFC_GET_INSTRUMENT
+ = 0x10D0,
+
+175 
+SFC_SET_INSTRUMENT
+ = 0x10D1,
+
+177 
+SFC_GET_LOOP_INFO
+ = 0x10E0,
+
+179 
+SFC_GET_BROADCAST_INFO
+ = 0x10F0,
+
+180 
+SFC_SET_BROADCAST_INFO
+ = 0x10F1,
+
+183 
+SFC_TEST_IEEE_FLOAT_REPLACE
+ = 0x6001,
+
+191 
+SFC_SET_ADD_DITHER_ON_WRITE
+ = 0x1070,
+
+192 
+SFC_SET_ADD_DITHER_ON_READ
+ = 0x1071
+
+203 { 
+SF_STR_TITLE
+ = 0x01,
+
+204 
+SF_STR_COPYRIGHT
+ = 0x02,
+
+205 
+SF_STR_SOFTWARE
+ = 0x03,
+
+206 
+SF_STR_ARTIST
+ = 0x04,
+
+207 
+SF_STR_COMMENT
+ = 0x05,
+
+208 
+SF_STR_DATE
+ = 0x06
+
+216 
+	#SF_STR_FIRST
+ 
+SF_STR_TITLE
+
+
+	)
+
+217 
+	#SF_STR_LAST
+ 
+SF_STR_DATE
+
+
+	)
+
+221 
+SF_FALSE
+ = 0,
+
+222 
+SF_TRUE
+ = 1,
+
+225 
+SFM_READ
+ = 0x10,
+
+226 
+SFM_WRITE
+ = 0x20,
+
+227 
+SFM_RDWR
+ = 0x30
+
+237 { 
+SF_ERR_NO_ERROR
+ = 0,
+
+238 
+SF_ERR_UNRECOGNISED_FORMAT
+ = 1,
+
+239 
+SF_ERR_SYSTEM
+ = 2,
+
+240 
+SF_ERR_MALFORMED_FILE
+ = 3,
+
+241 
+SF_ERR_UNSUPPORTED_ENCODING
+ = 4
+
+246 
+SNDFILE_èg
+ 
+	tSNDFILE
+ ;
+
+253 
+__öt64
+ 
+	tsf_cou¡_t
+ ;
+
+255 
+	#SF_COUNT_MAX
+ 0x7FFFFFFFFFFFFFFFLL
+
+	)
+
+262 
+	sSF_INFO
+
+
+263 { 
+sf_cou¡_t
+ 
+‰ames
+ ;
+
+264 
+ßm∂î©e
+ ;
+
+265 
+ch™√ls
+ ;
+
+266 
+f‹m©
+ ;
+
+267 
+£˘i⁄s
+ ;
+
+268 
+£ekabÀ
+ ;
+
+271 
+SF_INFO
+ 
+	tSF_INFO
+ ;
+
+285 { 
+f‹m©
+ ;
+
+286 c⁄° *
+«me
+ ;
+
+287 c⁄° *
+exãnsi⁄
+ ;
+
+288 } 
+	tSF_FORMAT_INFO
+ ;
+
+297 { 
+SFD_DEFAULT_LEVEL
+ = 0,
+
+298 
+SFD_CUSTOM_LEVEL
+ = 0x40000000,
+
+300 
+SFD_NO_DITHER
+ = 500,
+
+301 
+SFD_WHITE
+ = 501,
+
+302 
+SFD_TRIANGULAR_PDF
+ = 502
+
+306 { 
+ty≥
+ ;
+
+307 
+Àvñ
+ ;
+
+308 c⁄° *
+«me
+ ;
+
+309 } 
+	tSF_DITHER_INFO
+ ;
+
+316 { 
+sf_cou¡_t
+ 
+off£t
+ ;
+
+317 
+sf_cou¡_t
+ 
+Àngth
+ ;
+
+318 } 
+	tSF_EMBED_FILE_INFO
+ ;
+
+328 
+SF_LOOP_NONE
+ = 800,
+
+329 
+SF_LOOP_FORWARD
+,
+
+330 
+SF_LOOP_BACKWARD
+,
+
+331 
+SF_LOOP_ALTERNATING
+
+
+335 { 
+gaö
+ ;
+
+336 
+ba£nŸe
+, 
+dëu√
+ ;
+
+337 
+vñocôy_lo
+, 
+vñocôy_hi
+ ;
+
+338 
+key_lo
+, 
+key_hi
+ ;
+
+339 
+lo›_cou¡
+ ;
+
+342 { 
+mode
+ ;
+
+343 
+°¨t
+ ;
+
+344 
+íd
+ ;
+
+345 
+cou¡
+ ;
+
+346 } 
+lo›s
+ [16] ;
+
+347 } 
+	tSF_INSTRUMENT
+ ;
+
+354 
+time_sig_num
+ ;
+
+355 
+time_sig_dí
+ ;
+
+356 
+lo›_mode
+ ;
+
+358 
+num_bóts
+ ;
+
+362 
+bpm
+ ;
+
+366 
+roŸ_key
+ ;
+
+367 
+futuª
+ [6] ;
+
+368 } 
+	tSF_LOOP_INFO
+ ;
+
+375 { 
+des¸ùti⁄
+ [256] ;
+
+376 
+‹igö©‹
+ [32] ;
+
+377 
+‹igö©‹_ª„ªn˚
+ [32] ;
+
+378 
+‹igö©i⁄_d©e
+ [10] ;
+
+379 
+‹igö©i⁄_time
+ [8] ;
+
+380 
+time_ª„ªn˚_low
+ ;
+
+381 
+time_ª„ªn˚_high
+ ;
+
+382 
+vîsi⁄
+ ;
+
+383 
+umid
+ [64] ;
+
+384 
+ª£rved
+ [190] ;
+
+385 
+codög_hi°‹y_size
+ ;
+
+386 
+codög_hi°‹y
+ [256] ;
+
+387 } 
+	tSF_BROADCAST_INFO
+ ;
+
+389 
+sf_cou¡_t
+ (*
+	tsf_vio_gë_fûñí
+Ë(*
+	tu£r_d©a
+) ;
+
+390 
+sf_cou¡_t
+ (*
+	tsf_vio_£ek
+Ë(
+	tsf_cou¡_t
+ 
+	toff£t
+, 
+	twhí˚
+, *
+	tu£r_d©a
+) ;
+
+391 
+sf_cou¡_t
+ (*
+	tsf_vio_ªad
+Ë(*
+	t±r
+, 
+	tsf_cou¡_t
+ 
+	tcou¡
+, *
+	tu£r_d©a
+) ;
+
+392 
+sf_cou¡_t
+ (*
+	tsf_vio_wrôe
+Ë(c⁄° *
+	t±r
+, 
+	tsf_cou¡_t
+ 
+	tcou¡
+, *
+	tu£r_d©a
+) ;
+
+393 
+sf_cou¡_t
+ (*
+	tsf_vio_ãŒ
+Ë(*
+	tu£r_d©a
+) ;
+
+395 
+	sSF_VIRTUAL_IO
+
+
+396 { 
+sf_vio_gë_fûñí
+ 
+gë_fûñí
+ ;
+
+397 
+sf_vio_£ek
+ 
+£ek
+ ;
+
+398 
+sf_vio_ªad
+ 
+ªad
+ ;
+
+399 
+sf_vio_wrôe
+ 
+wrôe
+ ;
+
+400 
+sf_vio_ãŒ
+ 
+ãŒ
+ ;
+
+403 
+SF_VIRTUAL_IO
+ 
+	tSF_VIRTUAL_IO
+ ;
+
+411 
+SNDFILE
+* 
+sf_›í
+ (c⁄° *
+∑th
+, 
+mode
+, 
+SF_INFO
+ *
+sföfo
+) ;
+
+425 
+SNDFILE
+* 
+sf_›í_fd
+ (
+fd
+, 
+mode
+, 
+SF_INFO
+ *
+sföfo
+, 
+˛o£_desc
+) ;
+
+427 
+SNDFILE
+* 
+sf_›í_vútuÆ
+ (
+SF_VIRTUAL_IO
+ *
+sfvútuÆ
+, 
+mode
+, 
+SF_INFO
+ *
+sföfo
+, *
+u£r_d©a
+) ;
+
+433 
+sf_îr‹
+ (
+SNDFILE
+ *
+¢dfûe
+) ;
+
+439 c⁄° * 
+sf_°ªº‹
+ (
+SNDFILE
+ *
+¢dfûe
+) ;
+
+446 c⁄° * 
+sf_îr‹_numbî
+ (
+î∫um
+) ;
+
+453 
+sf_≥º‹
+ (
+SNDFILE
+ *
+¢dfûe
+) ;
+
+454 
+sf_îr‹_°r
+ (
+SNDFILE
+ *
+¢dfûe
+, * 
+°r
+, 
+size_t
+ 
+Àn
+) ;
+
+459 
+sf_comm™d
+ (
+SNDFILE
+ *
+¢dfûe
+, 
+comm™d
+, *
+d©a
+, 
+d©asize
+) ;
+
+463 
+sf_f‹m©_check
+ (c⁄° 
+SF_INFO
+ *
+öfo
+) ;
+
+477 
+sf_cou¡_t
+ 
+sf_£ek
+ (
+SNDFILE
+ *
+¢dfûe
+, sf_cou¡_à
+‰ames
+, 
+whí˚
+) ;
+
+487 
+sf_£t_°rög
+ (
+SNDFILE
+ *
+¢dfûe
+, 
+°r_ty≥
+, c⁄° * 
+°r
+) ;
+
+489 c⁄° * 
+sf_gë_°rög
+ (
+SNDFILE
+ *
+¢dfûe
+, 
+°r_ty≥
+) ;
+
+494 
+sf_cou¡_t
+ 
+sf_ªad_øw
+ (
+SNDFILE
+ *
+¢dfûe
+, *
+±r
+, sf_cou¡_à
+byãs
+) ;
+
+495 
+sf_cou¡_t
+ 
+sf_wrôe_øw
+ (
+SNDFILE
+ *
+¢dfûe
+, c⁄° *
+±r
+, sf_cou¡_à
+byãs
+) ;
+
+507 
+sf_cou¡_t
+ 
+sf_ªadf_sh‹t
+ (
+SNDFILE
+ *
+¢dfûe
+, *
+±r
+, sf_cou¡_à
+‰ames
+) ;
+
+508 
+sf_cou¡_t
+ 
+sf_wrôef_sh‹t
+ (
+SNDFILE
+ *
+¢dfûe
+, c⁄° *
+±r
+, sf_cou¡_à
+‰ames
+) ;
+
+510 
+sf_cou¡_t
+ 
+sf_ªadf_öt
+ (
+SNDFILE
+ *
+¢dfûe
+, *
+±r
+, sf_cou¡_à
+‰ames
+) ;
+
+511 
+sf_cou¡_t
+ 
+sf_wrôef_öt
+ (
+SNDFILE
+ *
+¢dfûe
+, c⁄° *
+±r
+, sf_cou¡_à
+‰ames
+) ;
+
+513 
+sf_cou¡_t
+ 
+sf_ªadf_Êﬂt
+ (
+SNDFILE
+ *
+¢dfûe
+, *
+±r
+, sf_cou¡_à
+‰ames
+) ;
+
+514 
+sf_cou¡_t
+ 
+sf_wrôef_Êﬂt
+ (
+SNDFILE
+ *
+¢dfûe
+, c⁄° *
+±r
+, sf_cou¡_à
+‰ames
+) ;
+
+516 
+sf_cou¡_t
+ 
+sf_ªadf_doubÀ
+ (
+SNDFILE
+ *
+¢dfûe
+, *
+±r
+, sf_cou¡_à
+‰ames
+) ;
+
+517 
+sf_cou¡_t
+ 
+sf_wrôef_doubÀ
+ (
+SNDFILE
+ *
+¢dfûe
+, c⁄° *
+±r
+, sf_cou¡_à
+‰ames
+) ;
+
+524 
+sf_cou¡_t
+ 
+sf_ªad_sh‹t
+ (
+SNDFILE
+ *
+¢dfûe
+, *
+±r
+, sf_cou¡_à
+ôems
+) ;
+
+525 
+sf_cou¡_t
+ 
+sf_wrôe_sh‹t
+ (
+SNDFILE
+ *
+¢dfûe
+, c⁄° *
+±r
+, sf_cou¡_à
+ôems
+) ;
+
+527 
+sf_cou¡_t
+ 
+sf_ªad_öt
+ (
+SNDFILE
+ *
+¢dfûe
+, *
+±r
+, sf_cou¡_à
+ôems
+) ;
+
+528 
+sf_cou¡_t
+ 
+sf_wrôe_öt
+ (
+SNDFILE
+ *
+¢dfûe
+, c⁄° *
+±r
+, sf_cou¡_à
+ôems
+) ;
+
+530 
+sf_cou¡_t
+ 
+sf_ªad_Êﬂt
+ (
+SNDFILE
+ *
+¢dfûe
+, *
+±r
+, sf_cou¡_à
+ôems
+) ;
+
+531 
+sf_cou¡_t
+ 
+sf_wrôe_Êﬂt
+ (
+SNDFILE
+ *
+¢dfûe
+, c⁄° *
+±r
+, sf_cou¡_à
+ôems
+) ;
+
+533 
+sf_cou¡_t
+ 
+sf_ªad_doubÀ
+ (
+SNDFILE
+ *
+¢dfûe
+, *
+±r
+, sf_cou¡_à
+ôems
+) ;
+
+534 
+sf_cou¡_t
+ 
+sf_wrôe_doubÀ
+ (
+SNDFILE
+ *
+¢dfûe
+, c⁄° *
+±r
+, sf_cou¡_à
+ôems
+) ;
+
+541 
+sf_˛o£
+ (
+SNDFILE
+ *
+¢dfûe
+) ;
+
+548 
+sf_wrôe_sync
+ (
+SNDFILE
+ *
+¢dfûe
+) ;
+
+550 #ifde‡
+__˝lu•lus
+
+
+	@testPlay.c
+
+1 
+	~<°dio.h
+>
+
+3 
+	~"¢dfûe.h
+"
+
+5 
+	~"p‹èudio.h
+"
+
+7 
+	s_SNDINFO
+ {
+
+8 
+SNDFILE
+ *
+	m¢dfûe
+;
+
+9 
+SF_INFO
+ 
+	msf_öfo
+;
+
+10 } 
+	tSNDINFO
+;
+
+12 
+∑Pro˚ss
+(
+SNDINFO
+ *
+¢dInfo
+);
+
+14 
+∑Eº‹H™dlög
+(
+PaEº‹
+ 
+∑Eº‹
+);
+
+16 
+sfEº‹H™dlög
+(
+îr‹Numbî
+);
+
+18 
+checkPaEº‹
+(
+PaEº‹
+ 
+∑Eº‹
+);
+
+20 
+∂ayCÆlback
+(*
+öputBuf„r
+, *
+ouçutBuf„r
+, 
+‰amesPîBuf„r
+, 
+PaTime°amp
+ 
+outTime
+, *
+u£rD©a
+);
+
+22 
+	$maö
+ (
+¨gc
+, *
+¨gv
+[]) {
+
+24 i‡(
+¨gc
+ != 2) {
+
+25 
+	`¥ötf
+("You shouldÑunÅhisÖrogram with one wav file following.");
+
+29 
+SNDFILE
+ *
+¢dfûe
+;
+
+30 
+SF_INFO
+ 
+sf_öfo
+;
+
+31 
+¢dfûe
+ = 
+	`sf_›í
+(
+¨gv
+[1], 
+SFM_READ
+, &
+sf_öfo
+);
+
+32 i‡(
+¢dfûe
+ =
+NULL
+) {
+
+33 
+	`sfEº‹H™dlög
+(
+	`sf_îr‹
+(
+¢dfûe
+));
+
+37 
+	`¥ötf
+("Open successfully.\n");
+
+39 
+	`¥ötf
+("ch™√ls: %d\n", 
+sf_öfo
+.
+ch™√ls
+);
+
+40 
+	`¥ötf
+("f‹m©: %d\n", 
+sf_öfo
+.
+f‹m©
+);
+
+41 
+	`¥ötf
+("‰ames: %d\n", 
+sf_öfo
+.
+‰ames
+);
+
+42 
+	`¥ötf
+("ßm∂î©e: %d\n", 
+sf_öfo
+.
+ßm∂î©e
+);
+
+43 
+	`¥ötf
+("£˘i⁄s: %d\n", 
+sf_öfo
+.
+£˘i⁄s
+);
+
+44 
+	`¥ötf
+("£ekabÀ: %d\n", 
+sf_öfo
+.
+£ekabÀ
+);
+
+46 
+SNDINFO
+ 
+¢dInfo
+;
+
+47 
+¢dInfo
+.
+¢dfûe
+ = sndfile;
+
+48 
+¢dInfo
+.
+sf_öfo
+ = sf_info;
+
+50 
+iPro˚ss
+ = 
+	`∑Pro˚ss
+(&
+¢dInfo
+);
+
+52 
+ªsu…Code
+ = 0;
+
+53 i‡(!(
+ªsu…Code
+ = 
+	`sf_˛o£
+(
+¢dfûe
+))) {
+
+54 
+	`¥ötf
+("Close Successfully.\n");
+
+56 
+	`sfEº‹H™dlög
+(
+ªsu…Code
+);
+
+60 i‡(
+iPro˚ss
+ == 1)  1;
+
+63 
+	}
+}
+
+65 
+	$∑Pro˚ss
+(
+SNDINFO
+ *
+¢dInfo
+) {
+
+67 
+	`¥ötf
+("portáudio initialize.\n");
+
+69 
+PaEº‹
+ 
+∑Eº‹
+ = 
+	`Pa_Inôülize
+();
+
+71 i‡(
+	`checkPaEº‹
+(
+∑Eº‹
+))  1;
+
+73 
+P‹tAudioSåóm
+ *
+p‹tAudioSåóm
+;
+
+75 
+	`¥ötf
+("portáudio open default stream.\n");
+
+77 
+∑Eº‹
+ = 
+	`Pa_O≥nDeÁu…Såóm
+(&
+p‹tAudioSåóm
+, 0, 
+¢dInfo
+->
+sf_öfo
+.
+ch™√ls
+, 
+∑Flﬂt32
+, sndInfo->sf_öfo.
+ßm∂î©e
+, 256, 0, 
+∂ayCÆlback
+, sndInfo);
+
+79 i‡(
+	`checkPaEº‹
+(
+∑Eº‹
+))  1;
+
+81 
+	`¥ötf
+("portáudio start stream.\n");
+
+83 
+∑Eº‹
+ = 
+	`Pa_SèπSåóm
+(
+p‹tAudioSåóm
+);
+
+85 i‡(
+	`checkPaEº‹
+(
+∑Eº‹
+))  1;
+
+87 
+	`¥ötf
+("waiting forÅhe wav fileÖlaying is finished.\n");
+
+88 
+	`Pa_SåómA˘ive
+(
+p‹tAudioSåóm
+)) {
+
+89 
+	`Pa_SÀï
+(1000);
+
+92 
+	`¥ötf
+("portáudio stop stream.\n");
+
+94 
+∑Eº‹
+ = 
+	`Pa_St›Såóm
+(
+p‹tAudioSåóm
+);
+
+96 i‡(
+	`checkPaEº‹
+(
+∑Eº‹
+))  1;
+
+98 
+	`¥ötf
+("portáudio close stream.\n");
+
+100 
+∑Eº‹
+ = 
+	`Pa_Clo£Såóm
+(
+p‹tAudioSåóm
+);
+
+102 i‡(
+	`checkPaEº‹
+(
+∑Eº‹
+))  1;
+
+104 
+	`¥ötf
+("portáudioÅerminate.\n");
+
+106 
+∑Eº‹
+ = 
+	`Pa_Tîmö©e
+();
+
+108 i‡(
+	`checkPaEº‹
+(
+∑Eº‹
+))  1;
+
+110 
+	`¥ötf
+("testÖlay finished.\n");
+
+113 
+	}
+}
+
+115 
+	$∂ayCÆlback
+(*
+öputBuf„r
+, *
+ouçutBuf„r
+, 
+‰amesPîBuf„r
+, 
+PaTime°amp
+ 
+outTime
+, *
+u£rD©a
+) {
+
+117 
+SNDINFO
+ *
+¢dInfo
+ = (SNDINFO *Ë
+u£rD©a
+;
+
+118 
+SNDFILE
+ *
+¢dFûe
+ = 
+¢dInfo
+->
+¢dfûe
+;
+
+119 
+SF_INFO
+ 
+sf_öfo
+ = 
+¢dInfo
+->sf_info;
+
+121 *
+out
+ = (*Ë
+ouçutBuf„r
+;
+
+123 
+ªadCou¡
+ = 
+sf_öfo
+.
+ch™√ls
+ * 
+‰amesPîBuf„r
+;
+
+124 
+±r
+[
+ªadCou¡
+];
+
+125 
+sf_cou¡_t
+ 
+cou¡
+ = 
+	`sf_ªad_Êﬂt
+(
+¢dFûe
+, 
+±r
+, 
+ªadCou¡
+);
+
+127 
+i
+ = 0;
+
+128 ; 
+i
+ < 
+cou¡
+; i++) {
+
+129 *
+out
+++ = 
+±r
+[
+i
+];
+
+132 i‡(
+cou¡
+ < 
+ªadCou¡
+)  1;
+
+135 
+	}
+}
+
+137 
+	$checkPaEº‹
+(
+PaEº‹
+ 
+∑Eº‹
+) {
+
+138 i‡(
+∑Eº‹
+ !
+∑NoEº‹
+) {
+
+139 
+	`∑Eº‹H™dlög
+(
+∑Eº‹
+);
+
+143 
+	}
+}
+
+145 
+	$∑Eº‹H™dlög
+(
+PaEº‹
+ 
+∑Eº‹
+) {
+
+146 
+	`¥ötf
+("There isáÉrror happens when invokingÖortáudioápi.");
+
+147 
+	`¥ötf
+("Eº‹ Numbî: %d", 
+∑Eº‹
+);
+
+148 
+	`¥ötf
+("Eº‹ Mesßge: %s", 
+	`Pa_GëEº‹Text
+(
+∑Eº‹
+));
+
+149 
+	`Pa_Tîmö©e
+();
+
+150 
+	}
+}
+
+152 
+	$sfEº‹H™dlög
+(
+îr‹Numbî
+) {
+
+153 
+	`¥ötf
+("There isáÉrror happens when invokingÜibsndfileápi.");
+
+154 
+	`¥ötf
+("Eº‹ Numbî: %d", 
+îr‹Numbî
+);
+
+155 
+	`¥ötf
+("Eº‹ Mesßge: %s", 
+	`sf_îr‹_numbî
+(
+îr‹Numbî
+));
+
+156 
+	}
+}
+
+	@
+1
+.
+0
+5
+88
+include/pa_trace.h
+include/portaudio.h
+include/portmixer.h
+include/sndfile.h
+testPlay.c

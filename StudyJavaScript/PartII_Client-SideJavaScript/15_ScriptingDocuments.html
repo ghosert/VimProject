@@ -1,0 +1,425 @@
+<html>
+	<head>
+		<title>
+			I'm the page title.
+		</title>
+		<script src="listanchors.js"></script>
+
+		<!-- Adding Content to a Document -->
+		<script src="Log.js"></script> <!-- include log() -->
+		<link rel="stylesheet" type="text/css" href="log.css"> <!-- include styles -->
+
+	</head>
+	<body>
+
+		<input type='button' value='Generate a new window document and write string on it.' onclick='hello();'/> <br/>
+
+		<!-- Document Properties -->
+		<hr><font size="1">
+			Document: <i><script>document.write(document.title);</script></i><br> <!-- Show the stuffs between <title></title> above. -->
+			URL: <i><script>document.write(document.URL);</script></i><br>
+			Last Update: <i><script>document.write(document.lastModified);</script></i>
+		</font>
+
+		<br/> <br/>
+
+		<!-- Legacy DOM: Document Object Collections -->
+		<a name="#center">test link</a>
+
+		<br/> <br/>
+
+		<form name="mainForm" action="http://www.baidu.com" onsubmit="return false;"> <!-- if 'onsubmit' event handler return false; no submit. -->
+			<input type="submit" value="Submit" name="SubmitMe" />
+		</form>
+
+		<!-- Naming Document Objects-->
+		<form name="f1"><input type="button" value="Push Me" name='PushMe'></form>
+
+		<!-- Legacy DOM Example -->
+		<a name="sect14.6"><h2>The Anchor Object</h2></a>
+		<a href='javascript: listanchors(window.document); void 0;'>Click me to test list anchors script</a>
+
+		<br/> <br/>
+
+		<!-- Test HTMLElement Attributes -->
+		<div id="testDiv" class="warning">
+			This is a warning
+		</div>
+
+		<!-- Modifying a Document -->
+		<ul id="list"> <!-- This is the list we'll sort -->
+			<li>one<li>two<li>three<li>four <!-- items are not in alphabetical order -->
+		</ul>
+		<!-- this is the button that sorts the list -->
+		<button onclick="sortkids('list')">Sort list</button>
+		<button onclick="upcase(document)">Upcase</button>
+		<!-- A couple of sample paragraphs -->
+		<p id="p1">This <i>is</i> paragraph #1.</p>
+		<p id="p2">This <i>is</i> paragraph #2.</p>
+		<button onclick="embolden('p1');">Embolden</button>
+
+		<!-- Modifying Attributes -->
+		<button onclick="setAlignCenter(document.getElementById('p2'));">setAlignCenter</button>
+
+		<!-- Working with Document Fragments -->
+		<button onclick="reverse(document.getElementById('list'));">Reverse list</button>
+
+		<!-- Adding Content to a Document -->
+		<!-- this button invokes the function we want to debug -->
+		<button onclick="makeRectangle(1,2,3,4);">Make Rectangle</button>
+		<!-- This is where our logging messages will be placed -->
+		<!-- We enable logging by putting this <div> in the document -->
+		<div id="debug_log" class="log"></div>
+
+
+		<!-- Querying Selected Text -->
+		<a href="javascript:
+		var q = getSelectedText();
+		void window.open('http://en.wikipedia.org/wiki/' + q);
+		">
+		Look Up Selected Text In Wikipedia
+		</a>
+		
+		<script>
+
+			function println(obj) {
+				document.write(obj + '<br/>');
+			}
+
+			// Dynamic Document Content
+			// Although you cannot usefully document.write(string) to the current document from an event handler(this will remove/redraw current page),
+			// there is no reason why you can't write to a document in another window or frame.
+			// This function opens a pop-up window. Invoke it from an event handler
+			// or the pop up will probably be blocked.
+			function hello() {
+				var w = window.open(); // Create a new window with no content
+				var d = w.document; // Get its Document object
+				d.open(); // Start a new document (optional)
+				d.write("<h1>Hello world!</h1>"); // Output document content
+				d.close(); // End the document, without this statement, the browser does not stop the document-loading animation it displays.
+			}
+
+			println("");
+
+			var username = 'Jiawei Zhang';
+			document.write("Hello, " + username + " Welcome to my blog!" + '<br/>');
+			// you might equivalently write:
+			var greeting = "Hello, ";
+			var welcome = " Welcome to my blog!";
+			document.write(greeting, username, welcome, '<br/>');
+
+
+			// Document Properties
+			// See the legacy property list on pdf version page 385.
+			// document.bgColor
+			// document.cookie: get current site cookie
+			// document.domain
+			// document.lastModified
+			// document.location: A deprecated synonym for the document.URL
+			// document.title
+			// document.URL: same to window.location.href, except when a server redirect has occurred:
+			//               document.URL means URL as loaded, and window.location.href contains the URL as originally requested.
+			println('referrer: ' + document.referrer); // it contains the URL of the document from which the user linked to the current document.
+
+
+			// Legacy DOM: Document Object Collections
+			// document.anchors[]
+			println(document.anchors[0].name); // get '#center', anchors here means <a name="xxx">yyy</a>
+			// document.forms[]
+			println(document.forms[0].elements[0].name); // get 'SubmitMe'
+			// document.images[]
+			// for <img> elements, and the 'src' property of image object is read/write so that it allows image-rollover effects and simple animations.
+			// document.links[]
+			// links here means <a href="xxx">yyy</a>
+			// link object has 'onmouseover', 'onmouseout' and 'onclick' event handlers. if the handlers return false, it will not follow the link.
+
+			// Naming Document Objects
+			println(document.forms[1].name) // Refer to the form by position within the document
+			println(document.forms.f1.name) // Refer to the form by name as a property
+			println(document.forms["f1"].name) // Refer to the form by name as an array index
+			println(document.f1.name); // For the <form>, <img> or <applet>(but not of an <a> tag) also support expression like 'document.formName'
+			println(document.f1.PushMe.value); // document.formName.subElementName
+			// The element name above are all case sensitive.
+
+			// Event Handlers on Document Objects
+			// There are two ways to set event handlers for the elements:
+			// 1. In HTML, event handlers are defined by assigning a string of JavaScript code to an event-handler attribute, and invoke it.
+			// <form name="myform" onsubmit="return validateform();">...</form>
+			// 2. In JavaScript, however, they are defined by assigning a function to an event-handler property, don't invoke it.
+			// document.myform.onsubmit = validateform;
+
+			// Legacy DOM Example
+			// See the HTML sample above.
+
+
+			// Overview of the W3C DOM
+			// These are new and not legacy ones compared with the stuffs above.
+			// We virtually have Legacy DOM, W3C DOM and IE DOM.
+			// See the details from pdf version page 392 to 398.
+
+			// Every html node object has a nodeType property, But,
+			// Because IE don't suppose Node constant, using the definition below instead.
+			// So every html node object has its own type.
+			if (!window.Node) {
+				var Node = { // If there is no Node object, define one
+					ELEMENT_NODE: 1, // with the following properties and values.
+					ATTRIBUTE_NODE: 2, // Note that these are HTML node types only.
+					TEXT_NODE: 3, // For XML-specific nodes, you need to add
+					COMMENT_NODE: 8, // other constants here.
+					DOCUMENT_NODE: 9,
+					DOCUMENT_FRAGMENT_NODE: 11
+				};
+			}
+			
+			if (window.document.nodeType == Node.DOCUMENT_NODE) { // document object is the root node of the DOM tree.
+				println(window.document.nodeType + ": " + window.document); // node type: Document_NODE, HTMLDocument
+				// As you see before, window.document which is HTMLDocument interface here defines document properties and methods that were
+				// supported by browsers prior to W3C standardization, document.locaiton, document.forms[] array and write() method,
+				// which were described above, it's what we called legacy DOM above.
+				var testdiv = window.document.getElementById("testDiv");
+				// HTMLElement interface will basicly have 'id', 'style', 'title', 'lang', 'dir' and 'class'(which is renamed to className) attributes.
+				println("id: " + testdiv.id + " className:" + testdiv.className); 
+			}
+
+			var html = document.documentElement; // This is a root element(also a node) of the document which represents <html> tag.
+		    println(html.nodeType + ": " + html);  // node type: ELEMENT_NODE, HTMLHtmlElement
+			var children = html.childNodes; // This is a NodeList object which is an array-like object, not a true Array, so that have no sort() method.
+			var head = children.item(0); // Here is one way to use a NodeList.
+			var body = children[1]; // But this way is easier! Any DOMObject.item(index) can be converted to DOMObject[index]
+
+			var f = document.forms.namedItem("mainForm"); // Any DOMObject.namedItem('name') can be converted to
+			var g = document.forms["mainForm"]; // DOMObject['name']
+			var h = document.forms.mainForm;    // DOMObject.name
+
+			// So far all the DOM API defines interfaces rather than classes, so they are no contructor:
+			// var t = new Text('new text'); // No such constructor!
+			// But we use factory instead:
+			var t = document.createTextNode('new Text'); // Use document.create*** and document.implementation to create a new node.
+
+
+			// Traversing a Document
+			// This function is passed a DOM Node object and checks to see if that node
+			// represents an HTML tagi.e., if the node is an Element object. It
+			// recursively calls itself on each of the children of the node, testing
+			// them in the same way. It returns the total number of Element objects
+			// it encounters. If you invoke this function by passing it the
+			// Document object, it traverses the entire DOM tree.
+			function countTags(n) { // n is a Node
+				var numtags = 0; // Initialize the tag counter
+				if (n.nodeType == 1 /*Node.ELEMENT_NODE*/) // Check if n is an Element
+					numtags++; // Increment the counter if so
+				var children = n.childNodes; // Now get all children of n
+				for(var i=0; i < children.length; i++) { // Loop through the children
+					numtags += countTags(children[i]); // Recurse on each one
+				}
+				return numtags; // Return the total
+			}
+
+			println('This document has ' + countTags(document) + ' tags'); // node.nodeType, node.childNodes, childNodes[index]
+
+			/**
+			* getText(n): Find all Text nodes at or beneath the node n.
+			* Concatenate their content and return it as a string.
+			*/
+			function getText(n) {
+				// Repeated string concatenation can be inefficient, so we collect
+				// the value of all text nodes into an array, and then concatenate
+				// the elements of that array all at once.
+				var strings = [];
+				getStrings(n, strings);
+				return strings.join("");
+				// This recursive function finds all text nodes and appends
+				// their text to an array.
+				function getStrings(n, strings) {
+					if (n.nodeType == 3 /* Node.TEXT_NODE */)
+						strings.push(n.data);
+					else if (n.nodeType == 1 /* Node.ELEMENT_NODE */) {
+						// Note iteration with firstChild/nextSibling
+						for(var m = n.firstChild; m != null; m = m.nextSibling) {
+							getStrings(m, strings);
+						}
+					}
+				}
+			}
+
+			println('All the text node in document.documentElement.firstChild: <b>' + getText(document.documentElement.firstChild) + '</b>');
+			// node.firstChild, node.lastChild, node.nextSibling, node.previousSibling
+
+
+			// Finding Elements in a Document
+			println(document); // node type: Node.DOCUMENT_NODE, HTMLDocument, root of DOM tree
+			println(document.documentElement); // <html> tag, node type: Node.ELEMENT_NODE, HTMLHtmlElement, root element of document.
+			println(document.documentElement.firstChild); // <head> tag, node type: Node.ELEMENT_NODE, HTMLHeadElement, sub-element of <html> tag.
+			println(document.documentElement.lastChild); // <body> tag, node type: Node.ELEMENT_NODE, HTMLBodyElement, sub-element of <html> tag.
+			
+			// Find a specified node directly rather than heritance searching above.
+		    println(document.getElementsByTagName('body')[0]); // get child elements directly by document.getElementsByTagName('tagName')[index];
+			println(document.documentElement.getElementsByTagName('head')[0]); // can be invoked on any node rather than document only.
+
+			// if you know a lot about the structure of the document
+			// var myParagraph = document.getElementsByTagName("p")[3];
+			// But it depends on so heavily on the structure of the document, it's not good. use the way above:
+			// <p id="specialParagraph">
+			// var myParagraph = document.getElementById("specialParagraph");
+
+			// Because getElementById() is so important that we can define a shorter name for it:
+			// If x is a string, assume it is an element id and look up the named element.
+			// Otherwise, assume x is already an element and just return it.
+			function $(x) {
+				if (typeof x == "string") return document.getElementById(x);
+				return x;
+			}
+
+			// Find a specific Table element within a document and count its rows
+			// invoke getElementById first, then getElementsByTagName
+			/**
+				var tableOfContents = document.getElementById("TOC");
+				var rows = tableOfContents.getElementsByTagName("tr");
+				var numrows = rows.length;
+			**/
+
+			// Find <a name="top">
+			var link = document.getElementsByName("top")[0];
+			// Find all <input type="radio" name="shippingMethod"> elements
+			var choices = document.getElementsByName("shippingMethod");
+
+			// Conclusion: We have document.getElementsTagName, document.getElementById and document.getElementsByName methods to find a specified tag.
+
+
+			// Modifying a Document
+			function sortkids(e) {
+				// This is the element whose children we are going to sort
+				if (typeof e == "string") e = document.getElementById(e);
+				// Transfer the element (but not text node) children of e to a real array
+				var kids = [];
+				for(var x = e.firstChild; x != null; x = x.nextSibling)
+					if (x.nodeType == 1 /* Node.ELEMENT_NODE */) kids.push(x);
+				// Now sort the array based on the text content of each kid.
+				// Assume that each kid has only a single child and it is a Text node
+				kids.sort(function(n, m) { // This is the comparator function for sorting
+					var s = n.firstChild.data; // text of node n
+					var t = m.firstChild.data; // text of node m
+					if (s < t) return -1; // n comes before m
+					else if (s > t) return 1; // n comes after m
+					else return 0; // n and m are equal
+				});
+				// Now append the kids back into the parent in their sorted order.
+				// When we insert a node that is already part of the document, it is
+				// automatically removed from its current position, so reinserting
+				// these nodes automatically moves them from their old position
+				// Note that any text nodes we skipped get left behind, however.
+				for(var i = 0; i < kids.length; i++) e.appendChild(kids[i]);
+			}
+
+			// This function recursively looks at Node n and its descendants,
+			// converting all Text node data to uppercase
+			function upcase(n) {
+				if (n.nodeType == 3 /*Node.TEXT_NODE*/) {
+					// If the node is a Text node, change its text to uppercase.
+					n.data = n.data.toUpperCase();
+				} else {
+					// If the node is not a Text node, loop through its children
+					// and recursively call this function on each child.
+					var kids = n.childNodes;
+					for(var i = 0; i < kids.length; i++) upcase(kids[i]);
+				}
+			}
+			// Text Node also has 'appendData', 'insertData', 'deleteData' and 'replaceData' method.
+
+			// This function takes a Node n, replaces it in the tree with an Element node
+			// that represents an HTML <b> tag, and then makes the original node the
+			// child of the new <b> element.
+			function embolden(n) {
+				if (typeof n == "string") n = document.getElementById(n); // Lookup node
+				var b = document.createElement("b"); // Create a new <b> element
+				var parent = n.parentNode; // Get the parent of the node
+				parent.replaceChild(b, n); // Replace the node with the <b> tag
+				b.appendChild(n); // Make the node a child of the <b> element
+			}
+			// document.createElement(), node.parentNode(), node.replaceChild(), node.appendChild() method.
+
+			// Modifying Attributes
+			function setAlignCenter(element) {
+				element.setAttribute('align', 'center'); // Set align='center'
+				element.align = 'center'; // same to above.
+			}
+
+			// Working with Document Fragments
+			/*
+				When a DocumentFragment is inserted into a document
+				(using any of the appendChild(), insertBefore(), or replaceChild() methods of the Node object),
+				it is not the DocumentFragment itself that is inserted, but each of its children.
+			*/
+			// Rever se the order of the children of Node n
+			function reverse(n) {
+				// Create an empty DocumentFragment as a temporary container
+				var f = document.createDocumentFragment();
+				// Now loop backward through the children, moving each one to the fragment.
+				// The last child of n becomes the first child of f, and vice-versa.
+				// Note that appending a child to f automatically removes it from n.
+				while(n.lastChild) f.appendChild(n.lastChild);
+				// Finally, move the children of f all at once back to n, all at once.
+				n.appendChild(f); // When we insert a node that is already part of the document, it is
+								  // automatically removed from its current position, so reinserting
+								  // these nodes automatically moves them from their old position
+			}
+
+
+			// Adding Content to a Document
+			// Document.createElement(), Document.createTextNode()
+			// Node.appendChild(), Node.insertBefore(), Node.replaceChild()
+			function makeRectangle(x, y, w, h) { // This is the function we want to debug
+				log.debug("entering makeRectangle"); // Log a message
+				var r = {x:x, y:y, size: { w:w, h:h }};
+				log.debug("New rectangle", r); // Log an object
+				log.debug("exiting makeRectangle"); // Log another message
+				return r;
+			}
+
+			// The innerHTML Property
+			var table = document.createElement("table"); // Create the <table> element
+			table.border = 1; // Set an attribute
+			// Add a Name|Type|Value header to the table
+			table.innerHTML = "<tr><th>Name</th><th>Type</th><th>Value</th></tr>"; // Set HTMLElement node.innerHTML to create descendant elements.
+			document.documentElement.lastChild.appendChild(table); // add created table element into existing body element.
+			println(document.getElementById('testDiv').innerHTML); // Get HTMLElement node.innerHTML to get the string of descendant elements.
+			println(document.getElementById('list').innerHTML);
+
+
+			// Example: A Dynamically Created Table of Contents
+			// See pdf version page 424
+			
+
+			// Querying Selected Text
+			function getSelectedText() {
+				if (window.getSelection) {
+					// This technique is the most likely to be standardized.
+					// getSelection() returns a Selection object, which we do not document.
+					return window.getSelection().toString();
+				}
+				else if (document.getSelection) {
+					// This is an older, simpler technique that returns a string
+					return document.getSelection();
+				}
+				else if (document.selection) {
+					// This is the IE-specific technique.
+					// We do not document the IE selection property or TextRange objects.
+					return document.selection.createRange().text;
+				}
+			}
+			// window.getSelection() and document.getSelection() above will fail to return text from <input> or <textarea>
+			// For IE: use document.selection property instead.
+			// For FireFox: use the way below:
+			function getTextFieldSelection(e) {
+				if (e.selectionStart != undefined && e.selectionEnd != undefined) {
+					var start = e.selectionStart;
+					var end = e.selectionEnd;
+					return e.value.substring(start, end);
+				}
+				else return ""; // Not supported on this browser
+			}
+
+		</script>
+	</body>
+</html>
+

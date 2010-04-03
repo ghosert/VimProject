@@ -1,0 +1,117 @@
+
+all: @BUILDLIBS@
+
+allegro/allegro.a:
+	cd allegro && $(MAKE)
+
+dlcompat/libdl.a:
+	cd dlcompat && $(MAKE)
+
+expat/expat.a:
+	cd expat && $(MAKE)
+
+libogg/src/.libs/libogg.a:
+	cd libogg && $(MAKE)
+
+libvorbis/lib/.libs/libvorbis.a: libogg/src/.libs/libogg.a
+	cd libvorbis && $(MAKE)
+
+libvorbis/lib/.libs/libvorbisfile.a: libogg/src/.libs/libogg.a
+	cd libvorbis && $(MAKE)
+
+libvorbis/lib/.libs/libvorbisenc.a: libogg/src/.libs/libogg.a
+	cd libvorbis && $(MAKE)
+
+libnyquist/libnyquist.a:
+	cd libnyquist && $(MAKE)
+
+libmad/.libs/libmad.a:
+	cd libmad && $(MAKE)
+
+libid3tag/.libs/libid3tag.a:
+	cd libid3tag && $(MAKE)
+
+libmad/mad.h: libmad/.libs/libmad.a
+
+libsamplerate/src/.libs/libsamplerate.a:
+	cd libsamplerate && $(MAKE)
+
+libresample/libresample.a:
+	cd libresample && $(MAKE)
+
+libflac/src/libFLAC/.libs/libFLAC.a:
+	cd libflac && $(MAKE)
+
+libflac/src/libFLAC++/.libs/libFLAC++.a:
+	cd libflac && $(MAKE)
+
+libsndfile/src/.libs/libsndfile.a:
+	cd libsndfile && $(MAKE) -C src
+
+portaudio/pa_unix_oss/portaudio.a:
+	cd portaudio/pa_unix_oss && $(MAKE)
+
+portaudio-v19/lib/libportaudio.a:
+	cd portaudio-v19 && $(MAKE)
+
+portaudio/pa_win_wmme/portaudio.a:
+	cd portaudio/pa_win_wmme && $(MAKE)
+
+portmixer/px_win_wmme/portmixer.a:
+	cd portmixer/px_win_wmme && $(MAKE)
+
+portaudio/pa_mac_core/portaudio.a:
+	cd portaudio/pa_mac_core && $(MAKE)
+
+portmixer/px_unix_oss/portmixer.a:
+	cd portmixer/px_unix_oss && $(MAKE)
+
+portmixer/px_mac_core/portmixer.a:
+	cd portmixer/px_mac_core && $(MAKE)
+
+soundtouch/source/SoundTouch/.libs/libSoundTouch.a:
+	cd soundtouch && $(MAKE)
+
+clean:
+	-$(MAKE) -C allegro clean
+	-$(MAKE) -C dlcompat clean	
+	-$(MAKE) -C expat clean
+	-$(MAKE) -C libid3tag clean
+	-$(MAKE) -C libmad clean
+	-$(MAKE) -C libogg clean
+	-$(MAKE) -C libsamplerate clean
+	-$(MAKE) -C libresample clean
+	-$(MAKE) -C libsndfile clean
+	-$(MAKE) -C libvorbis clean
+	-$(MAKE) -C libflac clean
+	-$(MAKE) -C portaudio/pa_unix_oss clean
+	-$(MAKE) -C portaudio/pa_mac_core clean
+	-$(MAKE) -C portaudio/pa_win_wmme clean
+	-$(MAKE) -C portmixer/px_unix_oss clean
+	-$(MAKE) -C portmixer/px_mac_core clean
+	-$(MAKE) -C portmixer/px_win_wmme clean
+	-$(MAKE) -C portaudio-v19 clean
+	-$(MAKE) -C soundtouch clean
+	-$(MAKE) -C libnyquist clean
+
+distclean:
+	-$(MAKE) -C allegro distclean
+	-$(MAKE) -C dlcompat distclean
+	-$(MAKE) -C expat distclean
+	-$(MAKE) -C libid3tag distclean
+	-$(MAKE) -C libmad distclean
+	-$(MAKE) -C libogg distclean
+	-$(MAKE) -C libsamplerate distclean
+	-$(MAKE) -C libresample distclean
+	-$(MAKE) -C libsndfile distclean
+	-$(MAKE) -C libvorbis distclean
+	-$(MAKE) -C libflac distclean
+	-$(MAKE) -C portaudio/pa_unix_oss distclean
+	-$(MAKE) -C portaudio/pa_mac_core distclean
+	-$(MAKE) -C portaudio/pa_win_wmme distclean
+	-$(MAKE) -C portmixer/px_unix_oss distclean
+	-$(MAKE) -C portmixer/px_mac_core distclean
+	-$(MAKE) -C portmixer/px_win_wmme distclean
+	-$(MAKE) -C portaudio-v19 distclean
+	-$(MAKE) -C soundtouch distclean
+	-$(MAKE) -C libnyquist distclean

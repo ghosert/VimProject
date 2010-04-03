@@ -1,0 +1,108 @@
+diff -r -u wxMac-2.4.2/include/wx/font.h wxMac-2.4.2-patched/include/wx/font.h
+--- wxMac-2.4.2/include/wx/font.h	2002-10-27 17:51:41.000000000 -0800
++++ wxMac-2.4.2-patched/include/wx/font.h	2006-10-24 23:57:27.000000000 -0700
+@@ -142,8 +142,8 @@
+     wxString GetWeightString() const;
+ 
+     // Unofficial API, don't use
+-    virtual void SetNoAntiAliasing( bool no = TRUE ) {  }
+-    virtual bool GetNoAntiAliasing() { return FALSE; }
++    virtual void SetNoAntiAliasing( bool no = TRUE ) { mNoAntiAliasing = no; }
++    virtual bool GetNoAntiAliasing() { return mNoAntiAliasing; }
+ 
+     // the default encoding is used for creating all fonts with default
+     // encoding parameter
+@@ -154,6 +154,8 @@
+     // get the internal data
+     wxFontRefData *GetFontData() const
+         { return (wxFontRefData *)m_refData; }
++
++    bool mNoAntiAliasing;
+     
+ private:
+     // the currently default encoding: by default, it's the default system
+diff -r -u wxMac-2.4.2/src/common/intl.cpp wxMac-2.4.2-patched/src/common/intl.cpp
+--- wxMac-2.4.2/src/common/intl.cpp	2003-09-20 03:24:25.000000000 -0700
++++ wxMac-2.4.2-patched/src/common/intl.cpp	2006-11-12 21:15:56.000000000 -0800
+@@ -34,6 +34,10 @@
+ #include <locale.h>
+ #include <ctype.h>
+ #include <stdlib.h>
++
++// dmazzoni: langinfo.h is not included in Mac OS X 10.2
++#undef HAVE_LANGINFO_H
++
+ #ifdef HAVE_LANGINFO_H
+   #include <langinfo.h>
+ #endif
+diff -r -u wxMac-2.4.2/src/mac/app.cpp wxMac-2.4.2-patched/src/mac/app.cpp
+--- wxMac-2.4.2/src/mac/app.cpp	2003-06-03 06:58:19.000000000 -0700
++++ wxMac-2.4.2-patched/src/mac/app.cpp	2006-11-12 21:17:49.000000000 -0800
+@@ -1501,6 +1501,11 @@
+         	sleepTime = 0 ;
+         else
+         	sleepTime = GetCaretTime() / 2 ;
++
++        // dmazzoni: hack to never sleep more than 1/60 of a second
++        // otherwise Audacity's user interface doesn't update
++        // frequently enough
++        sleepTime = 1;
+     }
+     if ( event.what != kHighLevelEvent )
+         SetRectRgn( (RgnHandle) s_macCursorRgn , event.where.h , event.where.v ,  event.where.h + 1 , event.where.v + 1 ) ;
+diff -r -u wxMac-2.4.2/src/mac/dc.cpp wxMac-2.4.2-patched/src/mac/dc.cpp
+--- wxMac-2.4.2/src/mac/dc.cpp	2003-09-20 03:24:33.000000000 -0700
++++ wxMac-2.4.2-patched/src/mac/dc.cpp	2006-11-12 21:20:57.000000000 -0800
+@@ -1365,7 +1365,11 @@
+ 	long xx = XLOG2DEVMAC(x);
+ 	long yy = YLOG2DEVMAC(y);
+ #if TARGET_CARBON
+-	bool useDrawThemeText = ( DrawThemeTextBox != (void*) kUnresolvedCFragSymbolAddress ) ;
++        // dmazzoni hack: Audacity is too slow on Mac OS X 10.2
++        // unless we turn off "theme text" (anti-aliased":
++	// bool useDrawThemeText = ( DrawThemeTextBox != (void*) kUnresolvedCFragSymbolAddress ) ;
++        bool useDrawThemeText = false;
++
+ 	if ( IsKindOf(CLASSINFO( wxPrinterDC ) ) ||  m_font.GetNoAntiAliasing() )
+ 	    useDrawThemeText = false ;
+ #endif
+@@ -1512,7 +1516,10 @@
+ 	FontInfo fi ;
+ 	::GetFontInfo( &fi ) ;
+ #if TARGET_CARBON
+-	bool useGetThemeText = ( GetThemeTextDimensions != (void*) kUnresolvedCFragSymbolAddress ) ;
++        // dmazzoni hack: Audacity is too slow on Mac OS X 10.2
++        // unless we turn off "theme text" (anti-aliased":
++        bool useGetThemeText = false;
++	//bool useGetThemeText = ( GetThemeTextDimensions != (void*) kUnresolvedCFragSymbolAddress ) ;
+ 	if ( IsKindOf(CLASSINFO( wxPrinterDC ) ) || ((wxFont*)&m_font)->GetNoAntiAliasing() )
+ 	    useGetThemeText = false ;
+ #endif
+diff -r -u wxMac-2.4.2/src/mac/dcclient.cpp wxMac-2.4.2-patched/src/mac/dcclient.cpp
+--- wxMac-2.4.2/src/mac/dcclient.cpp	2003-09-20 03:24:33.000000000 -0700
++++ wxMac-2.4.2-patched/src/mac/dcclient.cpp	2006-11-12 21:21:28.000000000 -0800
+@@ -72,6 +72,12 @@
+ 
+ wxWindowDC::~wxWindowDC()
+ {
++   // dmazzoni - this fixes a serious crashing bug
++   // To trigger it more rapidly, set the MallocScribble and MallocGuardEdges
++   // environment variables first...
++   if (!m_macPort)
++      return;
++
+     // set clipping region to full window so that the OS can draw controls everywhere
+     RgnHandle       visRgn = NewRgn() ;
+     GetPortVisibleRegion( (CGrafPtr) m_macPort , visRgn );
+diff -r -u wxMac-2.4.2/src/mac/font.cpp wxMac-2.4.2-patched/src/mac/font.cpp
+--- wxMac-2.4.2/src/mac/font.cpp	2002-11-24 09:34:15.000000000 -0800
++++ wxMac-2.4.2-patched/src/mac/font.cpp	2006-10-24 23:58:23.000000000 -0700
+@@ -161,6 +161,8 @@
+                     const wxString& faceName,
+                     wxFontEncoding encoding)
+ {
++    mNoAntiAliasing = false;
++
+     UnRef();
+     m_refData = new wxFontRefData(pointSize, family, style, weight,
+                                   underlined, faceName, encoding);

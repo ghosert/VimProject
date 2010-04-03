@@ -1,0 +1,53 @@
+/* switches.h template file
+*/
+
+#undef HAS_STDLIB_H
+#undef HAS_SYS_TYPES_H
+#undef HAS_SYS_STAT_H
+#undef HAS_STAT_H
+#undef HAS_MALLOC_H
+
+#undef HAS_GETTIMEOFDAY
+
+#undef READLINE
+
+#undef XL_BIG_ENDIAN
+#undef XL_LITTLE_ENDIAN
+
+#undef USE_RAND
+#undef USE_RANDOM
+
+/* define this to be printf, or define your own fn of the form
+     void nyquist_printf(char *format, ...);
+   (for a GUI)
+*/
+#undef nyquist_printf
+
+#undef NEED_ULONG
+#undef NEED_USHORT
+#undef NEED_BYTE
+
+#undef NEED_DEFINE_MALLOC
+
+#undef NEED_ROUND
+
+/* explicitly choose a platform */
+#undef UNIX
+#undef WINDOWS
+#undef MICROSOFT
+#undef DOS
+#undef MACINTOSH
+
+#undef BUFFERED_SYNCHRONOUS_INPUT
+#define SPACE_FOR_PLAY 10000
+#define MAX_CHANNELS 16
+
+/* this will enable code to read midi files, etc. */
+#define CMTSTUFF
+
+/* NYQUIST tells some CMT code that we're really in
+ * XLISP and NYQUIST
+ */
+#define NYQUIST
+
+#include "swlogic.h"

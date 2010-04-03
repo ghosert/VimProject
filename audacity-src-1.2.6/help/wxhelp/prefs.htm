@@ -1,0 +1,318 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+<title>Preferences</title>
+</head>
+
+<body text="#000000" link="#000099" vlink="#000099">
+
+<h1>Preferences</h1>
+
+<font color="#000099">
+<h2>Audio I/O</h2>
+</font>
+
+<ul>
+<li><b>Playback Device</b> - Use this control to select the device
+    that will be used for playback / audio output.  This is usually
+    only applicable if your computer has more than one sound card.
+    <p></li>
+
+<li><b>Recording Device</b> - Select the devce that will be used
+    for recording / audio input.  Note that many devices have
+    multiple <i>sources</i> such as Microphone and Line in - to
+    select the input source you will need to use the 
+    <a href="toolbar_mixer.htm">Mixer Toolbar</a>.<br><p>
+    For finer control over audio I/O, open your system's Sound
+    control panel or the control panel that came with your
+    sound card.
+    <p></li>
+<li><b>Recording Channels</b> - Use this to select the number of
+    channels to record simultaneously.  Select 1 for mono and
+    2 for stereo.  Audacity will support recording more simultaneous
+    channels, but note that most sound cards only support stereo, and
+    even if your sound card supports more than 2 inputs, you need a
+    fast computer and a large, fast hard disk to record many channels
+    for a long time.<p>
+    Mono recording is not the same on all computers or sound cards.
+    Sometimes recording mono only records the left channel, and sometimes
+    it mixes the left and right channels.
+    <p></li>
+
+<li><b>Play other tracks while recording new one</b> - 
+    When this box is checked, Audacity will play existing tracks
+    when you press record - otherwise it simply records the new
+    track without letting you hear what you've already recorded.
+    You can use this option to record harmonies with yourself or
+    add a voiceover.
+    <p>
+    You may notice that when you play the two tracks you recorded
+    together, they aren't synchronized.  This is unavoidable to a
+    certain extent, though future versions of Audacity may try to
+    minimize it even more.  To fix it, you will need to grab the
+    <a href="toolbar_control.htm">Time Shift</a> tool and slide one
+    of the tracks around until it sounds right.
+    <p></li>
+    <li><b>Hardware Playthrough</b> (Mac Only) - plays the audio you are
+    recording straight back out to your headphones or speakers so you can
+    hear it. This option is done in harware, so it is fast and doesn't
+    consume resources. However, it is only possibly if input and output
+    are on the same sound device.
+    <br/>PC users can do the same thing in their volume control
+    settings, turning up the relevant audio input.<p></li>
+    <li><b>Software Playthrough</b> - Does the same thing as hardware
+    playthrough, but in software. This means that the audio you hear may be
+    slightly delayed relative to the input, and activating this option
+    will use some more system resources. However, it works on all systems, 
+    even if you are recording from one device and playing back through
+    another.<p></li>
+</ul>
+
+<font color="#000099">
+<h2>Quality</h2>
+</font>
+
+<ul>
+
+<li><b>Default Sample Rate</b> - This controls the sample rate of new
+    projects.  To change the sample rate of an existing project,
+    use the control in the lower-left corner of the main project window.
+    <p>
+
+<li><b>Default Sample Format</b> - This controls the default format used
+    to store audio samples.  16-bit takes up the least space and is
+    equivalent to audio CD quality.  32-bit float takes up twice as
+    much space but is much more flexible.
+    <p>
+    If you have a fast computer and enough disk space, you should always
+    use 32-bit float samples while editing, and then export your final
+    mix as a 16-bit WAV file (the default).
+    <p>
+
+<li><b>Real-time sample rate converter</b> - Audacity has more than one
+    sample rate converter that's used when you have a track that's not
+    the same sample rate as the project.  This option lets you set the
+    converter used during real-time playback, which can be different than
+    the one you use during Export or mixing.
+    <p>
+
+<li><b>High-quality sample rate converter</b> - Audacity has more than one
+    sample rate converter that's used when you have a track that's not
+    the same sample rate as the project.  This option lets you set the
+    converter used during Export and mixing, which can be different than
+    the one you use for real-time playback.
+    <p>
+
+<li><b>Real-time dither</b> - Dithering is used when converting
+    high-quality samples with a lot of dynamic range, to CD-quality
+    samples, with less dynamic range.  A small amount of dithering
+    can make the audio sound a little bit better, but it can also
+    slow down processing a little bit.  This option lets you set the
+    dithering used for real-time playback.
+    <p>
+
+<li><b>High-quality dither</b> - Dithering is used when converting
+    high-quality samples with a lot of dynamic range, to CD-quality
+    samples, with less dynamic range.  A small amount of dithering
+    can make the audio sound a little bit better, but it can also
+    slow down processing a little bit.  This option lets you set the
+    dithering used during Export and mixing.
+    <p>
+
+</ul>
+
+<font color="#000099">
+<h2>File Formats</h2>
+</font>
+
+<ul>
+<li><b>When importing uncompressed audio files into Audacity</b>
+
+   <ul>
+   <li><b>Make a copy of the file before editing (safer)</b> -
+       Selecting this means that Audacity will take longer to
+       import files, but it will always have its own copy of any
+       audio you are using in a project.  You can move, change,
+       or throw away your files immediately after you open or
+       import them into Audacity.
+       <p>
+
+   <li><b>Read directly from the original file (faster)</b> -
+       Selecting this means 
+       that Audacity depends on your original audio files
+       being there, and only stores changes you make to these
+       files.  If you move, change, or throw away one of the files
+       you imported into Audacity, your project may become
+       unusable.  However, because Audacity doesn't need to
+       make copies of everything first, it can import files
+       in much less time.
+       <p>
+   </ul>
+
+<li><b>Uncompressed Export Format</b> - This lets you select the
+    format that Audacity will use when you export uncompressed
+    files.  11 common options are displayed in the list, but you 
+    can also select "Other" and choose a nonstandard file format
+    for Audacity to export.
+    <p>
+
+<li><b>Ogg Export Setup</b> - Use this control to set the
+    quality of Ogg Vorbis exporting.  Ogg Vorbis is a compressed
+	 audio format similar to MP3, but free of patents and
+	 licensing fees.  A normal quality Ogg Vorbis file is
+	 encoded with a quality setting of "5".  Note that unlike
+	 MP3 encoding, Ogg Vorbis does not let you set a bitrate,
+	 because some audio clips are easier to compress than
+	 others.  Increasing the quality will always increase the
+	 file size, however.
+    <p>
+
+<li><b>MP3 Export Setup</b> - Use these controls to locate your
+    MP3 encoder and set the quality of MP3 encoding.  Higher
+    quality files take up more space, so you will need to find
+    the level of quality you feel is the best compromise.
+    For more information, see
+    <a href="exportmp3.htm">Exporting MP3 Files</a>.
+    <p>
+
+</ul>
+
+<font color="#000099">
+<h2>Spectrograms</h2>
+</font>
+
+You can view any audio track as a Spectrogram instead of a
+Waveform by selecting one of the Spectral views from the
+<a href="menu_track.htm">Track Pop-Down Menu</a>.
+This dialog lets you adjust some of the settings for these spectrograms.
+<p>
+
+<ul>
+<li><b>FFT Size</b> - The size of the Fast Fourier Transform (FFT)
+    affects how much vertical (frequency) detail you see.  Larger
+    FFT sizes give you more bass resolution and less temporal (timing)
+    resolution, and they are slower.
+
+<li><b>Grayscale</b> - Select this for gray spectrograms instead of
+    colored ones.
+
+<li><b>Maximum Frequency</b> - Set this value anywhere from a couple
+    of hundred hertz to half the sample rate (i.e. 22050 Hz if the
+    sample rate is 44100 Hz).  For some applications, such as speech
+    recognition or pitch extraction, very high frequencies are not
+    important (visually), so this allows you to hide these and only
+    focus on the ones you care about.
+</ul>
+
+<font color="#000099">
+<h2>Directories</h2>
+</font>
+
+   Use this panel to set the location of Audacity's temporary
+   directory (folder).  Audacity uses this directory whenever
+   you work on a project that you haven't saved as an Audacity Project
+   (AUP file) yet.
+   You have to restart Audacity (close and open it again) for
+   changes to the temporary directory to take effect.
+</p>
+
+<font color="#000099">
+<h2>Interface</h2>
+</font>
+
+<ul>
+
+<li><b>Autoscroll while playing</b> - Scrolls the window for you
+    while playing, so that the playback cursor is always in the window.
+    This can hurt playback performance on slower computers.
+   <p>
+
+<li><b>Always allow pausing</b> - Normally the Pause button is only
+    enabled while you are playing or recording.  Checking this box
+    allows you to set the pause button anytime, which allows you
+    to press Record and not have the recording start until you
+    unpause it.  Sometimes starting a paused recording can be faster
+    than starting to record in the first place.
+   <p>
+
+<li><b>Always allow playing</b> - Normally if you press Play whilst audacity
+    is playing, then nothing happens.
+    Checking this box changes the behaviour so that if
+    you press play whilst audacity is playing then playback is stopped and
+    re-started from the same point as last time.
+   <p>
+
+<li><b>Update spectrogram while playing</b> - Because spectrograms are
+    slower to draw, normally they are not drawn during playback, but this
+    option lets you draw the spectrograms anyway.
+   <p>
+
+<li><b>Enable Edit Toolbar</b> - Sets whether or not you want to display
+    the <a href="toolbar_edit.htm">Edit Toolbar</a>, which has some
+    common shortcuts for editing commands.
+
+<li><b>Enable Mixer Toolbar</b> - Sets whether or not you want to display
+    the <a href="toolbar_mixer.htm">Mixer Toolbar</a>, which lets you
+    set the volume levels and input source.
+
+<li><b>Enable Meter Toolbar</b> - Sets whether or not you want to display
+    the <a href="toolbar_meter.htm">Meter Toolbar</a>, which lets you
+    monitor the input and output audio levels.
+
+<li><b>Quit Audacity upon closing last window</b> - By default on Windows
+    and X-Windows (but not Mac OS), Audacity quits when you close the
+    last project window.  If you uncheck this box, Audacity will open a
+    new blank document instead of quitting.  To quit Audacity in this case,
+    you must specifically select Exit (or Quit) from the File menu.
+   <p>
+
+<li><b>Enable dragging of left and right selection edges</b> - Normally,
+   when you move the mouse over the left and right edge of a selection,
+   the cursor changes to a left or right pointer, and you can adjust
+   that edge of the selection independently.  If you don't like this
+   feature, uncheck this box, and then clicking will always create
+   a new selection (unless you hold down Shift to extend an existing
+   selection).
+   <p>
+
+<li><b>Language</b> - sets the language used by Audacity.  Language
+    files are named "audacity.mo" and are found in the "Languages"
+    folder on Windows and Mac OS X, or in /usr/share/locale or
+    /usr/local/share/locale on most Unix systems.  Audacity will detect
+    new languages the next time you start it.
+   <p>
+</ul>
+
+<font color="#000099">
+<h2>Keyboard</h2>
+</font>
+
+This panel lets you change keyboard shortcuts.  All of the commands
+that appear in Audacity menus appear on the left, along with a few
+other buttons that can get keyboard shortcuts.  To change a command,
+first click on the command you want to change.  Then type the new
+keyboard shortcut on your keyboard.  Verify that the correct shortcut
+appears in the box below.  If it's what you want, press the <b>Set</b>
+button.  Or to get rid of a keyboard shortcut, press <b>Clear</b>.
+<p>
+To reset to Audacity's defaults, press the <b>Defaults</b> button.
+This will get rid of any changes you have made.
+<p>
+If you have customized your keyboard layout and want to share it
+with someone else, you can press <b>Save...</b> and save your complete
+keyboard layout as an XML file that you can share.  To load an existing
+layout, press the <b>Load...</b> button and locate the XML file.
+<p>
+
+<font color="#000099">
+<h2>Mouse</h2>
+</font>
+
+This panel doesn't let you change anything, but it lets you view
+all of the commands and actions that you can do using the mouse,
+many by holding down extra modifier keys.
+<p>
+
+</body>
+</html>
+

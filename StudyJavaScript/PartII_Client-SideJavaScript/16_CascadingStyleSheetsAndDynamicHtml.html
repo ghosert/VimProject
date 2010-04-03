@@ -1,0 +1,356 @@
+<html>
+	<head>
+		<script src="Shadows.js"></script>  <!-- include module -->
+		<script src="CSSClass.js"></script>  <!-- include module -->
+		<script>
+			function println(obj) {
+				document.write(obj + '<br/>');
+			}
+			function $(name) {
+				if (typeof name == 'string') {
+					return document.getElementById(name);
+				}
+				return name;
+			}
+		</script>
+
+		<!-- Querying Element Position and Size -->
+		<style type="text/css" id="cssid0">
+			<!--
+			* {
+				padding: 0;
+				margin: 0;
+			}
+			#test1 {
+				visibility: hidden;
+			}
+			a:link#computedStyle {
+				color: green;
+			}
+			a:visited#computedStyle {
+				color: black;
+			}
+			a#computedStyle {
+				font-weight: bold;
+			}
+			.scriptingCssClasses1 {
+				background-color: yellow;
+			}
+			.scriptingCssClasses2 {
+				color: green;
+			}
+			.scriptingCssClasses3 {
+				font-weight: bold;
+			}
+			.scriptingCssClasses4 {
+				font-weight: normal;
+			}
+			-->
+		</style>
+
+		<!-- Scripting Stylesheets -->
+		<style type="text/css" id="cssid1">
+			* {
+				background-color: white;
+			}
+		</style>
+		<script>
+			// Disable cssid1 by default when loading page.
+			// If it is <link> tag rather than <script> tag, you can also set <link rel="alternate stylesheet" xxx> to disable by default.
+			$('cssid1').disabled = true;
+		</script>
+	</head>
+
+    <body onload="Shadows.addAll();"> <!-- add shadows on load -->
+
+		<!-- CSS Positioning Example: Shadowed Text, Way 1: Hard Code. -->
+		<div style="font: bold 32pt sans-serif;"> <!--shadows look best on big text-->
+			<!-- Shadowed text must be relatively positioned, so we can offset the -->
+			<!-- the shadows from its normal position in the flow -->
+			<span style="position:relative;">
+			<!-- These are 3 shadows of different colors, using absolute positioning -->
+			<!-- to offset them different amounts from the regular text -->
+			<span style="position:absolute; top:5px; left:5px; color: #ccc">Shadow</SPAN> <span
+			style="position:absolute; top:3px; left:3px; color: #888">Shadow</SPAN> <span
+			style="position:absolute; top:1px; left:1px; color: #444">Shadow</SPAN>
+			<!-- And this is the text that casts the shadow. We use relative -->
+			<!-- positioning so that it appears on top of its shadows -->
+			<span style="position:relative">Shadow</SPAN> </SPAN> | No Shadow
+			<!-- For comparison, here is some nonshadowed text -->
+		</div>
+
+		<!-- CSS Positioning Example: Shadowed Text, Way 2: Script DOM. -->
+		<div style="font: bold 32pt sans-serif;"> <!-- use big fonts -->
+			<!-- Note the shadow attribute here -->
+			<span shadow='5px 5px #ccc 3px 3px #888 1px 1px #444'>Shadow</span> | No Shadow
+		</div>
+
+		<!-- Querying Element Position and Size -->
+		<div id="testQueryPositionDiv" style="position:relative; top:50px; left:100px;">
+			<span id="testQueryPositionSpan" style="position:absolute; top:50px; left:100px;">
+				Test Query Position
+			</span>
+		</div>
+
+		<!-- Example: Overlapping Translucent Windows -->
+		<a href="ExampleOverlappingTranslucentWindows.html">Overlapping Translucent Windows</a>
+
+		<br/>
+
+		<!-- Scripting Inline Styles -->
+		<h1 id='test1'>Test Scripting Inline Styles</h1>
+		<h1 id='test2' style='visibility: hidden;'>Test Scripting Inline Styles</h1>
+		<a href="javascript: test1.style.visibility='visible'; void 0;">Don't hide test1 anymore.</a>
+		<h1 id='test3' style='position:relative; left: 30px; top: 30px;'>Test Scripting Inline Styles</h1>
+
+		<br/>
+
+		<!-- DHTML Animations -->
+		<!-- This div is the element we are animating -->
+		<div id="urgent"><h1>Red Alert!</h1>The Web server is under attack!</div>
+
+		<br/>
+
+		<!-- Scripting Computed Styles -->
+		<a id='computedStyle' href='#'>Test Scripting Computed Styles</a>
+
+		<br/>
+
+		<!-- Scripting CSS Classes -->
+		<input id='testScriptingCssClasses' class='scriptingCssClasses1 scriptingCssClasses2' type='textbox' value="test123456789"/>
+		<a href='javascript: changeFontWeight()'>Change font-weight</a>
+
+		<br/>
+
+		<!-- Scripting Stylesheets -->
+		<input type="checkbox" onclick="enableCSS('cssid1', this.checked)"/>enable/disable cssid1
+
+		<br/>
+
+	</body>
+
+	<script>
+
+		// For CSS viewpoint, <font> is deprecated tag.
+		// CSS reduces the efforts on how to draw, it just indicates what to draw.
+		// And JS code works together with CSS to indicate when to draw.
+
+		/*
+			Used together, CSS and JavaScript enable a variety of visual effects loosely referred to as Dynamic HTML (DHTML).[*]
+			[*] Many advanced DHTML effects also involve the event-handling techniques shown in Chapter 17.
+		*/
+
+		// CSS Positioning Example: Shadowed Text
+		// Compared with Way 1 and Way 2 above:
+		// Way 2 is invoking Shadows.addlAll() js code: It scans the document for tags that have a shadow attribute. When it finds such a tag,
+		// it parses the value of the shadow attribute and uses DOM scripting to add shadows to the text contained within the tag.
+		// So Way 2 is using js code script dom and produce the html elements/attributes you see in the Way 1.
+
+		// Querying Element Position and Size
+		// HTMLElement has element.offsetLeft, element.offsetTop, element.offsetWidth and element.offsetHeight properties to indicate its position.
+		// Get the X coordinate of the element e.
+		function getX(e) {
+			var x = 0; // Start with 0
+			while(e) { // Start at element e
+				x += e.offsetLeft; // Add in the offset
+				e = e.offsetParent; // And move up to the offsetParent
+			}
+			return x; // Return the total offsetLeft
+		}
+		println(document.getElementById('testQueryPositionDiv').offsetLeft); // 100
+		println(getX(document.getElementById('testQueryPositionDiv'))); // 100
+		println(document.getElementById('testQueryPositionSpan').offsetLeft); // 100, offsetLeft here means the 'offset' compared with its parent.
+		println(getX(document.getElementById('testQueryPositionSpan'))); // 200, if you want to get total 'offset', using fuction getX().
+		// For the "overflow" CSS attribute(See Below), if you don't want to take scroll bar size into account, using the way below:
+		function getY(element) {
+			var y = 0;
+			for(var e = element; e; e = e.offsetParent) // Iterate the offsetParents
+			y += e.offsetTop; // Add up offsetTop values
+			// Now loop up through the ancestors of the element, looking for
+			// any that have scrollTop set. Subtract these scrolling values from
+			// the total offset. However, we must be sure to stop the loop before
+			// we reach document.body, or we'll take document scrolling into account
+			// and end up converting our offset to window coordinates.
+			for(e = element.parentNode; e && e != document.body; e = e.parentNode)
+				if (e.scrollTop) y -= e.scrollTop; // subtract scrollbar values
+			// This is the Y coordinate with document-internal scrolling accounted for.
+			return y;
+		}
+
+		// The Third Dimension: z-index(CSS Attributes)
+		/*
+			When two or more elements overlap, they are drawn in order from lowest to highest z-index; the element with the highest z-index
+			appears on top of all the others. If overlapping elements have the same z-index, they are drawn in the order in which they appear
+			in the document so that the last overlapping element appears on top.
+		*/
+
+		// Element Display and Visibility
+		// Two CSS attributes affect the visibility of a document element: visibility and display.
+		// visibility: hidden/visible, still occupy the space.
+		// display: none, not occupy the space.
+		// see more details in pdf version page 451 if necessary.
+
+		// Partial Visibility: overflow and clip
+		/*
+			The visibility attribute allows you to completely hide a document element. The overflow and clip
+			attributes allow you to display only part of an element. The overflow attribute specifies what happens
+			when the content of an element exceeds the size specified (with the width and height style attributes, for
+			example) for the element. The allowed values and their meanings for this attribute are as follows:
+
+			visible
+			Content may overflow and be drawn outside of the element's box if necessary. This is the default.
+
+			hidden
+			Content that overflows is clipped and hidden so that no content is ever drawn outside the region
+			defined by the size and positioning attributes.
+
+			scroll
+			The element's box has permanent horizontal and vertical scrollbars. If the content exceeds the size
+			of the box, the scrollbars allow the user to scroll to view the extra content. This value is honored
+			only when the document is displayed on a computer screen; when the document is printed on
+			paper, for example, scrollbars obviously do not make sense.
+
+			auto
+			Scrollbars are displayed only when content exceeds the element's size rather than being
+			permanently displayed.
+
+			While the overflow property allows you to specify what happens when an element's content is bigger than
+			the element's box, the clip property allows you to specify exactly which portion of an element should be
+			displayed, whether or not the element overflows. This attribute is especially useful for scripted DHTML
+			effects in which an element is progressively displayed or uncovered.
+
+			The syntax of the clip attribute is: rect(top right bottom left) px based, no percentage
+
+			For example, to display only a 100 x 100-pixel portion of an element, you can give that element this style attribute:
+			style="clip: rect(0px 100px 100px 0px);"
+
+			You may also use the auto keyword for any of the four values to specify that the edge of the clipping region is the same as the
+			corresponding edge of the element's box. For example, you can display just the leftmost 100 pixels of an element with this style
+			attribute:
+			style="clip: rect(auto 100px auto auto);"
+		*/
+
+		// Example: Overlapping Translucent Windows
+		// See html sample above.
+
+
+		// Scripting Inline Styles
+		/*
+			It is important to understand that the CSS2Properties object you obtain with the style property of an
+			element specifies only the "INLINE STYLES" of the element. You cannot use the properties of the
+			CSS2Properties object to obtain information about the "STYLESHEET STYLES" that apply to the element.
+			See the sample below:
+		*/
+		var test1 = document.getElementById('test1');
+		println(test1.style.visibility); // You get nothing here, because we only set "STYLESHEET STYLES" hidden for 'test1' id.
+		var test2 = document.getElementById('test2');
+		println(test2.style.visibility); // You get 'hidden' here, because we set "INLINE STYLES" hidden for 'test2' id.
+		// When you set css to element.style, you are always setting INLINE STYLE which will overwrite STYLESHEET STYLES, see HTML sample above.
+
+		// Name conventions: CSS Attributes in JavaScript
+		// no '-' in javascript, so:
+		// element.style.font-family='sans-serif' is wrong.
+		// element.style.fontFamily='sans-serif' is right.
+		// And 'float' in css attribute will confuse javascript which has 'float' keyword as well, so:
+		// element.style.cssFloat='left'
+
+		// Working with Style Properties
+		// 1. all the values must be specified as strings.
+		// 2. positioning properties require units.
+		/*
+		e.style.left = 300; // Incorrect: this is a number, not a string
+		e.style.left = "300"; // Incorrect: the units are missing
+		e.style.left = "300px"; // Correct
+		*/
+		// When query CSS2Properties object, it return the inline style values with strings, not numbers.
+		var test3 = document.getElementById('test3');
+		println(test3.style.left); // return '30px'
+		var total = test3.style.left + test3.style.top;
+		println(total); // get 30px30px which may not be what you want, use below instead.
+		var total = parseInt(test3.style.left) + parseInt(test3.style.top);
+		println(total); // get 60 which may be expected.
+
+		// DHTML Animations
+		/*
+			There is nothing particularly special about DHTML animations; all you have to do is periodically(setTimeout()/setInterval()) change
+			one or more style properties of an element or elements. For example, to slide an image into place from
+			the left, you increment the image's style.left property repeatedly until it reaches the desired position.
+			Or you can repeatedly modify the style.clip property to "unveil" the image pixel by pixel.
+		*/
+		var e = document.getElementById("urgent"); // Get Element object
+		e.style.border = "solid black 5px"; // Give it a border
+		e.style.padding = "50px"; // And some padding
+		var colors = ["white", "yellow", "orange", "red"] // Colors to cycle through
+		var nextColor = 0; // Position in the cycle
+		// Invoke the following function every 500 milliseconds to animate border color
+		setInterval(function() {
+		e.style.borderColor=colors[nextColor++%colors.length];
+		}, 3000);
+		// See more about animations from Scripaculous JavaScript Library includes a sophisticated animation framework: http://script.aculo.us/
+		// Another way I myself found is MoonTools. And jQuery seems very famus as well.
+		
+
+		// Scripting Computed Styles
+		// HTMLElement.style above includes only INLINE STYLES info, use the way below to get CSS STYLESHEET STYLES:
+		// W3C standard API: window.getComputedStyle(element, pseudoelement) for example: window.getComputedStyle(HTMLAElEMENT, ':link')
+		// The second paramter above can not be ignored, set null if no pseduo element.
+		linkStyle = window.getComputedStyle($('computedStyle'), ':link');
+		println(linkStyle.color);
+		visitedStyle = window.getComputedStyle($('computedStyle'), ':visited');
+		println(visitedStyle.color);
+		fontStyle = window.getComputedStyle($('computedStyle'), null);
+		println(fontStyle.fontWeight);
+		// unlike element.style above, the return object of getComputedStyle is read-only.
+		// IE does not support getComputedStyle(), it provides HTMLElement.currentStyle property instead, and it does not support pseudo elements.
+		/* cross-platform code like below:
+			var p = document.getElementsByTagName("p")[0]; // Get first paragraph of doc
+			var typeface = ""; // We want its typeface
+			if (p.currentStyle) // Try simple IE API first
+				typeface = p.currentStyle.fontFamily;
+			else if (window.getComputedStyle) // Otherwise use W3C API
+				typeface = window.getComputedStyle(p, null).fontFamily;
+		*/
+		// Computed Styles are quirky, querying them does not always provide the information you want in some case, you can try on it later.
+
+
+		// Scripting CSS Classes
+		// Dynamically setting HTMLElment.className
+		// HTML class attribute may list more than one class, see the html sample above.
+		// Use the CSSClass.js to test whether an elment is a member of a class and fucntions to add, remove classes from an element's className prop.
+		function changeFontWeight() {
+			var exists = CSSClass.is('testScriptingCssClasses', 'scriptingCssClasses3');
+			if (exists) {
+				CSSClass.remove('testScriptingCssClasses', 'scriptingCssClasses3');
+				CSSClass.add('testScriptingCssClasses', 'scriptingCssClasses4');
+			} else {
+				CSSClass.remove('testScriptingCssClasses', 'scriptingCssClasses4');
+				CSSClass.add('testScriptingCssClasses', 'scriptingCssClasses3');
+			}
+		}
+
+
+		// Scripting Stylesheets
+		// Enabling and disabling stylesheets: <link>, <style> elements have disabled property, set it to enable/disable stylesheets.
+		// See html sample above.
+		function enableCSS(sheetid, enabled) {
+			$(sheetid).disabled = !enabled;
+		}
+
+		// Stylesheet Objects and Stylesheet Rules
+		/*
+			In addition to allowing you to enable and disable the <link> and <style> tags that refer to stylesheets,
+			the Level 2 DOM also defines a complete API for querying, traversing, and manipulating stylesheets
+			themselves.
+					
+			In general, manipulating stylesheets directly is not normally a useful thing to do. Instead of adding new
+			rules to a stylesheet, for example, it is typically better to leave your stylesheets static and script the
+			className property of your elements instead.
+
+			So if you are still interested in this portion, see pdf version page 473 - 476.
+		*/
+		
+
+
+	</script>
+</html>
+

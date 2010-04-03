@@ -1,0 +1,132 @@
+<html>
+	<head>
+	<script>
+
+		function println(obj) {
+			document.write(obj + '<br/>');
+		}
+
+		// THE CODE BELOW SOME ARE FOR MODULE DEVELOPERS, OTHERS AER FOR CONSUMER DEVELOPERS, tag [CONSUMER] if it's for the latter.
+
+		// You can put the code in a file named Class.js, so we now have a 'Class' module, see details in "Class.js"
+
+		// If we have two Class.js which will conflict each other, add them into sperated subdirectory,
+		// and subdiretory should be part of the module name. like: "flanagan/Class.js" (open it for more details)
+
+		// A module might be a single function, a JavaScript class, or even a set of cooperating classes and functions.
+		// See sample in: "com.davidflanagan.Complex.js":
+
+		// Module initialization code
+		// Put this code below into any module you want to trigger.
+		(function() { // Define an anonymous function. No name means no global symbol
+			// Code goes here
+			// Any variables are safely nested within the function,
+			// so no global symbols are created.
+		})(); // End the function definition and invoke it.
+
+
+		// Importing Symbols from NamesSpaces
+
+		// This is an easier name, to save typing:
+		var defineClass = com.davidflanagan.Class.define; // [CONSUMER]
+
+		// A better way to import symbols from namesspaces:
+		// Create a simple namespace. No error checking required. The
+		// module user knows that this symbol does not exist yet.
+		var Class = {}; // this is an object as namespace, not ordinary object.
+		// Now import a symbol into this new namespace.
+		Class.define = com.davidflanagan.Class.define; // [CONSUMER]
+
+		// If it is a primitive value instead of function, object or array. Don't use the way above,
+		// because you merely get a static copy of its current value
+		// Make a static copy only. Changes in the namespace are not reflected in the imported property since this is a primitive value.
+		Class.counter = com.davidflanagan.Class.counter; // [CONSUMER]
+		// The lesson for module developers is: if the property is primitive value, provide accessor methods that can be imported as below:
+		// A property of primitive type; cannot be imported
+		com.davidflanagan.Class.counter = 0;
+		// Here is an accessor method that can be imported
+		com.davidflanagan.Class.getCounter = function( ) {
+			return com.davidflanagan.Class.counter;
+		}
+		// Conclusion: because javascript has no built-in modules and namespaces, module developers must always use the
+		// fully qualified name of their symbols like getCounter method just shown,
+		// but user developers can shorten the module name like Class.define above.
+
+
+		// Public and Private Symbols
+		// Use simple documentation or convention underscore '_' to indicate private symbols within the model.
+		// This can not prevent people to use the forbidden symbol, but remind peope not to use it.
+		
+		
+		// Closures as Private Namespace and Scope
+		// Example 10-4. Defining a private namespace with a closure
+		// Create the namespace object. Error checking omitted here for brevity.
+		var com;
+		if (!com) com = {}; // Check !com here because other 3rd libs already defined it, without check, we will overwrite the value which is defined by other 3rd libs in com.
+		if (!com.davidflanagan) com.davidflanagan = {};
+		com.davidflanagan.Class = {};
+		// Don't stick anything into the namespace directly.
+		// Instead we define and invoke an anonymous function to create a closure
+		// that serves as our private namespace. This function will export its
+		// public symbols from the closure into the com.davidflanagan.Class object
+		// Note that we use an unnamed function so we don't create any other
+		// global symbols.
+		(function( ) { // Begin anonymous function definition
+			// Nested functions create symbols within the closure
+			function define(data) { counter++; /* more code here */ }
+			function provides(o, c) { /* code here */ }
+			// Local variable are symbols within the closure.
+			// This one will remain private within the closure
+			var counter = 0;
+			// This function can refer to the variable with a simple name
+			// instead of having to qualify it with a namespace
+			function getCounter( ) { return counter; }
+			// Now that we've defined the properties we want in our private
+			// closure, we can export the public ones to the public namespace
+			// and leave the private ones hidden here.
+			var ns = com.davidflanagan.Class;
+			ns.define = define;
+			ns.provides = provides;
+			ns.getCounter = getCounter;
+		})( ); // End anonymous function definition and invoke it
+
+
+		// Module Utilities
+		// See "Module.js" file, this utilities is designed for module developer, below is the usage:
+
+		// The Module.createNamespace( ) utility handles namespace creation and error checking. A module author might use it like this:
+		// Create a namespace for our module
+		Module.createNamespace("com.davidflanagan.Class");
+		// Now start populating the namespace
+		com.davidflanagan.Class.define = function(data) { /* code here */ };
+		com.davidflanagan.Class.provides = function(o, c) { /* code here */ };
+		// The Module.require( ) function checks for the presence of the specified version (or later) of a named
+		// module and throws an error if it does not exist. Use it like this:
+		// This Complex module requires the Class module to be loaded first
+		Module.require("com.davidflanagan.Class", 1.0);
+		// The Module.importSymbols( ) function simplifies the task of importing symbols into the global namespace
+		// or another specified namespace. Here are examples of its use:
+		// Import the default set of Module symbols to the global namespace
+		// One of these defualt symbols is importSymbols itself
+		Module.importSymbols(Module); // Note we pass the namespace, not module name,
+		                              // so that you can invoke importSymbols below directly without 'Module' prefix.
+									  // The basic implementation is: move all the properties like 'importSymbols' into global object (this object)
+		// Import the Complex class into the global namespace
+		importSymbols(com.davidflanagan.Complex); // we've imported Complex class
+		// Import the com.davidflanagan.Class.define( ) method to a Class object
+		var Class = {};
+		importSymbols(com.davidflanagan.Class, Class, "define"); // we can now use 'Class.define()' method
+		/*
+		Finally, the Module.registerInitializationFunction( ) allows a module to register a function of
+		initialization code to be run at some later time.[*] When this function is used in client-side JavaScript, an
+		event handler is automatically registered to invoke all initialization functions for all loaded modules when
+		the document finishes loading. When used in other, nonclient-side contexts, the initialization functions are
+		not automatically invoked, but can be explicitly invoked with Module.runInitializationFunctions( ).
+		*/
+		
+
+	</script>
+	</head>
+	<body>
+	</body>
+</html>

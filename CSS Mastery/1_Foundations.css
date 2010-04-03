@@ -1,0 +1,70 @@
+<style type="text/css">
+	<!--
+
+	.news h3 {color: red;}
+	.news p {color: orange;}
+	.news a {font-weight: bold;}
+
+	/* type selector sample */
+	a {text-decoration: underline;}
+
+	/* descendant selector sample, means only works for <a> in <li> elements. */
+	li a {text-decoration: none;}
+
+	/* # below means the css works for id "intro" here. */
+	#intro {font-weight: bold;}
+
+	/* . below means the css works for class "datePosted" here. */
+	.datePosted {color: green;}
+
+	/* Use a combination of type, descendant, ID, and/or class selectors to reduce the number of the class. */
+	/* Rather than define two classes on two h1 tags below. */
+	#mainContent h1 {font-size: 1.8em;}
+	#secondaryContent h1 {font-size: 1.2em;}
+
+	/* pseudo-class selector */
+	/* makes all unvisited links blue */
+	a:link {color: blue;}
+	/* makes all visited links green */
+	a:visited {color: green;}
+	/* makes links red when hovered or activated */
+	a:hover, a:active {color: red;}
+	/* makes table rows red when hovered over */
+	tr:hover {background-color: red;}
+	/* makes input elements yellow when focus is applied */
+	input:focus {background-color: yellow;}
+
+	/* The universal selector. */
+	* {
+		padding: 0;
+		margin: 0;
+	}
+
+	/* A rule with an ID will be more specific than one without an ID, and a rule with a class selector will be more specific than
+	a rule with just type selectors. Finally, if two rules have the same specificity, the last one defined prevails.
+	For instance below, most input elements will apply green color but sex input needs to be red color. */
+	input {color: green;}
+	input#sex {color: red;}
+
+	/* For instance, if you were to give the body element a text color of black, all the descendants of the body element would
+	also have black text. The same would be true of font sizes.
+	Compared with p, div, h1, h2, h3, ul, ol, dl, li {color: black;}, you can just write down the clause below:
+	*/
+	body {color: #CC0000;}
+
+	/* NOTICE: There are actually three types for all possible combinations:
+	 * 1. element: like <input/>
+	 * 2. (element).class: like <input class="class"/>
+	 * 3 (element)#id: <input id="id"/>
+	 * So any one of the three types can be a parent or child for another type, including the type itself.
+	 * e.g.:
+	 *     (div)#div (div)#mainDiv ul li (a).nav span {
+	 *         color: #ffc
+	 *     }
+	 *
+	 *     The former is parent while the latter is child until we find the ultimate element you want.
+	 */
+
+	-->
+</style>
+

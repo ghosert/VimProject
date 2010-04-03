@@ -1,0 +1,443 @@
+<html>
+	<head>
+	<script>
+
+		function println(obj) {
+			document.write(obj + '<br/>');
+		}
+
+		// Nested Functions
+		function hypotenuse(a, b) {
+			function square(x) { return x*x; }
+			return Math.sqrt(square(a) + square(b));
+		}
+		/* Note: 
+		Nested functions may be defined only at the top level of the function within which they are nested. That
+		is, they may not be defined within statement blocks, such as the body of an if statement or while
+		loop. CAUSION: function literals may appear anywhere.
+		*/
+
+		// Function Literals
+		// Although function literals create unnamed functions, the syntax allows a function name to be optionally
+		// specified, which is useful when writing recursive functions that call themselves. For example:
+		var f = function fact(x) { if (x <= 1) return 1; else return x*fact(x-1); };
+		
+		a = [];
+		a[0] = function(x) {return x * x;}; // Define a function and store it
+		a.sort(function(a,b){return a-b;}); // Define a function; pass it to another
+		var tensquared = (function(x) {return x*x;})(10); // Define and invoke
+
+		// Function Name
+		// elegant way to use $, _ as function name, only legal ones besides letters and numbers.
+		function $(id) {
+			return document.getElementById(id);
+		}
+		println($("id"));
+
+		// Opitional Arguments
+		// This is not the case if arguments is a real array, it is a array-like object for now.
+		// Append the names of the enumerable properties of object o to the
+		// array a, and return a. If a is omitted or null, create and return
+		// a new array
+		function copyPropertyNamesToArray(o, /* optional */ a) {
+			a = a || []; // If undefined or null, use a blank array
+			for(var property in o) a.push(property);
+			return a;
+		}
+		// Get property names of objects o and p
+		person = new Object();
+		person.name = 'Jay Zhang';
+		person.sex = 'male';
+		var a = copyPropertyNamesToArray(person); // Get o's properties into a new array
+		println(a)
+		var b = copyPropertyNamesToArray(person, a); // append p's properties to that array
+		println(b)
+
+		// The arguments Object
+		// The Arguments object is an array-like object(not real array) that allows the argument values passed to
+		// the function to be retrieved by number, rather than by name.
+		// Use arguments to verify the number of arguments.
+		function f(x, y, z) {
+			// First, verify that the right number of arguments was passed
+			if (arguments.length != 3) {
+			throw new Error("function f called with " + arguments.length +
+			"arguments, but it expects 3 arguments.");
+			}
+			// Now do the actual function...
+		}
+		// function arguments can be any number, and by using arguments to access them.
+		function max(/* ... */) {
+			var m = Number.NEGATIVE_INFINITY;
+			// Loop through all the arguments, looking for, and remembering, the biggest
+			for(var i = 0; i < arguments.length; i++)
+				if (arguments[i] > m) m = arguments[i];
+			// Return the biggest
+			return m;
+		}
+		var largest = max(1, 10, 100, 2, 3, 1000, 4, 5, 10000, 6);
+		println('largest: ' + largest);
+
+		// x & arguments, a change to one reference would effect on the other reference.
+		// This is not the case if arguments is a real array, it is a array-like object for now.
+		function f(x) {
+			print(x); // Displays the initial value of the argument
+			arguments[0] = null; // Changing the array element also changes x!
+			print(x); // Now displays "null"
+		}
+
+		// The callee Property
+		// use arguments.callee property to refer to the function itself, it can be used to allow unnamed functions to invoke themselves recursively
+		var test = function (x) {
+			if (x <= 1) return 1;
+			return x * arguments.callee(x - 1);
+		}
+		println(test(5));
+
+		// Using Object Properties as Arguments
+		// Copy length elements of the array from to the array to.
+		// Begin copying with element from_start in the from array
+		// and copy that element to to_start in the to array.
+		// It is hard to remember the order of the arguments.
+		function arraycopy(/* array */ from, /* index */ from_start,
+		/* array */ to, /* index */ to_start,
+		/* integer */ length)
+		{
+		// code goes here
+		}
+		// This version is a little less efficient, but you don't have to
+		// remember the order of the arguments, and from_start and to_start
+		// default to 0.
+		function easycopy(args) {
+		arraycopy(args.from,
+		args.from_start || 0, // Note default value provided
+		args.to,
+		args.to_start || 0,
+		args.length);
+		}
+		// Here is how you might invoke easycopy():
+		var a = [1,2,3,4];
+		var b = new Array(4);
+		// Since you are using the object literals, you just need to know the name-value pairs, rahter than the order of parameters.
+		easycopy({from: a, to: b, length: 4}); 
+
+		// Argument Types
+		// Return the sum of the elements of array (or array-like object) a.
+		// The elements of a must all be numbers, but null and undefined
+		// elements are ignored.
+		function sum(a) {
+			if ((a instanceof Array) || // if array
+			(a && typeof a == "object" && "length" in a)) { // or array like
+				var total = 0;
+				for(var i = 0; i < a.length; i++) {
+					var element = a[i];
+					if (!element) continue; // ignore null and undefined elements
+					if (typeof element == "number") total += element;
+					else throw new Error("sum(): all array elements must be numbers");
+				}
+				return total;
+			}
+			else throw new Error("sum(): argument must be an array");
+		}
+
+		// Functions as Data
+		// For the sake of the example, we implement the simple functions again, this time
+		// using function literals within an object literal;
+		var operators = {
+			add: function(x,y) { return x+y; },
+			subtract: function(x,y) { return x-y; },
+			multiply: function(x,y) { return x*y; },
+			divide: function(x,y) { return x/y; },
+			pow: Math.pow // Works for predefined functions too
+		};
+		// This function takes the name of an operator, looks up that operator
+		// in the object, and then invokes it on the supplied operands. Note
+		// the syntax used to invoke the operator function.
+		function operate2(op_name, operand1, operand2) {
+			if (typeof operators[op_name] == "function")
+			return operators[op_name](operand1, operand2);
+			else throw "unknown operator";
+		}
+		// We could invoke this function as follows to compute
+		// the value ("hello" + " " + "world"):
+		var j = operate2("add", "hello", operate2("add", " ", "world"))
+		println(j);
+		// Using the predefined Math.pow() function:
+		var k = operate2("pow", 10, 2)
+		println(k);
+
+		// Functions as Methods
+		var calculator = { // An object literal
+			operand1: 1,
+			operand2: 1,
+			compute: function() {
+				this.result = this.operand1 + this.operand2;
+			}
+		};
+		calculator.compute(); // What is 1+1?
+		println(calculator.result); // Display the result
+		// Conclusion: When a function is invoked as a function rather that as a method, the this keyword refers to the global object.
+
+		// Function Properties and Methods
+		function check(args) {
+			var actual = args.length; // The actual number of arguments
+			var expected = args.callee.length; // The expected number of arguments
+			if (actual != expected) { // Throw an exception if they don't match
+				throw new Error("Wrong number of arguments: expected: " +
+				expected + "; actually passed " + actual);
+			}
+		}
+		function f(x, y, z) {
+			// Check that the actual # of args matches the expected # of args
+			// Throw an exception if they don't match
+			check(arguments);
+			// Now do the rest of the function normally
+			return x + y + z;
+		}
+
+		// Defining your own function properties
+		// Create and initialize the "static" variable.
+		// Function declarations are processed before code is executed, so
+		// we really can do this assignment before the function declaration.
+		uniqueInteger.counter = 0;
+		// Here's the function. It returns a different value each time
+		// it is called and uses a "static" property of itself to keep track
+		// of the last value it returned.
+		function uniqueInteger() {
+			// Increment and return our "static" variable
+			return uniqueInteger.counter++;
+		}
+
+		// The apply() and call() Methods
+		// These methods allow you to invoke a function as if it were a method of some other object,
+		// so that the associative info of object will not be lost, like addtionalValue below.
+		o = new Object()
+		o.additionalValue = 9;
+		function testFunction(a, b) {
+			return a * b * this.additionalValue;
+		}
+		println(testFunction.call(o, 2, 5));
+		// This is similar to the following lines of code:
+		// o.m = testFunction;
+		// o.m(1, 2);
+		// delete o.m;
+		// The apply() method is like the call() method, except that the arguments to be passed to the function are specified as an array:
+		// testFunction.apply(o, [1, 2]);
+		
+		// Utility Function Examples
+
+		// Object utility functions
+		// Return an array that holds the names of the enumerable properties of o
+		function getPropertyNames(/* object */o) {
+			var r = [];
+			for(name in o) r.push(name);
+			return r;
+		}
+		// Copy the enumerable properties of the object from to the object to.
+		// If to is null, a new object is created. The function returns to or the
+		// newly created object.
+		function copyProperties(/* object */ from, /* optional object */ to) {
+			if (!to) to = {};
+			for(p in from) to[p] = from[p];
+			return to;
+		}
+		// Copy the enumerable properties of the object from to the object to,
+		// but only the ones that are not already defined by to.
+		// This is useful, for example, when from contains default values that
+		// we want to use if they are not already defined in to.
+		function copyUndefinedProperties(/* object */ from, /* object */ to) {
+			for(p in from) {
+				if (!p in to) to[p] = from[p];
+			}
+		}
+
+		// Array utility functions
+		// Pass each element of the array a to the specified predicate function.
+		// Return an array that holds the elements for which the predicate
+		// returned true
+		function filterArray(/* array */ a, /* boolean function */ predicate) {
+			var results = [];
+			var length = a.length; // In case predicate changes the length!
+			for(var i = 0; i < length; i++) {
+				var element = a[i];
+				if (predicate(element)) results.push(element);
+			}
+			return results;
+		}
+		// Return the array of values that result when each of the elements
+		// of the array a are passed to the function f
+		function mapArray(/* array */a, /* function */ f) {
+			var r = []; // to hold the results
+			var length = a.length; // In case f changes the length!
+			for(var i = 0; i < length; i++) r[i] = f(a[i]);
+			return r;
+		}
+
+		// Utility functions for functions
+		// Return a standalone function that invokes the function f as a method of
+		// the object o. This is useful when you need to pass a method to a function.
+		// If you don't bind it to its object, the association will be lost and
+		// the method you passed will be invoked as a regular function.
+		function bindMethod(/* object */ o, /* function */ f) {
+			return function() { return f.apply(o, arguments) }
+		}
+		// Return a function that invokes the function f with the
+		// specified arguments and also any additional arguments that are
+		// passed to the returned function. (This is sometimes called "currying".)
+		function bindArguments(/* function */ f /*, initial arguments... */) {
+			var boundArgs = arguments;
+			return function() {
+				// Build up an array of arguments. It starts with the previously
+				// bound arguments and is extended with the arguments passed now
+				var args = [];
+				for(var i = 1; i < boundArgs.length; i++) args.push(boundArgs[i]);
+				for(var i = 0; i < arguments.length; i++) args.push(arguments[i]);
+				// Now invoke the function with these arguments
+				return f.apply(this, args);
+			}
+		}
+
+		// The call Object as a Namespace
+		// Solution To make sure the variables you defined will not conflict with other js codes:
+		function init() {
+			// Code goes here.
+			// Any variables declared become properties of the call
+			// object instead of cluttering up the global namespace.
+		}
+		init(); // But don't forget to invoke the function!
+		// Conclusion: The code adds only a single property to the global namespace: the property "init", which refers to the function.
+
+		// Nested Functions as Closures
+		// This function returns a function each time it is called
+		// The scope in which the function is defined differs for each call
+		function makefunc(x) {
+			return function() { return x; }
+		}
+		// Call makefunc() several times, and save the results in an array:
+		var a = [makefunc(0), makefunc(1), makefunc(2)];
+		// Now call these functions and display their values.
+		// Although the body of each function is the same, the scope is
+		// different, and each call returns a different value:
+		println(a[0]()); // Displays 0
+		println(a[1]()); // Displays 1
+		println(a[2]()); // Displays 2
+		// Conclusion: when a nested function is exported outside the scope in which it is defined, it is often explicitly called a closure.
+
+		// Closure examples
+		uniqueID = (function() { // The call object of this function holds our value
+			var id = 0; // This is the private persistent value
+			// The outer function returns a nested function that has access
+			// to the persistent value. It is this nested function we're storing
+			// in the variable uniqueID above.
+			return function() { return id++; }; // Return and increment
+		})(); // Invoke the outer function after defining it.
+		// Conclusion: we now have a private persistent value, and there is no way to reset the id by the outsider functions.
+
+		// Private properties with closures
+		// This function adds property accessor methods for a property with
+		// the specified name to the object o. The methods are named get<name>
+		// and set<name>. If a predicate function is supplied, the setter
+		// method uses it to test its argument for validity before storing it.
+		// If the predicate returns false, the setter method throws an exception.
+		//
+		// The unusual thing about this function is that the property value
+		// that is manipulated by the getter and setter methods is not stored in
+		// the object o. Instead, the value is stored only in a local variable
+		// in this function. The getter and setter methods are also defined
+		// locally to this function and therefore have access to this local variable.
+		// Note that the value is private to the two accessor methods, and it cannot
+		// be set or modified except through the setter.
+		function makeProperty(o, name, predicate) {
+			var value; // This is the property value
+			// The setter method simply returns the value.
+			o["get" + name] = function() { return value; };
+			// The getter method stores the value or throws an exception if
+			// the predicate rejects the value.
+			o["set" + name] = function(v) {
+				if (predicate && !predicate(v))
+					throw "set" + name + ": invalid value " + v;
+				else
+					value = v;
+			};
+		}
+		// The following code demonstrates the makeProperty() method.
+		var o = {}; // Here is an empty object
+		// Add property accessor methods getName and setName()
+		// Ensure that only string values are allowed
+		makeProperty(o, "Name", function(x) { return typeof x == "string"; });
+		o.setName("Frank"); // Set the property value
+		println(o.getName()); // Get the property value
+		try {
+			o.setName(0); // Try to set a value of the wrong type
+		} catch (e) {
+		    println(e);
+		}
+
+		// Breakpoints using closures
+		// This function implements a breakpoint. It repeatedly prompts the user
+		// for an expression, evaluates it with the supplied self-inspecting closure,
+		// and displays the result. It is the closure that provides access to the
+		// scope to be inspected, so each function must supply its own closure.
+		//
+		// Inspired by Steve Yen's breakpoint() function at
+		// http://trimpath.com/project/wiki/TrimBreakpoint2
+		function inspect(inspector, title) {
+			var expression, result;
+			// You can use a breakpoint to turn off subsequent breakpoints by
+			// creating a property named "ignore" on this function.
+			if ("ignore" in arguments.callee) return;
+			while(true) {
+				// Figure out how to prompt the user
+				var message = "";
+				// If we were given a title, display that first
+				if (title) message = title + "\n";
+				// If we've already evaluated an expression, display it and its value
+				if (expression) message += "\n" + expression + " ==> " + result + "\n";
+				else expression = "";
+				// We always display at least a basic prompt:
+				message += "Enter an expression to evaluate:";
+				// Get the user's input, displaying our prompt and using the
+				// last expression as the default value this time.
+				expression = prompt(message, expression);
+				// If the user didn't enter anything (or clicked Cancel),
+				// they're done, and so we return, ending the breakpoint.
+				if (!expression) return;
+				// Otherwise, use the supplied closure to evaluate the expression
+				// in the scope that is being inspected.
+				// The result will be displayed on the next iteration.
+				result = inspector(expression);
+			}
+		}
+		function factorial(n) {
+			// Create a closure for this function
+			var inspector = function($) { return eval($); }
+			inspect(inspector, "Entering factorial()");
+			var result = 1;
+			while(n > 1) {
+				result = result * n;
+				n--;
+				inspect(inspector, "factorial() loop");
+			}
+			inspect(inspector, "Exiting factorial()");
+			return result;
+		}
+		factorial(3); // 3 times to popup the prompt window.
+
+		// The Function() Constructor
+		var f = new Function("x", "y", "return x * y;"); // equals function f(x, y) { return x * y;}
+		var y = "global";
+		function constructFunction() {
+			var y = "local";
+			return new Function("return y"); // Does not capture the local scope!
+		}
+		// This line displays "global" because the function returned by the
+		// Function() constructor does not use the local scope. Had a function
+		// literal been used instead, this line would have displayed "local".
+		println(constructFunction()()); // Displays "global"
+		
+
+
+	</script>
+	</head>
+	<body>
+	</body>
+</html>

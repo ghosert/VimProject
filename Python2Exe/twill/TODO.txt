@@ -1,0 +1,3 @@
+1. Add "match clause" function for twill script? Lin said: "find" clause in twill script can not return matched regular expression? Study regular expression first.
+
+2. Add GUI for wintwill.py

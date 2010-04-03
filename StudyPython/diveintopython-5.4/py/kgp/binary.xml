@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!DOCTYPE grammar PUBLIC "-//diveintopython.org//DTD Kant Generator Pro v1.0//EN" "kgp.dtd">
+<grammar>
+<ref id="bit">
+  <p>0</p>
+  <p>1</p>
+</ref>
+<ref id="byte">
+  <p><xref id="bit"/><xref id="bit"/><xref id="bit"/><xref id="bit"/><xref id="bit"/><xref id="bit"/><xref id="bit"/><xref id="bit"/></p>
+</ref>
+</grammar>

@@ -1,0 +1,130 @@
+/* Color
+===================================================*/
+
+body {
+  background: #fff url("../images/body_bg.png") top repeat-x;
+  color: #333;
+}
+
+a:link {
+  color: #369;
+}
+a:visited {
+  color: #969;
+}
+a:hover {
+  color: #c60;
+}
+a:active {
+  color: #930;
+}
+
+h1,h2,h3,h4 {
+  color: #8ca939;
+  border-color: #8ca939;
+}
+
+pre {
+  background-color:#F2F2EC;
+  border-color:#999;
+}
+
+.comment {
+  background-color: #ffc;
+}
+
+/* Typography
+===================================================*/
+
+* {
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: none;
+  text-align: left;
+  text-indent: 0;
+}
+
+body {
+  font-family: "Myriad Pro","Myriad Web","Lucida Grande","Trebuchet MS","Tahoma","Helvetica","Arial",sans-serif;
+}
+
+body * {
+  font-size: 100.01%;
+  line-height: 1.5;
+}
+
+img,fieldset {
+  border: 0;
+}
+
+a {
+  text-decoration: underline;
+}
+
+
+h1 {
+  font-size: 2.4em;
+  letter-spacing: -0.05em;
+  line-height: 1.0;
+}
+
+h2 {
+  font-size: 1.8em;
+  line-height: 1.0;
+}
+
+h3 {
+  font-size: 1.2em;
+}
+
+h4 {
+  font-size: 1.1em;
+}
+
+strong {
+  font-weight: bold;
+}
+
+pre {
+  padding: 3%;
+  border-width: 1px;
+  border-style: dotted;
+  overflow: auto;
+}
+
+.comment {
+  padding: 0 0.5em;
+}
+
+/* Positioning
+===================================================*/
+
+body {
+  padding: 2em 0;
+  margin: 0;
+}
+
+#content {
+  margin: 0 35% 0 5%;
+}
+
+#navigation {
+  position: absolute;
+  margin: 0 3%;
+  width: 28%;
+  top: 8em;
+  right: 0;
+}
+
+/* Tables
+===================================================*/
+
+table {
+  border-collapse: collapse;
+  border: 1px solid #999;
+}
+
+th, td {
+  padding: 0.1em 1em;
+  border: 1px solid #999;
+}

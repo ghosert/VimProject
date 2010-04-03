@@ -1,0 +1,379 @@
+<html>
+	<head>
+		<script src="Geometry.js"></script>  <!-- include module, Tooltip.js will depend on it. -->
+		<script src="Tooltip.js"></script>  <!-- include module -->
+		<script src="Drag.js"></script> <!-- Include the Drag.js script -->
+		<script src="InputFilter.js"></script>
+		<script>
+			function println(obj) {
+				document.write(obj + '<br/>');
+			}
+			function $(name) {
+				if (typeof name == 'string') {
+					return document.getElementById(name);
+				}
+				return name;
+			}
+		</script>
+
+	</head>
+
+	<body>
+
+		<!-- Basic Event Handling -->
+		<input type="button" value="Press Me" onclick="alert('thanks');">
+		<input type="button" value="Press Me" onclick="alert(multipleStatements(5, 6));">
+
+		<br/>
+		<br/>
+
+		<!-- Event Handlers as Properties -->
+		<a href="#" name='hello' onclick="alert(this.name)">Hello</a>
+		<input type="button" value='Test "this" from event handler' onclick="alert(typeof this.onclick);"> <!-- "this" here means HTMLInputElment-->
+		<a href="javascript: alert(this)">Test "this" from JavaScript URL</a> <!-- "this" here means window object. -->
+		
+		<br/>
+		<br/>
+
+		<form name="f1" onsubmit="alert('submit validation'); return false;">  <!-- Add onclick Event Handler in JS below. -->
+			<input name="b1" type="button" value="Press Me">
+			<input name="b2" type="button" value="Press Me" onclick="expInvoke()">
+		</form>
+		
+		<!-- Scope of Event Handler -->
+		<input type="button" onclick="alert(testScope); alert(this);" value="Test Scope From Event Handler"/>
+
+		<form>
+			<!-- In event handlers, "this" refers to the target element of the event -->
+			<!-- So we can refer to a sibling element in the form like this -->
+			<input id="b1" type="button" value="Button 1" onclick="alert(this.form.b2.value);"><!--document.getElementsByName('b1')[0].form).b2.value-->
+
+			<!-- The target element is also in the scope chain, so we can omit "this" -->
+			<input id="b2" type="button" value="Button 2" onclick="alert(form.b1.value);">
+
+			<!-- And the <form> is in the scope chain, so we can omit "form". -->
+			<input id="b3" type="button" value="Button 3" onclick="alert(b4.value);">
+
+			<!-- The Document object is on the scope chain, so we can use its methods -->
+			<!-- without prefixing them with "document". This is bad style, though. -->
+			<input id="b4" type="button" value="Button 4" onclick="alert(getElementById('b3').value);">
+		</form>
+
+
+		<!-- Advanced Event Handling with DOM Level 2 -->
+
+		<!-- Event Handler Registration -->
+		<form name="myform">
+			<input type="submit" value="Submit"/>
+		</form>
+		<div id="mydiv">
+			<textarea>Click Me Here: mydiv</textarea>
+		</div>
+
+		<!-- addEventListener( ) and the this Keyword -->
+		<div id="yourdiv">
+			<textarea>Click Me Here: yourdiv</textarea>
+		</div>
+		
+		<br/>
+
+		<!-- Event Interfaces and Event details -->
+		<!-- Event -->
+		<div id="hisdiv">
+			<textarea>Click Me Here: hisdiv</textarea>
+		</div>
+
+		<br/>
+
+		<!-- Mixing Event Models -->
+		<!-- If the browser support DOM 2 level, it will always implicitly have a argument named "event". -->
+		<input type="button" onclick="alert(event.detail);" value="Test Mixing Event Models"/>
+		<input id="mixingEventButton" type="button" value="Test Mixing Event Models"/>
+
+		<br/>
+		<br/>
+
+		<!-- Mouse Event -->
+		<a href="www.davidflanagan.com" tooltip="good Java/JavaScript blog" onmouseover="Tooltip.schedule(this, event)">David Flanagan's blog, Move Over On This Link.</a>
+
+		<br/>
+		<br/>
+
+		<!-- Define the element to be dragged -->
+		<div style="position:absolute; left:100px; top:100px; width:250px; background-color: white; border: solid black;">
+			<!-- Define the "handle" to drag it with. Note the onmousedown attribute.  -->
+			<div style="background-color: gray; border-bottom: dotted black; padding: 3px; font-family: sans-serif; font-weight: bold;" onmousedown="drag(this.parentNode, event);">
+				Drag Me <!-- The content of the "titlebar" -->
+			</div>
+			<!-- Content of the draggable element -->
+			<p>This is a test. Testing, testing, testing.<p>This is a test.<p>Test.
+		</div>
+
+		<!-- Press Shift with drag to move the star icon. -->
+		<img src="draggable.gif" width="20" height="20" style="position:absolute; left:0px; top:0px;" onmousedown="if (event.shiftKey) drag(this, event);">
+
+		<!-- Filtering Keyboard Input -->
+		Surname: <input id="surname" type="text" onkeyup="this.value = this.value.toUpperCase( );">
+
+		<br/> <br/>
+
+		<input id="zip" type="text" allowed="0123456789" messageid="zipwarn">
+		<span id="zipwarn" style="color:red;visibility:hidden">Digits only</SPAN>
+
+		<br/> <br/>
+
+	</body>
+
+	<script>
+
+		// Three event-handling models are in use.
+		/*
+		    The original event model
+			The standard event model
+			The Internet Explorer event model
+		*/
+
+		// Basic Event Handling
+
+		// raw events/input events(events are generated when user use mouse/keyboard): onmousedown, onmouseup and onclik
+		// semantic events(events are occur only in specific context): onload, onsubmit
+
+		// device-dependent events(are tied specially to only mouse or only keyboard): onmousexxx, xxxkeyxxx
+		// device-independent events(be triggered in more than one way, no matter mouse/keyboard): semantic events or onclick(keyboard support it too)
+
+		// Event Handlers as Attributes
+		// event handlers are js string in html handler attributes like: <input type="button" value="Press Me" onclick="alert('thanks');">
+		// When an event handler requires multiple statements, it is usually easier to define them in the body of a function and
+		// then use the HTML event handler attribute to invoke that function.
+		function multipleStatements(obj1, obj2) {
+			var s;
+			s = obj1 + obj2;
+			s = s * s;
+			return s;
+		}
+
+		// Event Handlers as Properties
+		// HTMLElement.properties correspond to the HTML attributes, e.g.: <a href="#" name='hello' onclick="alert(this.name)">Hello</a>,
+		// html <a> tag has a name attributes which means HTMLAElement.name works as well, see html sample above.
+		// Same thing: The onclick is a HTML event handler attributes so that HTMLElement.onclick works as well. See html sample above.
+		document.forms.f1.b1.onclick=function() {alert('Thanks!');};
+		// Conclusion: Event Handlers as Properties allows event handler functions to be dynamically changed.
+		// Shortcoming: The dynamically assign a event handler function need the document was fully loaded.
+
+		// Explicitly invoking event handlers
+		function expInvoke() {
+			document.forms.f1.onsubmit();
+		}
+
+		// Event Handler Return Values
+		/*
+			In many cases, an event handler (whether specified by HTML attribute or JavaScript property) uses its
+			return value to indicate the disposition of the event.
+
+			For example, in onsubmit attribute of form, return 'false' will prevent the form from being submitted.
+			<form name="f1" onsubmit="alert('submit validation'); return false;">
+			In addition to onsubmit, other event handlers from which you can return false to prevent the default action include
+			onclick, onkeydown, onkeypress, onmousedown, onmouseup, and onreset.
+
+			Note that event handlers are never required to explicitly return a value. If you don't return a value, the
+			default behavior occurs.
+		*/
+
+		// Scope of Event Handler
+		/*
+			When you define an event handler by setting the value of an HTML attribute to a string of JavaScript code, you are implicitly defining
+			a JavaScript function like [document.forms.f1.b1.onclick=function() {alert('Thanks!');};].
+			It is important to understand that the scope of an event-handler function defined in
+			this way is not the same as the scope of other normally defined global JavaScript functions. This means
+			that event handlers defined as HTML attributes execute in a different scope than other functions.
+		*/
+		var testScope = 'testScope';
+		/*  The scope chain of event handler is a litte bit different from what we know before, see the html sample above then the sample below.
+		    The event handler is virtually using keyword 'with' to modify the scope chain temporarily, it's unusual scope chain.
+
+			<input id="b3" type="button" value="Button 3" onclick="alert(b4.value);">
+
+			The equivalent JavaScript code would be the following:
+
+			var b3 = document.getElementById('b3'); // Find the button we're interested in
+										// search in global object window scope chain.
+			b3.onclick = function( ) {
+				with (document) {		// search document.b4.value third, scope chain is in document (unusual scope chain)
+					with(this.form) {   // search this.form.b4.value second, scope chain is in this.form (unusual scope chain)
+						with(this) {    // search this.b4.value first, scope chain is in this (call object scope chain, same to normal function here.)
+							alert(b4.value);
+						}
+					}
+				}
+			}
+
+			Because of the scope chain of event handler is unusual(Consider, open() in event handler refers to document.open() not window.open()),
+			Your safest bet is to keep any such handlers very simple.
+			Ideally, they should just call a global function defined elsewhere and perhaps return the result:
+			<script>function validateForm( ) { // Form validation code here }<//script>
+			<form onsubmit="return validateForm( );">...</form>
+			And since scope chain is unusual in event handler, only use and do not omit the keywords: this, form, document, window.
+			but not to rely on form or document objects: don't use action instead of form.action or getElementById instead of document.getElementById.
+		*/
+
+
+		// Advanced Event Handling with DOM Level 2: addEventListener
+
+		// Event Propagation: Not very clear for this portion.
+
+		// Event Handler Registration
+		document.myform.addEventListener("submit", // event type such as onclick/onload/onsubmit, should be with the leading "on" removed
+		function(e) {alert(e.target); return 0}, // handler, e here is the event(which mouse button was pressed and defines methods like stopPropagation)
+		false); // false: register a handler for only <form> element.
+
+		var mydiv = document.getElementById("mydiv");
+		mydiv.addEventListener("mousedown",
+		function(e) {alert('you are clicking ' + e.target);},
+		true); // true: capture all mousedown events that occur within a particular named <div>
+
+		// Because of DOM Level2, you can even register the same even type with different handler on the same element more than once.
+		mydiv.addEventListener("mousedown", function(e) {alert('I am clicking ' + e.target);}, true);
+
+		// Below is the removeEventListener method sample.
+		// mydiv.removeEventListener("mousedown", function(e) {alert('I am clicking ' + e.target);}, true);
+
+		// Element, Document nodes and window object support addEventListener and removeEventListener method.
+
+		// addEventListener( ) and the this Keyword
+		var yourdiv = document.getElementById("yourdiv");
+		yourdiv.addEventListener("mousedown", function(e) {alert(this);alert(e.currentTarget);alert(e.target);}, true);
+		// Both this and e.currentTarget means yourdiv element, but the latter is the standardization,
+		// e.target means the actually element which is running handler, may different from e.currentTarget. (test html sample to see result.)
+
+		// Event Modules and Event Types
+		// test whether a browser supports Events API module in DOM Level 2.
+		println(document.implementation.hasFeature("Events", "2.0"));
+
+		// Event Interfaces and Event details
+		// MouseEvent extends UIEvent extends Event, Event here means the "e" above which is passed to event handler function as a only argument.
+		// Event:
+		var hisdiv = document.getElementById("hisdiv");
+		hisdiv.addEventListener("mousedown",
+		function(e) {alert("e.type: " + e.type); alert("e.target: " + e.target); alert("e.currentTarget: " + e.currentTarget);
+			alert("e.eventPhase: " + e.eventPhase); alert("e.timeStamp: " + e.timeStamp); alert("e.bubbles: " + e.bubbles);
+			alert("e.cancelable: " + e.cancelable);
+			alert("invoking e.stopPropagation(): " + e.stopPropagation()); alert("invoking e.preventDefault(): " + e.preventDefault());},
+		true); // preventDefault() equals "return false;" in Level 0 event model.
+
+		// UIEvent:
+		// e.view, e.detail
+
+		// MouseEvent
+		// e.button, e.altKey, e.ctrlKey, e.metaKey, e.shiftKey
+		// e.clientX, e.clientY, e.screenX, e.screenY, e.relatedTarget
+		// See the event properties explanation in the page 495-497.
+
+		// Mixing Event Models
+		// See the html attribute sampe above and js property sample below:
+		var button = document.getElementById("mixingEventButton");
+		button.onclick = function(event) { // If the browser support DOM 2 level, it will always implicitly have a argument named "event".
+			alert(event.detail);
+		}
+
+
+		// The Internet Explorer Event Model
+		// The IE Event Object, see the pdf page 499-500
+
+		// The IE Event Object as a Global Variable
+		// IE is using window.event instead of an event argument in handler as what standard DOM Level 2 event model does.
+		// So use the line below as workaround for either event model:
+		function portableEventHandler(event) {
+			var e = event || window.event
+			// Body of the event handler goes here
+		}
+
+		// IE Event-Handler Registration
+		//    function highlight( ) { /* Event-handler code goes here */ }
+		//    document.getElementById("myelement").attachEvent("onmouseover", highlight);
+		// The attachEvent( ) and detachEvent( ) methods work like addEventListener( ) and removeEventListener( )
+		// Note 1: with 'on' preceding. Note 2: only tow arguments without the third boolean value since IE doesn't support event capturing.
+		// 3: "this" in event handler means "window" object not the element on which the event occurred.
+
+		// window.event.cancelBubble = true; is equal to e.stopPropagation() method in standard DOM Level 2 model.
+
+		// Capturing Mouse Events
+		// When you call setCapture( ), mouse events are dispatched specially until you call releaseCapture( ) or until the capture is interrupted.
+		// In the most common scenario, setCapture( ) is called in response to a mousedown event, ensuring that subsequent mousemove events are
+		// received by the same element. The element performs its drag operation in response to mousemove events and calls releaseCapture( )
+		// in response to a (captured) mouseup event. See the sample later.
+
+		// attachEvent() and the this Keyword
+		// Since 'this' in IE event handler means 'window' object rather than the element that register the event. Use the two way below to work around.
+		// Here are an event handler and an element we want to register it on
+		//    function genericHandler( ) { /* code that uses the this keyword */ }
+		//    var element = document.getElementById("myelement");
+		//    // We can register this handler with the Level 0 API
+		//    element.onmouseover = genericHandler;
+		//    // Or we can use a closure
+		//    element.attachEvent("onmouseover", function( ) {
+		//    // Invoke the handler as a method of element
+		//    genericHandler.call(element, event); // then, 'this' in genericHandler method will be changed to 'element' itself, not the 'window' object.
+		//    });
+
+		// Event Handlers and Memory Leaks in IE
+		// the nested function above will cause the memory leaks in IE, to avoid this problem, please avoid nested functions when programming in IE.
+		// And another solution is deregistered all handlers on document unload method. See the sample later.
+
+		// Conclution: For the event model compatibility metioned above for both IE(including memory leak) and Standard DOM Level 2.
+		// See the sample in Handler.js
+
+
+		// Mouse Events
+		// Tool tips positioned via mouse events
+		// Define a single global Tooltip object for general use
+		Tooltip.tooltip = new Tooltip( ); // See details in Tooltip.js
+		Tooltip.schedule = function(target, e) { Tooltip.tooltip.schedule(target, e); }
+		// See Tooltip & Drag html sample above.
+
+
+		// Key Events
+		// Types of Key Events:
+		// onkeydown, onkeypress, onkeyup
+		// there may be multiple keypress events between the keydown and keyup.
+		// press both 'Shift' and '2', keydown will tell you "shift-2" while keypress will tell you "@"
+		// Nonprinting function keys: Backspace, Enter, Escape, the arrow keys, Page Up, Page Down, and F1 - F12 generate keydown and keyup events.
+		// As a general rule of thumb, the keydown event is most useful for function keys, and the keypress event is most useful for printing keys.
+
+		// Key Event Details
+		// If the Alt, Ctrl or Shift keys are held down when a key is pressed
+		// this is indicated by the state of the altKey, ctrlKey and shiftKey properties of the event object.
+		// (One exception: Alt key combinations are considered nonprinting in IE, so they don't generate a keypress event.)
+		// FireFox:
+		// keyCode property: is sent with keydown event, low-level virtual keycode.
+		// charCode property: is sent with keypress event, encoding of the printable character.
+		// IE:
+		// only keyCode property: for keydown event, keyCode is a virtual keycode while for keypress event, keyCode is a character code.
+		//
+		// Character codes can be converted to characters with the static function String.fromCharCode().
+
+		// Filtering Keyboard Input
+		// can be used with <input> and <textarea> elements to filter the user's input.
+		// See the html sample above and InputFilter.js(This case include most of the topics above.)
+
+		// Keyboard Shortcuts with a Keymap
+		// See the sample. Keymap.js, no html sample so far.
+
+
+		// The onload Event
+		// When your web page includes multiple independent modules that need to run code in response to the onload event, see the runOnLoad.js
+
+
+		// Synthetic Events
+		// The purpose of synthetic events is to create synthetic event objects and dispatch them to event handlers registered on elements,
+		// so that you can invoke event handlers. This is necessary for DOM Level 2 and IE event model only. Since Level 0 event model, you can
+		// invoke the event handlers by event handler properties.
+
+		// In DOM event model:
+		// Document.createEvent(), Event.initEvent(), UIEvent.initUIEvent() or MouseEvent.initMouseEvent() and dispatchEvent() method.
+		// In IE:
+		// Document.createEventObject for creating new event and fireEvent() for dispatching it.
+		// See sample DataEvent.js
+
+	</script>
+</html>
+

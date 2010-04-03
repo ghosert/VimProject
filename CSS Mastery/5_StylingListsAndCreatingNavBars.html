@@ -1,0 +1,399 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+	<head>
+		<style type="text/css">
+			<!--
+
+			/* Replace the default bullet image with custom one, and remove indent. */
+			ul#style1 {
+				margin: 0;
+				padding: 0;
+				list-style-type: none; /* Get rid of default bullet image. */
+			}
+			ul#style1 li {
+				background: url(images/bullet.gif) no-repeat 0 50%;
+				padding-left: 30px;
+			}
+
+			/* Creating a vertical nav bar. */
+			ul#style2 {
+				margin: 0;
+				padding: 0;
+				list-style-type: none; /* Get rid of default bullet image. */
+			}
+			ul#style2 a {
+				display: block;
+				width: 200px;
+				height: 39px;
+				line-height: 39px;
+				color: #000;
+				text-decoration: none;
+				background: #94B8E9 url(images/pixy-rollover.gif) no-repeat left bottom;
+				text-indent: 50px; /* 50-pixel indent so that it is not sitting directly over the arrow in the background image.*/
+			}
+			ul#style2 li.first a {
+				height: 40px;
+				line-height: 40px;
+			}
+			ul#style2 a:hover, ul#style2 .selected a {
+				background-position: right bottom;
+				color: #fff;
+			}
+			ul#style2 li {
+				display: inline; /* Bugs fix for IE 6 before, it may be not a problem for IE7, 8. */
+			}
+
+			/* To let user know which page they are in, see the sample in book "CSS Mastery", page 90. */
+
+			/* Creating a horizontal nav bar. */
+			ul#style3 {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+				width: 720px; /* The horizontal nav bar is 720px width. */
+				float: left; /* Because children li below is float, witout this clause, parent ul here can not contain floated children so that hidding the list background. */
+				background: #FAA819 url(images/mainNavBg.gif) repeat-x; /* With a orange gradient background. */
+			}
+			ul#style3 li {
+				float: left;
+			}
+			ul#style3 a {
+				display: block;
+				padding: 0 2em;
+				line-height: 2.1em;
+				background: url(images/mainNavBorder.gif) no-repeat left top;
+				text-decoration: none;
+				color: #fff;
+			}
+			ul#style3 .first a { /* Get rid of the first mainNavBorder.gif background image. */
+				background: none;
+			}
+			ul#style3 a:hover {
+				color: #333; /* Define the rollover state. */
+			}
+
+			/* Creating a rounded-corner horizontal nav bar. */
+			ul#style4 {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+				width: 720px; /* The horizontal nav bar is 720px width. */
+				float: left; /* Because children li below is float, witout this clause, parent ul here can not contain floated children so that hidding the list background. */
+			}
+			ul#style4 li {
+				float: left;
+				background: url(images/tab-right.gif) no-repeat top right; /* With a orange gradient background. */
+			}
+			ul#style4 li a {
+				display: block;
+				padding: 0 2em;
+				line-height: 2.1em;
+				background: url(images/tab-left.gif) no-repeat left top;
+				text-decoration: none;
+				color: #fff;
+			}
+			ul#style4 a:hover {
+				color: #333; /* Define the rollover state. */
+			}
+
+			/* CSS Image Maps Technology. */
+			#pic {
+				width: 640px;
+				height: 425px;
+				position: relative; /* The key to this technique */
+				background: url(images/group-photo.jpg) no-repeat;
+			}
+			#pic ul {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+			#pic a {
+				position: absolute;
+				width: 100px;
+				height: 120px;
+				text-indent: -1000em;
+			}
+			#pic .rich a {
+				top: 15px;
+				left: 95px;
+			}
+			#pic .andy a {
+				top: 115px;
+				left: 280px;
+			}
+			#pic .jeremy a {
+				top: 250px;
+				left: 425px;
+			}
+			#pic a:hover {
+				border: 1px solid #fff;
+			}
+
+			/* CSS Image Maps Technology: Advanced */
+			#pic1 {
+				width: 640px;
+				height: 425px;
+				position: relative; /* The key to this technique */
+				background: url(images/group-photo.jpg) no-repeat;
+			}
+			#pic1 ul {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+			#pic1 a {
+				position: absolute;
+				width: 100px;
+				height: 120px;
+				color: #000;                  /* We need to show text in a tag this time. So set color, remove underline. */
+				text-decoration: none;
+				border: 1px solid transparent; /* Hide 1px width border here for the effect when hovering over on image. */
+			}
+			#pic1 .rich a {
+				top: 15px;
+				left: 95px;
+			}
+			#pic1 .andy a {
+				top: 115px;
+				left: 280px;
+			}
+			#pic1 .jeremy a {
+				top: 250px;
+				left: 425px;
+			}
+			#pic1 a .outer {     /* outer border of double-border effect. */
+				display: block;
+				width: 98px;
+				height: 118px;
+			}
+			#pic1 a .inner {     /* inner border of double-border effect. */
+				display: block;
+				width: 96px;
+				height: 116px;
+			}
+			#pic1 a:hover {
+				border-color: #d4d82d;
+			}
+			#pic1 a .note {     /* Custom note effect. */
+				position: absolute;
+				bottom: -3em;
+				width: 9em;
+				padding: 0.2em 0.5em;
+				background-color:#ffc;
+				text-align: center;
+				left: 50px;     /* The below two lines make sure horizontally center the note beneath the hotspot. Uncomment them to see difference. */
+				margin-left: -5em;
+				left: -30000px; /* Hide the note text until hovering over the hotspot. Don't use display:none because google or screenreaders. */
+			}
+			#pic1 a:hover .note {
+				left: 50px; /* Show the note text. */
+			}
+			#pic1:hover a .outer, #pic1 a:hover .outer { /* The latter is for IE6 bug(only support hover on anchor). See book CSS Mastery, page 103*/
+				border: 1px solid #000;
+			}
+			#pic1:hover a .inner, #pic1 a:hover .inner { /* The latter is for IE6 bug(only support hover on anchor). See book CSS Mastery, page 103*/
+				border: 1px solid #fff;
+			}
+
+			/* CSS Image Maps Technology: Advanced: remote rollover */
+			#pic2 {
+				width: 640px;
+				height: 425px;
+				position: relative; /* The key to this technique */
+				background: url(images/group-photo.jpg) no-repeat;
+			}
+			#pic2 ul {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+			}
+			#pic2 a .hotspot {
+				width: 100px;
+				height: 120px;
+				position: absolute;
+			}
+			#pic2 .rich a .hotspot {
+				top: 15px;
+				left: 95px;
+			}
+			#pic2 .andy a .hotspot {
+				top: 115px;
+				left: 280px;
+			}
+			#pic2 .jeremy a .hotspot {
+				top: 250px;
+				left: 425px;
+			}
+			#pic2 a .link {
+				position: absolute;
+				width: 15em;
+			}
+			#pic2 .rich a .link {
+				bottom: -2em; /* Means bottom of the div image. */
+				left: 0;
+			}
+			#pic2 .andy a .link {
+				bottom: -3.2em; /* Means bottom of the div image. */
+				left: 0;
+			}
+			#pic2 .jeremy a .link {
+				bottom: -4.4em; /* Means bottom of the div image. */
+				left: 0;
+			}
+			#pic2 a:hover .hotspot {
+				border: 1px solid #fff;
+			}
+			#pic2 a:hover .link {
+				color: #0066FF;
+			}
+			#pic2 a:hover { /* For IE6 bug. */
+				border: none;
+			}
+
+			.clear {
+				clear: both;
+			}
+
+			-->
+		</style>
+	</head>
+	<body>
+
+	<ul id="style1">
+		<li>Read emails</li>
+		<li>Write book</li>
+		<li>Go shopping</li>
+		<li>Cook dinner</li>
+		<li>Watch Scrubs</li>
+	</ul>
+
+	<br/>
+
+	<ul id="style2">
+		<li class="first"><a href="home.htm">Home</a></li>
+		<li><a href="about.htm">About</a></li>
+		<li><a href="services.htm">Our Services</a></li>
+		<li><a href="work.htm">Our Work</a></li>
+		<li><a href="news.htm">News</a></li>
+		<li><a href="contact.htm">Contact</a></li>
+	</ul>
+
+	<br/>
+
+	<ul id="style3">
+		<li class="first"><a href="#">Home</a></li>
+		<li><a href="#">About</a></li>
+		<li><a href="#">News</a></li>
+		<li><a href="#">Products</a></li>
+		<li><a href="#">Services</a></li>
+		<li><a href="#">Clients</a></li>
+	</ul>
+
+	<div class="clear"></div> <!-- Using this empty div with clear class to remove the float effect in style3 above. -->
+
+	<br/>
+
+	<ul id="style4">
+		<li><a href="#">Home</a></li>
+		<li><a href="#">About</a></li>
+		<li><a href="#">News</a></li>
+		<li><a href="#">Products</a></li>
+		<li><a href="#">Services</a></li>
+		<li><a href="#">Clients</a></li>
+	</ul>
+
+	<div class="clear"></div> <!-- Using this empty div with clear class to remove the float effect in style3 above. -->
+
+	<br/>
+
+	<div id="pic">
+		<ul>
+			<li class="rich">
+				<a href="http://www.clagnut.com/" title="Richard Rutter"> Richard Rutter </a>
+			</li>
+			<li class="andy">
+				<a href="http://www.andybudd.com/" title="Andy Budd"> Andy Budd </a>
+			</li>
+			<li class="jeremy">
+				<a href="http://www.adactio.com/" title="Jeremy Keith"> Jeremy Keith </a>
+			</li>
+		</ul>
+	</div>
+
+	<br/>
+
+	<div id="pic1">
+		<ul>
+			<li class="rich">
+				<a href="http://www.clagnut.com/">
+					<span class="outer">
+					<span class="inner">
+					<span class="note"> Richard Rutter </span>
+					</span>
+					</span>
+				</a>
+			</li>
+			<li class="andy">
+			    <a href="http://www.andybudd.com/">
+					<span class="outer">
+					<span class="inner">
+					<span class="note"> Andy Budd </span>
+					</span>
+					</span>
+				</a>
+			</li>
+			<li class="jeremy">
+			    <a href="http://www.adactio.com/">
+					<span class="outer">
+					<span class="inner">
+					<span class="note"> Jeremy Keith </span>
+					</span>
+					</span>
+				</a>
+			</li>
+		</ul>
+	</div>
+
+	<br/>
+
+	<div id="pic2">
+		<ul>
+			<li class="rich">
+				<a href="http://www.clagnut.com/" title="Richard Rutter">
+					<span class="hotspot"></span>
+					<span class="link">&raquo; Richard Rutter </span>
+				</a>
+			</li>
+			<li class="andy">
+			    <a href="http://www.andybudd.com/" title="Andy Budd">
+					<span class="hotspot"></span>
+					<span class="link">&raquo; Andy Budd </span>
+				</a>
+			</li>
+			<li class="jeremy">
+			    <a href="http://www.adactio.com/" title="Jeremy Keith">
+					<span class="hotspot"></span>
+					<span class="link">&raquo; Jeremy Keith </span>
+				</a>
+			</li>
+		</ul>
+	</div>
+
+	<br/> <br/> <br/>
+
+	<div>
+		<p> Definition List Sample. </p>
+		<dl>
+			<dt>Apple</dt>
+			<dd>Red, yellow or green fruit</dd>
+			<dd>Computer company</dd>
+			<dt>Bananna</dt>
+			<dd>Curved yellow fruit</dd>
+		</dl>
+	</div>
+	
+	</body>
+</html>
+
+

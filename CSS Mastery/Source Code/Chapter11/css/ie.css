@@ -1,0 +1,7 @@
+/*
+This is a proprietary expression only for Internet Explorer, as it doesn't support max-width or min-width. This expression breaks validation and therefore has been separated from master.css.
+*/
+
+#container, #footer {
+	width: expression(document.body.clientWidth < 740? "740px" : document.body.clientWidth > 1200? "1200px" : "auto");
+}

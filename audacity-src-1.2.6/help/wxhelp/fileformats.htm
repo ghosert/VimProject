@@ -1,0 +1,86 @@
+<html>
+<head>
+<title>File Formats</title>
+</head>
+<body>
+
+<h1>Sound File Formats</h1>
+
+<font color="#000099">
+<h2>Audacity Project format (AUP)</h2>
+</font>
+
+Audacity projects are stored in an AUP file, which is a format that
+has been highly optimized for Audacity so that it can open and save
+projects quickly.  In order to achieve this speed, Audacity
+breaks larger audio files into several smaller pieces and stores these
+pieces in a directory with a similar name as the project.
+For example, if you name a project "chanson", then Audacity will create a
+project file called <tt>chanson.aup</tt> to store the general
+information about your project, and it will store your audio in several
+files inside a directory called <tt>chanson_data</tt>.
+While the Audacity Project format is based on XML and is meant to be
+open, it is not currently compatible with any other audio
+programs, so when you are finished working on a project and you
+want to be able to edit the audio in another program, select
+Export from the <a href="menu_file.htm">File Menu</a>.
+
+<p>
+
+<font color="#000099">
+<h2>WAV (Windows Wave format)</h2>
+</font>
+
+This is the default uncompressed audio format on Windows, and is supported
+on almost all computer systems.  Audacity can read and write this format.
+People working with multichannel audio at very high quality settings, or with
+very long recordings, should note that the maximum size of a wav file is
+2GB.<p>
+
+<font color="#000099">
+<h2>AIFF (Audio Interchange File Format)</h2>
+</font>
+
+This is the default uncompressed audio format on the Macintosh, and it
+is supported by most computer systems, but it is not quite as common as
+the WAV format.  Audacity can read and write this format.
+
+<p>
+
+<font color="#000099">
+<h2>Sun Au / NeXT</h2>
+</font>
+This is the default audio format on Sun and NeXT computers, and
+usually u-law compressed, so it is not a very high quality
+format.  U-law compression is a very simple, fast but low quality way to reduce the size of the audio by about 50%. This format was one of the first audio
+formats supported by
+Web browsers, and it is still often used for short sound effects where
+quality is not as important.<br/>
+Audacity exports both 8-bit u-law files, and 16-bit uncompressed files, which
+are the same quality as wav or aiff files.
+<p>
+
+<font color="#000099">
+<h2>MP3 (MPEG I, Layer 3)</h2>
+</font>
+
+This is a compressed audio format that is a very popular way to
+store music.  It can compress audio by a factor of 10:1 with very
+little degradation in quality.  Audacity can both import and export
+this format.  For more information on how to export MP3 files from
+within Audacity, see <a href="exportmp3.htm">Exporting MP3 Files</a>.
+
+<p>
+
+<font color="#000099">
+<h2>Ogg Vorbis</h2>
+</font>
+
+This compressed audio format was designed to be a free
+alternative to MP3.  Ogg Vorbis files are not as common, but
+they are about the same size as MP3 with better quality to rival
+AAC or WMA.  Audacity can import and export this format.
+
+</body>
+</htm>
+

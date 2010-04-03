@@ -1,0 +1,33 @@
+# Navigate to the Sports genre
+follow "Sports Tickets"
+
+# Navigate to the NBA genre
+follow "NBA"
+
+# Navigate to the NBA All Star genre leaf
+follow "NBA All Star Game Tickets"
+
+# Navigate to the event page
+follow "NBA All-Star Rookie Challenge Tickets 2/13"
+
+# Navigate to the ticket page
+# Use a trick, View Details here is the first return of the page
+follow "View Details"
+
+# Verification
+url "ticket_id"
+
+title "NBA All-Star Rookie Challenge.*Section.*Row"
+
+find "NBA All-Star Rookie Challenge Tickets"
+
+find "Section"
+
+find "Row"
+
+find "Price"
+
+find "Seller comments"
+
+find "Billing Options"
+

@@ -1,0 +1,473 @@
+<html>
+	<head>
+		<script>
+			function println(obj) {
+				document.write(obj + '<br/>');
+			}
+			function $(name) {
+				if (typeof name == 'string') {
+					return document.getElementById(name);
+				}
+				return name;
+			}
+		</script>
+	</head>
+
+    <body>
+	</body>
+
+	<script>
+
+		/* YOU CAN ONLY TEST XMLHTTPREQUEST ON A WEB SERVER, NOT LOCAL FILE SYSTEM. */
+
+		// Scripting HTTP
+		// Here we consider how JavaScript code can communicate with a web server without causing the web browser to reload the currently displayed page.
+		// The <img>, <iframe>, and <script> tags have src properties. When a script sets these properties to a URL,
+		// an HTTP GET request is initiated to download the content of the URL.
+		/*
+			Although HTTP scripting with <img>, <iframe>, and <script> tags is possible, it is harder than it sounds to
+			do it portably, and this chapter focuses on another, more powerful way to do it. The XMLHttpRequest
+			object is well supported in modern browsers and provides full access to the HTTP protocol, including the
+			ability to make POST and HEAD requests, in addition to regular GET requests. XMLHttpRequest can return
+			the web server's response synchronously or asynchronously, and can return the content as text or as a
+			DOM document. Despite its name, the XMLHttpRequest object is not limited to use with XML documents:
+			it can fetch any kind of text document. The XMLHttpRequest object is the key feature of a web application
+			architecture known as Ajax.
+		*/
+
+
+		// Using XMLHttpRequest
+		// Obtaining a Request Object
+		var request = new XMLHttpRequest();
+		// Prior to IE7:
+		// var request = new ActiveXObject("Msxml2.XMLHTTP");
+		// or (depending on the libraries installed on the client)
+		// var request = new ActiveXObject("Microsoft.XMLHTTP");
+
+		// Cross-platform utility function: Example 20-1. The HTTP.newRequest() utility
+		// This is a list of XMLHttpRequest-creation factory functions to try
+		HTTP = {};
+		HTTP._factories = [
+			function() { return new XMLHttpRequest(); },
+			function() { return new ActiveXObject("Msxml2.XMLHTTP"); },
+			function() { return new ActiveXObject("Microsoft.XMLHTTP"); }
+		];
+		// When we find a factory that works, store it here.
+		HTTP._factory = null;
+		// Create and return a new XMLHttpRequest object.
+		//
+		// The first time we're called, try the list of factory functions until
+		// we find one that returns a non-null value and does not throw an
+		// exception. Once we find a working factory, remember it for later use.
+		//
+		HTTP.newRequest = function() {
+			if (HTTP._factory != null) return HTTP._factory();
+			for(var i = 0; i < HTTP._factories.length; i++) {
+				try {
+					var factory = HTTP._factories[i];
+					var request = factory();
+					if (request != null) {
+						HTTP._factory = factory;
+						return request;
+					}
+				} catch(e) {
+					continue;
+				}
+			}
+			// If we get here, none of the factory candidates succeeded,
+			// so throw an exception now and for all future calls.
+			HTTP._factory
+			= function() {
+				throw new Error("XMLHttpRequest not supported");
+			}
+			HTTP._factory(); // Throw an error
+		}
+
+		// Submitting a Request
+		var request = HTTP.newRequest();
+		/**
+			// Step 1: call open method:
+			// request.open(method, url, async/sync, username, password);
+			request.open("GET", url, false); // false means synchronized call while true is async by default(can be omitted).
+			// Step 2: set header:
+			request.setRequestHeader("User-Agent", "XMLHttpRequest");
+			request.setRequestHeader("Accept-Language", "en");
+			// request.setRequestHeader("If-Modified-Since", lastRequestTime.toString());
+			// Note that the web browser automatically adds relevant cookies to the request you're building. You need to
+			// explicitly set a "Cookie" header only if you want to send a fake cookie to the server.
+			// Step 3: call send method:
+			request.send(null); // set null if it's a GET request. For POST request, should contain form data to be sent to the server(see Example 20-5)
+
+			// Obtaining a Synchronous Response
+			if (request.status == 200) {
+				// We got the server's response. Display the response text.
+				alert(request.responseText);
+			}
+			else {
+				// Something went wrong. Display error code and error message.
+				alert("Error " + request.status + ": " + request.statusText);
+			}
+			if (request.status == 200) { // Make sure there were no errors
+				// Make sure the response is an XML document
+				if (request.getResponseHeader("Content-Type") == "text/xml") { // use getAllResponseHeaders for all headers as an unparsed block of text
+					var doc = request.responseXML; // get a DOM Document object rather than text above.
+					// Now do something with the response document
+				}
+			}
+			// One serious problem with synchronous call is if the web server stops responding, the send() blocks for a long time and no way to recover
+		**/
+
+		// Handling an Asynchronous Response
+		/*
+			Table 20-1. XMLHttpRequest readyState values
+			readyState Meaning
+			0 open() has not been called yet.
+			1 open() has been called, but send() has not been called.
+			2 send() has been called, but the server has not responded yet.
+			3
+			Data is being received from the server. readyState 3 differs somewhat in Firefox and
+			Internet Explorer; see Section 20.1.4.1.
+			4 The server's response is complete.
+		*/
+		/*
+			// Create an XMLHttpRequest using the utility defined earlier
+			var request = HTTP.newRequest();
+			// Register an event handler to receive asynchronous notifications.
+			// This code says what to do with the response, and it appears in a nested
+			// function here before we have even submitted the request.
+			request.onreadystatechange = function() {
+				if (request.readyState == 4) { // If the request is finished
+					if (request.status == 200) // If it was successful
+					alert(request.responseText); // Display the server's response
+				}
+			}
+			// Make a GET request for a given URL. We don't pass a third argument,
+			// so this is an asynchronous request
+			request.open("GET", url);
+			// We could set additional request headers here if we needed to.
+			// Now send the request. Since it is a GET request, we pass null for
+			// the body. Since it is asynchronous, send() does not block but
+			// returns immediately.
+			request.send(null);
+		*/
+
+		// Notes on readyState 3
+		/*
+			during large downloads, Firefox invokes the onreadystatechange handler
+			multiple times in readyState 3, to provide download progress feedback. A script might use these multiple
+			invocations to display a progress indicator to the user.
+			IE it is invoked only once for readyState 3, no matter how large the downloaded document is.
+
+			Until there is a standard or at least clear documentation, it is safest to ignore any value of readyState other than 4.
+		*/
+
+		// XMLHttpRequest Security
+		/**
+			As part of the same-origin security policy (see Section 13.8.2.), the XMLHttpRequest object can issue
+			HTTP requests only to the server from which the document that uses it was downloaded. This is a
+			reasonable restriction, but you can circumvent it if you need to, by using a server-side script as a proxy to
+			fetch the content of some off-site URL for you.
+			This XMLHttpRequest security restriction has one very important implication: XMLHttpRequest makes
+			HTTP requests and does not work with other URL schemes. It cannot work with URLs that use the file://
+			protocol, for example. This means that you cannot test XMLHttpRequest scripts from your local filesystem.
+			You must upload your test scripts to a web server (or run a server on your desktop). Your test scripts
+			must be loaded into your web browser via HTTP in order for them to make HTTP requests of their own.
+		**/
+
+
+		// XMLHttpRequest Examples and Utilities
+		// Basic GET Utilities
+		/**
+		* Use XMLHttpRequest to fetch the contents of the specified URL using
+		* an HTTP GET request. When the response arrives, pass it (as plain
+		* text) to the specified callback function.
+		*
+		* This function does not block and has no return value.
+		*/
+		HTTP.getText = function(url, callback) {
+			var request = HTTP.newRequest();
+			request.onreadystatechange = function() {
+				if (request.readyState == 4 && request.status == 200)
+				callback(request.responseText);
+			}
+			request.open("GET", url);
+			request.send(null);
+		};
+		HTTP.getXML = function(url, callback) {
+			var request = HTTP.newRequest();
+			request.onreadystatechange = function() {
+				if (request.readyState == 4 && request.status == 200)
+				callback(request.responseXML);
+			}
+			request.open("GET", url);
+			request.send(null);
+		};
+		/**
+		* Use an HTTP HEAD request to obtain the headers for the specified URL.
+		* When the headers arrive, parse them with HTTP.parseHeaders() and pass the
+		* resulting object to the specified callback function. If the server returns
+		* an error code, invoke the specified errorHandler function instead. If no
+		* error handler is specified, pass null to the callback function.
+		*/
+		HTTP.getHeaders = function(url, callback, errorHandler) {
+			var request = HTTP.newRequest();
+			request.onreadystatechange = function() {
+				if (request.readyState == 4) {
+					if (request.status == 200) {
+						callback(HTTP.parseHeaders(request));
+					} else {
+						if (errorHandler) errorHandler(request.status,
+							request.statusText);
+							else callback(null);
+					}
+				}
+			}
+			request.open("HEAD", url);
+			request.send(null);
+		};
+		// Parse the response headers from an XMLHttpRequest object and return
+		// the header names and values as property names and values of a new object.
+		HTTP.parseHeaders = function(request) {
+			var headerText = request.getAllResponseHeaders(); // Text from the server
+			var headers = {}; // This will be our return value
+			var ls = /^\s*/; // Leading space regular expression
+			var ts = /\s*$/; // Trailing space regular expression
+			// Break the headers into lines
+			var lines = headerText.split("\n");
+			// Loop through the lines
+			for(var i = 0; i < lines.length; i++) {
+				var line = lines[i];
+				if (line.length == 0) continue; // Skip empty lines
+				// Split each line at first colon, and trim whitespace away
+				var pos = line.indexOf(':');
+				var name = line.substring(0, pos).replace(ls, "").replace(ts, "");
+				var value = line.substring(pos+1).replace(ls, "").replace(ts, "");
+				// Store the header name/value pair in a JavaScript object
+				headers[name] = value;
+			}
+			return headers;
+		};
+
+		// HTTP POST
+		// With POST requests, data is passed to the server in the body of the request, rahter than encoding it into the URL itself(which GET does).
+		// The HTTP.post9) utility
+		/**
+		* Send an HTTP POST request to the specified URL, using the names and values
+		* of the properties of the values object as the body of the request.
+		* Parse the server's response according to its content type and pass
+		* the resulting value to the callback function. If an HTTP error occurs,
+		* call the specified errorHandler function, or pass null to the callback
+		* if no error handler is specified.
+		**/
+		HTTP.post = function(url, values, callback, errorHandler) {
+			var request = HTTP.newRequest();
+			request.onreadystatechange = function() {
+				if (request.readyState == 4) {
+					if (request.status == 200) {
+						callback(HTTP._getResponse(request));
+					} else {
+						if (errorHandler) errorHandler(request.status, request.statusText);
+						else callback(null);
+					}
+				}
+			}
+			request.open("POST", url);
+			// This header tells the server how to interpret the body of the request.
+			request.setRequestHeader("Content-Type",
+			"application/x-www-form-urlencoded");
+			// Encode the properties of the values object and send them as
+			// the body of the request.
+			request.send(HTTP.encodeFormData(values));
+		};
+		/**
+		* Encode the property name/value pairs of an object as if they were from
+		* an HTML form, using application/x-www-form-urlencoded format
+		*/
+		HTTP.encodeFormData = function(data) {
+			var pairs = [];
+			var regexp = /%20/g; // A regular expression to match an encoded space
+			for(var name in data) {
+				var value = data[name].toString();
+				// Create a name/value pair, but encode name and value first
+				// The global function encodeURIComponent does almost what we want,
+				// but it encodes spaces as %20 instead of as "+". We have to
+				// fix that with String.replace()
+				var pair = encodeURIComponent(name).replace(regexp,"+") + '=' +
+				encodeURIComponent(value).replace(regexp,"+");
+				pairs.push(pair);
+			}
+			// Concatenate all the name/value pairs, separating them with &
+			return pairs.join('&');
+		};
+
+		data = {name: 'jiawei', age: 29};
+		println(HTTP.encodeFormData(data));
+
+		// HTML, XML and JSON-Encoded Response
+		// You can always treat the server's response as plain text, even when it has a different content type.
+		/*
+			You can always treat the server's response as plain text, even when it has a different content type. If the
+			server returns an HTML document, for example, you might retrieve the content of that document with the
+			responseText property and then use it to set the innerHTML property of some document element.
+
+			There are other ways to handle the server's response, however. As noted at the beginning of this chapter,
+			if the server sends a response with a content type of "text/xml", you can retrieve a parsed representation
+			of the XML document with the responseXML property. The value of this property is a DOM Document
+			object, and you can search and traverse it using DOM methods.
+
+			Note, however that using XML as a data format may not always be the best choice. Encode data into XML form on the server and
+			have your script traverse DOM xml to extract data on the client, which is complex, especially for js client side. Use JSON instead.
+
+			When you receive a json string like "{name : 'jiawei'}" from server, use eval below to "parses" the reponse simply.
+		*/
+		eval("var s = {name : 'jiawei'}");
+		println(s.name);
+
+		/*
+			<!-- XML encoding -->
+			<author>
+				<name>Wendell Berry</name>
+				<books>
+					<book>The Unsettling of America</book>
+					<book>What are People For?</book>
+				</books>
+			</author>
+
+			// JSON Encoding
+			{
+				"name": "Wendell Berry",
+				"books": [
+					"The Unsettling of America",
+					"What are People For?"
+				]
+			}
+		*/
+
+		// HTTP._getResponse implementation for above sample.
+		HTTP._getResponse = function(request) {
+			// Check the content type returned by the server
+			switch(request.getResponseHeader("Content-Type")) {
+				case "text/xml":
+					// If it is an XML document, use the parsed Document object.
+					return request.responseXML;
+				case "text/json":
+				case "text/javascript":
+				case "application/javascript":
+				case "application/x-javascript":
+					// If the response is JavaScript code, or a JSON-encoded value,
+					// call eval() on the text to "parse" it to a JavaScript value.
+					// Note: only do this if the JavaScript code is from a trusted server!
+					// A secure alternative is to use a JSON decoder that parses JavaScript object literals "by hand" without calling eval().
+					return eval(request.responseText);
+				default:
+					// Otherwise, treat the response as plain text and return as a string.
+					return request.responseText;
+			}
+		};
+
+		// Timing Out a Request
+		// Even for the asycn http invoking in js, you still need a timeout when the remote server is down, so that you have a chance to tell the users.
+		// And re-enable a disabled button on which the user clicked to make the http reqeust.
+		/**
+		* Send an HTTP GET request for the specified URL. If a successful
+		* response is received, it is converted to an object based on the
+		* Content-Type header and passed to the specified callback function.
+		* Additional arguments may be specified as properties of the options object.
+		*
+		* If an error response is received (e.g., a 404 Not Found error),
+		* the status code and message are passed to the options.errorHandler
+		* function. If no error handler is specified, the callback
+		* function is called instead with a null argument.
+		*
+		* If the options.parameters object is specified, its properties are
+		* taken as the names and values of request parameters. They are
+		* converted to a URL-encoded string with HTTP.encodeFormData() and
+		* are appended to the URL following a '?'.
+		*
+		* If an options.progressHandler function is specified, it is
+		* called each time the readyState property is set to some value less
+		* than 4. Each call to the progress-handler function is passed an
+		* integer that specifies how many times it has been called.
+		*
+		* If an options.timeout value is specified, the XMLHttpRequest
+		* is aborted if it has not completed before the specified number
+		* of milliseconds have elapsed. If the timeout elapses and an
+		* options.timeoutHandler is specified, that function is called with
+		* the requested URL as its argument.
+		**/
+		HTTP.get = function(url, callback, options) {
+			var request = HTTP.newRequest();
+			var n = 0;
+			var timer;
+
+			if (options.timeout)
+			timer = setTimeout(
+				function() {
+					request.abort();
+					if (options.timeoutHandler) options.timeoutHandler(url);
+				},
+				options.timeout
+			);
+
+			request.onreadystatechange = function() {
+				if (request.readyState == 4) {
+					if (timer) clearTimeout(timer);
+					if (request.status == 200) {
+						callback(HTTP._getResponse(request));
+					} else {
+						if (options.errorHandler)
+							options.errorHandler(request.status, request.statusText);
+						else callback(null);
+					}
+				} else if (options.progressHandler) { // This only works for FireFox. See Notes on readyState 3 above.
+					options.progressHandler(++n);
+				}
+			}
+			var target = url;
+			if (options.parameters)
+			target += "?" + HTTP.encodeFormData(options.parameters)
+			request.open("GET", target);
+			request.send(null);
+		};
+		
+
+		// Ajax and Dynamic Scripting
+		// Ajax means: Asynchronous JavaScript and XML(but XML here is optional.)
+		/*
+			The key feature of an Ajax application is that it uses scripted HTTP to communicate with a web server
+			without causing pages to reload. Since the amount of data exchanged is often small, and since the
+			browser does not have to parse and render a document (and its associated stylesheets and scripts),
+			response time is greatly improved, and the result is web applications that feel more like traditional
+			desktop applications.
+
+			It is possible to formalize Ajax into an RPC mechanism(like Spring httpinvoker and WebService).
+			[*] RPC stands for Remote Procedure Call and describes a strategy used in distributed computing to simplify client/server
+			communication.
+		*/
+
+		// Ajax Cautions
+		// 1. Visual Feedback:
+		// It is valuable for Ajax-based applications to provide some kind of visual feedback (such as a simple DHTML animation: see Chapter 16)
+		// while waiting for a response to an XMLHttpRequest. Because the browser doesn't provide any feedback when invoking XMLHttpRequest
+		// 2. URLs in the location bar does not change, but user may want to bookmark the urls for current application state:
+		// The lesson for Ajax application developers is that it remains important to be able to encapsulate application state in a URL and
+		// that these URLs should be available to users when necessary.
+		// 3. Back button:
+		/*
+			Application elements that look like hyperlinks should behave like
+			hyperlinks and should do real page reloads. This makes them subject to the browser's history mechanism,
+			as the user expects. Conversely, application elements that perform scripted HTTP, which is not subject to
+			the browser's history mechanism, should not look like hyperlinks.
+			Ajax applications should be careful not to use word like "forward/back", this may make user click on Back button which doesn't work for Ajax
+			If you use the words above, it should use traditional page loads instead of XMLHttpRequest.
+		*/
+
+
+		// Scripting HTTP with <script> Tags
+		// If the user disable all ActiveX scripting in IE for security reasons, the XMLHttpRequest object will fail to work, so that it is
+		// possible to issue basic HTTP GET requests using <script> and <iframe> tags.
+		// See more details in pdf page 592.
+
+	</script>
+</html>
+

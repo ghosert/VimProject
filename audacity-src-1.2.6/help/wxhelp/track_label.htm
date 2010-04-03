@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+<title>Audacity - Label Track</title>
+</head>
+
+<body text="#000000" link="#000099" vlink="#000099">
+
+<font color="#000099">
+<h1>Label Track</h1>
+</font>
+
+<img src="images/labeltrack_1.png" width="584" height="25">
+<br><p>
+
+Label Tracks can be used to annotate an audio file.  They can be used
+for lyrics, markers, or notes, and they can even be used to save
+selections.
+<br><p>
+
+To create a Label Track, select New Label Track from the
+<a href="menu_project.htm">Project Menu</a>.  Alternatively, simply
+click or select where you would like to place a label, and choose
+Add Label at Selection from the <a href="menu_project.htm">Project Menu</a>,
+and a Label Track will be created automatically if one doesn't already
+exist.
+<br><p>
+
+To add a new label, click or select where you want the new label to appear,
+then select Add Label at Selection from the
+<a href="menu_project.htm">Project Menu</a>, then type the name of the
+label, and finally press Enter or click outside of the label.
+<br><p>
+
+In addition, you can use the Add Label at Playback Position command
+from the <a href="menu_project.htm">Project Menu</a> if you want to
+add a label at a certain place while you are listening.  By default, this
+command has a shortcut of Control+M.
+<br><p>
+
+To edit the name of a label, click anywhere in it.
+Zoom in first if there are too many labels crowded together and you
+are unable to click on the one you want.  When a label is selected
+for editing, it looks like the first label below:
+<br><p>
+
+<img src="images/labeltrack_2.png" width="584" height="25">
+<br><p>
+
+When editing the name of a label, you are limited to using just
+the backspace key for editing.  There is no way to move the
+insertion point to append a letter to the beginning of a label.
+<br><p>
+
+Once a label is selected, you can move to the next label by pressing
+Tab, and move to the previous label by pressing Shift-Tab.
+<br><p>
+
+To delete a label or multiple labels, select the area containing the
+label flags you wish to delete, and choose Silence from the
+<a href="menu_edit.htm">Edit Menu</a>.  Alternatively you can delete
+an individual label by clicking on it and pressing Backspace until you
+have deleted all of the characters in the label, then pressing Enter.
+<br><p>
+
+To move labels, use the normal editing commands like Cut, Copy,
+Paste, Delete, and Silence.
+<br><p>
+
+You can save a selection in a label.  When you create a new
+label, the left selection edge determines the position of the label's
+flag.  However, the right selection edge is also stored in the label,
+and when you click on it, the full original selection will be restored.
+If you wish to apply this selection to only a subset of the tracks,
+shift-click in the label area to the left of each track's waveform
+to change whether each track is part of the selection or not.
+<br><p>
+
+<font color="#000099">
+<h2>Exporting and Importing label tracks</h2>
+</font>
+
+Label Tracks are saved when you save an Audacity Project, so if you
+just want to continue using the labels along with the same file,
+just save a project.  But you can also export the labels to a simple
+text file, and import them.  This allows you to save information about
+the locations of events in an audio file for use in another program,
+and also provides a way to mass-edit the labels if necessary.
+<br><p>
+
+To export a Label Track, choose Export Labels... from the
+<a href="menu_file.htm">File Menu</a>.  The exported file will
+contain one line per label, starting with the time offset in
+seconds, then a tab, and then the name of the label, for example:
+<br><p>
+
+<pre>
+1.217995    Bass intro
+3.921073    Guitar enters
+7.584454    Drums enter
+11.070002   Chorus
+</pre>
+<br><p>
+
+To import a Label Track, choose Import Labels... from the
+<a href="menu_file.htm">File Menu</a>.
+<br><p>
+
+</body>
+</html>
+

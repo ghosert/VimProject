@@ -1,0 +1,985 @@
+dnl
+dnl audacity configure.in script
+dnl
+dnl Joshua Haberman
+dnl Dominic Mazzoni
+dnl
+
+
+dnl TODO:
+dnl
+dnl automatically choose whether or not to make some libs
+dnl based on:
+dnl
+dnl AC_CHECK_LIB(z, compress2, build_libz=false, build_libz=true)
+dnl AM_CONDITIONAL(BUILD_LIBZ, test $build_libz = true)
+dnl
+dnl
+
+dnl Process this file with autoconf to produce a configure script.
+
+dnl Require autoconf >= 2.50 (unfortunately 2.13 is standard)
+AC_PREREQ(2.50)
+
+dnl Init autoconf
+AC_INIT
+
+dnl Check for existence of Audacity.h
+AC_CONFIG_SRCDIR([src/Audacity.h])
+
+dnl Checks for programs.
+AC_PROG_CC
+AC_PROG_GCC_TRADITIONAL
+AC_LANG([C++])
+AC_PROG_CXX
+AC_PROG_CXXCPP
+AC_PROG_INSTALL
+
+dnl extra variables
+AC_SUBST(BUILDLIBS)
+AC_SUBST(EXTRAOBJS)
+AC_SUBST(OPTOBJS)
+AC_SUBST(CDEPEND)
+AC_SUBST(AFTERBUILD)
+AC_SUBST(INSTALL_PREFIX)
+AC_SUBST(CONFIGHEADER)
+AC_SUBST(PRECOMP_CFLAGS)
+AC_SUBST(EXTRATARGETS)
+
+dnl allow the user to specify options to configure that change the
+dnl name "audacity" anywhere it appears in a pathname.  This allows
+dnl multiple versions of Audacity to be installed concurrently
+dnl without collision
+
+AC_ARG_PROGRAM
+AC_SUBST(AUDACITY_NAME)
+
+dnl autoconf's program_transform_name is set to spit out a sed expression --
+dnl however it's "helpfully" already escaped for make.  Since we want to use
+dnl it in shell and not make, we have to unescape this: this translates into
+dnl turning two dollar signs into one.
+dnl
+dnl I feign at this monstrosity, but no one depends on this particular
+dnl feature but me, as Debian package maintainer, so no one else should
+dnl need to worry about understanding it...
+program_transform_name=`echo $program_transform_name | sed 's/\\$\\$/$/'`
+AUDACITY_NAME=`echo audacity | sed $program_transform_name`
+
+if [[ "$AUDACITY_NAME" = "audacity" ]] ; then
+    AC_DEFINE(AUDACITY_NAME, "audacity",
+        [define if Audacity is being installed under a name other than "audacity",
+         so it can find the files it needs at runtime])
+else
+    AC_DEFINE_UNQUOTED(AUDACITY_NAME, "$AUDACITY_NAME")
+fi
+
+dnl
+dnl Make the install prefix available to the program so that it
+dnl knows where to look for help files, plug-ins, etc.
+dnl
+
+AC_PREFIX_DEFAULT(/usr/local)
+if [[ $prefix = "NONE" ]] ; then
+	AC_DEFINE(INSTALL_PREFIX, "/usr/local",
+        [define as prefix where Audacity is installed])
+else
+	AC_DEFINE_UNQUOTED(INSTALL_PREFIX, "$prefix")
+fi
+
+dnl we are going to need pkg-config to test for library versions
+dnl so let's get it over with
+PKG_PROG_PKG_CONFIG()
+dnl PKG_CONFIG will now be set to the best pkg-config available
+
+dnl
+dnl Required sublibraries
+dnl
+
+BUILDLIBS="$BUILDLIBS expat/expat.a"
+EXTRAOBJS="$EXTRAOBJS ../lib-src/expat/expat.a"
+CXXFLAGS="$CXXFLAGS -I../lib-src/expat"
+
+dnl TODO enable/disable allegro
+BUILDLIBS="$BUILDLIBS allegro/allegro.a"
+EXTRAOBJS="$EXTRAOBJS ../lib-src/allegro/allegro.a"
+CXXFLAGS="$CXXFLAGS -I../lib-src/allegro"
+
+dnl libsndfile is required (reworked by Richard Ash)
+dnl default is worked out as:
+dnl	* If system is new enough, use it
+dnl	* else try local
+dnl	* else tough (set to no and force the user to specify which)
+dnl first, let's see if we have a system copy
+AC_CHECK_HEADER(sndfile.h, default_libsndfile="system", default_libsndfile="local")
+dnl try local if no system lib
+if [[ "$default_libsndfile" = "system" ]] ; then
+	dnl we have a system lib, so check version
+	echo "Checking for system libsndfile 1.0.12 or better (for flac support)"
+	if $PKG_CONFIG --atleast-version=1.0.12 sndfile ; then
+#	if $PKG_CONFIG --exists sndfile >= 1.0.12 ; then
+		dnl get here if we have >=1.0.12 installed
+		default_libsndfile="system"
+		dnl if we have a new one go with it
+		echo "system libsndfile >= 1.0.12 found - using."
+	else	
+		dnl get here if don't have >=1.0.12 installed
+		echo "System libsndfile  older than 1.0.12"
+		echo "(needed for FLAC support) , trying local copy instead."
+		AC_CHECK_FILE(lib-src/libsndfile/src/sndfile.h.in,
+	              default_libsndfile="local",
+        	      default_libsndfile="no")
+		dnl we assume local libsndfile is new enough.
+		dnl if we have neither new enough system nor local we
+		dnl leave the mess to the user to fix by defaulting no.
+	fi
+	
+fi
+dnl so by now we are using system if exists and is new enough, otherwise
+dnl we've tried the local copy
+dnl TODO - fall back on old system copy if nothing better in local tree?
+dnl is this a good idea?
+
+dnl
+dnl Optional sublibraries
+dnl
+
+dnl For each sublibrary, check to see if the source to this
+dnl library is in the lib-src directory (where it's provided
+dnl for convenience if you get Audacity through CVS).
+
+AC_CHECK_FILE(lib-src/libmad/frame.h,
+              default_libmad="yes",
+              default_libmad="system")
+
+AC_CHECK_FILE(lib-src/libvorbis/include/vorbis/vorbisenc.h,
+              default_vorbis="yes",
+              default_vorbis="system")
+
+AC_CHECK_FILE(lib-src/libid3tag/frame.h,
+              default_libid3tag="yes",
+              default_libid3tag="system")
+
+
+AC_CHECK_FILE(lib-src/libsamplerate/src/samplerate.h,
+              default_libsamplerate="local",
+              default_libsamplerate="system")
+
+AC_CHECK_FILE(lib-src/libresample/include/libresample.h,
+              default_libresample="yes",
+              default_libresample="no")
+
+AC_CHECK_FILE(lib-src/soundtouch/include/SoundTouch.h,
+              default_libsoundtouch="local",
+              default_libsoundtouch="system")
+
+AC_CHECK_FILE(lib-src/libflac/include/FLAC/all.h,
+              default_libflac="local",
+              default_libflac="system")
+
+dnl If any of the optional sublibraries was not found in lib-src,
+dnl we assume the user wants to use a system library.  If the
+dnl library isn't installed, though, disable this library by
+dnl default.
+
+if [[ "$default_libmad" = "system" ]] ; then
+	AC_CHECK_HEADER(mad.h, , default_libmad="no")
+fi
+
+if [[ "$default_vorbis" = "system" ]] ; then
+	AC_CHECK_HEADER(vorbis/vorbisenc.h, , default_vorbis="no")
+fi
+
+if [[ "$default_libid3tag" = "system" ]] ; then
+	AC_CHECK_HEADER(id3tag.h, , default_libid3tag="no")
+fi
+
+if [[ "$default_libsoundtouch" = "system" ]] ; then
+	AC_CHECK_HEADER(soundtouch/SoundTouch.h, , default_libsoundtouch="no")
+fi
+
+if [[ "$default_libflac" = "system" ]] ; then
+	AC_CHECK_HEADER(FLAC/all.h, , default_libflac="no")
+fi
+
+dnl options
+
+AC_ARG_WITH(libmad,
+	[AC_HELP_STRING([--with-libmad],
+      [use libmad for mp3 decoding support])],
+	use_libmad=$withval,
+	use_libmad=$default_libmad)
+
+AC_ARG_WITH(vorbis,
+	[AC_HELP_STRING([--with-vorbis],
+		[enable ogg vorbis support])],
+	use_vorbis=$withval,
+	use_vorbis=$default_vorbis)
+
+AC_ARG_WITH(id3tag,
+	[AC_HELP_STRING([--with-id3tag],
+		[use libid3tag for mp3 id3 tag support])],
+	use_libid3tag=$withval,
+	use_libid3tag=$default_libid3tag)
+
+AC_ARG_WITH(libsndfile,
+	[AC_HELP_STRING([--with-libsndfile],
+		[which libsndfile to use: [local system]])],
+	use_libsndfile=$withval,
+	use_libsndfile=$default_libsndfile)
+
+AC_ARG_WITH(libresample,
+	[AC_HELP_STRING([--with-libresample],
+		[use libresample: [yes no]])],
+	use_libresample=$withval,
+	use_libresample=$default_libresample)
+
+AC_ARG_WITH(libsamplerate,
+	[AC_HELP_STRING([--with-libsamplerate],
+		[use libsamplerate (instead of libresample): [local system none]])],
+	use_libsamplerate=$withval,
+	use_libsamplerate="default")
+
+AC_ARG_ENABLE(flac,
+	[AC_HELP_STRING([--enable-flac ],
+		[enable FLAC support in local libsndfile [default=yes]
+		This has no effect if you use system libsndfile.])],
+	,default_libflac="no")
+dnl this does nothing, because all we are after is passing through the command
+dnl line option to the local libsndfile configure
+
+AC_ARG_WITH(ladspa,
+	[AC_HELP_STRING([--with-ladspa],
+		[compile with ladspa plug-in support [default=yes]])],
+	use_ladspa=$withval,
+	use_ladspa="default")
+
+AC_ARG_WITH(nyquist,
+	[AC_HELP_STRING([--with-nyquist],
+		[compile with Nyquist support [default=yes]])],
+	use_nyquist=$withval,
+	use_nyquist="yes")
+
+AC_ARG_WITH(portmixer,
+	[AC_HELP_STRING([--with-portmixer],
+		[compile with PortMixer [default=yes]])],
+	use_portmixer=$withval,
+	use_portmixer="yes")
+
+AC_ARG_WITH(portaudio,
+	[AC_HELP_STRING([--with-portaudio],
+		[which version of PortAudio to use (=[v18,v19]) [default=v18]])],
+	use_portaudio=$withval,
+	use_portaudio="v18")
+
+AC_ARG_WITH(soundtouch,
+	[AC_HELP_STRING([--with-soundtouch],
+		[compile with SoundTouch: [local system none]])],
+	use_soundtouch=$withval,
+	use_soundtouch="$default_libsoundtouch")
+
+AC_ARG_WITH(help,
+	[AC_HELP_STRING([--with-help],
+		[Make the help file "audacity-1.2-help.htb" [default=yes]])],
+	use_help=$withval,
+	use_help="yes")
+
+if [[ "$use_soundtouch" = "local" ]] ; then
+	AC_DEFINE(USE_SOUNDTOUCH, 1,	
+	[Define if SoundTouch support should be enabled])
+	CXXFLAGS="-I../lib-src/soundtouch/ $CXXFLAGS"
+	dnl we are looking for soundtouch/SoundTouch.h, so
+	dnl this is the path we need to make that work
+	BUILDLIBS="$BUILDLIBS soundtouch/source/SoundTouch/.libs/libSoundTouch.a"		
+	EXTRAOBJS="$EXTRAOBJS ../lib-src/soundtouch/source/SoundTouch/.libs/libSoundTouch.a"		
+
+   if test ! -f "lib-src/soundtouch/Makefile"; then
+		echo "--- Configuring soundtouch";
+		AC_CONFIG_SUBDIRS([[lib-src/soundtouch]])
+   fi
+fi
+
+if [[ "$use_soundtouch" = "system" ]] ; then
+	AC_DEFINE(USE_SOUNDTOUCH, 1,	
+	[Define if SoundTouch support should be enabled])
+	dnl note this is done separately because the soundtouch supplied
+	dnl m4 file sets HAVE_LIBSOUNDTOUCH instead of USE_SOUNDTOUCH
+	AM_PATH_SOUNDTOUCH()
+	dnl no args here as we "know" it will work because we checked earlier
+	dnl do the necessary libs / flags
+	CXXFLAGS="$SOUNDTOUCH_CXXFLAGS $CXXFLAGS"
+	LIBS="$LIBS $SOUNDTOUCH_LIBS"	
+
+fi
+
+
+if [[ "$use_portmixer" = "yes" ]] && [[ "$use_portaudio" = "v19" ]] ; then
+	echo "*** PortAudio v19 does not work with PortMixer (at least not yet)"
+	use_portmixer="no"
+fi
+
+if [[ "$use_portmixer" = "yes" ]] ; then
+	AC_DEFINE(USE_PORTMIXER, 1,	
+	[Define if PortMixer support should be enabled])
+	CXXFLAGS="-I../lib-src/portmixer/px_common $CXXFLAGS"
+fi
+
+if [[ "$use_nyquist" = "yes" ]] ; then
+	AC_DEFINE(USE_NYQUIST, 1,	
+	[Define if Nyquist support should be enabled])
+
+	BUILDLIBS="$BUILDLIBS libnyquist/libnyquist.a"
+	CXXFLAGS="$CXXFLAGS -I../lib-src/libnyquist/nyx"
+	OPTOBJS="$OPTOBJS \$(OBJDIR)/effects/nyquist/Nyquist.o"
+	OPTOBJS="$OPTOBJS \$(OBJDIR)/effects/nyquist/LoadNyquist.o"
+	EXTRAOBJS="$EXTRAOBJS ../lib-src/libnyquist/libnyquist.a"
+fi
+
+if [[ "$use_libsndfile" = "no" ]] ; then
+	   AC_MSG_ERROR([*** Audacity requires libsndfile 1.0.0 or higher to compile.  FLAC support requires libsndfile 1.0.12 or newer. You must choose either --with-libsndfile=local or --with-libsndfile=system])
+fi
+
+if [[ "$use_libsndfile" = "local" ]] ; then
+	BUILDLIBS="$BUILDLIBS libsndfile/src/.libs/libsndfile.a"
+	EXTRAOBJS="$EXTRAOBJS ../lib-src/libsndfile/src/.libs/libsndfile.a"
+	CXXFLAGS="$CXXFLAGS -I../lib-src/libsndfile/src"
+
+	dnl we might need to add flac libs as well - if they are on the system
+	dnl then libsndfile will have detected and linked against them
+	dnl so we need extra (static) link flags
+
+   if [[ "$enable_flac" != "no" ]] ; then
+      if [[ "$default_libflac" = "local" ]] ; then
+         EXTRAOBJS="$EXTRAOBJS ../lib-src/libflac/src/libFLAC/.libs/libFLAC.a"
+         BUILDLIBS="$BUILDLIBS libflac/src/libFLAC/.libs/libFLAC.a"
+         CXXFLAGS="$CXXFLAGS -I../lib-src/libflac/include"
+         export CPPFLAGS="$CPPFLAGS -I`pwd`/lib-src/libflac/include"
+         if test ! -f "lib-src/libflac/Makefile"; then
+            echo "--- Configuring libflac";
+            AC_CONFIG_SUBDIRS([[lib-src/libflac]])
+         fi
+      else
+        	LIBS="$LIBS -lFLAC"
+        fi
+   fi
+
+
+   if test ! -f "lib-src/libsndfile/Makefile"; then
+		echo "--- Configuring libsndfile";
+		AC_CONFIG_SUBDIRS([[lib-src/libsndfile]])
+   fi
+fi
+
+if [[ "$use_libsndfile" = "system" ]] ; then
+	dnl libsndfile -- we need at least version 1.0.0
+	echo "Checking for libsndfile >= 1.0.0 ..."
+	if $PKG_CONFIG --atleast-version=1.0.0 sndfile ; then
+		dnl here for something over 1.0.0
+		echo "Good, you have libsndfile >=1.0.0 ..."
+		echo "Checking for libsndfile 1.0.12 or better for FLAC support"
+		if $PKG_CONFIG --atleast-version=1.0.12 sndfile ; then
+			dnl here for 1.0.12 and over
+			echo "libsndfile 1.0.12 or better detected - FLAC support possible"
+		else
+			dnl here for 1.0.0 to 1.0.12
+			echo "Your libsndfile version is to old to enable FLAC support"
+			echo "If you need FLAC support please upgrade to libsndfile 1.0.12 or newer"
+		fi
+	else
+		dnl here for less than 1.0.0
+		echo "Your libsndfile is too old - you need at least libsndfile 1.0.0 to compile audacity."
+		echo "You need libsndfile 1.0.12 for FLAC support."
+		exit;
+		dnl we are screwed - bye
+	fi
+
+	LIBS="$LIBS -lsndfile"	
+fi
+
+if [[ "$use_libsamplerate" = "yes" ]] ; then
+	use_libsamplerate=$default_libsamplerate;
+	use_libresample="no"
+fi
+
+if [[ "$use_libsamplerate" = "local" ]] ; then
+	use_libresample="no"
+fi
+
+if [[ "$use_libsamplerate" = "system" ]] ; then
+	use_libresample="no"
+fi
+
+if [[ "$use_libsamplerate" = "default" ]] ; then
+	use_libsamplerate=$default_libsamplerate
+fi
+
+if [[ "$use_libresample" = "yes" ]] ; then
+	use_libsamplerate="none";
+	BUILDLIBS="$BUILDLIBS libresample/libresample.a"
+	EXTRAOBJS="$EXTRAOBJS ../lib-src/libresample/libresample.a"
+	CXXFLAGS="$CXXFLAGS -I../lib-src/libresample/include"
+	AC_DEFINE(USE_LIBRESAMPLE, 1,
+		[Define if libresample support should be enabled])
+
+   if test ! -f "lib-src/libresample/Makefile"; then
+		echo "--- Configuring libresample";
+		AC_CONFIG_SUBDIRS([[lib-src/libresample]])
+   fi
+fi
+
+if [[ "$use_libsamplerate" = "local" ]] ; then
+	BUILDLIBS="$BUILDLIBS libsamplerate/src/.libs/libsamplerate.a"
+	EXTRAOBJS="$EXTRAOBJS ../lib-src/libsamplerate/src/.libs/libsamplerate.a"
+	CXXFLAGS="$CXXFLAGS -I../lib-src/libsamplerate/src"
+	AC_DEFINE(USE_LIBSAMPLERATE, 1,
+		[Define if libsamplerate support should be enabled])
+
+   if test ! -f "lib-src/libsamplerate/Makefile"; then
+		echo "--- Configuring libsamplerate";
+		AC_CONFIG_SUBDIRS([[lib-src/libsamplerate]])
+   fi
+fi
+
+if [[ "$use_libsamplerate" = "system" ]] ; then
+	LIBS="$LIBS -lsamplerate"	
+	AC_DEFINE(USE_LIBSAMPLERATE, 1,
+		[Define if libsamplerate support should be enabled])
+fi
+
+if [[ "$use_libmad" = "yes" ]] ; then
+
+	AC_DEFINE(USE_LIBMAD, 1,
+		[Define if mp3 support is implemented with the libmad library])
+	AC_DEFINE(MP3SUPPORT, 1,
+      [Define if mp3 support is implemented])
+
+	EXTRAOBJS="$EXTRAOBJS ../lib-src/libmad/.libs/libmad.a"
+	BUILDLIBS="$BUILDLIBS libmad/.libs/libmad.a"
+	CXXFLAGS="$CXXFLAGS -I../lib-src/libmad"
+	CDEPEND="$CDEPEND ../lib-src/libmad/mad.h"
+
+   if test ! -f "lib-src/libmad/Makefile"; then
+		echo "--- Configuring libmad";
+		AC_CONFIG_SUBDIRS([[lib-src/libmad]])
+   fi
+fi
+
+if [[ "$use_libmad" = "system" ]] ; then
+
+   AC_CHECK_LIB(mad, mad_decoder_init, true, dnl here true is just a nop
+	   AC_MSG_ERROR([*** libmad not found.  Run configure --without-libmad to disable it.]))
+
+   AC_CHECK_HEADER(mad.h, ,
+		AC_MSG_ERROR([*** libmad headers not found.  Run configure --without-libmad to disable it.]))	
+
+   dnl make sure libmad is at least version 0.14.2b
+   AC_TRY_RUN([
+#include <mad.h>
+int main() {
+#if MAD_VERSION_MAJOR == 0  && MAD_VERSION_MINOR <= 13
+   return 1; /* <= 0.13, too old */
+#elsif MAD_VERSION_MAJOR == 0  &&  MAD_VERSION_MINOR == 14  &&  MAD_VERSION_PATCH < 2
+   return 1; /* 0.14.0 <= x < 0.14.2, too old */
+#else
+   return 0;
+#endif
+}], true, dnl success
+    AC_MSG_ERROR([*** Please update your version of libmad to at least 0.14.2b]))
+	
+	AC_DEFINE(USE_LIBMAD, 1,
+		[Define if mp3 support is implemented with the libmad library])
+	AC_DEFINE(MP3SUPPORT, 1,
+      [Define if mp3 support is implemented])
+
+	LIBS="$LIBS -lmad"
+fi
+
+if [[ $use_vorbis = "yes" ]] ; then
+
+	EXTRAOBJS="$EXTRAOBJS ../lib-src/libvorbis/lib/.libs/libvorbisenc.a"
+	EXTRAOBJS="$EXTRAOBJS ../lib-src/libvorbis/lib/.libs/libvorbisfile.a"
+	EXTRAOBJS="$EXTRAOBJS ../lib-src/libvorbis/lib/.libs/libvorbis.a"
+	EXTRAOBJS="$EXTRAOBJS ../lib-src/libogg/src/.libs/libogg.a"
+	BUILDLIBS="$BUILDLIBS libvorbis/lib/.libs/libvorbisenc.a"
+	BUILDLIBS="$BUILDLIBS libvorbis/lib/.libs/libvorbisfile.a"
+	BUILDLIBS="$BUILDLIBS libvorbis/lib/.libs/libvorbis.a"
+	BUILDLIBS="$BUILDLIBS libogg/src/.libs/libogg.a"
+
+	CXXFLAGS="$CXXFLAGS -I../lib-src/libogg/include"
+	CXXFLAGS="$CXXFLAGS -I../lib-src/libvorbis/include"
+
+	AC_DEFINE(USE_LIBVORBIS, 1,
+		[Define if the ogg vorbis decoding library is present])
+
+   if test ! -f "lib-src/libogg/Makefile"; then
+		echo "--- Configuring libogg";
+		AC_CONFIG_SUBDIRS([[lib-src/libogg]])
+   fi
+
+   if test ! -f "lib-src/libvorbis/Makefile"; then
+		echo "--- Configuring libvorbis";
+		AC_CONFIG_SUBDIRS([[lib-src/libvorbis]])
+   fi
+fi
+
+if [[ $use_vorbis = "system" ]] ; then
+
+   dnl check for both headers and libraries
+   
+   AC_CHECK_LIB(vorbisfile, vorbis_bitrate_addblock, true, dnl here true is just a nop
+	   AC_MSG_ERROR([*** Ogg Vorbis libraries not found or they are too old. (>= 1.0-rc3 required). Run configure --without-vorbis to disable it.]),
+	   -lvorbis -logg) dnl auxiliary library that -lvorbisfile needs
+
+   AC_CHECK_HEADER(vorbis/vorbisfile.h, ,
+		AC_MSG_ERROR([*** Ogg Vorbis headers not found.  Run configure --without-vorbis to disable it]))
+
+	LIBS="$LIBS -lvorbisenc -lvorbisfile -lvorbis -logg"
+	AC_DEFINE(USE_LIBVORBIS, 1,
+		[Define if the ogg vorbis decoding library is present])
+fi
+
+if [[ $use_libid3tag = "yes" ]] ; then
+	EXTRAOBJS="$EXTRAOBJS ../lib-src/libid3tag/.libs/libid3tag.a"
+	BUILDLIBS="$BUILDLIBS libid3tag/.libs/libid3tag.a"
+	CPPFLAGS="$CPPFLAGS -I../lib-src/libid3tag"
+		
+	AC_DEFINE(USE_LIBID3TAG, 1,
+      [Define if libid3tag is present])
+
+   if test ! -f "lib-src/libid3tag/Makefile"; then
+		echo "--- Configuring libid3tag";
+		AC_CONFIG_SUBDIRS([[lib-src/libid3tag]])
+   fi
+fi
+
+if [[ $use_libid3tag = "system" ]] ; then
+   AC_CHECK_LIB(id3tag, id3_file_open, true, dnl here true is just a nop
+	   AC_MSG_ERROR([*** libid3tag not found.  Run configure --without-id3tag to disable it.]),
+	   -lz) dnl auxiliary library that -lid3tag needs
+
+   AC_CHECK_HEADER(id3tag.h, ,
+		AC_MSG_ERROR([*** libid3tag headers not found.  Run configure --without-id3tag to disable it.]))
+	
+	AC_DEFINE(USE_LIBID3TAG, 1,
+      [Define if libid3tag is present])
+
+	LIBS="$LIBS -lid3tag"
+
+fi
+
+#if [[ $use_libflac = "local" ]] ; then
+#   EXTRAOBJS="$EXTRAOBJS ../lib-src/libflac/src/libFLAC/.libs/libFLAC.a"
+#   EXTRAOBJS="$EXTRAOBJS ../lib-src/libflac/src/libFLAC++/.libs/libFLAC++.a"
+#   BUILDLIBS="$BUILDLIBS libflac/src/libFLAC/.libs/libFLAC.a"
+#   BUILDLIBS="$BUILDLIBS libflac/src/libFLAC++/.libs/libFLAC++.a"
+#   CXXFLAGS="$CXXFLAGS -I../lib-src/libflac/include"
+
+#   AC_DEFINE(USE_LIBFLAC, 1,
+#      [Define if the FLAC library is present])
+#
+#   if test ! -f "lib-src/libflac/Makefile"; then
+#		echo "--- Configuring libflac";
+#		AC_CONFIG_SUBDIRS([[lib-src/libflac]])
+#   fi
+#fi
+
+#if [[ $use_libflac = "system" ]] ; then
+#   AC_CHECK_LIB(FLAC, FLAC__format_sample_rate_is_valid, true, dnl here true is just a nop
+#	   AC_MSG_ERROR([*** FLAC libraries not found or they are too old. Run configure --without-libflac to disable it.]),
+#	   -lFLAC++) dnl auxiliary library that -lFLAC needs
+#
+#   AC_CHECK_HEADER(FLAC/format.h, ,
+#		AC_MSG_ERROR([*** FLAC headers not found.  Run configure --without-libflac to disable it]))
+#
+#   AC_CHECK_HEADER(FLAC++/all.h, ,
+#		AC_MSG_ERROR([*** FLAC++ headers not found.  Run configure --without-libflac to disable it]))
+#
+#   LIBS="$LIBS -lFLAC -lFLAC++"
+#   AC_DEFINE(USE_LIBFLAC, 1,
+#      [Define if the FLAC library is present])
+#fi
+dnl there is no direct flac support in 1.2.x, so disable all of this
+
+dnl if [[ $use_help = "yes" ]] ; then
+dnl   enable help
+dnl fi
+
+dnl --- look for "ZIP"
+
+AC_PATH_PROG(ZIP, zip, no)
+if [[ $ZIP = "no" ]] ; then
+        AC_MSG_ERROR("Could not find zip - needed to create the help file");
+
+	dnl TODO
+
+   dnl make non-fatal - i.e. just don't build help
+fi
+
+dnl --- check for required libraries ---
+
+dnl wxWindows -- we assume that if wx-config is found, wxWindows is successfully installed.
+AC_PATH_PROG(WX_CONFIG, wx-config, no, $PATH:/usr/local/bin )
+if [[ "$WX_CONFIG" = "no" ]] ; then
+	AC_MSG_ERROR("Could not find wx-config: is wxWidgets installed? is wx-config in your path?")
+fi
+
+dnl Check that the wx version is 2.4.x
+
+wx_release=`${WX_CONFIG} $static_preference $unicode_preference --release`
+
+AC_MSG_NOTICE([Checking that the installed version of wxWidgets is 2.4.x])
+
+if [[ "${wx_release}" = 2.4 ]]
+then
+	# 2.4 only, away we go
+	wx_ok=1
+
+elif [[ "${wx_release}" = 2.6 ]]
+then
+	wx24_release=`${WX_CONFIG} $static_preference $unicode_preference --version=2.4 --release`
+	if [[ "${wx24_release}" = 2.4 ]]
+	then
+		# we have 2.6 before 2.4, so we need to force 2.4
+		WX_CONFIG="${WX_CONFIG} --version=2.4"
+		wx_ok=1
+	else
+		# 2.6 only - no go
+		wx_ok=0
+	fi
+else
+	# not 2.4 and not 2.6 - dead loss
+	wx_ok=0
+fi
+
+# now some messages to the user
+if [[ $wx_ok = 1 ]]
+then
+	echo "Great, you're using wxWidgets 2.4.x!"
+else
+  AC_MSG_ERROR([Unable to locate a suitable configuration of wxWidgets v2.4.x.
+The currently available configurations are listed below.  If necessary, either
+install the package for your distribution or download the 2.4.x version of
+wxWidgets from http://wxwidgets.org.
+To help configure find the right version set WX_CONFIG to point to it.
+wxWidgets 2.5.x and 2.6.x are NOT supported!
+])
+fi
+		
+
+LIBS="$LIBS `$WX_CONFIG --libs`"
+CPPFLAGS="$CPPFLAGS `$WX_CONFIG --cxxflags`"
+
+
+AC_CANONICAL_HOST
+
+dnl PortAudio configuration
+
+if [[ "$use_portaudio" = "v19" ]] ; then
+	AC_DEFINE(USE_PORTAUDIO_V19, 1,
+		[Define if PortAudio v19 is being used (instead of v18)])
+
+	BUILDLIBS="$BUILDLIBS portaudio-v19/lib/libportaudio.a"
+	EXTRAOBJS="$EXTRAOBJS ../lib-src/portaudio-v19/lib/libportaudio.a"
+	CXXFLAGS="-I../lib-src/portaudio-v19/pa_common $CXXFLAGS"
+
+	dnl Quick and dirty code to link with ALSA and Jack libs
+	dnl if necessary...
+
+	AC_CHECK_LIB(asound, snd_pcm_open, have_alsa=yes, have_alsa=no)
+	AC_CHECK_LIB(jack, jack_client_new, have_jack=yes, have_jack=no)
+
+	if [[ $have_jack = "yes" ]] ; then
+		LIBS="$LIBS -ljack"
+	fi
+
+   if [[ $have_alsa = "yes" ]] ; then
+		LIBS="$LIBS -lasound"
+	fi
+
+	if [[ "$use_ladspa" = "default" ]] ; then
+		use_ladspa="yes";
+	fi
+
+	AC_CONFIG_SUBDIRS([[lib-src/portaudio-v19]])
+
+else
+
+	CXXFLAGS="-I../lib-src/portaudio/pa_common $CXXFLAGS"
+
+	case "${host_os}" in
+	  darwin* | rhapsody*)
+		dnl Mac OS X configuration
+
+		CONFIGHEADER="configunix.h"
+
+		dnl CoreAudio
+
+		CXXFLAGS="-I../mac $CXXFLAGS"
+
+		BUILDLIBS="$BUILDLIBS portaudio/pa_mac_core/portaudio.a"
+		EXTRAOBJS="$EXTRAOBJS ../lib-src/portaudio/pa_mac_core/portaudio.a"
+
+	   if [[ "$use_portmixer" = "yes" ]] ; then
+			BUILDLIBS="$BUILDLIBS portmixer/px_mac_core/portmixer.a"
+			EXTRAOBJS="$EXTRAOBJS ../lib-src/portmixer/px_mac_core/portmixer.a"		
+	   fi
+
+		LIBS="-framework AudioUnit -framework AudioToolbox $LIBS"
+		LIBS="-framework CoreAudio $LIBS -lz"
+
+		EXTRATARGETS="../Audacity.app"
+
+		if [[ "$use_ladspa" = "default" ]] ; then
+			use_ladspa="yes";
+		fi
+
+		dnl VST
+		
+		OPTOBJS="$OPTOBJS \$(OBJDIR)/effects/VST/LoadVSTMac.o"
+		OPTOBJS="$OPTOBJS \$(OBJDIR)/effects/VST/VSTEffect.o"
+
+	;;
+
+	cygwin*)
+ 	dnl Windows/CygWin configuration
+ 	
+ 	BUILDLIBS="$BUILDLIBS portaudio/pa_win_wmme/portaudio.a"
+ 	EXTRAOBJS="$EXTRAOBJS ../lib-src/portaudio/pa_win_wmme/portaudio.a"
+ 	LIBS="$LIBS -lkernel32 -luser32 -lgdi32 -lwinspool -lcomdlg32 -ladvapi32 -lshell32 -lole32 -loleaut32 -luuid -lodbc32 -lodbccp32 -lwsock32 -lwinmm"
+	LIBS="$LIBS -Wl,--subsystem,windows"
+ 	CONFIGHEADER="configwin.h"
+ 
+    if [[ "$use_portmixer" = "yes" ]] ; then
+ 		BUILDLIBS="$BUILDLIBS portmixer/px_win_wmme/portmixer.a"
+ 		EXTRAOBJS="$EXTRAOBJS ../lib-src/portmixer/px_win_wmme/portmixer.a Audacity.coff"
+    fi
+ 
+ 	if [[ "$use_ladspa" = "default" ]] ; then
+ 		use_ladspa="yes";
+ 	fi
+ 
+ 	AC_DEFINE(__CYGWIN__,1,[We're using cygwin])
+ 	AC_DEFINE(_FILE_OFFSET_BITS,32,[Placeholder for large file support])
+ 
+ 	AFTERBUILD=""
+	;;
+
+	  *)
+		dnl Unix OSS configuration
+
+		CONFIGHEADER="configunix.h"
+
+		BUILDLIBS="$BUILDLIBS portaudio/pa_unix_oss/portaudio.a"
+		EXTRAOBJS="$EXTRAOBJS ../lib-src/portaudio/pa_unix_oss/portaudio.a"
+
+	   if [[ "$use_portmixer" = "yes" ]] ; then
+			BUILDLIBS="$BUILDLIBS portmixer/px_unix_oss/portmixer.a"
+			EXTRAOBJS="$EXTRAOBJS ../lib-src/portmixer/px_unix_oss/portmixer.a"		
+	   fi
+
+		if [[ "$use_ladspa" = "default" ]] ; then
+			use_ladspa="yes";
+		fi
+
+		AFTERBUILD=""
+
+	esac
+fi
+
+use_precomp="no"
+
+case "$host_os" in
+	darwin* | rhapsody*)
+		AC_MSG_WARN([[Not using native lrint() and lrintf() because they are missing on 10.1.]])
+
+		cc_version=`$CC --version | head -1`
+		if echo "$cc_version" | grep "3\." >/dev/null ; then
+		   echo "checking for gcc 3.x... yes"
+		   gcc3="yes"
+		   echo "Enabling precompiled headers"
+		   use_precomp="yes"
+		else
+		   echo "checking for gcc 3.x... no"
+		   gcc3="no"
+		fi
+
+		echo "Enabling prebinding"
+		LIBS="$LIBS -prebind"
+
+		;;
+	*)
+      dnl For all other Unix systems, we want to check for lrint/lrintf
+		AC_C99_FUNC_LRINT
+		AC_C99_FUNC_LRINTF
+		;;
+	esac
+
+dnl Precompiled header support (currently only for gcc 3.3 on Mac OS X)
+if [[ "$use_precomp" = "yes" ]] ; then
+   CDEPEND="${CDEPEND} AudacityHeaders.h.gch"
+   PRECOMP_CFLAGS="-include AudacityHeaders.h"
+fi
+
+dnl Special configuration for LADSPA on Mac OS X
+if [[ "$use_ladspa" = "yes" ]] ; then
+   case "$host_os" in
+      darwin* | rhapsody*)
+
+      EXTRAOBJS="$EXTRAOBJS ../lib-src/dlcompat/libdl.a"
+      BUILDLIBS="$BUILDLIBS dlcompat/libdl.a"
+      CXXFLAGS="$CXXFLAGS -I../lib-src/dlcompat"
+      if test ! -f "lib-src/dlcompat/Makefile"; then
+         echo "--- Configuring dlcompat";
+         AC_CONFIG_SUBDIRS([[lib-src/dlcompat]])
+      fi		
+
+      ;;
+   *)
+      ;;
+   esac
+fi
+
+if [[ "$use_ladspa" = "yes" ]] ; then
+   OPTOBJS="$OPTOBJS \$(OBJDIR)/effects/ladspa/LoadLadspa.o"
+   OPTOBJS="$OPTOBJS \$(OBJDIR)/effects/ladspa/LadspaEffect.o"
+
+   AC_DEFINE(USE_LADSPA, 1,
+             [Define if LADSPA plug-ins are enabled])
+fi
+
+dnl Checks for typedefs, structures, and compiler characteristics.
+AC_C_CONST
+AC_TYPE_SIZE_T
+
+dnl Checks for library functions.
+
+case "${host_os}" in
+ 	cygwin*)
+ 		AC_CONFIG_HEADER(src/configwin.h:src/configtemplate.h)
+ 		;;
+ 	*)
+ 		AC_CONFIG_HEADER(src/configunix.h:src/configtemplate.h)
+ 		;;
+esac
+
+AC_CONFIG_FILES([Makefile src/Makefile lib-src/Makefile \
+					  lib-src/allegro/Makefile lib-src/expat/Makefile \
+					  lib-src/libnyquist/Makefile \
+					  locale/Makefile ])
+
+AC_OUTPUT
+
+echo ""
+echo "Finished configure:"
+
+if [[ $use_libsndfile = "system" ]] ; then
+	echo "  with    libsndfile (system)";
+else
+	echo "  with    libsndfile (local)";
+fi
+
+if [[ $use_libresample = "yes" ]] ; then
+	echo "  with    libresample";
+elif [[ $use_libsamplerate = "system" ]] ; then
+	echo "  with    libsamplerate (system)";
+elif [[ $use_libsamplerate = "local" ]] ; then
+	echo "  with    libsamplerate (local)";
+else
+	echo "  without any resampling support";
+fi
+
+if [[ $use_libid3tag = "yes" ]] ; then
+	echo "  with    libid3tag (local)";
+else
+	if [[ $use_libid3tag = "system" ]] ; then
+		echo "  with    libid3tag (system)";
+	else
+		echo "  without libid3tag";	
+	fi
+fi
+
+if [[ $use_libmad = "yes" ]] ; then
+	echo "  with    libmad (local)";
+else
+	if [[ $use_libmad = "system" ]] ; then
+		echo "  with    libmad (system)";
+	else
+		echo "  without libmad";	
+	fi
+fi
+
+if [[ $use_ladspa = "yes" ]] ; then
+	echo "  with    LADSPA plug-in support";
+else
+	echo "  without LADSPA plug-in support";
+fi
+
+if [[ "$use_nyquist" = "yes" ]] ; then
+	echo "  with    Nyquist plug-in support";
+else
+	echo "  without Nyquist plug-in support";
+fi
+
+if [[ $use_vorbis = "yes" ]] ; then	
+	echo "  with    vorbis (local)";
+else
+	if [[ $use_vorbis = "system" ]] ; then
+		echo "  with    vorbis (system)";
+	else
+		echo "  without libvorbis";	
+	fi
+fi
+
+dnl if [[ $use_libflac = "local" ]] ; then	
+dnl 	echo "  with    libflac";
+dnl else
+dnl 	if [[ $use_libflac = "system" ]] ; then
+dnl 		echo "  with    libflac (system)";
+dnl 	else
+dnl 		echo "  without libflac";	
+dnl 	fi
+dnl fi
+
+if [[ "$use_portmixer" = "yes" ]] ; then
+	echo "  with    portmixer";
+else
+	echo "  without portmixer";
+fi
+
+if [[ "$use_portaudio" = "v19" ]] ; then
+	echo "  with    portaudio v19  (not yet compatible with portmixer)";
+else
+	echo "  with    portaudio v18";
+fi
+
+if [[ "$use_soundtouch" = "local" ]] ; then
+	echo "  with    soundtouch (local)";
+else
+	if [[ "$use_soundtouch" = "system" ]] ; then
+		echo "  with    soundtouch (system)";
+	else
+		echo "  without soundtouch";
+	fi
+fi
+
+if [[ $use_help = "yes" ]] ; then
+	echo "  with    help";
+else
+	echo "  without help";
+fi
+
+echo "prefix=$prefix";
+
+if [[ "$use_portaudio" = "v19" ]] ; then
+	echo ""
+	echo "Note: portaudio v19 supports ALSA and Jack, but may be less stable."
+else
+	echo ""
+	echo "Note: portaudio v18 only supports OSS.  If your system supports"
+	echo "ALSA, you may want to reconfigure --with-portaudio=v19, though"
+	echo "portaudio v19 is newer and possibly less stable."
+fi
+
+
+echo ""
+echo "Run 'configure --help' for an explanation of these options,"
+echo "otherwise run 'make' to build Audacity."

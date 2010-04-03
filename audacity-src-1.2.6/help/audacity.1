@@ -1,0 +1,143 @@
+.\" Process this file with
+.\" groff -man -Tascii audacity.1
+.\"
+.TH audacity 1
+.SH NAME
+audacity \- Graphical cross-platform audio editor
+.SH SYNOPSIS
+.B audacity [
+.I AUDIO-FILE
+.B ]
+.B ...
+.SH DESCRIPTION
+.B Audacity
+is a graphical audio editor.  This man page does not
+describe all of the features of Audacity or how to use
+it; for this, see the html documentation that came with
+the program, which should be accessible from the Help
+menu.  This man page describes the Unix-specific
+features, including special files and environment variables.
+
+The only command-line arguments Audacity
+takes are the names of audio files to open.  Audacity
+currently uses
+.B libsndfile
+to open many uncompressed audio formats such as WAV,
+AIFF, and AU, and it can also be linked to
+.B libmad,
+.B libvorbis,
+and
+.B libflac,
+to provide support for opening MP3, Ogg Vorbis, and FLAC files,
+respectively.
+
+If you specify multiple files on the command-line, Audacity
+will import all of them into the same project, which is
+convenient if you want to mix them.
+
+Audacity is an interactive, graphical editor, not a
+batch-processing tool.  There are no options that make
+it easy to perform an operation on a set of files.
+If you need to batch-process audio or do simple edits
+from the command line, use
+.B sox.
+
+.SH FILES
+.I ~/.audacity
+.RS
+Per user configuration file.
+.RE
+
+.I /tmp/audacity1.2-<user>/
+.RS
+Default location of Audacity's temp directory, where <user> is your
+username.  If this location is not suitable (not enough space in
+/tmp, for example), you should change the temp directory in
+the Preferences and restart Audacity.  Audacity is a disk-based
+editor, so the temp directory is very important: it should always
+be on a fast disk with lots of free space.
+
+Note that older versions of Audacity put the temp directory inside
+of the user's home directory.  This is undesirable on many systems,
+and using some directory in /tmp is recommended.  Open the Preferences
+to check.
+.RE
+.SH SEARCH PATH
+When looking for plug-ins, help files, localization files, or other
+configuration files, Audacity searches the following locations, in
+this order:
+
+.I AUDACITY_PATH
+.RS
+Any directories in the 
+.I AUDACITY_PATH 
+environment variable will be searched before anywhere else.
+.RE
+
+.I .
+.RS
+The current working directory when Audacity is started.
+.RE
+
+.I ~/.audacity-files
+
+.I <prefix>/share/audacity
+.RS
+The system-wide Audacity directory, where <prefix> is usually
+/usr or /usr/local, depending on where the program was installed.
+.RE
+
+.I <prefix>/share/doc/audacity
+.RS
+The system-wide Audacity documentation directory, where <prefix> is usually
+/usr or /usr/local, depending on where the program was installed.
+.RE
+
+For localization files in particular (i.e. translations of Audacity
+into other languages), Audacity also searches
+.I <prefix>/share/locale
+
+.SH PLUG-INS
+
+Audacity supports two types of plug-ins on Unix: LADSPA and Nyquist
+plug-ins.  These are generally placed in a directory called 
+.I plug-ins 
+somewhere on the search path (see above).
+
+LADSPA plug-ins can either be in the plug-ins directory, or alternatively
+in a 
+.I ladspa 
+directory on the search path if you choose to create one.  Audacity will
+also search the directories in the 
+.I LADSPA_PATH 
+environment variable for additional LADSPA plug-ins.
+
+Nyquist plug-ins can either be in the plug-ins directory, or alternatively
+in a 
+.I nyquist
+directory on the search path if you choose to create one.
+
+.SH LICENSE
+
+Audacity is distributed under the GPL, however some of the libraries
+it links to are distributed under other free licenses, including the
+LGPL and BSD licenses.
+
+.SH BUGS
+See our website for details:
+
+http://audacity.sourceforge.net/
+
+The most serious bug currently is that it does not gracefully
+handle running out of disk space.
+
+.SH AUTHORS
+Primary contributors include Dominic Mazzoni, Joshua Haberman,
+Matt Brubeck, Shane Mueller, Brian Gunlogson, Vaughan Johnson,
+Greg Mekkes, James Crook, and Markus Meyer,
+but dozens of others have contributed, and Audacity would not
+be possible without wxWidgets, libsndfile, and many of
+the other libraries it is built upon.  For the most recent list
+of contributors and current email addresses, see our website:
+
+http://audacity.sourceforge.net/

@@ -1,0 +1,13 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource>
+<file alias="first.png">images/first.png</file>
+<file alias="prev.png">images/prev.png</file>
+<file alias="next.png">images/next.png</file>
+<file alias="last.png">images/last.png</file>
+<file alias="add.png">images/add.png</file>
+<file alias="delete.png">images/delete.png</file>
+<file alias="quit.png">images/quit.png</file>
+<file alias="assetmanagersplash.png">images/assetmanagersplash.png</file>
+<file alias="phonelogsplash.png">images/phonelogsplash.png</file>
+</qresource>
+</RCC>

@@ -1,0 +1,66 @@
+<!--
+This file implements a navigation bar, designed to go in a frame.
+Include it in a frameset like the following:
+<frameset rows="*,75">
+<frame src="about:blank" name="main">
+<frame src="navigation.html">
+</frameset>
+The code in this file will control the contents of the frame named "main"
+-->
+<script>
+	// The function is invoked by the Back button in our navigation bar
+	function back( ) {
+	// First, clear the URL entry field in our form
+	document.navbar.url.value = "";
+	// Then use the History object of the main frame to go back
+	// Unless the same-origin policy thwarts us
+	try { parent.main.history.back( ); }
+	catch(e) { alert("Same-origin policy blocks History.back( ): " + e.message); }
+	// Display the URL of the document we just went back to, if we can.
+	// We have to defer this call to updateURL( ) to allow it to work.
+	setTimeout(updateURL, 1000);
+	}
+	// This function is invoked by the Forward button in the navigation bar.
+	function forward( ) {
+	document.navbar.url.value = "";
+	try { parent.main.history.forward( ); }
+	catch(e) { alert("Same-origin policy blocks History.forward( ): "+e.message);}
+	setTimeout(updateURL, 1000);
+	}
+	// This private function is used by back( ) and forward( ) to update the URL
+	// text field in the form. Usually the same-origin policy prevents us from
+	// querying the location property of the main frame, however.
+	function updateURL( ) {
+	try { document.navbar.url.value = parent.main.location.href; }
+	catch(e) {
+	document.navbar.url.value = "<Same-origin policy prevents URL access>";
+	}
+	}
+	// Utility function: if the url does not begin with "http://", add it.
+	function fixup(url) {
+	if (url.substring(0,7) != "http://") url = "http://" + url;
+	return url;
+	}
+	// This function is invoked by the Go button in the navigation bar and also
+	// when the user submits the form
+	function go( ) {
+	// And load the specified URL into the main frame.
+	parent.main.location = fixup(document.navbar.url.value);
+	}
+	// Open a new window and display the URL specified by the user in it
+	function displayInNewWindow( ) {
+	// We're opening a regular, unnamed, full-featured window, so we just
+	// need to specify the URL argument. Once this window is opened, our
+	// navigation bar will not have any control over it.
+	window.open(fixup(document.navbar.url.value));
+	}
+</script>
+
+<!-- Here's the form, with event handlers that invoke the functions above -->
+<form name="navbar" onsubmit="go( ); return false;">
+<input type="button" value="Back" onclick="back( );">
+<input type="button" value="Forward" onclick="forward( );">
+URL: <input type="text" name="url" size="50">
+<input type="button" value="Go" onclick="go( );">
+<input type="button" value="Open New Window" onclick="displayInNewWindow( );">
+</form>

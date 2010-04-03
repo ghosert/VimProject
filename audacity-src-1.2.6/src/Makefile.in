@@ -1,0 +1,258 @@
+########################################
+#
+# Audacity Makefile
+#
+# Dominic Mazzoni
+#
+# Run configure to generate Makefile
+# from Makefile.in
+#
+
+CC = @CC@
+CCC = @CXX@
+
+# CFLAGS are specific to C.
+override CFLAGS += @CFLAGS@
+
+# CXXFLAGS are specific to C++.
+override CXXFLAGS += @CXXFLAGS@
+
+# CPPFLAGS are for both C and C++.
+override CPPFLAGS += -Wall -Iinclude @CPPFLAGS@ 
+
+# Files that must exist in order to compile a C/C++ files
+CDEPEND = @CDEPEND@
+
+# For precompiled header support
+PRECOMP_CFLAGS = @PRECOMP_CFLAGS@
+
+EXTRAOBJS = @EXTRAOBJS@
+OPTOBJS = @OPTOBJS@
+LIBS = @LIBS@
+EXTRATARGETS = @EXTRATARGETS@
+
+########################################
+# ALL OBJECT FILES
+
+OBJDIR = obj
+
+OBJS = \
+	$(OBJDIR)/AColor.o \
+	$(OBJDIR)/AStatus.o \
+	$(OBJDIR)/AboutDialog.o \
+	$(OBJDIR)/AudacityApp.o \
+	$(OBJDIR)/AudioIO.o \
+	$(OBJDIR)/Benchmark.o \
+	$(OBJDIR)/ControlToolBar.o \
+	$(OBJDIR)/DirManager.o \
+	$(OBJDIR)/Envelope.o \
+	$(OBJDIR)/EditToolBar.o \
+	$(OBJDIR)/FFT.o \
+	$(OBJDIR)/FormatSelection.o \
+	$(OBJDIR)/FreqWindow.o \
+	$(OBJDIR)/Help.o \
+	$(OBJDIR)/HistoryWindow.o \
+	$(OBJDIR)/ImageManipulation.o \
+	$(OBJDIR)/Internat.o \
+	$(OBJDIR)/LabelTrack.o \
+	$(OBJDIR)/Languages.o \
+	$(OBJDIR)/LangChoice.o \
+	$(OBJDIR)/Legacy.o \
+	$(OBJDIR)/Menus.o \
+	$(OBJDIR)/MeterToolBar.o \
+	$(OBJDIR)/Mix.o \
+	$(OBJDIR)/MixerToolBar.o \
+	$(OBJDIR)/NoteTrack.o \
+	$(OBJDIR)/PitchName.o \
+	$(OBJDIR)/PlatformCompatibility.o \
+	$(OBJDIR)/Project.o \
+	$(OBJDIR)/Resample.o \
+	$(OBJDIR)/RingBuffer.o \
+	$(OBJDIR)/Sequence.o \
+	$(OBJDIR)/Spectrum.o \
+	$(OBJDIR)/Tags.o \
+	$(OBJDIR)/Track.o \
+	$(OBJDIR)/TrackArtist.o \
+	$(OBJDIR)/TrackPanel.o \
+	$(OBJDIR)/ToolBar.o \
+	$(OBJDIR)/UndoManager.o \
+	$(OBJDIR)/WaveTrack.o \
+	$(OBJDIR)/TimeTrack.o \
+	$(OBJDIR)/commands/CommandManager.o \
+	$(OBJDIR)/commands/Keyboard.o \
+	$(OBJDIR)/effects/Effect.o \
+	$(OBJDIR)/effects/SimpleMono.o \
+	$(OBJDIR)/effects/TwoPassSimpleMono.o \
+	$(OBJDIR)/effects/SimplePairedTwoTrack.o \
+	$(OBJDIR)/effects/SoundTouchEffect.o \
+	$(OBJDIR)/effects/LoadEffects.o \
+	$(OBJDIR)/effects/Amplify.o \
+	$(OBJDIR)/effects/BassBoost.o \
+	$(OBJDIR)/effects/ChangePitch.o \
+	$(OBJDIR)/effects/ChangeSpeed.o \
+	$(OBJDIR)/effects/ChangeTempo.o \
+	$(OBJDIR)/effects/ClickRemoval.o \
+	$(OBJDIR)/effects/Compressor.o \
+	$(OBJDIR)/effects/Echo.o \
+	$(OBJDIR)/effects/Equalization.o \
+	$(OBJDIR)/effects/Fade.o \
+	$(OBJDIR)/effects/Filter.o \
+	$(OBJDIR)/effects/Invert.o \
+	$(OBJDIR)/effects/Noise.o \
+	$(OBJDIR)/effects/NoiseRemoval.o \
+	$(OBJDIR)/effects/Normalize.o \
+	$(OBJDIR)/effects/Phaser.o \
+	$(OBJDIR)/effects/Repeat.o \
+	$(OBJDIR)/effects/Reverse.o \
+	$(OBJDIR)/effects/Silence.o \
+	$(OBJDIR)/effects/ToneGen.o \
+	$(OBJDIR)/effects/Wahwah.o \
+	$(OBJDIR)/export/Export.o \
+	$(OBJDIR)/export/ExportMultiple.o \
+	$(OBJDIR)/export/ExportMP3.o \
+	$(OBJDIR)/export/ExportOGG.o \
+	$(OBJDIR)/export/ExportPCM.o \
+	$(OBJDIR)/export/ExportCL.o \
+	$(OBJDIR)/import/Import.o \
+	$(OBJDIR)/import/ImportLOF.o \
+	$(OBJDIR)/import/ImportMIDI.o \
+	$(OBJDIR)/import/ImportMP3.o \
+	$(OBJDIR)/import/ImportOGG.o \
+	$(OBJDIR)/import/ImportPCM.o \
+	$(OBJDIR)/import/ImportRaw.o \
+	$(OBJDIR)/import/RawAudioGuess.o \
+	$(OBJDIR)/prefs/PrefsDialog.o \
+	$(OBJDIR)/prefs/AudioIOPrefs.o \
+	$(OBJDIR)/prefs/QualityPrefs.o \
+	$(OBJDIR)/prefs/FileFormatPrefs.o \
+	$(OBJDIR)/prefs/DirectoriesPrefs.o \
+	$(OBJDIR)/prefs/GUIPrefs.o \
+	$(OBJDIR)/prefs/KeyConfigPrefs.o \
+	$(OBJDIR)/prefs/MousePrefs.o \
+	$(OBJDIR)/prefs/SpectrumPrefs.o \
+	$(OBJDIR)/widgets/AButton.o \
+	$(OBJDIR)/widgets/ASlider.o \
+	$(OBJDIR)/widgets/Meter.o \
+	$(OBJDIR)/widgets/Ruler.o \
+	$(OBJDIR)/widgets/Warning.o \
+	$(OBJDIR)/xml/XMLFileReader.o \
+	$(OBJDIR)/xml/XMLTagHandler.o \
+
+TEMPORARILY_DISABLED_IMPORTER_OBJS = \
+	$(OBJDIR)/import/ImportMIDI.o \
+	$(OBJDIR)/import/ImportPCM.o \
+	$(OBJDIR)/import/ImportRaw.o \
+
+LIBAUDACITY_OBJS = \
+	$(OBJDIR)/BlockFile.o \
+	$(OBJDIR)/Dither.o \
+	$(OBJDIR)/FileFormats.o \
+	$(OBJDIR)/Prefs.o \
+	$(OBJDIR)/SampleFormat.o \
+	$(OBJDIR)/blockfile/LegacyBlockFile.o \
+	$(OBJDIR)/blockfile/LegacyAliasBlockFile.o \
+	$(OBJDIR)/blockfile/SilentBlockFile.o \
+	$(OBJDIR)/blockfile/SimpleBlockFile.o \
+	$(OBJDIR)/blockfile/PCMAliasBlockFile.o \
+
+#
+# We stick object files in separate directories for convenience
+#
+
+DIRS = \
+	$(OBJDIR) $(OBJDIR)/effects $(OBJDIR)/effects/ladspa \
+	$(OBJDIR)/effects/VST $(OBJDIR)/effects/nyquist $(OBJDIR)/export \
+	$(OBJDIR)/import $(OBJDIR)/prefs $(OBJDIR)/widgets $(OBJDIR)/xml \
+	$(OBJDIR)/commands $(OBJDIR)/blockfile
+
+########################################
+# DEPENDENCIES
+
+DEPS = $(OBJS:$(OBJDIR)/%.o=%.cpp) $(OPTOBJS:$(OBJDIR)/%.o=%.cpp) \
+	$(LIBAUDACITY_OBJS:$(OBJDIR)/%.o=%.cpp)
+
+########################################
+
+all: $(DIRS) libaudacity.a ../audacity $(EXTRATARGETS)
+
+libaudacity.a: $(DIRS) $(LIBAUDACITY_OBJS)
+	ar rcs libaudacity.a $(LIBAUDACITY_OBJS)
+
+../audacity: $(DIRS) $(OBJS) $(EXTRAOBJS) $(OPTOBJS) libaudacity.a Makefile
+	$(CCC) -o ../audacity $(OBJS) $(OPTOBJS) $(EXTRAOBJS) libaudacity.a $(LIBS)
+
+#
+# Mac OS X application
+#
+
+../Audacity.app: ../audacity
+	mkdir -p ../Audacity.app/Contents/MacOS
+	mkdir -p ../Audacity.app/Contents/Resources
+	cp -f ../audacity ../Audacity.app/Contents/MacOS
+	cp -f ../mac/Info.plist ../Audacity.app/Contents
+	test -f "../Audacity.app/Contents/PkgInfo" || \
+	     echo "APPLauDy" > ../Audacity.app/Contents/PkgInfo
+	cp -f ../mac/Resources/*.icns ../Audacity.app/Contents/Resources
+	cp -f ../mac/Resources2/Audacity.rsrc \
+		../Audacity.app/Contents/Resources/Audacity.rsrc
+
+#
+# You can optionally "make dep" to make dependencies.
+# The sed script turns "Foo.o: bar/Foo.cpp" into "obj/bar/Foo.o:".
+#
+# The second command makes the dependencies for the gcc precompiled
+# header file; if you modify a header file it will rebuild the .gch
+# file.
+#
+
+dep:
+	$(CCC) -MM $(CXXFLAGS) $(CPPFLAGS) $(DEPS) | \
+		sed -e 's/^.*: \([^ ]*\)\.cpp/$(OBJDIR)\/\1.o: /' \
+		> .depend
+	# Mac OS X only
+	#$(CCC) -MM $(CXXFLAGS) $(CPPFLAGS) AudacityHeaders.h | \
+	#	sed -e 's/^.*: \([^ ]*\)\.cpp/$(OBJDIR)\/\1.o: /' | \
+	#	sed 's/AudacityHeaders.o/AudacityHeaders.h.gch/' \
+	#	> .gchdepend
+
+clean:
+	rm -rf obj/
+	rm -f libaudacity.a
+
+#
+# Rule for compiling C++ files
+#
+
+$(OPTOBJS) $(OBJS) $(LIBAUDACITY_OBJS): $(OBJDIR)/%.o: %.cpp $(CONFIGHEADER) $(CDEPEND)
+	$(CCC) -c $(CXXFLAGS) $(CPPFLAGS) $(PRECOMP_CFLAGS) $< -o $@
+
+$(DIRS): %: 
+	-test -d $@ || mkdir $@
+
+#
+# Precompiled headers:
+#
+
+AudacityHeaders.h.gch:
+	echo "Rebuilding Precompiled Headers"
+	$(CCC) -c $(CXXFLAGS) $(CPPFLAGS) AudacityHeaders.h -o AudacityHeaders.h.gch
+
+#
+# For Cygwin compilation:
+#
+
+Audacity.coff:
+	cd ../win && windres -I`wx-config --prefix`/include ../win/audacity.rc ../src/Audacity.coff && cd ../src
+
+#
+# Include ".depend" if it exists (run "make dep" to generate it)
+#
+
+ifeq (.depend,$(wildcard .depend))
+include .depend
+endif
+
+ifeq (.gchdepend,$(wildcard .gchdepend))
+include .gchdepend
+endif
+

@@ -1,0 +1,153 @@
+<html>
+	<head>
+	<script>
+
+		function println(object) {
+			document.write(object + '<br/>')
+		}
+
+		// Type of operands
+		println(1 + 0);     // 1
+		println("1" + "0"); // 10
+		println(1 + "0");   // 10
+		println("a" + "b"); // ab
+		println("1" * "0"); // 0
+		println(1 * "0");   // 0
+		println("a" * "b"); // NaN
+
+		var o1 = new Object();
+		var o2 = new Object();
+		o1.valueOf = function() {return 1;}
+		o2.valueOf = function() {return 2;}
+		println(o1 + o2);
+		println(o1 - o2);
+		println(o1 * o2);
+		println(o1 / o2);
+		println(o1);
+		// Conclution: The operators on object above is not allowed in Java/Python.
+		// The operators on object above will always invoke obj.valueOf() method first,
+		// then invoke obj.toString() method if obj.valueOf() is not defined or the its return-value doesn't make sense.
+
+		// Equality Operators
+		// compared with ==, === is more rigorous for comparison
+		// For object, ==/=== are compared by reference, only the same/identical object will be equal.
+		// For primitive, === is more rigours, to get true, the type of two values should be same first.
+		println(null == undefined); // true
+		println(null === undefined);// false
+		println("1" == 1); // true
+		println("1" === 1); // false
+		println("1" == true); // true
+		println("1" === true); // false
+		// For the case, one is object and the other is primitive: number/string/boolean
+		// JavaScript will try to conver object to its primitive value by invoking valueOf/toString method.
+		println("1" == o1); // true
+		println("1" === o1); // false
+		println(1 == o1); // true
+		println(1 === o1); // false
+		println(true == o1); // true
+		println(true === o1); // false
+
+		// Relation Operators
+		// Comparison can be performed only on numbers and strings, however, operands that are not numbers or strings are converted.
+		println(2 > 1); // both number, number comparison, return true
+		println('a' > 'b'); // both string, string comparison, return false
+		println('2' > 1); // one is string, one is number, string could be converted to number, return true
+		println('a' > 1); // one is string, one is number, string could not be converted to number, return false always
+		println('a' < 1); // one is string, one is number, string could not be converted to number, return false always
+		println(o1 >= 1); // if an object can be converted to number, it converts first then comparison.
+		println(o1 >= o2); // if an object can be converted to number, it converts first then comparison.
+		println("A".toLowerCase() > "b".toUpperCase()); // return true
+		// any opertors with operand NaN will get false always.
+
+		// Final Conclusion: +, -, *, /, >, >=, <, <= can be performed only on numbers and strings. Operands are not numbers or strings like 
+		// boolean(to be 1/0), object(invoke valueOf/toString method to get number or string) will be tried to converted to: number first,
+		// then string if can't be number, or NaN if can't be number/string. And begin to compare by number or by string or by NaN.
+		// So you should just remember the rules above how the string/number works for each operator, and then you can know the result.
+		// == use same rule above(object to primitive if necessary) except object-object will compare the reference.
+		// === is more rigorous, see the sample above.
+
+		// The in Operator: left-side operand is or can be converted to string, right-side operand is object(array),
+		// it evaluates to true if left-side value is the name of a property of the right-side object.
+		var point = { x:1, y:1 }; // Define an object
+		var has_x_coord = "x" in point; // Evaluates to true
+		var has_y_coord = "y" in point; // Evaluates to true
+		var has_z_coord = "z" in point; // Evaluates to false; not a 3-D point
+		var ts = "toString" in point; // Inherited property; evaluates to tr
+		var list = [1, 2, 3];
+		println("1" in list); // true
+		println(1 in list); // 1 can be converted to "1", and then return true
+		
+		// The instanceof Operator:
+		var d = new Date( ); // Create a new object with the Date( ) constructor
+		d instanceof Date; // Evaluates to true; d was created with Date( )
+		d instanceof Object; // Evaluates to true; all objects are instances of Object
+		d instanceof Number; // Evaluates to false; d is not a Number object
+		var a = [1, 2, 3]; // Create an array with array literal syntax
+		a instanceof Array; // Evaluates to true; a is an array
+		a instanceof Object; // Evaluates to true; all arrays are objects
+		a instanceof RegExp; // Evaluates to false; arrays are not regular expressions
+
+		// String Operator:
+		// For +, it gives priority to string operands over numberic operands, if one operand is string(or an object),
+		// the other operator is converted to a string and concatenated, comparison operators are different, see below:
+		1 + 2 // Addition. Result is 3.
+		"1" + "2" // Concatenation. Result is "12".
+		"1" + 2 // Concatenation; 2 is converted to "2". Result is "12".
+		11 < 3 // Numeric comparison. Result is false.
+		"11" < "3" // String comparison. Result is true.
+		"11" < 3 // Numeric comparison; "11" converted to 11. Result is false.
+		"one" < 3 // Numeric comparison; "one" converted to NaN. Result is false.
+		s = 1 + 2 + " blind mince"; // "3 blind mice"
+		t = "blind mince: " + 1 + 2; // blind mice: 12
+
+		// Logical Operator
+		// Like python: &&, || can return value instead of boolean
+		var max_width;
+		var max_height;
+		println(max_width || max_height || 500);
+		// convert any value to its equivalent boolean value
+		println(!!500);
+
+		// The Condition Operator(?:)
+		var username;
+		println("hello " + (username != null ? username : "there"));
+
+		// The typeof Operator
+		println(typeof 1);
+		println(typeof '');
+		println(typeof true);
+		println(typeof new Object());
+		println(typeof new Date());
+		println(typeof []);
+		println(typeof Object);
+		println(typeof Date);
+
+		// The delete Operator
+		// Delete the object property, array element, the cases are listed below for delete operator.
+		var o = {x:1, y:2}; // Define a variable; initialize it to an object
+		delete o.x; // Delete one of the object properties; returns true
+		typeof o.x; // Property does not exist; returns "undefined"
+		delete o.x; // Delete a nonexistent property; returns true
+		delete o; // Can't delete a declared variable; returns false
+		delete 1; // Can't delete an integer; returns true
+		x = 1; // Implicitly declare a variable without var keyword
+		delete x; // Can delete this kind of variable; returns true
+		// x; // Runtime error: x is not defined
+
+		var my = new Object( ); // Create an object named "my"
+		my.hire = new Date( ); // my.hire refers to a Date object
+		my.fire = my.hire; // my.fire refers to the same object
+		delete my.hire; // hire property is deleted; returns true
+		println(my.fire); // But my.fire still refers to the Date object
+
+		// The void Operator
+		// it discards its operand value and return undefined
+		// the most common use for void is in 'javascript:void', see <a> tag below.
+		println(void 1) // undefined
+
+	</script>
+	</head>
+	<body>
+		<a href="javascript:void window.open();">Open New Window</a>
+	</body>
+</html>

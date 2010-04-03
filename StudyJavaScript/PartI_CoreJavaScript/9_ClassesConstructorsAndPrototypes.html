@@ -1,0 +1,594 @@
+<html>
+	<head>
+	<script>
+
+		function println(obj) {
+			document.write(obj + '<br/>');
+		}
+
+		// Constructors
+		// You can define your own constructor function, simply by writing a function that adds properties to this.
+		function Person(name) {
+			this.name = name;
+			println(this.name); // this = new Object();
+			println(this);
+			// Note: no return statement here, it will return 'this' as value implicitly.
+		}
+
+		// The new operator must be followed by a function invocation.
+		// It creates a new object, with no properties and then invokes the function,
+		// passing the new object as the value of the this keyword.
+		var persion = new Person('jiawei'); // equals to: var person = new Object(); person.name = 'jiawei';
+											// equals to: var person = {name: 'jiawei'};
+
+		// Prototypes and Inheritance
+		function RectangleX(w, h) {
+			this.width = w;
+			this.height = h;
+			// this.area = function() {return this.width * this.height;}
+		}
+		// Create a RectangleX object
+		var rx = new RectangleX(8.5, 11);
+		// Add a method to it
+		rx.area = function() { return this.width * this.height; } // equals to: see the comments in function RectangleX.
+		// Now invoke the method to compute the area
+		var ax = rx.area();
+		println(ax);
+
+		// Prototypes:
+		// (The area function defined above is inefficient, because it is not shared by instances, so we use prototype below)
+		// The constructor function initializes those properties that will be different for each instance.
+		function Rectangle(w, h) {
+			this.width = w;
+			this.height = h;
+		}
+		// The prototype object holds methods and other properties that should be shared by each instance.
+		Rectangle.prototype.area = function() { return this.width * this.height; }
+
+		var r = new Rectangle(8.5, 11);
+		var a = r.area();
+		println(a);
+
+		// The prototype of an object is the value of the prototype property of its constructor function, all functions have a prototype property.
+		println(Rectangle.prototype.constructor == Rectangle); // The initial value of 'prototype' is 'constructor' refers back to constructor function.
+		println(r.constructor == Rectangle); // so that 'instance' r has a 'constructor' property.
+		// Rectangle.prototype.area = function() { return this.width * this.height;}; // so that you can define your own prototype method.
+		// println(r.area()); // so that such 'prototype method': 'area()' here is shared by each instance: 'r' here.
+		// Conclusion: the prototype properties are shared by instances, they are like 'static' semantic in Java.
+
+		var r = new Rectangle(2, 3);
+		r.hasOwnProperty("width"); // true: width is a direct property of r
+		r.hasOwnProperty("area"); // false: area is an inherited property of r
+		"area" in r; // true: "area" is a property of r
+		
+		// Reading and Writing Inherited Properties
+		// Prototype property inheritance occurs only when you read property values, not when you write them.
+		var r = new Rectangle(2, 3);
+		Rectangle.prototype.pi = 3.14;
+		println(r.pi); // 3.14 when reading pi, it look up pi in Rectangle object first, if it isn't there, lookup prototype object.
+		r.pi = 3.1415926; // when writing pi, it add a new pi to currrent instance, the original pi in prototype will not changed.
+		println(r.pi); // 3.1415926
+		println(new Rectangle(2, 3).pi); // 3.14
+
+		// Define built-in classes with prototype property.
+		// Returns true if the last character is c
+		String.prototype.endsWith = function(c) {
+			return (c == this.charAt(this.length-1))
+		}
+		// Having defined the new endsWith() method in the String prototype object, you can use it like this:
+		var message = "hello world";
+		message.endsWith('h') // Returns false
+		message.endsWith('d') // Returns true
+		// Conclusion: use prototype properties for instance method, constant values and most common values(special instance can re-write their own).
+
+		// instance properties
+		// r.width
+
+		// instance method and this
+		// in Java, you can ommit this keyword for instance variable, but in javascript you can't, so use with keyword below for simplification.
+		Rectangle.prototype.area = function() {
+			with (this) {
+				return width * height;
+		    }
+		}
+		r.area();
+
+		// class properties
+		Rectangle.UNIT = new Rectangle(1, 1);
+		println(Rectangle.UNIT); // only way to access class properties.
+		r = new Rectangle(1, 1); 
+		println(r.UNIT); // can't access class properties by this way.
+
+		// class method
+		// class methods are invoked through the class itself, not through a particular instance of the class.
+		Rectangle.add = function() { println(this); } // this doesn't refer to any particular instance of the class,
+													// it refer to the constructor function itself, don't use this in class method at all.
+		Rectangle.add();
+
+		// Example: A Circle Class
+		// We begin with the constructor
+		function Circle(radius) {
+			// r is an instance property, defined and initialized in the constructor.
+			this.r = radius;
+		}
+		// Circle.PI is a class propertyit is a property of the constructor function.
+		Circle.PI = 3.14159;
+		// Here is an instance method that computes a circle's area.
+		Circle.prototype.area = function() { return Circle.PI * this.r * this.r; }
+		// This class method takes two Circle objects and returns the
+		// one that has the larger radius.
+		Circle.max = function(a,b) {
+			if (a.r > b.r) return a;
+			else return b;
+		}
+		// Here is some code that uses each of these fields:
+		var c = new Circle(1.0); // Create an instance of the Circle class
+		c.r = 2.2; // Set the r instance property
+		var a = c.area(); // Invoke the area() instance method
+		var x = Math.exp(Circle.PI); // Use the PI class property in our own computation
+		var d = new Circle(1.2); // Create another Circle instance
+		var bigger = Circle.max(c,d); // Use the max() class method
+
+		// Example: Complex Numbers
+		/*
+		* Complex.js:
+		* This file defines a Complex class to represent complex numbers.
+		* Recall that a complex number is the sum of a real number and an
+		* imaginary number and that the imaginary number i is the
+		* square root of -1.
+		*/
+		/*
+		* The first step in defining a class is defining the constructor
+		* function of the class. This constructor should initialize any
+		* instance properties of the object. These are the essential
+		* "state variables" that make each instance of the class different.
+		*/
+		function Complex(real, imaginary) {
+			this.x = real; // The real part of the number
+			this.y = imaginary; // The imaginary part of the number
+		}
+		/*
+		* The second step in defining a class is defining its instance
+		* methods (and possibly other properties) in the prototype object
+		* of the constructor. Any properties defined in this object will
+		* be inherited by all instances of the class. Note that instance
+		* methods operate on the this keyword. For many methods,
+		* no other arguments are needed.
+		*/
+		// Return the magnitude of a complex number. This is defined
+		// as its distance from the origin (0,0) of the complex plane.
+		Complex.prototype.magnitude = function( ) {
+			return Math.sqrt(this.x*this.x + this.y*this.y);
+		};
+		// Return a complex number that is the negative of this one.
+		Complex.prototype.negative = function( ) {
+			return new Complex(-this.x, -this.y);
+		};
+		// Add a complex number to this one and return the sum in a new object.
+		Complex.prototype.add = function(that) {
+			return new Complex(this.x + that.x, this.y + that.y);
+		}
+		// Multiply this complex number by another and return the product as a
+		// new Complex object.
+		Complex.prototype.multiply = function(that) {
+			return new Complex(this.x * that.x - this.y * that.y,
+			this.x * that.y + this.y * that.x);
+		}
+		// Convert a Complex object to a string in a useful way.
+		// This is invoked when a Complex object is used as a string.
+		Complex.prototype.toString = function( ) {
+			return "{" + this.x + "," + this.y + "}";
+		};
+		// Test whether this Complex object has the same value as another.
+		Complex.prototype.equals = function(that) {
+			return this.x == that.x && this.y == that.y;
+		}
+		// Return the real portion of a complex number. This function
+		// is invoked when a Complex object is treated as a primitive value.
+		Complex.prototype.valueOf = function( ) { return this.x; }
+		/*
+		* The third step in defining a class is to define class methods,
+		* constants, and any needed class properties as properties of the
+		* constructor function itself (instead of as properties of the
+		* prototype object of the constructor). Note that class methods
+		* do not use the this keyword: they operate only on their arguments.
+		*/
+		// Add two complex numbers and return the result.
+		// Contrast this with the instance method add( )
+		Complex.sum = function (a, b) {
+			return new Complex(a.x + b.x, a.y + b.y);
+		};
+		// Multiply two complex numbers and return the product.
+		// Contrast with the instance method multiply( )
+		Complex.product = function(a, b) {
+			return new Complex(a.x * b.x - a.y * b.y,
+			a.x * b.y + a.y * b.x);
+		};
+		// Here are some useful predefined complex numbers.
+		// They are defined as class properties, and their names are in uppercase
+		// to indicate that they are intended to be constants (although it is not
+		// possible to make JavaScript properties read-only).
+		Complex.ZERO = new Complex(0,0);
+		Complex.ONE = new Complex(1,0);
+		Complex.I = new Complex(0,1);
+
+
+		// Private Memebers
+		function ImmutableRectangle(w, h) {
+			// This constructor does not store the width and height properties
+			// in the object it initializes. Instead, it simply defines
+			// accessor methods in the object. These methods are closures and
+			// the width and height values are captured in their scope chains.
+			this.getWidth = function() { return w; }
+			this.getHeight = function() { return h; }
+		}
+		// Note that the class can have regular methods in the prototype object.
+		ImmutableRectangle.prototype.area = function() {
+			return this.getWidth() * this.getHeight();
+		};
+
+		// Common Object Methods
+		// toString method:
+		Circle.prototype.toString = function() {
+			return "[Circle of radius " + this.r + ", centered at ("
+			+ this.x + ", " + this.y + ").]";
+		}
+		println(new Circle(10));
+
+		// valueOf method:
+		var a = new Complex(5,4);
+		var b = new Complex(2,1);
+		var c = Complex.sum(a,b); // c is the complex number {7,5}
+		var d = a + b; // d is the number 7, because of valueOf method is defined. valueOf will be invoked if the context need a primitive value.
+		
+		// take priority over the toString method when converting an object to a string like below:
+		println("c = " + c); // 7, invoking valueOf()
+		println("c = " + c.toString()); // {7, 5}, invoking toString()
+
+		// Object comparison
+		// '==/!=' is for object reference, using self defined equals() for 'value' equality.
+		// Or you may need to self-define compareTo() for '>, >=, <, <=, ==, !=' at all.
+		// Otherwise ('>, >=, <, <=') may invoke 'valueOf' method which it is not what you want or makes no sense for comparison.
+		// if you defined equals() and compareTo() both at the same time, make sure they are consistent.
+		/*
+			Replace this With this
+			a < b a.compareTo(b) < 0
+			a <= b a.compareTo(b) <= 0
+			a > b a.compareTo(b) > 0
+			a >= b a.compareTo(b) >= 0
+			a == b a.compareTo(b) == 0
+			a != b a.compareTo(b) != 0
+		*/
+		Complex.prototype.compareTo = function(that) {
+			// If we aren't given an argument, or are passed a value that
+			// does not have a magnitude( ) method, throw an exception
+			// An alternative would be to return -1 or 1 in this case to say
+			// that all Complex objects are always less than or greater than
+			// any other values.
+			if (!that || !that.magnitude || typeof that.magnitude != "function")
+			throw new Error("bad argument to Complex.compareTo( )");
+			// This subtraction trick returns a value less than, equal to, or
+			// greater than zero. It is useful in many compareTo( ) methods.
+			return this.magnitude( ) - that.magnitude( );
+		}
+		// one reason to compare instances is so that arrays of those instances can be sorted as below:
+		// Complex.compare = function(a, b) { return a.compareTo(b); };
+		// complexNumbers.sort(Complex.compare);
+
+
+		// Subclassing a JavaScript class
+		// Here is a simple Rectangle class.
+		// It has a width and height and can compute its own area
+		function Rectangle(w, h) {
+			this.width = w;
+			this.height = h;
+		}
+		Rectangle.prototype.area = function() { return this.width * this.height; }
+		// Here is how we might subclass it
+		function PositionedRectangle(x, y, w, h) {
+			// First, invoke the superclass constructor on the new object
+			// so that it can initialize the width and height.
+			// We use the call method so that we invoke the constructor as a
+			// method of the object to be initialized.
+			// This is called constructor chaining.
+			Rectangle.call(this, w, h); // instead of this clause, you can also invoking like this:
+										// PositionedRectangle.prototype.superclass = Rectangle; this.superclass(w, h);
+			// Now store the position of the upper-left corner of the rectangle
+			this.x = x;
+			this.y = y;
+		}
+		// If we use the default prototype object that is created when we
+		// define the PositionedRectangle() constructor, we get a subclass of Object.
+		// To subclass Rectangle, we must explicitly create our prototype object.
+		// Because of this line, so that you can invoking supper class method like new PositionedRectangle().area() now.
+		PositionedRectangle.prototype = new Rectangle();
+		// We create this prototype object for inheritance purposes, but we
+		// don't actually want to inherit the width and height properties that
+		// each Rectangle object has, so delete them from the prototype.
+		delete PositionedRectangle.prototype.width;
+		delete PositionedRectangle.prototype.height;
+		// Since the prototype object was created with the Rectangle() constructor,
+		// it has a constructor property that refers to that constructor. But
+		// we want PositionedRectangle objects to have a different constructor
+		// property, so we've got to reassign this default constructor property.
+		PositionedRectangle.prototype.constructor = PositionedRectangle;
+		// Now that we've configured the prototype object for our subclass,
+		// we can add instance methods to it.
+		PositionedRectangle.prototype.contains = function(x,y) {
+			return (x > this.x && x < this.x + this.width &&
+			y > this.y && y < this.y + this.height);
+		}
+		// The usage of subclass:
+		var r = new PositionedRectangle(2,2,2,2);
+		println(r.contains(3,3)); // invoke an instance method
+		println(r.area()); // invoke an inherited instance method
+		// Use the instance fields of the class:
+		println(r.x + ", " + r.y + ", " + r.width + ", " + r.height);
+		// Our object is an instance of all 3 of these classes
+		println(r instanceof PositionedRectangle &&
+		r instanceof Rectangle &&
+		r instanceof Object);
+
+		// Invoking overridden methods
+		PositionedRectangle.prototype.toString = function( ) {
+			return "(" + this.x + "," + this.y + ") " + // our fields
+			Rectangle.prototype.toString.apply(this); // chain to superclass
+			// this.superclass.prototype.toString.apply(this); if you implement the superclass above line 294, 295.
+		}
+
+
+		// Extending Without inheriting
+		// Compared with stuffs above, below is the another way to extending class. We call it "borrow" method.
+
+		// Borrow methods from one class for use by another.
+		// The arguments should be the constructor functions for the classes.
+		// Methods of built-in types such as Object, Array, Date, and RegExp are
+		// not enumerable and cannot be borrowed with this method.
+		function borrowMethods(borrowFrom, addTo) {
+			var from = borrowFrom.prototype; // prototype object to borrow from
+			var to = addTo.prototype; // prototype object to extend
+			for(m in from) { // Loop through all properties of the prototye
+				if (typeof from[m] != "function") continue; // ignore nonfunctions
+				to[m] = from[m]; // borrow the method
+			}
+		}
+
+		// This class isn't good for much on its own. But it does define a
+		// generic toString( ) method that may be of interest to other classes.
+		function GenericToString( ) {}
+		GenericToString.prototype.toString = function( ) {
+			var props = [];
+			for(var name in this) {
+				if (!this.hasOwnProperty(name)) continue;
+				var value = this[name];
+				var s = name + ":"
+				switch(typeof value) {
+					case 'function':
+						s += "function";
+						break;
+					case 'object':
+						if (value instanceof Array) s += "array"
+						else s += value.toString( );
+						break;
+					default:
+						s += String(value);
+						break;
+				}
+				props.push(s);
+			}
+			return "{" + props.join(", ") + "}";
+		}
+		// This mixin class defines an equals( ) method that can compare
+		// simple objects for equality.
+		function GenericEquals( ) {}
+		GenericEquals.prototype.equals = function(that) {
+			if (this == that) return true;
+			// this and that are equal only if this has all the properties of
+			// that and doesn't have any additional properties
+			// Note that we don't do deep comparison. Property values
+			// must be === to each other. So properties that refer to objects
+			// must refer to the same object, not objects that are equals( )
+			var propsInThat = 0;
+			for(var name in that) {
+				propsInThat++;
+				if (this[name] !== that[name]) return false;
+			}
+			// Now make sure that this object doesn't have additional props
+			var propsInThis = 0;
+			for(name in this) propsInThis++;
+			// If this has additional properties, then they are not equal
+			if (propsInThis != propsInThat) return false;
+			// The two objects appear to be equal.
+			return true;
+		}
+
+		// The usage of the codes above, we can borrow now.
+		// Here is a simple RectangleY class.
+		function RectangleY(x, y, w, h) {
+			this.x = x;
+			this.y = y;
+			this.width = w;
+			this.height = h;
+		}
+		RectangleY.prototype.area = function( ) { return this.width * this.height; }
+		// Borrow some more methods for it,
+		// the classes which are dedicated for 'borrow' method are 'mixin' classes like GenericEquals/GenericToString below:
+		borrowMethods(GenericEquals, RectangleY);
+		borrowMethods(GenericToString, RectangleY);
+
+		// This mixin has a method that depends on its constructor. Both the
+		// constructor and the method must be borrowed.
+		function Colored(c) { this.color = c; }
+		Colored.prototype.getColor = function( ) { return this.color; }
+		// Define the constructor for a new class.
+		function ColoredRectangle(x, y, w, h, c) {
+			this.superclass(x, y, w, h); // Invoke superclass constructor
+			Colored.call(this, c); // and borrow the Colored constructor
+		}
+		// Set up the prototype object to inherit methods from RectangleY
+		ColoredRectangle.prototype = new RectangleY( );
+		ColoredRectangle.prototype.constructor = ColoredRectangle;
+		ColoredRectangle.prototype.superclass = RectangleY;
+		// And borrow the methods of Colored for our new class
+		borrowMethods(Colored, ColoredRectangle);
+		// Conclusion: The ColoredRectangle class extends (and inherits methods from) RectangleY and borrows methods from Colored.
+
+
+		// Determining Object Type
+		println(typeof null);
+		println(typeof undefined);
+		println(typeof []);
+		println(typeof function() {});
+		println(typeof 1);
+		println(typeof '');
+		println(typeof true);
+
+		f = function() {}
+		println(typeof f == "function")
+		println(f instanceof Function)
+		println(f instanceof Object)
+
+		var d = new Date( ); // A Date object; Date extends Object
+		var isobject = d instanceof Object; // evaluates to true
+		println(isobject);
+		var realobject = d.constructor == Object; // evaluates to false
+		println(realobject);
+		var realdate = d.constructor == Date; // true
+		println(realdate);
+
+		// The typeof, instanceof above only works on known objects, not unknown objects. if there are unknown BUILT-IN objects,
+		// The object's default toString() method reveal the classnames:
+		println(Object.prototype.toString.apply(new Array()));
+		println(Object.prototype.toString.apply(new Date()));
+		println(Object.prototype.toString.apply(new Error()));
+		function Animal(){}
+		println(Object.prototype.toString.apply(new Animal())); // not work for unknown, user-defined objects.
+
+		// Example: Enhanced typeof testing
+		function getType(x) {
+			// If x is null, return "null"
+			if (x == null) return "null";
+			// Next try the typeof operator
+			var t = typeof x;
+			// If the result is not vague, return it
+			if (t != "object") return t;
+			// Otherwise, x is an object. Use the default toString( ) method to
+			// get the class value of the object.
+			var c = Object.prototype.toString.apply(x); // Returns "[object class]"
+			c = c.substring(8, c.length-1); // Strip off "[object" and "]"
+			// If the class is not a vague one, return it.
+			if (c != "Object") return c;
+			// If we get here, c is "Object". Check to see if
+			// the value x is really just a generic object.
+			if (x.constructor == Object) return c; // Okay the type really is "Object"
+			// For user-defined classes, look for a string-valued property named
+			// classname, that is inherited from the object's prototype
+			if ("classname" in x.constructor.prototype && // inherits classname
+			typeof x.constructor.prototype.classname == "string") // its a string
+				return x.constructor.prototype.classname;
+			// If we really can't figure it out, say so.
+			return "<unknown type>";
+		}
+
+		// Example 9-7. Testing whether an object borrows the methods of a class
+		// Return true if each of the method properties in c.prototype have been
+		// borrowed by o. If o is a function rather than an object, we
+		// test the prototype of o rather than o itself.
+		// Note that this function requires methods to be copied, not
+		// reimplemented. If a class borrows a method and then overrides it,
+		// this method will return false.
+		function borrows(o, c) {
+			// If we are an instance of something, then of course we have its methods
+			if (o instanceof c) return true;
+			// It is impossible to test whether the methods of a built-in type have
+			// been borrowed, since the methods of built-in types are not enumerable.
+			// We return undefined in this case as a kind of "I don't know" answer
+			// instead of throwing an exception. Undefined behaves much like false,
+			// but can be distinguished from false if the caller needs to.
+			if (c == Array || c == Boolean || c == Date || c == Error ||
+			c == Function || c == Number || c == RegExp || c == String)
+				return undefined;
+			if (typeof o == "function") o = o.prototype;
+			var proto = c.prototype;
+			for(var p in proto) {
+				// Ignore properties that are not functions
+				if (typeof proto[p] != "function") continue;
+				if (o[p] != proto[p]) return false;
+			}
+			return true;
+		}
+
+		// Example 9-8. Testing whether an object provides methods
+		// Return true if o has methods with the same name and arity as all
+		// methods in c.prototype. Otherwise, return false. Throws an exception
+		// if c is a built-in type with nonenumerable methods.
+		function provides(o, c) {
+			// If o actually is an instance of c, it obviously looks like c
+			if (o instanceof c) return true;
+			// If a constructor was passed instead of an object, use its prototype
+			if (typeof o == "function") o = o.prototype;
+			// The methods of built-in types are not enumerable, and we return
+			// undefined. Otherwise, any object would appear to provide any of
+			// the built-in types.
+			if (c == Array || c == Boolean || c == Date || c == Error ||
+			c == Function || c == Number || c == RegExp || c == String)
+				return undefined;
+			var proto = c.prototype;
+			for(var p in proto) { // Loop through all properties in c.prototype
+				// Ignore properties that are not functions
+				if (typeof proto[p] != "function") continue;
+				// If o does not have a property by the same name, return false
+				if (!(p in o)) return false;
+				// If that property is not a function, return false
+				if (typeof o[p] != "function") return false;
+				// If the two functions are not declared with the same number
+				// of arguments, return false.
+				if (o[p].length != proto[p].length) return false;
+			}
+			// If all the methods check out, we can finally return true.
+			return true;
+		}
+
+		// Conclusion: provides method is looser than borrows methods.
+		// provides: true if two objects offer the same function name and function argument number.
+		// borrows: true if two objects are exactly same function.
+		function Comparable( ) {}
+		Comparable.prototype.compareTo = function(that) {
+			throw "Comparable.compareTo( ) is abstract. Don't invoke it!";
+		}
+		// This Comparable class is abstract: its method isn't designed to actually be invoked but simply to define an
+		// API. With this class defined, however, you can check if two objects can be compared like this:
+		// Check whether objects o and p can be compared
+		// They must be of the same type, and that type must be comparable
+		function Stuff(){}
+		Stuff.prototype.compareTo = function(that){return true}
+		o = new Stuff();
+		p = new Stuff();
+		if (o.constructor == p.constructor && provides(o, Comparable)) {
+			var order = o.compareTo(p);
+			println('order: ' + order);
+		}
+
+		// Example 9-9. Testing for array-like objects
+		function isArrayLike(x) {
+			if (x instanceof Array) return true; // Real arrays are array-like
+			if (!("length" in x)) return false; // Arrays must have a length property
+			if (typeof x.length != "number") return false; // Length must be a number
+			if (x.length < 0) return false; // and nonnegative
+			if (x.length > 0) {
+				// If the array is nonempty, it must at a minimum
+				// have a property defined whose name is the number length-1
+				if (!((x.length-1) in x)) return false;
+			}
+			return true;
+		}
+
+		// 9.8. Example: A defineClass( ) Utility Method, concludes with all stuffs above, see the pdf version The definitive guide book page 253.
+		
+		
+
+	</script>
+	</head>
+	<body>
+	</body>
+</html>

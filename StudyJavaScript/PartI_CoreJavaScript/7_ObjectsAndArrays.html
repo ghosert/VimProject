@@ -1,0 +1,245 @@
+<html>
+	<head>
+	<script>
+
+		function println(obj) {
+			document.write(obj + '</br>');
+		}
+
+		// Enumerating Properties
+		// can be used for debugging purpose.
+		function displayPropertyNames(obj) {
+			for (var name in obj) {
+				println(obj[name]);
+			}
+		}
+
+		var book = new Object();
+		book.name = 'JavaScript';
+		book.author = 'Jay Zhang';
+		displayPropertyNames(book);
+
+		// Checking Property Existence
+		if ("name" in book) {
+			book.name = 'Zhang Jiawei';
+			println(book.name);
+		}
+
+		// access a undefined object property will get "undefined", rather than runtime error
+		// for normal variable, it is a runtime error.
+		println(book.price);
+
+		// in above is not often used because if "name" doesn't exist, "name" in book return undefined.
+		// So we use the clause below instead.
+		if (book.price === undefined) {
+			book.price = 12;
+			println(book.price);
+		}
+
+		// if you do not need to know whehter it is null or undefined variable, so you write like this:
+		if (book.sell) book.sell();
+
+		// delete a object property.
+		println(delete book.price);
+		println(book.price);
+
+		// The constructor Property
+		var d = new Date();
+		println(d.constructor == Date); // true
+
+		// check whether an object is an instance of Date:
+		if ((typeof d == "object") && (d.constructor == Date)) println("I'm date.");
+		if ((typeof d == "object") && (d instanceof Date)) println("I'm date.");
+
+		// The toString() Method
+		li = [1, 2, 3];
+		println(new Object()); // print object will get [object, object]
+		println(li); // print a array will get each element of the array.
+		println(println); // print function will get the source code of function.
+
+		// The toLocaleString() Method
+		println(new Object().toLocaleString()); // The default toLocaleString method is same to toString method, you should re-write it.
+		println(new Date().toLocaleString()); // The Array, Number and Date class do define the toLocalString method.
+
+		// The valueOf() Method
+		// valueOf method convert object to primitive value when the context expect a primitive value.
+		println(new Date().valueOf()); 
+
+		// hasOwnProperty Method
+		// return true if object locally defines a nonherited property with the name specified by the single string argument.
+		var o = {};
+		o.hasOwnProperty("undef"); // false: the property is not defined
+		o.hasOwnProperty("toString"); // false: toString is an inherited property, note: remember the js method like toString is property as well always.
+		Math.hasOwnProperty("cos"); // true: the Math object has a cos property
+
+		// propertyIsEnumerable Method
+		// return true if object locally defines a nonherited property and can be enumerable by a for/in loop.
+		// all the user-defined methods are true, so this method almost always return the same result as hasOwnProperty
+		var o = { x:1 };
+		o.propertyIsEnumerable("x"); // true: property exists and is enumerable
+		o.propertyIsEnumerable("y"); // false: property doesn't exist
+		o.propertyIsEnumerable("valueOf"); // false: property is inherited
+
+		// isPrototypeOf Method
+		var o = {}
+		Object.prototype.isPrototypeOf(o); // true: o.constructor == Object
+		Object.isPrototypeOf(o); // false
+		o.isPrototypeOf(Object.prototype); // false
+		Function.prototype.isPrototypeOf(Object); // true: Object.constructor==Function
+		
+		// Arrays
+		var books = ['java', , 'python'];
+		println(books[0]); // 'java'
+		println(books[1]); // 'undefined'
+		println(books[2]); // 'python'
+		println(books[3]); // 'undefined'
+		println(books.length); // 3
+		
+		var nums = new Array(1, 2) // with multiple elements in constructor, it is equal to var nums = [1, 2];
+		println(nums[0]); // 1
+		println(nums.length); // 2
+		var nums = new Array(10); // with a single numeric element in constructor, it specified the number of array, and each element is undefined.
+		                          // can be used to preallocate the array when you know how many elements will be required.
+		                          // Array literals are out for this case.
+		println(nums[0]); // 'undefined'
+		println(nums.length); // 10
+
+		// Array Length
+		var a = new Array(); // a.length == 0 (no elements defined)
+		a = new Array(10); // a.length == 10 (empty elements 0-9 defined)
+		a = new Array(1,2,3); // a.length == 3 (elements 0-2 defined)
+		a = [4, 5]; // a.length == 2 (elements 0 and 1 defined)
+		a[5] = -1; // a.length == 6 (elements 0, 1, and 5 defined)
+		a[49] = 0; // a.length == 50 (elements 0, 1, 5, and 49 defined)
+		
+		// Iterating Through Arrays
+		// if the array index is not contiguous, using the clause below:
+		for (var i = 0; i < a.length; i++) {
+			if (a[i] != null) println(a[i]); // if (a[i]) println(a[i]); will eat up the last elemetn a[49], because its value is 0;
+		}
+		// print array index as property name rather the element in a array, not like python.
+		for (var e in a) {
+			println(e); // print array index.
+			println(a[e]); // print array element.
+		}
+		// conclusion: both traditional "for loop with index" and "for/in with var" above can be used to read/write array values.
+
+		// Truncating and Enlarging Arrays
+		println(a.length); // 50
+		a.length = 1; // truncate the array size from 50 to 1.
+		println(a.length); // 1
+		println(a[0]); // 4
+		println(a[1]); // because a[1] has been truncated, it is undefined now.
+		a.length = 10; // enlarge the array size from 1 to 10.
+		println(a.length); // 10
+		println(a[1]); // undefined.
+
+		// multidimensional array
+		// Create a multidimensional array
+		var table = new Array(10); // 10 rows of the table
+		for(var i = 0; i < table.length; i++)
+		table[i] = new Array(10); // Each row has 10 columns
+		// Initialize the array
+		for(var row = 0; row < table.length; row++) {
+		for(col = 0; col < table[row].length; col++) {
+		table[row][col] = row*col;
+		}
+		}
+		// Use the multidimensional array to compute 5*7
+		var product = table[5][7]; // 35
+		
+		// array.join method
+		a = [1, 2, 3, 4]
+		println(a.join());
+		str = a.join('---');
+		println(str);
+		println(str.split('---')); // String.split() is the inverse of array.join().
+
+		// array.reverse method
+		a.reverse();
+		println(a.join(', '));
+
+		// array.sort method
+		a = [33, 4, 1111, 222]
+		a.sort(); // without arguments, it is alphabetical sort, even the elements are number not string.
+		println(a.join(', ')); // 1111, 222, 33, 4	alphabetical order.
+		a.sort(function (a, b) { // no need to define a function name, because it is used only once.
+			return a - b; // returns < 0, 0 or > 0, depending on order. (< 0 means a before b, > 0 means a after b)
+		}); // numerical order. 
+		println(a.join(', '));
+
+		// array.concat
+		var a = [1,2,3];
+		a.concat(4, 5) // Returns [1,2,3,4,5]
+		a.concat([4,5]); // Returns [1,2,3,4,5]
+		a.concat([4,5],[6,7]) // Returns [1,2,3,4,5,6,7], flatten array [6, 7] and add them to array a.
+		a.concat(4, [5,[6,7]]) // Returns [1,2,3,4,5,[6,7]], not to flattern arrays of arrays.
+
+		// arrays.slice
+		// to get subarray.
+		var a = [1, 2, 3, 4, 5];
+		println(a.slice(0,3)); // Returns [1,2,3]
+		println(a); // no changes after invoking above
+		a.slice(3); // Returns [4,5]
+		a.slice(1,-1); // Returns [2,3,4]
+		a.slice(-3,-2); // Returns [3]
+
+		// arrays.splice
+		// to insert and delete elements in arrays.
+		// delete
+		var a = [1, 2, 3, 4, 5, 6, 7, 8];
+		a.splice(4); // Returns [5,6,7,8]; a is [1,2,3,4]
+		a.splice(1,2); // Returns [2,3]; a is [1,4]
+		a.splice(1,1); // Returns [4]; a is [1]
+		// delete and then insert: the first two arguments which elements are to be deleted like above,
+		// and the following arguments specify the elements are to be inserted.
+		var a = [1, 2, 3, 4, 5];
+		a.splice(2,0,'a','b'); // Returns []; a is [1,2,'a','b',3,4,5]
+		a.splice(2,2,[1,2],3); // Returns ['a','b']; a is [1,2,[1,2],3,3,4,5], not like the concat/slice, it insert array itself not elements in arrays.
+		
+		// push() and pop()
+		var stack = []; // stack: []
+		stack.push(1,2); // stack: [1,2] Returns 2
+		stack.pop(); // stack: [1] Returns 2
+		stack.push(3); // stack: [1,3] Returns 2
+		stack.pop(); // stack: [1] Returns 3
+		stack.push([4,5]); // stack: [1,[4,5]] Returns 2
+		stack.pop() // stack: [1] Returns [4,5]
+		stack.pop(); // stack: [] Returns 1
+
+		// unshift() and shift()
+		var a = []; // a:[]
+		a.unshift(1); // a:[1] Returns: 1
+		a.unshift(22); // a:[22,1] Returns: 2
+		a.shift(); // a:[1] Returns: 22
+		a.unshift(3,[4,5]); // a:[3,[4,5],1] Returns: 3
+		a.shift(); // a:[[4,5],1] Returns: 3
+		a.shift(); // a:[1] Returns: [4,5]
+		a.shift(); // a:[] Returns: 1
+
+		var stack = [];
+		stack.push(1);
+		stack.push(2);
+		stack.push(3);
+		stack.pop(); // filo: first in last out.
+		stack.shift(); // fifo: first in first out.
+
+		// Array-Like Objects
+		var a = {}; // Start with a regular empty object
+		// Add properties to make it "Array-Like"
+		var i = 0;
+		while (i < 10) {
+			a[i] = i * i;
+			i++;
+		}
+		a.length = i;
+		// Now iterate through it as if it were a real array
+		var total = 0;
+		for(var j = 0; j < a.length; j++)
+			total += a[j];
+
+	</script>
+	</head>
+	<body>
+	</body>
+</html>

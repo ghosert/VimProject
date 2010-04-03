@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+<title>Audacity - Project Menu</title>
+</head>
+
+<body text="#000000" link="#000099" vlink="#000099">
+
+<font color="#000099">
+<h1>Project Menu</h1>
+</font>
+
+<p><b>Import Audio...</b> - 
+This command is used to import audio from a standard audio format into
+your project.  Use this command if you already have a couple of tracks
+and you want to add another track to the same project, maybe to mix
+them together.
+You cannot use this option to import Audacity Projects.  The only way
+to combine two Audacity Projects is to open them in separate windows,
+then copy and paste the tracks.
+</p>
+
+<p><b>Import Labels...</b> - 
+This command takes a text file which contains time codes and labels,
+and turns them into a <a href="track_label.htm">Label Track</a>.</p>
+
+<p><b>Import MIDI...</b> - 
+This menu command imports MIDI files and puts them into a 
+<a href="track_midi.htm">MIDI Track</a>.  Audacity can display
+MIDI files, but <i>cannot play, edit, or save them yet.</i></p>
+
+<p><b>Import Raw Data...</b> - 
+This menu command allows you to open a file in virtually any uncompressed
+format.  When you select the file,
+Audacity will analyze it and try to guess its format.
+It will guess correctly about 90% of the time, so you can try just
+pressing "OK" and listening to the result.  If it is not correct, however,
+you can use the options in the dialog to try some other possible
+encodings.<br/>
+At the beginning of your imported track(s), you may notice a little
+bit of noise.  This is probably the file's header, which Audacity
+was not able to parse.  Just zoom in and select the noise with the
+<a href="toolbar_control.htm">Selection Tool</a>, and then
+choose Delete from the <a href="menu_edit.htm">Edit Menu</a>.</p>
+
+<p><b>Edit ID3 Tags...</b> - 
+Opens a dialog allowing you to edit the ID3 tags associated with
+a project, for MP3 exporting.</p>
+
+<p><b>Quick Mix</b> - 
+This command mixes all of the selected tracks together.  If you are
+mixing stereo tracks, or mixing tracks that are marked as Left or
+Right channel, the result will be a stereo track (two channels), otherwise
+the result will be mono.<br/>
+Your tracks are implicitly mixed whenever you hit the Play
+button and whenever you export. This command offers a way to do it
+permanently and save the results to disk, saving on playback resources.
+<br/>
+Note that if you try to mix two very loud tracks together, you may
+get clipping (it will sound like pops, clicks, and noise).
+To avoid this, drag the gain slider on the tracks down to reduce their
+volume before mixing.</p>
+
+<p><b>New Audio Track</b> - 
+This creates a new empty
+<a href="track_audio.htm">Audio Track</a>.
+This command is rarely needed,
+since importing, recording, and mixing automatically create new tracks
+as needed.  But you can use this to cut or copy data from an existing
+track and paste it into a blank track.
+If that track was at a non-default rate then you may need to use Set Rate
+from the <a href="#menu_track">Track Pop-Down</a> menu to set the correct
+sample rate.
+</p>
+
+<p><b>New Stereo Track</b> - same as above, but creates a stereo track.
+You can also create a stereo track by joining two tracks using the
+<a href="menu_track.htm"> track pop-down menu</a>.</p>
+
+<b>New Label Track</b> - 
+This creates a new <a href="track_label.htm">Label Track</a>,
+which can be very useful for textual annotation.</p>
+
+<p><b>New Time Track</b> - 
+This creates a new <a href="track_time.htm">Time Track</a>,
+which is used to vary the speed of playback over time.</p>
+
+<p><b>Remove Tracks</b> - 
+This command removes the selected track or tracks from the project.
+Even if only part of a track is selected, the entire track is removed.
+You can also delete a track by clicking the X in its upper-left corner.
+To cut out only part of the audio in a track, use
+<a href="menu_edit.htm#delete">Delete</a> or 
+<a href="menu_edit.htm#silence">Silence</a>.</p>
+
+<p><b>Align Tracks...</b> - 
+All the Align functions work on whole tracks or groups of tracks,
+not on selections, even if they span across multiple tracks.
+They all operate by time-shifting tracks (moving them left or
+right), making it easier to synchronize tracks or get rid of silence
+at the beginning.  The cursor or selection stays in the same place
+unless you use "Align and move cursor...", below:</p>
+
+<p><b>Align and move cursor...</b> - same as the functions above, except
+that the cursor or selection is moved along with the tracks.  That
+allows you to shift the tracks without losing your relative place.</p>
+
+<p><b>Add Label at Selection</b> - 
+This menu item lets you create a new label at the current selection.
+You can title the label by typing with the keyboard and then hitting "Enter"
+when you're done.</p>
+
+<p><b>Add Label at Playback Position</b> - 
+This menu item lets you create a new label at the current location where
+you are playing or recording.  Do this if you want to mark a certain
+passage while you're listening to it.  You can title the label by typing
+with the keyboard and then hitting "Enter" or "Return" when you're done.
+Only available whilst audacity is playing or recording.</p>
+
+</body>
+</html>
+

@@ -1,0 +1,178 @@
+<?xml version="1.0"?>
+<!DOCTYPE grammar PUBLIC "-//diveintopython.org//DTD Kant Generator Pro v1.0//EN" "kgp.dtd">
+<grammar>
+<ref id="Ns">
+  <p>the phenomenon</p>
+  <p>an object</p>
+  <p>the cogitatum<p chance="50"> (qua cogitatum)</p></p>
+  <p><p chance="50">transcendental </p>phenomenology</p>
+  <p><choice><p>pure<p chance="50"> and genuine</p></p><p>scientific</p></choice> evidence</p>
+  <p>cognition</p>
+  <p>the ego cogito</p>
+  <p>transcendental subjectivity</p>
+  <p>the transcendental-phenomenological reduction</p>
+  <p>the <p chance="50">phenomenological </p>epoche</p>
+  <p>the Objective world</p>
+  <p>a transcendental grounding of <choice><p><xref id="Ns"/></p><p><xref id="Np"/></p></choice></p>
+  <p>philosophy</p>
+  <p>the stream of <xref id="Np"/></p>
+  <p>what is itself given</p>
+  <p>the repeatable act of grounding<p chance="50"> of <xref id="Np"/></p></p>
+  <p>an infinite horizon of approximations</p>
+  <p>the <xref id="ego.type"/> Ego</p>
+  <p>the fundamental form of this universal synthesis</p>
+  <p>the <p chance="50">all-embracing </p>consciousness of internal time</p>
+  <p>immanent time</p>
+  <p>the task of clarifying <xref id="Np"/></p>
+  <p>the whole of conscious life</p>
+</ref>
+
+<ref id="Np">
+  <p>noetic acts</p>
+  <p>cogitationes</p>
+  <p>noematic descriptions</p>
+  <p><p chance="50">separated </p>modes of consciousness</p>
+  <p>multiplicities of <xref id="Ns"/></p>
+  <p>experiences</p>
+</ref>
+
+<ref id="Vst">
+  <p>denotes a universal primal phenomenon of</p>
+  <p>is only a modality of</p>
+  <p>becomes modalized also in correlation with</p>
+  <p>stands in contrast to the accidental being "for me" of</p>
+  <p>is a clarification of the striving for</p>
+  <p>becomes adjusted to</p>
+</ref>
+
+<ref id="Vpt">
+  <p>exist for us thanks to</p>
+  <p>denote the universal primary phenomena of</p>
+  <p>are only modalities of</p>
+  <p>become modalized also in correlation with</p>
+  <p>stand in contrast to<p chance="50"> the accident being "for me" of</p></p>
+  <p>become adjusted to</p>
+</ref>
+
+<ref id="Vsi">
+  <p>inhibits acceptance of <xref id="Ns"/> as existent</p>
+  <p>is actual</p>
+  <p>does not yet produce for us any abiding being</p>
+  <p>is "in itself"</p>
+  <p>is an infinite idea, related to infinities of harmoniously combinable <xref id="Np"/></p>
+  <p>is an agreement of <xref id="Ns"/> with the judged <xref id="Np"/></p>
+  <p>can be seen as full proof that, in spite of the continual experiencedness of <xref id="Np"/>, a non-being of <xref id="Ns"/> is conceivable</p>
+  <p>needs to be criticized with regard to its validity and range, before it can be used for the purposes of a radical grounding of <xref id="Ns"/></p>
+  <p>is precisely what makes critical decisions about <xref id="Np"/> at all possible</p>
+  <p>is unified synthetically</p>
+  <p>synthetically constitutes all particular <xref id="Np"/> that ever become prominent</p>
+</ref>
+
+<ref id="Vpi">
+  <p>inhibit <p chance="50"><choice><p>my</p><p>our</p></choice> </p>acceptance of <choice><p><xref id="Ns"/></p><p><xref id="Np"/></p></choice> as existent</p>
+  <p>do not yet produce for <choice><p>us</p><p>me</p></choice> any abiding being<p chance="50"> apart from their relation to <choice><p><xref id="Ns"/></p><p><xref id="Np"/></p></choice></p></p>
+  <p>are "in themselves"</p>
+  <p>are infinite ideas, related to infinities of harmoniously combinable <xref id="Np"/><p chance="50"> and <xref id="Np"/></p></p>
+  <p>can be seen as <p chance="50">full </p>proof that, in spite of the continual experiencedness of <xref id="Ns"/>, a non-being of <choice><p><xref id="Ns"/></p><p><xref id="Np"/></p></choice> is <choice><p>conceivable</p><p>possible</p></choice></p>
+  <p>need to be criticized with regard to their validity and range, before they can be used for <p chance="50">the purposes of </p>a radical grounding of <choice><p><xref id="Ns"/></p><p><xref id="Np"/></p></choice></p>
+  <p>are precisely what make critical decisions about <choice><p><xref id="Ns"/></p><p><xref id="Np"/></p></choice> at all possible</p>
+  <p>are unified synthetically</p>
+  <p>synthetically constitute all particular instances of <xref id="Ns"/> that ever become prominent</p>
+</ref>
+
+<ref id="intro.clause">
+  <p>in the natural attitude</p>
+  <p>de facto</p>
+  <p>owing to the instability and ambiguity of <choice><p><xref id="Ns"/></p><p><xref id="Np"/></p></choice></p>
+  <p>by immersing ourselves in such a striving</p>
+  <p>in other words</p>
+  <p>by this preliminary work, here roughly indicated rather than done explicitly</p>
+  <p>where this is still wanting</p>
+  <p>since the form belonging to a systematic order of <choice><p><xref id="Ns"/></p><p><xref id="Np"/></p></choice> is part of this idea</p>
+  <p>in the broadest sense</p>
+  <p>as we have said</p>
+  <p>in the attitude established by transcendental reduction</p>
+  <p>in a maximally broad sense</p>
+  <p>if we maintain this attitude</p>
+  <p>in the broadest Cartesian sense</p>
+</ref>
+
+<ref id="certainty.clause">
+  <p>it is plain that</p>
+  <p>by immersing ourselves meditatively in the general intentions of <choice><p><xref id="Ns"/></p><p><xref id="Np"/></p></choice>, we discover that</p>
+  <p>if we follow up this doubt, it becomes manifest that</p>
+  <p>by virtue of my free epoche with respect to the being of the experienced world, the momentous fact is that</p>
+  <p>yet it must not be overlooked that</p>
+  <p>the fact is that</p>
+  <p>we can be sure that</p>
+  <p>hence it follows without more ado that</p>
+  <p><choice><p><xref id="Ns"/> calls</p><p><xref id="Np"/> call</p></choice> our attention to the fact that</p>
+  <p>we see in advance that</p>
+  <p>the fact is evident<p chance="50">, even apodictically evident,</p> that</p>
+  <p>it becomes evident that</p>
+</ref>
+
+<ref id="throwaway.clause">
+  <p>in an extremely broad sense</p>
+  <p>consequently</p>
+  <p>in respect of this evidence</p>
+  <p>however</p>
+  <p>mediately</p>
+  <p>naturally</p>
+  <p>even with respect to the evidence in which <choice><p><xref id="Ns"/> presents itself</p><p><xref id="Np"/> present themselves</p></choice></p>
+  <p>as a matter of essential necessity</p>
+  <p>perchance</p>
+  <p>when we let our thoughts hasten in this manner</p>
+</ref>
+
+<ref id="how.clause">
+  <p>by conscious conversion into the corresponding <xref id="Np"/></p>
+  <p>by virture of a synthesis in which what is meant coincides and agree with <xref id="Ns"/></p>
+  <p>by a freely actualizable return to <choice><p><xref id="Ns"/></p><p><xref id="Np"/></p></choice></p>
+  <p>by reconciling with <choice><p><xref id="Ns"/></p><p><xref id="Np"/></p></choice></p>
+  <p>by orienting <choice><p><xref id="Ns"/></p><p><xref id="Np"/></p></choice> according to accured insights</p>
+  <p>by the fundamental nature of <choice><p><xref id="Ns"/></p><p><xref id="Np"/></p></choice></p>
+</ref>
+
+<ref id="main.clause">
+  <p><xref id="Ns"/><p chance="50">, <xref id="throwaway.clause"/>,</p> <xref id="Vst"/> <choice><p><xref id="Ns"/></p><p><xref id="Np"/></p></choice><p chance="50">; <xref id="subject.clause"/></p></p>
+  <p><xref id="Ns"/><p chance="50"> (<xref id="intro.clause"/>)</p> <xref id="Vsi"/><p chance="50"> <xref id="how.clause"/></p></p>
+  <p><xref id="Np"/><p chance="50">, <xref id="throwaway.clause"/>,</p> <xref id="Vpt"/><p chance="50">, <xref id="how.clause"/>,</p> <choice><p><xref id="Ns"/></p><p><xref id="Np"/></p></choice></p>
+  <p><xref id="Np"/><p chance="50"> (<xref id="intro.clause"/>)</p> <xref id="Vpi"/><p chance="50">, <xref id="how.clause"/></p><p chance="50">; <xref id="subject.clause"/></p></p>
+</ref>
+
+<ref id="ego.type">
+  <p>reflecting</p>
+  <p>phenomenological</p>
+  <p>transcendental</p>
+  <p>worldly</p>
+</ref>
+
+<ref id="subject.clause">
+  <p><choice><p>I</p><p>we</p></choice> now shift the weight of transcendental evidence of <choice><p><xref id="Ns"/></p><p><xref id="Np"/></p></choice> <p chance="50">(<xref id="intro.clause"/>) </p>from the <p chance="50"><xref id="ego.type"/> </p>ego to <choice><p><xref id="Ns"/></p><p><xref id="Np"/></p></choice></p>
+  <p>we must not let ourselves be frightened by considerations of <xref id="Ns"/> and <xref id="Np"/></p>
+  <p>only in reflection do we "direct" ourselves to <xref id="Ns"/> and to its perceptual directedness to <xref id="Np"/></p>
+  <p>we have not simply lost <xref id="Ns"/> for phenomenology; we retain it<p chance="50">, <xref id="throwaway.clause"/>,</p> <xref id="how.clause"/></p>
+  <p>I have the reflection that <xref id="Ns"/> is given continuously as an objective unity in a multi-form and changeable multiplicity of <xref id="Np"/>, which belong determinately to it</p>
+  <p>I<p chance="50">, the meditating phenomenologist,</p> set myself the all-embracing task of uncovering <choice><p>myself</p><p><choice><p><xref id="Ns"/></p><p><xref id="Np"/></p></choice></p></choice> <xref id="how.clause"/></p>
+</ref>
+
+<ref id="sentence">
+  <p class="sentence"><p chance="50"><xref id="certainty.clause"/> </p><xref id="main.clause"/>.</p>
+  <p class="sentence"><p chance="50"><xref id="certainty.clause"/> </p><xref id="main.clause"/>.</p>
+  <p class="sentence"><p chance="50"><xref id="certainty.clause"/><p chance="50">, <xref id="how.clause"/>,</p> </p><xref id="subject.clause"/>.</p>
+</ref>
+
+<ref id="paragraph">
+  <p>    <p chance="50"><xref id="sentence"/>  </p><p chance="50"><xref id="sentence"/>  </p><p chance="50"><xref id="sentence"/>  </p><p chance="50"><xref id="sentence"/>  </p><xref id="sentence"/>  <xref id="sentence"/>  <xref id="sentence"/>  <xref id="sentence"/>  <xref id="sentence"/>
+</p>
+  <p>    <p chance="50"><xref id="sentence"/>  </p><p chance="50"><xref id="sentence"/>  </p><xref id="sentence"/>  <xref id="sentence"/>  <xref id="sentence"/>  <xref id="sentence"/>  <xref id="sentence"/>
+</p>
+  <p>    <p chance="50"><xref id="sentence"/>  </p><p chance="50"><xref id="sentence"/>  </p><p chance="50"><xref id="sentence"/>  </p><p chance="50"><xref id="sentence"/>  </p><xref id="sentence"/>  <xref id="sentence"/>  <xref id="sentence"/>  <xref id="sentence"/>
+</p>
+</ref>
+
+<ref id="section">
+  <p><xref id="paragraph"/><xref id="paragraph"/><xref id="paragraph"/><xref id="paragraph"/><p chance="50"><xref id="paragraph"/></p><p chance="50"><xref id="paragraph"/></p><p chance="50"><xref id="paragraph"/></p><p chance="50"><xref id="paragraph"/></p><p chance="50"><xref id="paragraph"/></p><p chance="50"><xref id="paragraph"/></p></p>
+</ref>
+</grammar>

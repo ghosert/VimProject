@@ -1,0 +1,105 @@
+
+INSTALL = @INSTALL@
+exec_prefix= @exec_prefix@
+prefix= @prefix@
+BINDIR= @bindir@
+DATADIR= @datadir@
+MANDIR= @mandir@
+ZIP = @ZIP@
+AUDACITY_NAME = @AUDACITY_NAME@
+
+.PHONY: all
+all: audacity help/audacity.1.gz audacity-1.2-help.htb
+
+.PHONY: audacity
+audacity:
+	$(MAKE) -C lib-src
+	$(MAKE) -C src
+	$(MAKE) -C locale
+
+.PHONY: src/libaudacity.a
+src/libaudacity.a:
+	$(MAKE) -C src libaudacity.a
+
+.PHONY: install
+install: audacity
+	# install the binary
+	$(INSTALL) -d $(DESTDIR)$(BINDIR)
+	$(INSTALL) -m 755 audacity $(DESTDIR)$(BINDIR)/$(AUDACITY_NAME)
+
+	# install docs
+	$(INSTALL) -d $(DESTDIR)$(DATADIR)/$(AUDACITY_NAME)
+	-test -f audacity-1.2-help.htb && $(INSTALL) -m 644 audacity-1.2-help.htb \
+		$(DESTDIR)$(DATADIR)/$(AUDACITY_NAME)/audacity-1.2-help.htb
+	$(INSTALL) -d $(DESTDIR)$(DATADIR)/doc/$(AUDACITY_NAME)
+	$(INSTALL) -m 644 README.txt $(DESTDIR)$(DATADIR)/doc/$(AUDACITY_NAME)/README.txt
+	$(INSTALL) -m 644 LICENSE.txt $(DESTDIR)$(DATADIR)/doc/$(AUDACITY_NAME)/LICENSE.txt
+
+	# install manpage
+	$(INSTALL) -d $(DESTDIR)$(MANDIR)/man1
+	-test -f help/audacity.1.gz && \
+		$(INSTALL) -m 644 help/audacity.1.gz \
+		$(DESTDIR)$(MANDIR)/man1/$(AUDACITY_NAME).1.gz
+
+	# install nyquist
+	$(INSTALL) -d $(DESTDIR)$(DATADIR)/$(AUDACITY_NAME)/nyquist
+	$(INSTALL) -m 644 nyquist/*.lsp $(DESTDIR)$(DATADIR)/$(AUDACITY_NAME)/nyquist
+
+	# install plug-ins
+	$(INSTALL) -d $(DESTDIR)$(DATADIR)/$(AUDACITY_NAME)/plug-ins
+	$(INSTALL) -m 644 plug-ins/*.ny $(DESTDIR)$(DATADIR)/$(AUDACITY_NAME)/plug-ins
+
+	# install locales
+	$(MAKE) -C locale install
+
+uninstall:
+	rm -rf $(BINDIR)/$(AUDACITY_NAME)
+	rm -rf $(DATADIR)/doc/$(AUDACITY_NAME)
+	rm -rf $(DATADIR)/$(AUDACITY_NAME)
+	rm -rf $(MANDIR)/man1/$(AUDACITY_NAME).1.gz
+
+	$(MAKE) -C locale uninstall
+
+help/audacity.1.gz:
+	# gzipping the file this way prevents audacity.1 from getting deleted
+	cat help/audacity.1 | gzip -9 > help/audacity.1.gz
+
+audacity-1.2-help.htb: help/wxhelp/*
+	rm -f audacity-1.2-help.htb
+	cd help/wxhelp && $(ZIP) ../../audacity-1.2-help.htb *.htm images/*.png *.hhc *.hhk *.hhp
+
+dox:
+	doxygen audacity.dox
+
+check: src/libaudacity.a
+	$(MAKE) -C tests check
+
+dep:
+	$(MAKE) -C src dep
+
+clean:
+	$(MAKE) -C lib-src clean
+	$(MAKE) -C src clean
+	$(MAKE) -C tests clean
+	rm -f audacity-help.htb
+	rm -f audacity-1.2-help.htb
+	rm -f audacity
+	rm -f help/audacity.1.gz
+
+veryclean: clean
+	rm -f Makefile src/Makefile lib-src/Makefile
+	rm -f src/configunix.h
+	rm -f `find . -name "*~"`
+	rm -f `find . -name core`
+
+distclean: clean
+	$(MAKE) -C locale distclean
+	$(MAKE) -C lib-src distclean
+	$(MAKE) -C tests distclean
+
+	rm -f Makefile src/Makefile lib-src/Makefile lib-src/allegro/Makefile
+	rm -f src/.depend
+	find . -name '.#*' | xargs rm -f
+	rm -f locale/Makefile src/configunix.h
+	rm -f config.log config.status config.cache
+

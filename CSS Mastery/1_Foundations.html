@@ -1,0 +1,58 @@
+<!--
+Should put DOCTYPE element here, like 7_Layout.html, but I don't want to retest this page after adding DOCTYPE, so ...
+-->
+<html>
+	<head>
+		<!-- Two ways to import external css file to html.
+		It's important to know that the css in <link> tag below will be overriding @import.
+		-->
+		<link href="basic.css" rel="stylesheet" type="text/css"/>
+		<style type="text/css">
+			<!--
+			/* @import clause below should be the first rule in a style sheet, or it may not work properly. */
+			@import url("advanced.css");
+			-->
+		</style>
+	</head>
+	<body>
+
+		<!-- id is used to identify an individual element on a page, only single same id. -->
+		<!-- class is for identifying types of content or similar items, could be any same class. -->
+
+		<!-- Set a single div class rather than set each sub item. -->
+		<div class="news">
+			<h3>Zeldman.com turns 10</h3>
+			<p>Another milestone for Jeffrey as zeldman.com turns 10 today</p>
+			<p><a href="#">More</a></p>
+		</div>
+
+		<!-- Wrap the meaningful areas into divs above, whereas spans can be used to group or identify inline elements. -->
+		<p>Published on <span class="datePosted">24/3/2006</span></p>
+		
+		<ul id="mainNav">
+			<li><a href="#">Home</a></li>
+			<li><a href="#">About Us</a></li>
+			<li><a href="#">Contact</a></li>
+		</ul>
+
+		<a href="#">Hello CSS World!</a>
+
+		<p id="intro">Some Text</p>
+		<p class="datePosted">24/3/2006</p>
+
+		<div id="mainContent">
+			<h1>Welcome to my site</h1>
+			...
+		</div>
+		<div id="secondaryContent">
+			<h1>Latest news</h1>
+			...
+		</div>
+
+		<input type="textbox" id="name" name="name" value="Jiawei Zhang"/>
+		<input type="textbox" id="sex" name="sex" value="Male"/>
+
+		<input type="textbox" id="testInheritance" name="testInheritance" value="testInheritance"/>
+	</body>
+</html>
+

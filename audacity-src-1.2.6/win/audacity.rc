@@ -1,0 +1,2 @@
+AudacityLogo ICON "audacity.ico"
+#include "wx/msw/wx.rc"

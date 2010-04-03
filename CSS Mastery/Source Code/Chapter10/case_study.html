@@ -1,0 +1,403 @@
+<!-- MORE THAN DOODLES -->
+
+<!-- This file contains all the source code used in Simon Collison's MORE THAN DOODLES case study for the CSS MASTERY book -->
+
+<!-- Look for the commented notes to find source code relating to a specific section of the case study -->
+
+<!-- The XHTML -->
+
+<div id="primaryContent">
+  content
+</div>
+
+<div id="secondaryContent">
+  content
+</div>
+
+<div id="sideContent">
+  content
+</div>
+
+
+<!-- Three Column Layout -->
+
+#threeColLayout #primaryContent {
+  float:left;
+  width:270px;
+  margin: 0 0 20px 195px;
+}
+
+
+<!-- CSS for Three Column Layout -->
+
+#secondaryContent{
+  float:left;
+  width:270px;
+  margin: 0 0 20px 15px;
+}
+Finally, there is the thinner, left column, or side bar:
+#sideContent{
+  float:left;
+  width:180px;
+  margin: 0 0 20px -750px;
+}
+
+<!-- Two Column Layout -->
+
+#twoColLayout #primaryContent {
+  width:555px;
+  float:left;
+  margin: 0 0 20px 195px;
+}
+
+
+<!-- One Column Layout -->
+
+#primaryContent {
+  width:750px;
+  margin: 0 0 20px 0;
+  background: #FFF;
+}
+
+
+<!-- Removing unwanted columns -->
+
+#twoColLayout #secondaryContent {
+  display: none;
+}
+
+
+<!-- Floating the Columns -->
+
+#wrapper {
+  width:750px;
+  margin:0 auto;
+  padding: 0 10px 10px 10px;
+  background-color: #D7D493;
+}
+
+#threeColLayout #primaryContent {
+  float:left;
+  width:270px;
+  margin: 0 0 20px 195px;
+}
+#secondaryContent{
+  float:left;
+  width:270px;
+  margin: 0 0 20px 15px;
+}
+#sideContent{
+  float:left;
+  width:180px;
+  margin: 0 0 20px -750px;
+}
+
+
+<!-- Highlighting Current Page -->
+
+<body id="threeColLayout" class="home">
+
+<ul id="mainNav">
+  <li><a href="#" id="home">Home</a></li>
+  <li><a href="#" id=”about”>About</a></li>
+  <li><a href="#" id=”news”>News</a></li>
+  <li><a href="#" id=”interviews”>Interviews</a></li>
+  <li><a href="#" id="gallery">Gallery</a></li>
+  <li><a href="#" id=”careers”>Careers</a></li>
+  <li><a href="#" id=”forum”>Forum</a></li>
+  <li><a href="#" id=”members”>Members</a></li>
+  <li><a href="#" id="contact">Contact</a></li>
+</ul>
+
+body.home #mainNav a#home, body.gallery #mainNav a#gallery, body.contact #mainNav a#contact { 
+  color: #fff;
+}
+body.home #mainNav a:hover#home, body.gallery #mainNav a:hover#gallery, body.contact #mainNav a:hover#contact { 
+  color: #000;
+}
+
+
+<!-- Drop-in Boxes For Columns -->
+
+<div id="primaryContent">
+  <div class="box">
+    content
+  </div>
+  <div class="box">
+    content
+  </div>
+</div>
+
+.box {
+  margin: 15px 0 0 0;
+  padding: 5px 0 5px 0;
+  background:url(diags.gif);
+}
+
+
+<!-- Right-angled or Rounded Corners -->
+
+<div class=”box”>
+  <h2>Latest Interview</h2>
+  <div class="cbside">
+    content
+  </div>
+</div>
+
+.cbSide {
+  width:160px;
+  margin: 5px 0 0 10px;
+  padding: 10px 0 5px 0;
+  background: #FFF;
+}
+
+
+<!-- Lets prepare for something special -->
+
+<div class=”box”>
+  <h2>Latest Interview</h2>
+  <div class="cbb">
+    content
+  </div>
+</div>
+
+
+.cbb {
+  margin: 0 10px 0 10px;
+  background: #FFF;
+  padding: 5px 0 5px 0;
+  line-height: 170%;
+}
+
+
+<!-- Transparent Custom Corners and Borders -->
+
+.cb {
+  margin: 0.5em 0;
+  line-height: 170%;
+}
+
+
+.bt {
+  background:url(box.png) no-repeat 100% 0 !important;
+  background:url(box.gif) no-repeat 100% 0;
+  margin:0 0 0 18px;
+  height:27px;
+}
+.bt div {
+  height:27px;
+  width:18px;
+  position:relative;
+  left:-18px;
+  background:url(box.png) no-repeat 0 0 !important;
+  background:url(box.gif) no-repeat 0 0;
+}
+
+.bb {
+  background:url(box.png) no-repeat 100% 100% !important;
+  background:url(box.gif) no-repeat 100% 100%;
+  margin:0 0 0 12px;
+  height:14px;
+}
+.bb div {
+  height:14px;
+  width:12px;
+  position:relative;
+  left:-12px;
+  background:url(box.png) no-repeat 0 100% !important;
+  background:url(box.gif) no-repeat 0 100%;
+}
+
+.i1 {
+  padding: 0 0 0 12px;
+  background:url(borders.png) repeat-y 0 0 !important;
+  background:url(borders.gif) repeat-y 0 0;
+}
+.i2 {
+  padding: 0 12px 0 0;
+  background:url(borders.png) repeat-y 100% 0 !important;
+  background:url(borders.gif) repeat-y 100% 0;
+}
+
+.i3 {
+  background:#FFF;
+  border: 1px solid #FFF;
+  border-width:1px 0;
+  padding:0 5px;
+}
+
+
+<!-- Combining Classes for Targeted Actions - the bad code -->
+
+h3 {
+  text-transform: uppercase;
+  display: inline;
+  font-size: 92%;
+  margin: 10px 5px 0 5px;
+  padding: 2px;
+}
+custom_background {
+  background: #F762E0;
+}
+You might then call that as follows:
+<div class=”box”>
+  <h2>Latest Interview</h2>
+   <div class="cbb">
+    <h3 class=”custom_background”>My Green Header</h3>
+    content
+  </div>
+</div>
+
+
+<!-- Targeted Actions - the good code and CSS -->
+
+.default h3 {
+  background: #F6CE45;
+}
+.careers h3 {
+  background: #F762E0;
+}
+.one_man h3 {
+  font-size: 110%;
+  background: #B18FD1;
+}
+.interviews h3 {
+  font-size: 110%;
+  background: #D7D493;
+}
+.profiles h3 {
+  background: #C4DDB8;
+}
+
+<div class="box interviews">
+  <h2>Latest Interview</h2>
+  <div class="cbb">
+    <h3>An Interview with Richard May</h3>
+    content
+  </div>
+</div>
+
+
+<!-- Image Classes - default -->
+
+img {
+  float: left;
+  margin: 0px 0 2px 5px;
+  border: 2px solid #C5BDBD;
+}
+
+<!-- Image classes - owned images -->
+
+For any images in the default boxes - the pencil icons - I didn’t want the 2px border. So I set border to 0.
+.default img {
+  border: 0;
+}
+
+<!-- Image Classes - Larger images -->
+
+.mainImage {
+  display: block;
+  float: none;
+  margin-top: 4px;
+  border: 3px solid #C5BDBD;
+}
+
+
+<!-- Ticked Off Visited Links -->
+
+.cbSide ul {
+  list-style-type: none;
+  margin-top: 0px;
+  margin-left: 0;
+  margin-bottom: 0;
+  padding: 3px;
+}
+
+.cbSide li a:link {
+  color:#333;
+  line-height:150%;
+  text-decoration:none;
+  display:block;
+  width:154px;
+  border-bottom: 1px solid #EDEAEB;
+  background: #FFF url(ticks.gif);
+}
+
+.cbSide li a:active {
+  color:#333;
+  line-height:150%;
+  text-decoration:none;
+  display:block;
+  width:154px;
+  border-bottom: 1px solid #EDEAEB;
+  background: #FFF url(ticks.gif);
+}
+
+.cbSide li a:hover {
+  color:#990000;
+  line-height:150%;
+  display:block;
+  width:154px;
+  border-bottom: 1px solid #EDEAEB;
+  background: #FFF url(ticks.gif) 0px -20px;
+  text-decoration:none;
+}
+
+.cbSide li a:visited {
+  color: #999;
+  text-decoration:none;
+  line-height:150%;
+  display:block;
+  width:154px;
+  border-bottom: 1px solid #EDEAEB;
+  background: #FFF url(ticks.gif);
+  background-position: 0 -40px;
+}
+
+
+<!-- Highlighting External Links -->
+
+.box.default a[href^="http:"] { 
+  background: url(external.gif) no-repeat right top;
+  padding-right: 10px; 
+} 
+ .box.default a[href^="http://www.morethandoodles.com"], .box.default a[href^="http://morethandoodles.com"] { 
+  background-image: none; 
+  padding-right: 0; 
+}
+
+
+<! -- Drop Shadows - casting the shadow -->
+
+<div class="img-wrapper"><img src=" thumb.jpg" width="100" height="75" /></div>
+
+.img-wrapper {
+  margin: 20px 40px 0 0;
+  background: url(shadow.gif) no-repeat bottom right;
+  line-height:0;
+}
+ 
+.img-wrapper img {
+  float:none;
+  margin:0;
+  background:#fff;
+  padding:4px;
+  border:1px solid #C5BDBD;
+  position:relative;
+  left:-5px;
+  top:-5px;
+}
+
+
+<!-- Drop Shadows - Floating the Images -->
+
+.img-wrapper {
+  float:left;
+  margin: 20px 40px 0 0;
+  background: url(shadow.gif) no-repeat bottom right;
+  line-height:0;
+}
+
+
+
+

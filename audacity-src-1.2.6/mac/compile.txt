@@ -1,0 +1,118 @@
+Compiling Audacity under Mac OS X using gcc
+
+Authors:
+  Dominic Mazzoni
+
+================================================================
+This version is currently accurate for Audacity version 1.2.6.
+Last Updated: November 12, 2006
+If the advice here is inaccurate or incomplete, please
+email audacity-devel@lists.sourceforge.net.
+================================================================
+
+Note: Audacity is no longer supported at all for Mac OS 9.
+
+While Audacity compiles and runs on Mac OS X 10.4 and newer, we
+try to support Audacity on Mac OS X as early as 10.2.  Therefore
+the instructions below include some patches that are intended
+to improve 10.2 compatibility.
+
+Only the command-line build process is officially supported,
+because it's easier to keep it in sync between the various
+platforms.  However, you are welcome to develop for Audacity
+using Apple's Project Builder or some other tool.  We suggest
+that you follow the instructions below to compile Audacity
+using the automated command-line build process first, and
+only then consider using an IDE.  That way you have a working
+Makefile as a guide.
+
+---------------------------
+STEP 1:  Download wxWidgets
+---------------------------
+To simplify the implementation of a near-identical user
+interface across platforms, Audacity uses classes and
+resources from wxWidgets, a portable GUI framework for C++
+(and Python).  You must download and build wxWidgets before
+attempting to compile Audacity, or nothing will work!
+
+wxWidgets is available from http://www.wxWidgets.org.
+Similar to the Linux kernel, wxWidgets is available as
+stable and development branches.  
+
+Audacity 1.2.x is only supported with wxWidgets 2.4.2.  The latest
+version of Audacity uses wxWidgets 2.6.x and newer.
+
+The Audacity developers have found a few bugs in wxMac 2.4.2 that
+should be fixed before compiling it.  Details below.
+
+For step 1, just download wxMac 2.4.2 from http://www.wxWidgets.org/ -
+you may have to dig to find old versions:
+
+  wxMac-2.4.2.tar.gz
+
+Uncompress wxMac from the command line by typing:
+
+  tar xvzf wxMac-2.4.2.tar.gz
+
+Do not compile wxWidgets yet - you need to patch it in step 3.
+
+--------------------------
+STEP 2:  Download Audacity
+--------------------------
+You can find the latest Audacity source code from
+http://audacity.sourceforge.net/
+
+To retrieve the latest version from CVS, use the following
+commands:
+
+  cvs -d :pserver:anonymous@audacity.cvs.sourceforge.net:/cvsroot/audacity login
+  cvs -d :pserver:anonymous@audacity.cvs.sourceforge.net:/cvsroot/audacity checkout -r AUDACITY_1_2 audacity
+
+--------------------
+STEP 3:  Apply patch
+--------------------
+You will need to navigate to inside the wxMac directory
+and from there, apply a patch from the audacity/mac directory.
+In the example below, I am assuming that both wxMac and
+audacity are in your home directory (~); you will need to change
+the paths accordingly depending on where you put them.
+
+  cd ~/wxMac-2.4.2
+  patch -p 1 < ~/audacity/mac/wxMac-2.4.2.patch
+
+------------------------------------
+STEP 4:  Optional 10.2 compatibility
+------------------------------------
+
+If you use tcsh:
+
+setenv MACOSX_DEPLOYMENT_TARGET 10.2
+setenv NEXT_ROOT /Developer/SDKs/MacOSX10.2.8.sdk
+setenv C_INCLUDE_PATH /usr/local/include:/Developer/SDKs/MacOSX10.2.8.sdk/usr/include
+setenv LIBRARY_PATH /usr/local/lib:/Developer/SDKs/MacOSX10.2.8.sdk/usr/lib/gcc/darwin/3.3
+setenv LD_PREBIND 1
+setenv CPPFLAGS -DMAC_OS_X_VERSION_MAX_ALLOWED=1020
+
+For bash, "setenv foo bar" becomes "export foo=bar" (notice the '=' sign).
+
+----------------------------------
+STEP 5:  Compile and install wxMac
+----------------------------------
+
+mkdir macbuild
+cd macbuild
+../configure --disable-shared
+make
+sudo make install
+
+[ Type your Mac OS X password ]
+
+-------------------------
+STEP 6:  Compile Audacity
+-------------------------
+
+To compile everything:
+
+./configure
+make
+

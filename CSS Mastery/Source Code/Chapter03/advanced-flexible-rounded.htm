@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Advanced Flexible Width Rounded Corner Box</title>
+<style type="text/css">
+<!--
+/* pretty stuff
+================================== */
+
+body {
+  font: 62.5%/1.6 "Gill Sans", Futura, "Lucida Grande", Geneva, sans-serif;
+  color: #666;
+  background: #fff;
+}
+
+h2 {
+  font-size: 2em;
+  font-weight: normal;
+  line-height: 1;
+  color: #94b767;
+  margin: 0;
+}
+
+.box {
+  font-size: 2em;
+}
+
+/* rounded corner box
+================================== */
+
+.box {
+  width: 20em;
+  background: url(images/bottom-left.gif) no-repeat left bottom;
+}
+
+.box-outer {
+  background: url(images/bottom-right.gif) no-repeat right bottom;
+  padding-bottom: 30px;
+}
+
+.box-inner {
+  background: url(images/top-left.gif) no-repeat left top;
+}
+
+.box h2 {
+  background: url(images/top-right.gif) no-repeat right top;
+  padding-top: 30px;
+}
+
+
+.box h2, .box p {
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+
+-->
+</style>
+</head>
+
+<body>
+<div class="box">
+<div class="box-outer">
+<div class="box-inner">
+<h2>Lorem Ipsum</h2>
+<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin venenatis turpis ut quam. In dolor. Nam ultrices nisl sollicitudin sapien. Ut lacinia aliquet ante.</p>
+</div>
+</div>
+</div>
+</body>
+</html>

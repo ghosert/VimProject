@@ -1,0 +1,112 @@
+<html>
+	<head>
+		<title>Examples:</title>
+		<style>
+		/* This is a CSS style sheet: it adds style to the program output */
+		.result { font-weight: bold; } /* For elements with class="result" */
+		#payment { text-decoration: underline; } /* For element with id="payment" */
+		</style>
+	</head>
+	<body>
+		<h2>Table of Factorials</h2>
+		<script>
+			// Example 1-1. A simple Javascript program.
+			var fact = 1;
+			for(i = 1; i < 10; i++) {
+			fact = fact*i;
+			document.write(i + "! = " + fact + "<br>");
+			}
+		</script>
+
+		<!-- Example 1-2. An HTML button with a JavaScript event handler defined. -->
+		<button onclick="alert('You clicked the button');">
+			Click here
+		</button>
+
+		<!-- Exmaple 1-3. Computing loan payments with JavaScript -->
+		<!--
+		This is an HTML form that allows the user to enter data and allows
+		JavaScript to display the results it computes back to the user. The
+		form elements are embedded in a table to improve their appearance.
+		The form itself is given the name "loandata", and the fields within
+		the form are given names such as "interest" and "years". These
+		field names are used in the JavaScript code that follows the form.
+		Note that some of the form elements define "onchange" or "onclick"
+		event handlers. These specify strings of JavaScript code to be
+		executed when the user enters data or clicks on a button.
+		-->
+		<form name="loandata">
+			<table>
+				<tr><td><b>Enter Loan Information:</b></td></tr>
+				<tr>
+					<td>1) Amount of the loan (any currency):</td>
+					<td><input type="text" name="principal" onchange="calculate();"></td>
+				</tr>
+				<tr>
+					<td>2) Annual percentage rate of interest:</td>
+					<td><input type="text" name="interest" onchange="calculate();"></td>
+				</tr>
+				<tr>
+					<td>3) Repayment period in years:</td>
+					<td><input type="text" name="years" onchange="calculate();"></td>
+				</tr>
+				<tr><td></td>
+					<td><input type="button" value="Compute" onclick="calculate();"></td>
+				</tr>
+				<tr><td><b>Payment Information:</b></td></tr>
+				<tr>
+					<td>4) Your monthly payment:</td>
+					<td>$<span class="result" id="payment"></span></td>
+				</tr>
+				<tr>
+					<td>5) Your total payment:</td>
+					<td>$<span class="result" id="total"></span></td>
+				</tr>
+				<tr>
+					<td>6) Your total interest payments:</td>
+					<td>$<span class="result" id="totalinterest"></span></td>
+				</tr>
+			</table>
+		</form>
+		<script language="JavaScript">
+		/*
+		* This is the JavaScript function that makes the example work. Note that
+		* this script defines the calculate() function called by the event
+		* handlers in the form. The function reads values from the form
+		* <input> fields using the names defined in the previous HTML code. It outputs
+		* its results into the named <span> elements.
+		*/
+		function calculate() {
+		// Get the user's input from the form. Assume it is all valid.
+		// Convert interest from a percentage to a decimal, and convert from
+		// an annual rate to a monthly rate. Convert payment period in years
+		// to the number of monthly payments.
+		var principal = document.loandata.principal.value;
+		var interest = document.loandata.interest.value / 100 / 12;
+		var payments = document.loandata.years.value * 12;
+		// Now compute the monthly payment figure, using esoteric math.
+		var x = Math.pow(1 + interest, payments);
+		var monthly = (principal*x*interest)/(x-1);
+		// Get named <span> elements from the form.
+		var payment = document.getElementById("payment");
+		var total = document.getElementById("total");
+		var totalinterest = document.getElementById("totalinterest");
+		// Check that the result is a finite number. If so, display the
+		// results by setting the HTML content of each <span> element.
+		if (isFinite(monthly)) {
+		payment.innerHTML = monthly.toFixed(2);
+		total.innerHTML = (monthly * payments).toFixed(2);
+		totalinterest.innerHTML = ((monthly*payments)-principal).toFixed(2);
+		}
+		// Otherwise, the user's input was probably invalid, so display nothing.
+		else {
+		payment.innerHTML = "";
+		total.innerHTML = ""
+		totalinterest.innerHTML = "";
+		}
+		}
+		</script>
+		
+	</body>
+</html>
+

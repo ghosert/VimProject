@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+<title>Audacity - File Menu</title>
+</head>
+
+<body text="#000000" link="#000099" vlink="#000099">
+
+<font color="#000099">
+<h1>File Menu</h1>
+</font>
+<p>
+<b>New</b> - creates a new empty window
+</p>
+
+<p>
+<b>Open...</b> - opens an audio file or an Audacity project in a new
+window (unless the current window is empty).  To add audio files to
+an existing project window, use one of the Import commands in the
+<a href="menu_project.htm">Project</a> menu.
+</p>
+
+<p>
+<b>Close</b> - closes the current window, asking you if you want to
+save changes.  On Windows and Unix, closing the last window will
+quit Audacity, unless you modify this behavior in the Interface
+<a href="prefs.htm">Preferences</a>.
+</p>
+
+<p><b>Save Project</b> - saves everything in the window into an
+Audacity-specific format so that you can save and quickly continue your work
+later.  An Audacity project consists of a project file, ending in <tt>".aup"
+</tt>, and a project data folder, ending in <tt>"_data"</tt>.  For example,
+if you name your project "Composition", then Audacity will create a file called
+<tt>"Composition.aup"</tt> and a folder called <tt>Composition_data</tt>.
+Audacity project files are not meant to be shared with other programs; use
+one of the Export commands (below) when you are finished editing a file.
+</p>
+
+<p><b>Save Project As...</b> - same as Save Project (above), but lets you
+save a project as a new name.
+</p>
+
+<p><b>Recent Files ...</b> - brings up a list of files you have recently 
+opened in audacity to be re-opened quickly.</p>
+
+<p><b>Export As WAV...</b> - exports all of the audio in your project as a
+WAV file, an industry-standard format for uncompressed audio.  You can
+change the standard file format used for exporting from Audacity by
+opening the File Format <a href="prefs.htm">Preferences</a>.
+Note that exporting will automatically mix and resample if you have
+more than one track, or varying sample rates.  See also
+<a href="fileformats.htm">File Formats</a>.</p>
+
+<p><b>Export Selection As WAV...</b> - same as above, but only exports
+the current selection.</p>
+
+<p><b>Export as MP3...</b> - exports all of the audio as an MP3 file.
+MP3 files are compressed and therefore take up much less disk space,
+but they lose some audio quality.  Another compressed alternative
+is Ogg Vorbis (below).  You can set the quality of MP3 compression
+in the File Format <a href="prefs.htm">Preferences</a>.  See also
+<a href="exportmp3.htm">MP3 Exporting</a>.</p>
+
+<p><b>Export Selection As MP3...</b> - same as above, but only exports
+the current selection.</p>
+
+<p><b>Export as Ogg Vorbis...</b> - exports all of the audio as an Ogg Vorbis
+file.  Ogg Vorbis files are compressed and therefore take up much less
+disk space, but they lose some audio quality.  Ogg Vorbis files tend to
+take up a little less disk space than MP3 for similar compression quality,
+and Ogg Vorbis is free from patents and licensing restrictions, but
+Ogg Vorbis files are not as widespread.  You can set the quality of
+Ogg compression in the File Format <a href="prefs.htm">Preferences</a>.
+</p>
+
+<p><b>Export Selection As Ogg Vorbis...</b> - same as above, but only exports
+the current selection.</p>
+
+<p><b>Export Labels...</b> - if you have a 
+<a href="track_label.htm">Label Track</a> in your project, this lets
+you export the labels as a text file.  You can import labels in the
+same text format using the "Import Labels..." command in the
+<a href="menu_project.htm">Project Menu</a>.</p>
+
+<p><b>Export Multiple...</b> - lets you split your project into multiple files
+all in one step.  You can either split them vertically (one new file per
+track), or horizontally (using labels in a 
+<a href="track_label.htm">Label Track</a> to indicate the breaks between
+exported files.</p>
+
+<p><b>Page Setup</b> - configure how Audacity will print out the track
+waveforms using the Print option, and what printer to use.</p>
+
+<p><b>Print</b> - Print out the main window view from audacity showing the
+tracks and waveforms.</p>
+
+<p><b>Exit (Quit)</b> - closes all windows and exits Audacity, prompting you
+to save any unsaved changes first.</p>
+
+</body>
+</html>

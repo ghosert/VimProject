@@ -1,0 +1,196 @@
+<html>
+	<head>
+		<script>
+			function println(obj) {
+				document.write(obj + '<br/>');
+			}
+			function $(name) {
+				if (typeof name == 'string') {
+					return document.getElementById(name);
+				}
+				return name;
+			}
+		</script>
+	</head>
+
+    <body>
+
+		<!-- Alternative one: IE userData Persistence -->
+		<!-- This stylesheet defines a class named "persistent" -->
+		<style>
+			.persistent { behavior:url(#default#userData);}
+		</style>
+		<!-- This <div> element is a member of that class -->
+		<div id="memory" class="persistent"></div>
+		
+	</body>
+
+	<script>
+		
+		// document.cookie:
+		// it enables JavaScript code to persistently store data to the user's hard disk and to retrieve data that was previously stored in this way.
+		// Client-side persistence is an easy way to give web applications a memory:
+		// a web site can store user preferences so that they can be used again when the user revisits the page, for example.
+		// Bear in mind, cookie can be read/written and used in both client/server side.
+		// in client sde, you can read/write cookie by js.
+		// in server side, the request will automatically contain the cookie info for server reading, and the server sider can write cookie as well.
+
+
+		// An Overview of Cookies
+
+		// expires & max-age cookie attribute
+		// Cookies are transient by default; the values they store last for the duration of the webbrowser session
+		// but are lost when the user exits the browser. If you want a cookie to last beyond a single browsing session,
+		// you must tell the browser how long you would like it to retain the cookie.
+		// setting the EXPIRES attribute to an expiration date in the future or the MAX-AGE attribute specifies the lifetime(in seconds) of the cookie.
+		// Setting either of these attributes causes the browser to save the cookie in a local file.
+		// Once the expiration date has passed / the max-age lifetime has been exceeded, the browser automatically deletes the cookie from cookie file.
+
+		// path cookie attribute
+		// PATH cookie attribute specifies the web pages with which a cookie is associated.
+		// If the web page http://www.example.com/catalog/index.html creates a cookie, for example, that cookie is also visible to
+		// http://www.example.com/catalog/order.html and http://www.example.com/catalog/widgets/index.html, but it is not visible to
+		// http://www.example.com/about.html.
+		// If you want to use cookie values throughout a web site, regardless of which page creates the cookie
+		// For example, if a cookie set by http://www.example.com/catalog/widgets/index.html has its path
+		// set to "/catalog", that cookie is also visible to http://www.example.com/catalog/order.html. Or, if the path
+		// is set to "/", the cookie is visible to any page on the www.example.com web server.
+
+		// domain cookie attribute
+		/*
+			By default, cookies are accessible only to pages on the same web server from which they were set. Large
+			web sites may want cookies to be shared across multiple web servers, however. For example, the server
+			at order.example.com may need to read cookie values set from catalog.example.com. This is where the
+			next cookie attribute, domain, comes in. If a cookie created by a page on catalog.example.com sets its
+			path attribute to "/" and its domain attribute to ".example.com", that cookie is available to all web pages
+			on catalog.example.com, orders.example.com, and any other server in the example.com domain. If the
+			domain attribute is not set for a cookie, the default is the hostname of the web server that serves the
+			page. Note that you cannot set the domain of a cookie to a domain other than the domain of your server.
+		*/
+
+		// secure cookie attribute
+		/*
+			The final cookie attribute is a boolean attribute named secure that specifies how cookie values are
+			transmitted over the network. By default, cookies are insecure, which means that they are transmitted
+			over a normal, insecure HTTP connection. If a cookie is marked secure, however, it is transmitted only
+			when the browser and server are connected via HTTPS or another secure protocol.
+		*/
+
+
+		// Storing Cookies
+		println(document.lastModified);
+		println('last cookie: ' + document.cookie);
+		document.cookie = "version=" + encodeURIComponent(document.lastModified); // Use encodeURIComponent before storing cookie.
+		println(document.cookie);
+		println(decodeURIComponent(document.cookie)); // Use decodeURIComponent before retrieving cookie.
+		// create a cookie that persists for a year
+		document.cookie = "version=" + document.lastModified +
+		                  "; max-age=" + (60 * 60 * 24 * 365);
+		// obsolete expires attribute
+		var nextyear = new Date();
+		nextyear.setFullYear(nextyear.getFullYear( ) + 1);
+		document.cookie = "version=" + document.lastModified +
+						  "; expires=" + nextyear.toGMTString( );
+		// Note that the current cookie below doesn't contain cookie properties like expires we set. The cookie property allows you to set but not read.
+		println("current cookie: " + document.cookie); 
+		// To change the value of cookie, just set its value again using the same name, path and domain along with the new value.
+		// set max-age to 0 or use the expires attribute to specify an expiration date that has already passed.
+
+		// Cookie Limitations
+		/*
+			that the standard does not require browsers to retain more than 300 cookies total, 20
+			cookies per web server (for the entire server, not just for your page or site on the server), or 4 KB of data
+			per cookie (both name and value count toward this 4 KB limit).
+		*/
+
+
+		// Reading Cookies
+		// To determine the value of a particular named cookie, you can use the String.indexOf( ) and String.substring( ) methods,
+		// or you can use String.split( ) to break the string into individual cookies.
+
+		// Read the cookie property. This returns all cookies for this document.
+		document.cookie = "version=" + encodeURIComponent(document.lastModified);
+		var allcookies = document.cookie;
+		// Look for the start of the cookie named "version"
+		var pos = allcookies.indexOf("version=");
+		// If we find a cookie by that name, extract and use its value
+		if (pos != -1) {
+			var start = pos + 8; // Start of cookie value
+			var end = allcookies.indexOf(";", start); // End of cookie value
+			if (end == -1) end = allcookies.length;
+			var value = allcookies.substring(start, end); // Extract the value
+			value = decodeURIComponent(value); // Decode it
+			// Now that we have the cookie value, we can use it.
+			// In this case, the cookie was previously set to the modification
+			// date of the document, so we can use it to see if the document has
+			// changed since the user last visited.
+			if (value != document.lastModified)
+			alert("This document has changed since you were last here");
+		}
+
+
+		// Cookie Example
+		// See page 553 - 556
+
+
+		// Cookie Alternatives
+		// Two drawbacks on cookie:
+		/*
+			They are limited to 4 KB of data.
+			Even when cookies are used only for client-side scripting, they are still uploaded to the web server in
+			the request for any web page with which they are associated. When the cookies are not used on the
+			server, it's a waste of bandwidth.
+		*/
+
+		// Alternative one: IE userData Persistence
+		// See html sample above and the script code below:
+		var memory = document.getElementById("memory"); // Get persistent element
+		if (typeof memory.expires == "string") { // Just for IE.
+
+			// Save ...
+			memory.setAttribute("username", 'jiawzhang'); // Set data as attributes
+			memory.setAttribute("favoriteColor", 'blue');
+			var now = (new Date( )).getTime( ); // now, in milliseconds
+			var expires = now + 10 * 24 * 60 * 60 * 1000; // 10 days from now in ms
+			memory.expires = (new Date(expires)).toUTCString( ); // convert to a string
+			memory.save("myPersistentData"); // Save the data, the string argument can be any.
+			// Load ...
+			memory.load("myPersistentData"); // Retrieve saved data by name
+			var user = memory.getAttribute("username"); // Query attributes
+			var color = memory.getAttribute("favoriteColor");
+			println("Retrieved user color info: " + user + " " + color);
+
+			// Storing hierarchical data
+			// Use XMLDocument property and DOM methods to add content to it before calling save()/load():
+			var memory = document.getElementById("memory"); // Get persistent element
+			var doc = memory.XMLDocument; // Get its document
+			var root = doc.documentElement; // Root element of document
+			root.appendChild(doc.createTextNode("data here")); // Store text in document
+
+			// Storage limits
+			// The IE persistence mechanism allows much more data to be stored than cookies do. Each page may store
+			// up to 64 KB, and each web server is allowed a total of 640 KB. Sites on a trusted intranet are allowed even more storage.
+
+			// Sharing persistent data
+			// can't access persistent data saved by pages in its ancestor directories using IE. no path & domain attributes of cookies.
+			// So, persistent data in IE is shared only between pages in the same directory, loaded via the same protocols().
+		}
+		
+		// Flash SharedObject Persistence
+		// The Flash plug-in, versions 6 and later, enables client-side persistence with the SharedObject class, which
+		// can be scripted with ActionScript code in a Flash movie.[*] To do this, create a SharedObject with
+		// ActionScript code like the following.
+		// See more details in pdf page 560 - 561
+
+		// Example: Persistent Objects
+		// Three persistence mechanisms we've studied above. See more details in pdf page 561 - 568.
+
+
+		// Persistent Data and Security
+		// Don't save any sensitive data on the users' hard disk, they are unencrypted.
+		// they may be stolen by malicious software if you do that.
+		
+
+	</script>
+</html>
+

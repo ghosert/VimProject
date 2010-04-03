@@ -1,0 +1,170 @@
+<!--
+Should put DOCTYPE element here, like 7_Layout.html, but I don't want to retest this page after adding DOCTYPE, so ...
+-->
+<html>
+	<head>
+		<style type="text/css">
+			<!--
+
+			/* Absolute positioning can be a useful tool when laying out a page, especially if it is done using relatively positioned ancestors. */
+			#branding {
+				border-width: 2px;
+				border-color: black;
+				border-style: dashed;
+				width: 700px;
+				height: 100px;
+				position: relative;
+			}
+			#branding .tel {
+				position: absolute;
+				right: 10px;
+				bottom: 10px;
+				text-align: right;
+			}
+
+			.olds {
+				background-color: #FFFFCC;
+				border: solid 1px black;
+			}
+			.olds img {
+				float: left;
+			}
+			.olds p {
+				float: none; /* default value. */
+				/* clear: left; */ /* uncomment this line to see the changes. */
+			}
+
+			.news {
+				background-color: #FFFFCC;
+				border: solid 1px black;
+			}
+			.news img {
+				float: left;
+			}
+			.news p {
+				float: right;
+			}
+			.clear {
+				clear: both;
+			}
+
+			body {color: blue;}
+
+			-->
+		</style>
+	</head>
+	<body>
+		<p>
+		    General Introduce: <br/>
+			<img src="box_model.png" />
+		</p>
+
+		<p>
+			#myBox { <br/>
+			margin: 10px; <br/>
+			padding: 5px; <br/>
+			width: 70px; <br/>
+			} <br/>
+			<img src="box_model2.png" />
+		</p>
+
+		<p>
+			#myBox { <br/>
+			position: relative; <br/>
+			left: 20px; <br/>
+			top: 20px; <br/>
+			} <br/>
+			<img src="relatively_positioning.png" />
+		</p>
+
+		<p>
+			#myBox { <br/>
+			position: absolutely; <br/>
+			left: 20px; <br/>
+			top: 20px; <br/>
+			} <br/>
+			<img src="absolutely_positioning.png" />
+		</p>
+
+		<div id="branding">
+			<p>Absolute positioning can be a useful tool when laying out a page, especially if it is done using relatively positioned ancestors.</p>
+			<p class="tel">Tel: 0845 838 6163</p>
+		</div>
+
+		<br/>
+
+		<div class="olds">
+			<img src="logo.gif" />
+			<p>
+				Blah1, blah2, blah3, blah4, blah5, blah6, blah7, blah8, blah9, blah0
+				Blah1, blah2, blah3, blah4, blah5, blah6, blah7, blah8, blah9, blah0
+				Blah1, blah2, blah3, blah4, blah5, blah6, blah7, blah8, blah9, blah0
+				Blah1, blah2, blah3, blah4, blah5, blah6, blah7, blah8, blah9, blah0
+				Blah1, blah2, blah3, blah4, blah5, blah6, blah7, blah8, blah9, blah0
+				Blah1, blah2, blah3, blah4, blah5, blah6, blah7, blah8, blah9, blah0
+				Blah1, blah2, blah3, blah4, blah5, blah6, blah7, blah8, blah9, blah0
+				Blah1, blah2, blah3, blah4, blah5, blah6, blah7, blah8, blah9, blah0
+				Blah1, blah2, blah3, blah4, blah5, blah6, blah7, blah8, blah9, blah0
+				Blah1, blah2, blah3, blah4, blah5, blah6, blah7, blah8, blah9, blah0
+				Blah1, blah2, blah3, blah4, blah5, blah6, blah7, blah8, blah9, blah0
+				Blah1, blah2, blah3, blah4, blah5, blah6, blah7, blah8, blah9, blah0
+				Blah1, blah2, blah3, blah4, blah5, blah6, blah7, blah8, blah9, blah0
+				Some text
+				Blah1, blah2, blah3, blah4, blah5, blah6, blah7, blah8, blah9, blah0
+				Blah1, blah2, blah3, blah4, blah5, blah6, blah7, blah8, blah9, blah0
+				Blah1, blah2, blah3, blah4, blah5, blah6, blah7, blah8, blah9, blah0
+				Blah1, blah2, blah3, blah4, blah5, blah6, blah7, blah8, blah9, blah0
+				Blah1, blah2, blah3, blah4, blah5, blah6, blah7, blah8, blah9, blah0
+				Blah1, blah2, blah3, blah4, blah5, blah6, blah7, blah8, blah9, blah0
+				Blah1, blah2, blah3, blah4, blah5, blah6, blah7, blah8, blah9, blah0
+				Blah1, blah2, blah3, blah4, blah5, blah6, blah7, blah8, blah9, blah0
+				Blah1, blah2, blah3, blah4, blah5, blah6, blah7, blah8, blah9, blah0
+				Blah1, blah2, blah3, blah4, blah5, blah6, blah7, blah8, blah9, blah0
+				Blah1, blah2, blah3, blah4, blah5, blah6, blah7, blah8, blah9, blah0
+				Blah1, blah2, blah3, blah4, blah5, blah6, blah7, blah8, blah9, blah0
+				Blah1, blah2, blah3, blah4, blah5, blah6, blah7, blah8, blah9, blah0
+				Some text
+			</p>
+		</div>
+
+		<br/>
+
+		<div class="news">
+			<img src="logo.gif" />
+			<p>
+				Blah1, blah2, blah3, blah4, blah5, blah6, blah7, blah8, blah9, blah0
+				Blah1, blah2, blah3, blah4, blah5, blah6, blah7, blah8, blah9, blah0
+				Blah1, blah2, blah3, blah4, blah5, blah6, blah7, blah8, blah9, blah0
+				Blah1, blah2, blah3, blah4, blah5, blah6, blah7, blah8, blah9, blah0
+				Blah1, blah2, blah3, blah4, blah5, blah6, blah7, blah8, blah9, blah0
+				Blah1, blah2, blah3, blah4, blah5, blah6, blah7, blah8, blah9, blah0
+				Blah1, blah2, blah3, blah4, blah5, blah6, blah7, blah8, blah9, blah0
+				Blah1, blah2, blah3, blah4, blah5, blah6, blah7, blah8, blah9, blah0
+				Blah1, blah2, blah3, blah4, blah5, blah6, blah7, blah8, blah9, blah0
+				Blah1, blah2, blah3, blah4, blah5, blah6, blah7, blah8, blah9, blah0
+				Blah1, blah2, blah3, blah4, blah5, blah6, blah7, blah8, blah9, blah0
+				Blah1, blah2, blah3, blah4, blah5, blah6, blah7, blah8, blah9, blah0
+				Blah1, blah2, blah3, blah4, blah5, blah6, blah7, blah8, blah9, blah0
+				Some text
+				Blah1, blah2, blah3, blah4, blah5, blah6, blah7, blah8, blah9, blah0
+				Blah1, blah2, blah3, blah4, blah5, blah6, blah7, blah8, blah9, blah0
+				Blah1, blah2, blah3, blah4, blah5, blah6, blah7, blah8, blah9, blah0
+				Blah1, blah2, blah3, blah4, blah5, blah6, blah7, blah8, blah9, blah0
+				Blah1, blah2, blah3, blah4, blah5, blah6, blah7, blah8, blah9, blah0
+				Blah1, blah2, blah3, blah4, blah5, blah6, blah7, blah8, blah9, blah0
+				Blah1, blah2, blah3, blah4, blah5, blah6, blah7, blah8, blah9, blah0
+				Blah1, blah2, blah3, blah4, blah5, blah6, blah7, blah8, blah9, blah0
+				Blah1, blah2, blah3, blah4, blah5, blah6, blah7, blah8, blah9, blah0
+				Blah1, blah2, blah3, blah4, blah5, blah6, blah7, blah8, blah9, blah0
+				Blah1, blah2, blah3, blah4, blah5, blah6, blah7, blah8, blah9, blah0
+				Blah1, blah2, blah3, blah4, blah5, blah6, blah7, blah8, blah9, blah0
+				Blah1, blah2, blah3, blah4, blah5, blah6, blah7, blah8, blah9, blah0
+				Some text
+			</p>
+			<!-- remove the class="clear" below to see the changes. -->
+			<div class="clear">Jiawei</div>
+		</div>
+
+	</body>
+</html>
+

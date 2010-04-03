@@ -1,0 +1,310 @@
+<html>
+	<head>
+		<script>
+			XML = {}; // This is for IE.
+		</script>
+		<script src="makeTable.js"/>
+		<script>
+			function println(obj) {
+				document.write(obj + '<br/>');
+			}
+			function $(name) {
+				if (typeof name == 'string') {
+					return document.getElementById(name);
+				}
+				return name;
+			}
+		</script>
+	</head>
+
+    <body>
+		<button onclick="displayAddressesXML( )">Display addresses.xml</button>
+		<button onclick="displayHtmlHead( )">Display Html Head</button>
+		<button onclick="displayAddressBook( )">Display Address Book With JS Read addresses.xml</button>
+		<p>Make table by XML: addresses.xml  with XSLT: addresses.xsl</p>
+		<div id="addresses"><!--table will be inserted here --></div>
+	</body>
+
+	<script>
+
+		// Obtaining XML Documents
+		// Except the responseXML property of the XMLHttpRequest object, you can:
+		// 1. Creating an empty XML document, load an XML document from a URL without using XMLHttpRequest
+		// 2. parse an XML document from a string
+		// 3. obtain an XML document from an XML data island.
+
+		// Creating a New Document
+		/**
+		* Create a new Document object. If no arguments are specified,
+		* the document will be empty. If a root tag is specified, the document
+		* will contain that single root tag. If the root tag has a namespace
+		* prefix, the second argument must specify the URL that identifies the
+		* namespace.
+		*/
+		XML.newDocument = function(rootTagName, namespaceURL) {
+			if (!rootTagName) rootTagName = "";
+			if (!namespaceURL) namespaceURL = "";
+			if (document.implementation && document.implementation.createDocument) {
+				// This is the W3C standard way to do it
+				return document.implementation.createDocument(namespaceURL,
+				rootTagName, null);
+			}
+			else { // This is the IE way to do it
+				// Create an empty document as an ActiveX object
+				// If there is no root element, this is all we have to do
+				var doc = new ActiveXObject("MSXML2.DOMDocument");
+				// If there is a root tag, initialize the document
+				if (rootTagName) {
+
+					// Look for a namespace prefix
+					var prefix = "";
+					var tagname = rootTagName;
+					var p = rootTagName.indexOf(':');
+					if (p != -1) {
+						prefix = rootTagName.substring(0, p);
+						tagname = rootTagName.substring(p+1);
+					}
+
+					// If we have a namespace, we must have a namespace prefix
+					// If we don't have a namespace, we discard any prefix
+					if (namespaceURL) {
+						if (!prefix) prefix = "a0"; // What Firefox uses
+					}
+					else prefix = "";
+
+					// Create the root element (with optional namespace) as a
+					// string of text
+					var text = "<" + (prefix?(prefix+":"):"") + tagname +
+					(namespaceURL
+					?(" xmlns:" + prefix + '="' + namespaceURL +'"')
+					:"") +
+					"/>";
+					// And parse that text into the empty document
+					doc.loadXML(text);
+				}
+				return doc;
+			}
+		};
+
+		// Loading a Document from the Network
+		// Example 21-2. Loading an XML document synchronously
+		/**
+		* Synchronously load the XML document at the specified URL and
+		* return it as a Document object
+		*/
+		XML.load = function(url) {
+			// Create a new document with the previously defined function
+			var xmldoc = XML.newDocument( );
+			xmldoc.async = false; // We want to load synchronously, by default is true for async.
+			xmldoc.load(url); // Load and parse, for example: "http://www.xxx.com/sample.xml" or local file "addresses.xml"
+			return xmldoc; // Return the document
+		};
+		// onload() above is different from XMLHttpRequest in several ways:
+		/*
+			First, it works only with XML documents; XMLHttpRequest can be used to download any kind of text document.
+
+			Second, it is not restricted to the HTTP protocol. In particular, it can be used to read files from the local filesystem,
+			which is helpful during the testing and development phase of a web application.
+
+			Third, when used with HTTP, it generates only GET requests and cannot be used to POST data to a web server.
+		*/
+
+		// Example 21-3. Loading an XML document asynchronously
+		/**
+		* Asynchronously load and parse an XML document from the specified URL.
+		* When the document is ready, pass it to the specified callback function.
+		* This function returns immediately with no return value.
+		*/
+		XML.loadAsync = function(url, callback) {
+			var xmldoc = XML.newDocument( );
+			// If we created the XML document using createDocument, use
+			// onload to determine when it is loaded
+			if (document.implementation && document.implementation.createDocument) {
+				xmldoc.onload = function( ) { callback(xmldoc); };
+			}
+			// Otherwise, use onreadystatechange as with XMLHttpRequest
+			else {
+				xmldoc.onreadystatechange = function( ) {
+					if (xmldoc.readyState == 4) callback(xmldoc);
+				};
+			}
+			// Now go start the download and parsing
+			xmldoc.load(url); // Don't set xmldoc.async will cause xmldoc.async = true; by default which means async call by default.
+		};
+
+		// Parsing XML Text
+		// Sometimes, instead of parsing an XML document loaded from the network, you simply want to parse an XML document from a JavaScript string.
+		// Example 21-4. Parsing an XML document
+		/**
+		* Parse the XML document contained in the string argument and return
+		* a Document object that represents it.
+		*/
+		XML.parse = function(text) {
+			if (typeof DOMParser != "undefined") {
+				// Mozilla, Firefox, and related browsers
+				return (new DOMParser( )).parseFromString(text, "application/xml");
+			}
+			else if (typeof ActiveXObject != "undefined") {
+				// Internet Explorer.
+				var doc = XML.newDocument( ); // Create an empty document
+				doc.loadXML(text); // Parse text into it
+				return doc; // Return it
+			}
+			else {
+				// As a last resort, try loading the document from a data: URL
+				// This is supposed to work in Safari. Thanks to Manos Batsis and
+				// his Sarissa library (sarissa.sourceforge.net) for this technique.
+				var url = "data:text/xml;charset=utf-8," + encodeURIComponent(text);
+				var request = new XMLHttpRequest( );
+				request.open("GET", url, false);
+				request.send(null);
+				return request.responseXML;
+			}
+		};
+
+		// XML Documents from Data Islands
+		// This is a IE feature, ignore here for now, if you are interested in this, see pdf page 598.
+
+
+		// 21.2 Manipulating XML with the DOM API
+		// The HTML and XML DOMS are different.
+
+		// HTML DOM is the doc comes from window.document
+		// XML DOM is comes from XML.newDocument() above and (new DOMParser()).parseFromString() above and request.responseXML
+
+		// In XML documents, getElementById( ) searches for elements with the specified value of an attribute whose type is "id".
+		// setting an attribute named "id" on an XML element does not mean that that element can be found with getElementById( ).
+
+		// HTML DOM has both imgElement.src property and imgElement.setAttribute/getAttribute('src') for src attribute of html <img> tag.
+		// while XML DOM has imgElement.setAttribute(), getAttribute() only.
+		// This function uses makeTable( )
+		function displayAddressBook( ) {
+			var schema = {
+				rowtag: "contact",
+				columns: [
+				{ tagname: "@name", label: "Name" },
+				{ tagname: "email", label: "Address" }
+				]
+			};
+			var xmldoc = XML.load("addresses.xml"); // Read the XML data, as described above, XML.load can be used in a LOCAL system.
+			makeTable(xmldoc, schema, "addresses"); // Convert to an HTML table. makeTalbe function is in makeTable.js file.
+		}
+
+
+		// 21.3 Transforming XML with XSLT
+		// Use JavaScript to dynamically perform XSL transformations. Generate the same html which is produced by makeTable.js above.
+		// See the sample in addresses.xml/addresses.xsl files and the function XML.transform() in makeTable.js file.
+		XML.transform(XML.load("addresses.xml"), "addresses.xsl", "addresses");
+
+
+		// 21.4 Querying XML with XPath
+		// See the pdf page 608.
+
+
+		// 21.5 Serializing XML
+		// Two reasons to serialize XML document.
+		// 1. converting it to string to send an XML document as the body of an HTTP POST request generated with the XMLHttpRequest object.
+		// 2. serialize XML documents and elements is for use in debugging messages.
+
+		// Example 21-11. Serializing XML
+		/**
+		* Serialize an XML Document or Element and return it as a string.
+		*/
+		XML.serialize = function(node) {
+			if (typeof XMLSerializer != "undefined") // For Mozilla-based browsers.
+				return (new XMLSerializer( )).serializeToString(node);
+			else if (node.xml) return node.xml; // For IE.
+			else throw "XML.serialize is not supported or can't serialize " + node;
+		};
+
+		function displayAddressesXML() {
+			alert(XML.serialize(XML.load("addresses.xml")));
+		}
+
+		function displayHtmlHead() {
+			alert(XML.serialize(document.documentElement.firstChild));
+		}
+
+
+		// 21.6 Expanding HTML Templates with XML Data
+		// Only works for IE, if you are interested in it, refer to pdf page 615 later.
+
+
+		// 21.7 XML and Web Service
+		// Remember the same origin policy is still valid here:
+		// JavaScript code for accessing a web service is typically useful only if it is hosted on the same server as the web service itself.
+		// Example 21-14. Querying a web service with SOAP
+		/**
+		* This function returns the exchange rate between the currencies of two
+		* countries. It determines the exchange rate by making a SOAP request to a
+		* demonstration web service hosted by XMethods (http://www.xmethods.net).
+		* The service is for demonstration only and is not guaranteed to be
+		* responsive, available, or to return accurate data. Please do not
+		* overload XMethod's servers by running this example too often.
+		* See http://www.xmethods.net/v2/demoguidelines.html
+		*/
+		function getExchangeRate(country1, country2) {
+			// In Firefox, we must ask the user to grant the privileges we need to run.
+			// We need special privileges because we're talking to a web server other than the one that served the document that contains this script.
+			// UniversalXPConnect allows us to make an XMLHttpRequest to the server, and UniversalBrowserRead allows us to look at its response.
+			// This works when the example is run from a file: URL in the local filesystem but does not work if the example is downloaded from a web server (unless the script has been
+			// digitally signed, which is beyond the scope of this book).
+			
+			// In IE, the user must instead enable "Access data sources across domains"
+			// in the Tools->Internet Options->Security dialog.
+
+			if (typeof netscape != "undefined") {
+				netscape.security.PrivilegeManager.
+				enablePrivilege("UniversalXPConnect UniversalBrowserRead");
+			}
+			// Create an XMLHttpRequest to issue the SOAP request. This is a utility
+			// function defined in the last chapter.
+			var request = HTTP.newRequest( );
+			// We're going to be POSTing to this URL and want a synchronous response
+			request.open("POST", "http://services.xmethods.net/soap", false);
+			// Set some headers: the body of this POST request is XML
+			request.setRequestHeader("Content-Type", "text/xml");
+			// This header is a required part of the SOAP protocol
+			request.setRequestHeader("SOAPAction", '""');
+			// Now send an XML-formatted SOAP request to the server
+			request.send(
+			'<?xml version="1.0" encoding="UTF-8"?>' +
+			'<soap:Envelope' +
+			' xmlns:ex="urn:xmethods-CurrencyExchange"' +
+			' xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/"' +
+			' xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"' +
+			' xmlns:xs="http://www.w3.org/2001/XMLSchema"' +
+			' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">' +
+			' <soap:Body ' +
+			' soap:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">'+
+			' <ex:getRate>' +
+			' <country1 xsi:type="xs:string">' + country1 + '</country1>' +
+			' <country2 xsi:type="xs:string">' + country2 + '</country2>' +
+			' </ex:getRate>' +
+			' </soap:Body>' +
+			'</soap:Envelope>'
+			);
+			// If we got an HTTP error, throw an exception
+			if (request.status != 200) throw request.statusText;
+			// This XPath query gets us the <getRateResponse> element from the document
+			var query = "/s:Envelope/s:Body/ex:getRateResponse";
+			// This object defines the namespaces used in the query
+			var namespaceMapping = {
+				s: "http://schemas.xmlsoap.org/soap/envelope/", // SOAP namespace
+				ex: "urn:xmethods-CurrencyExchange" // the service-specific namespace
+			};
+			// Extract the <getRateResponse> element from the response document
+			var responseNode=XML.getNode(request.responseXML, query, namespaceMapping);
+			// The actual result is contained in a text node within a <Result> node
+			// within the <getRateReponse>
+			return responseNode.firstChild.firstChild.nodeValue;
+		}
+
+
+		// 21.8 E4X: ECMAScript for XML
+		// Since this is not well supported by IE, revisit this topic later, basicly it will simplify the operation on xml.
+
+
+	</script>
+</html>
+

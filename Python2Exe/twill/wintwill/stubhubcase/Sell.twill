@@ -1,0 +1,11 @@
+# Navigate to Login page
+follow "Login"
+
+# set_is_html true to avoid "Not viewing HTML" error.
+set_is_html True
+
+# Login
+fv 1 nameLogin 'richardsell@test.com'
+fv 1 password '123456'
+submit
+

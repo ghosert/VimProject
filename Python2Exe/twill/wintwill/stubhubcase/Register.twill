@@ -1,0 +1,32 @@
+follow "Register"
+
+# set_is_html true to avoid "Not viewing HTML" error.
+set_is_html True
+
+fv 1 addr_email richardsell@test.com
+
+fv 1 password1 "123456"
+
+fv 1 password2 "123456"
+
+fv 1 name_title "Mr."
+
+fv 1 name_first "richardsell"
+
+fv 1 name_last "liu"
+
+fv 1 zip "33124"
+
+fv 1 country "US"
+
+fv 1 phone1_1 "4081111111"
+
+fv 1 termsCheck "1"
+
+submit 27
+
+notfind "already registered"
+
+submit
+
+

@@ -1,0 +1,42 @@
+1. Double click on start.bat
+
+2. In the command line console:
+
+   1) start twill interpreter, type:
+      
+      wintwill
+   
+   2) execute the script named script1.twill, script2.twill type:
+ 
+      wintwill script1.twill script2.twill
+
+   3) Search the clause 'open_html temp.html' in script, when finding it, save the current html to temp.html and open it (self-made feature).
+
+      wintwill -o script.twill
+
+   4) execute script.twill and set initialized url as google, type:
+
+      wintwill -u http://www.google.com script.twill
+
+   5) To see more details on other wintwill options, type:
+
+      wintwill -h
+
+3. Example:
+
+   This sample will fill in the google search textbox with the keyword "jiawei" and click on "Google Search" button automatically, then save and open temp.html as a result.
+
+   In the command line console, type:
+
+   sample.bat
+
+4. Stubhub Example:
+
+   Double click on stubhub.bat to run the stubhub "Browse", "Login", "Regiter", "Sell", "Buy" modules under stubhubcase folder.
+   stubhub.bat will produce a fail.txt file to report the failed test case information. If no content in fail.txt that means you passed test cases.
+   You can add more test case under stubhubcase folder.
+
+4. Twill script reference:
+
+   See the file commands.html
+

@@ -1,0 +1,240 @@
+*** old/include/wx/font.h	Sun Oct 27 17:51:41 2002
+--- new/include/wx/font.h	Sat Jul 26 19:17:31 2003
+***************
+*** 142,149 ****
+      wxString GetWeightString() const;
+  
+      // Unofficial API, don't use
+!     virtual void SetNoAntiAliasing( bool no = TRUE ) {  }
+!     virtual bool GetNoAntiAliasing() { return FALSE; }
+  
+      // the default encoding is used for creating all fonts with default
+      // encoding parameter
+--- 142,149 ----
+      wxString GetWeightString() const;
+  
+      // Unofficial API, don't use
+!     virtual void SetNoAntiAliasing( bool no = TRUE ) { mNoAntiAliasing = no; }
+!     virtual bool GetNoAntiAliasing() { return mNoAntiAliasing; }
+  
+      // the default encoding is used for creating all fonts with default
+      // encoding parameter
+***************
+*** 155,160 ****
+--- 155,162 ----
+      wxFontRefData *GetFontData() const
+          { return (wxFontRefData *)m_refData; }
+      
++     bool mNoAntiAliasing;
++ 
+  private:
+      // the currently default encoding: by default, it's the default system
+      // encoding, but may be changed by the application using
+*** old/include/wx/mac/cursor.h	Sat Aug 31 04:29:13 2002
+--- new/include/wx/mac/cursor.h	Sat Jul 26 19:32:14 2003
+***************
+*** 30,35 ****
+--- 30,37 ----
+  
+  protected:
+      WXHCURSOR m_hCursor;
++ 
++     bool m_disposeHandle;
+  };
+  
+  #define M_CURSORDATA ((wxCursorRefData *)m_refData)
+***************
+*** 54,59 ****
+--- 56,63 ----
+    wxCursor(const wxString& name, long flags = wxBITMAP_TYPE_MACCURSOR_RESOURCE,
+     int hotSpotX = 0, int hotSpotY = 0);
+  
++   wxCursor( const wxImage &image );
++ 
+    wxCursor(int cursor_type);
+    ~wxCursor();
+  
+***************
+*** 62,67 ****
+--- 66,73 ----
+    inline wxCursor& operator = (const wxCursor& cursor) { if (*this == cursor) return (*this); Ref(cursor); return *this; }
+    inline bool operator == (const wxCursor& cursor) { return m_refData == cursor.m_refData; }
+    inline bool operator != (const wxCursor& cursor) { return m_refData != cursor.m_refData; }
++ 
++ 	void CreateFromImage(const wxImage & image);
+  
+  	void MacInstall() const ;
+  
+*** old/src/mac/cursor.cpp	Thu Oct 17 13:34:20 2002
+--- new/src/mac/cursor.cpp	Sat Jul 26 19:32:19 2003
+***************
+*** 18,23 ****
+--- 18,24 ----
+  #include "wx/app.h"
+  #include "wx/cursor.h"
+  #include "wx/icon.h"
++ #include <wx/image.h>
+  #include "wx/mac/private.h"
+  
+  #if !USE_SHARED_LIBRARIES
+***************
+*** 50,61 ****
+--- 51,67 ----
+      m_width = 32; 
+      m_height = 32;
+      m_hCursor = NULL ;
++     m_disposeHandle = false;
+  }
+  
+  wxCursorRefData::~wxCursorRefData()
+  {
+  //	if ( m_hCursor && ( m_hCursor != MacArrowCursor ) )
+  //		::ReleaseResource( (Handle) m_hCursor ) ;
++     if ( m_disposeHandle )
++     {
++         ::DisposeHandle( (Handle ) m_hCursor ) ;
++     } 
+  }
+  
+  // Cursors
+***************
+*** 68,73 ****
+--- 74,84 ----
+  {
+  }
+  
++ wxCursor::wxCursor( const wxImage &image )
++ {
++     CreateFromImage( image ) ;
++ }
++ 
+  wxCursor::wxCursor(const wxString& cursor_file, long flags, int hotSpotX, int hotSpotY)
+  {
+      m_refData = new wxCursorRefData;
+***************
+*** 211,216 ****
+--- 222,294 ----
+        M_CURSORDATA->m_hCursor = MacArrowCursor;
+        break;
+  	}
++ }
++ 
++ void wxCursor::CreateFromImage(const wxImage & image) 
++ {
++     m_refData = new wxCursorRefData;
++ 
++     wxImage image16 = image.Scale(16,16) ;
++        unsigned char * rgbBits = image16.GetData();
++  
++     
++     int w = image16.GetWidth()  ;
++     int h = image16.GetHeight() ;
++     bool bHasMask = image16.HasMask() ;
++ 
++        int hotSpotX = image16.GetOptionInt(wxCUR_HOTSPOT_X);
++     int hotSpotY = image16.GetOptionInt(wxCUR_HOTSPOT_Y);
++     if (hotSpotX < 0 || hotSpotX >= w)
++             hotSpotX = 0;
++     if (hotSpotY < 0 || hotSpotY >= h)
++             hotSpotY = 0;
++             
++     // monochrome implementation
++     M_CURSORDATA->m_hCursor = NewHandle( sizeof( Cursor ) ) ;
++     M_CURSORDATA->m_disposeHandle = true ;
++     HLock( (Handle) M_CURSORDATA->m_hCursor ) ;
++     CursPtr cp = *(CursHandle)M_CURSORDATA->m_hCursor ;
++     memset( cp->data , 0 , sizeof( Bits16 ) ) ;
++     memset( cp->mask , 0 , sizeof( Bits16 ) ) ;
++     
++     unsigned char mr = image16.GetMaskRed() ;
++     unsigned char mg = image16.GetMaskGreen() ;
++     unsigned char mb = image16.GetMaskBlue() ;
++     for ( int y = 0 ; y < h ; ++y )
++     {
++         short rowbits = 0 ;
++         short maskbits = 0 ;
++         
++         for ( int x = 0 ; x < w ; ++x )
++         {
++             long pos = (y * w + x) * 3;
++ 
++             unsigned char r = rgbBits[pos] ;
++             unsigned char g = rgbBits[pos+1] ;
++             unsigned char b = rgbBits[pos+2] ;
++             if ( bHasMask && r==mr && g==mg && b==mb )
++             {
++                 // masked area, does not appear anywhere
++             }
++             else
++             {
++                 if ( (int)r + (int)g + (int)b < 0x0200 )
++                 {
++                     rowbits |= ( 1 << (15-x) ) ;
++                 }
++                 maskbits |= ( 1 << (15-x) ) ;
++             }
++         }
++         cp->data[y] = rowbits ;
++         cp->mask[y] = maskbits ;
++     }
++     if ( !bHasMask )
++     {
++         memcpy( cp->mask , cp->data , sizeof( Bits16) ) ;
++     }
++     cp->hotSpot.h = hotSpotX ;
++     cp->hotSpot.v = hotSpotY ;
++     HUnlock( (Handle) M_CURSORDATA->m_hCursor ) ;
+  }
+  
+  void wxCursor::MacInstall() const 
+*** old/src/mac/dc.cpp	Sun Jan  5 12:48:06 2003
+--- new/src/mac/dc.cpp	Sun Jul 27 13:42:19 2003
+***************
+*** 1316,1324 ****
+  	long xx = XLOG2DEVMAC(x);
+  	long yy = YLOG2DEVMAC(y);
+  #if TARGET_CARBON
+! 	bool useDrawThemeText = ( DrawThemeTextBox != (void*) kUnresolvedCFragSymbolAddress ) ;
+! 	if ( m_font.GetNoAntiAliasing() )
+! 	    useDrawThemeText = false ;
+  #endif
+  	MacInstallFont() ;
+      if ( 0 )
+--- 1316,1327 ----
+  	long xx = XLOG2DEVMAC(x);
+  	long yy = YLOG2DEVMAC(y);
+  #if TARGET_CARBON
+! 	//bool useDrawThemeText = ( DrawThemeTextBox != (void*) kUnresolvedCFragSymbolAddress ) ;
+! 	//if ( m_font.GetNoAntiAliasing() )
+! 	//    useDrawThemeText = false ;
+! 
+!         // Speed up Audacity by never using Anti-Aliased text...
+!         bool useDrawThemeText = false;
+  #endif
+  	MacInstallFont() ;
+      if ( 0 )
+***************
+*** 2078,2081 ****
+  wxCoord wxDCBase::LogicalToDeviceYRel(wxCoord y) const
+  {
+      return ((wxDC *)this)->YLOG2DEVREL(y);
+! }
+\ No newline at end of file
+--- 2081,2084 ----
+  wxCoord wxDCBase::LogicalToDeviceYRel(wxCoord y) const
+  {
+      return ((wxDC *)this)->YLOG2DEVREL(y);
+! }
+*** old/src/mac/font.cpp	Sun Nov 24 09:34:15 2002
+--- new/src/mac/font.cpp	Sat Jul 26 19:18:14 2003
+***************
+*** 161,166 ****
+--- 161,168 ----
+                      const wxString& faceName,
+                      wxFontEncoding encoding)
+  {
++     mNoAntiAliasing = false;
++ 
+      UnRef();
+      m_refData = new wxFontRefData(pointSize, family, style, weight,
+                                    underlined, faceName, encoding);

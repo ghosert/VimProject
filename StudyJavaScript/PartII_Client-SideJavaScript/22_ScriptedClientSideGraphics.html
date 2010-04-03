@@ -1,0 +1,386 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<!-- The drawing won't look right in IE without a doctype like this -->
+<html>
+	<head>
+		<script>
+			function println(obj) {
+				document.write(obj + '<br/>');
+			}
+			function $(name) {
+				if (typeof name == 'string') {
+					return document.getElementById(name);
+				}
+				return name;
+			}
+		</script>
+		
+		<!-- Graphics with CSS: BarChart -->
+		<script src="BarChart.js"></script> <!-- Include chart library -->
+		<script>
+			function drawChart( ) {
+				var chart = makeBarChart([1,2,4,8,16,32,64,128,256], 600, 300);
+				var container = document.getElementById("chartContainer");
+				container.appendChild(chart);
+			}
+		</script>
+
+		<!-- Graphics with CSS: CSSDrawing -->
+		<script src="CSSDrawing.js"></script> <!-- Include our drawing class -->
+		<style>
+			/* Styles for the figure box itself */
+			.figure { border: solid black 2px; background-color: #eee;}
+			/* Styles for grid lines */
+			.grid { border: dotted black 1px; opacity: .1; }
+			/* Styles for boxes in the figure */
+			.boxstyle {
+			border: solid black 2px;
+			background: #aaa;
+			padding: 2px 10px 2px 10px;
+			font: bold 12pt sans-serif;
+			text-align: center;
+			}
+			/* styles for line connecting the boxes */
+			.boldline { border: solid black 2px; }
+		</style>
+		<script>
+			// Draw a grid in the specfied rectangle with dx,dy line spacing
+			function drawGrid(drawing, x, y, w, h, dx, dy) {
+				for(var x0 = x; x0 < x +w; x0 += dx)
+					drawing.vertical(x0, y, h, "grid");
+				for(var y0 = y; y0 < y + h; y0 += dy)
+					drawing.horizontal(x, y0, w, "grid");
+			}
+			function drawFigure( ) {
+				// Create a new figure
+				var figure = new CSSDrawing(500, 200, "figure");
+				// Add a grid to the drawing
+				drawGrid(figure, 0, 0, 500, 200, 25, 25);
+				// Draw four boxes in the figure
+				figure.box(200, 50, 75, 25, "Life", "boxstyle"); // top box
+				figure.box(50, 125, 75, 25, "Archaea", "boxstyle"); // line of 3
+				figure.box(200, 125, 75, 25, "Bacteria", "boxstyle"); // ..boxes below
+				figure.box(350, 125, 75, 25, "Eukaryota", "boxstyle"); // ..the top one
+				// This line is drawn down from the bottom center of the top "Life" box.
+				// The starting y position of this line is 50+25+2+2+2+2 or
+				// y + height + top border + top padding + bottom padding + bottom border
+				// Note that this computation requires knowledge of both the code and
+				// the stylesheet, which is is not ideal.
+				figure.vertical(250, 83, 20, "boldline");
+				figure.horizontal(100, 103, 300, "boldline"); // line above 3 lower boxes
+				figure.vertical(100, 103, 22, "boldline"); // connect to "archaea"
+				figure.vertical(250, 103, 22, "boldline"); // connect to "bacteria"
+				figure.vertical(400, 103, 22, "boldline"); // connect to "eukaryota"
+				// Now insert the figure into the document, replacing the placeholder
+				figure.replace("placeholder");
+			}
+		</script>
+
+		<!-- Graphics in a <canvas> -->
+		<script>
+			function drawCanvas() { // Do the drawing when the document loads
+				var canvas = document.getElementById("square"); // Get canvas element
+				var context = canvas.getContext("2d"); // Get 2D drawing context
+				context.fillStyle = "#f00"; // Set fill color to red
+				context.fillRect(0,0,10,10); // Fill a square
+				canvas = document.getElementById("circle"); // New canvas element
+				context = canvas.getContext("2d"); // Get its context
+				context.fillStyle = "#00f"; // Set blue fill color
+				context.beginPath( ); // Begin a shape
+				// Add a complete circle of radius 5 centered at (5,5) to the shape
+				context.arc(5, 5, 5, 0, 2*Math.PI, true);
+				context.fill( ); // Fill the shape
+			}
+		</script>
+		<script>
+			// Create and return a new canvas tag with the specified id and size.
+			// Note that this method does not add the canvas to the document
+			function makeCanvas(id, width, height) {
+				var canvas = document.createElement("canvas");
+				canvas.id = id;
+				canvas.width = width;
+				canvas.height = height;
+				return canvas;
+			}
+			/**
+			* Draw a pie chart in the canvas specified by element or id.
+			* Data is an array of numbers: each number represents a wedge of the chart.
+			* The pie chart is centered at (cx, cy) and has radius r.
+			* The colors of the wedges are HTML color strings in the colors[] array.
+			* A legend appears at (lx,ly) to associate the labels in the labels[]
+			* array with each of the colors.
+			*/
+			function pieChart(canvas, data, cx, cy, r, colors, labels, lx, ly) {
+				// Get the canvas if specified by id
+				if (typeof canvas == "string") canvas = document.getElementById(canvas);
+				// We draw with the canvas's drawing context
+				var g = canvas.getContext("2d");
+				// All the lines we draw are 2-pixel-wide black lines
+				g.lineWidth = 2;
+				g.strokeStyle = "black";
+				// Total the data values
+				var total = 0;
+				for(var i = 0; i < data.length; i++) total += data[i];
+				// And compute the angle (in radians) for each one
+				var angles = []
+				for(var i = 0; i < data.length; i++) angles[i] = data[i]/total*Math.PI*2;
+				// Now, loop through the wedges of the pie
+				startangle = -Math.PI/2; // Start at 12 o'clock instead of 3 o'clock
+				for(var i = 0; i < data.length; i++) {
+					// This is the angle where the wedge ends
+					var endangle = startangle + angles[i];
+					// Draw a wedge
+					g.beginPath( ); // Start a new shape
+					g.moveTo(cx,cy); // Move to center
+					// Line to startangle point and arc to endangle
+					g.arc(cx,cy,r,startangle, endangle, false);
+					g.closePath( ); // Back to center and end shape
+					g.fillStyle = colors[i]; // Set wedge color
+					g.fill( ); // Fill the wedge
+					g.stroke( ); // Outline ("stroke") the wedge
+					// The next wedge starts where this one ends.
+					startangle = endangle;
+					// Draw the rectangle in the legend for this wedge
+					g.fillRect(lx, ly+30*i, 20, 20);
+					g.strokeRect(lx, ly+30*i, 20, 20);
+					// And put a label next to the rectangle.
+					// The Canvas API does not support text, so we just do
+					// ordinary html text here. We use CSS positioning to put the text
+					// in the right spot on top of the Canvas element. This would be
+					// a little cleaner if the canvas tag itself were absolutely positioned
+					var label = document.createElement("div");
+					label.style.position = "absolute";
+					label.style.left = (canvas.offsetLeft + lx+30)+"px";
+					label.style.top = (canvas.offsetTop+ly+30*i-4) + "px";
+					label.style.fontFamily = "sans-serif";
+					label.style.fontSize = "16px";
+					label.appendChild(document.createTextNode(labels[i]));
+					document.body.appendChild(label);
+				}
+			}
+			function init( ) {
+				// Create a canvas element
+				var canvas = makeCanvas("canvas", 600, 400);
+				// Add it to the document
+				document.body.appendChild(canvas);
+				// And draw a pie chart in it
+				pieChart("canvas", [12, 23, 34, 45], 200, 200, 150,
+				["red", "blue", "yellow", "green"],
+				["North", "South", "East", "West"],
+				400, 100);
+			}
+		</script>
+
+		<script>
+			if (window.addEventListener) {
+				window.addEventListener("load", drawChart, false);
+				window.addEventListener("load", drawFigure, false);
+				window.addEventListener("load", drawCanvas, false);
+				window.addEventListener("load", init, false);
+			}
+			else if (window.attachEvent) {
+				window.attachEvent("onload", drawChart);
+				window.attachEvent("onload", drawFigure);
+				window.attachEvent("onload", drawCanvas);
+				window.attachEvent("onload", init);
+			}
+		</script>
+	</head>
+
+
+	<body>
+
+		<!-- Scripting Images -->
+		<img name="nextpage" src="draggable.gif">
+
+		<!-- Graphics with CSS: BarChart -->
+		<h2>y = 2<sup>n</sup></h2><!-- Chart title -->
+		<div id="chartContainer"><!-- Chart will go here --></div>
+		<!-- chart caption -->
+		<i>Note that each bar is twice as high as the one before ita characteristic of exponential growth</i>
+
+		<br/> <br/> <br/>
+
+		<!-- Graphics with CSS: CSSDrawing -->
+		<div id="placeholder"></div>
+
+		<br/> <br/> <br/>
+
+		<!-- Graphics in a <canvas> -->
+		This is a red square: <canvas id="square" width=10 height=10></canvas>.
+		This is a blue circle: <canvas id="circle" width=10 height=10></canvas>.
+
+	</body>
+
+	<script>
+
+		// Scripting Images
+		println("");
+		println("");
+		println(document.images.nextpage.src);
+		println(document.images['nextpage'].src);
+		println(document.images[0].src);
+		// If no other tag shares the same name attribute:
+		println(document.nextpage.src);
+
+		/*
+			you can set the src property to make the browser load and display a new image in the same space.
+			The ability to dynamically replace one image with another in an HTML document opens the door to any
+			number of special effects, from animation to digital clocks that update themselves in real time.
+
+			This way above, it is like CSS :hover pseudoclass to apply different CSS background images to elements when the mouse "hover" over them.
+			The definitive guide is saying CSS way is more difficult than javascript way.
+
+			<a href="help.html"
+				onmouseover="document.helpimage.src='images/help_rollover.gif';"
+				onmouseout="document.helpimage.src='images/help.gif';">
+				<img name="helpimage" src="images/help.gif" border="0">
+			</a>
+
+			For modern browsers, simplify the code as below:
+
+			<img src="images/help.gif"
+			onmouseover="this.src='images/help_rollover.gif'"
+			onmouseout="this.src='images/help.gif'">
+
+			Use new Image() to prefetch the rollover image it used to avoid the user notice a delay in the rollover effect the first time he moveover
+
+			<script>(new Image( )).src = "images/help_rollover.gif";<\/script>
+			<img src="images/help.gif"
+			onmouseover="this.src='images/help_rollover.gif'"
+			onmouseout="this.src='images/help.gif'">
+
+		    Although it is common to see code that mixes presentation (HTML) with behavior (JavaScript) like this, it is better
+		    to avoid it when you can, so we have the example below:
+		*/ 
+
+		/**
+		* Add a rollover effect to the specified image, by adding event
+		* handlers to switch the image to the specified URL while the
+		* mouse is over the image.
+		*
+		* If the image is specified as a string, search for an image with that
+		* string as its id or name attribute.
+		*
+		* This method sets the onmouseover and onmouseout event-handler properties
+		* of the specified image, overwriting and discarding any handlers previously
+		* set on those properties.
+		*/
+		function addRollover(img, rolloverURL) {
+			if (typeof img == "string") { // If img is a string,
+				var id = img; // it is an id, not an image
+				img = null; // and we don't have an image yet.
+				// First try looking the image up by id
+				if (document.getElementById) img = document.getElementById(id);
+				else if (document.all) img = document.all[id];
+				// If not found by id, try looking the image up by name.
+				if (!img) img = document.images[id];
+				// If we couldn't find the image, do nothing and fail silently
+				if (!img) return;
+			}
+			// If we found an element but it is not an <img> tag, we also fail
+			if (img.tagName.toLowerCase( ) != "img") return;
+			// Remember the original URL of the image
+			var baseURL = img.src;
+			// Preload the rollover image into the browser's cache
+			(new Image( )).src = rolloverURL;
+			img.onmouseover = function( ) { img.src = rolloverURL; }
+			img.onmouseout = function( ) { img.src = baseURL; }
+		}
+
+		/**
+			The addRollover( ) function defined is not completely unobtrusive because in order to use it,
+			you must still include a script in your HTML files that invokes the function. To achieve the goal of
+			truly unobtrusive image rollovers, you need a way to indicate which images have rollovers and what the
+			URL of the rollover image is, without resorting to JavaScript. One simple way to do so is to include a fake
+			HTML attribute on the <img> tags. For example, you might code images that have rollover effects like this:
+
+			<img src="normalImage.gif" rollover="rolloverImage.gif">
+		**/
+
+		/**
+		* Find all <img> tags in the document that have a "rollover"
+		* attribute on them. Use the value of this attribute as the URL of an
+		* image to be displayed when the mouse passes over the image and set
+		* appropriate event handlers to create the rollover effect.
+		*/
+		function initRollovers( ) {
+			var images = document.getElementsByTagName("img");
+			for(var i = 0; i < images.length; i++) {
+				var image = images[i];
+				var rolloverURL = image.getAttribute("rollover");
+				if (rolloverURL) addRollover(image, rolloverURL);
+			}
+		}
+
+		// All that remains is to ensure that this initRollovers( ) method is invoked when the document has
+		// loaded. Code like the following should work in current browsers:
+		if (window.addEventListener)
+			window.addEventListener("load", initRollovers, false);
+		else if (window.attachEvent)
+			window.attachEvent("onload", initRollovers);
+
+		// Conclusions: You now totally separate the codes between html and javascript.
+		// The basic idea is:
+		// Put all the event-handler binding in js code, set fake attributes for html elements if necessary and invoke "init" method in "onload" finally.
+
+		// Image Animations:
+		// The basic principle is same to above, here is the sample code, I personally prefer to find existing animation js framework.
+		// See details in pdf page 632.
+		/*
+			<head>
+				<script src="ImageLoop.js"><\/script>
+				<script>
+					var animation =
+					new ImageLoop("loop", 5,["images/0.gif", "images/1.gif", "images/2.gif",
+					"images/3.gif", "images/4.gif", "images/5.gif",
+					"images/6.gif", "images/7.gif", "images/8.gif"]);
+				<\/script>
+			</head>
+			<body>
+				<img id="loop" src="images/loading.gif">
+				<button onclick="animation.start( )">Start</button>
+				<button onclick="animation.stop( )">Stop</button>
+		*/
+
+
+		// Graphics with CSS
+		// See the html sample above.
+		
+
+		// SVG: Scalable Vector Graphics: drawing with xml
+		// Just for FireFox, see the details on pdf version page 643.
+
+
+		// VML: Vector Markup Language: drawing with xml
+		// Just for IE, see the details on pdf version page 650.
+
+
+		// Graphics in a <canvas>
+		// I personally like this way better than SVG and VML above.
+		/*
+			Firefox 1.5 and Opera 9 have followed Safari's lead. Both browsers also support the <canvas> tag. You can
+			even use the <canvas> tag in IE, with open source JavaScript code (initially from Google) that builds
+			canvas compatibility on top of IE's VML support. (see http://excanvas.sourceforge.net).
+		
+			<canvas> has a JavaScript based drawing API while SVG and VML describe a drawing with an XML document.
+			These two approaches are functionally equivalent: either one can be simulated with the other.
+
+			One reason the Canvas API can be so compact is that it does not provide any support for drawing text. To
+			incorporate text into a <canvas> graphic, you must either draw it yourself, incorporate it with bitmap
+			images, or overlay HTML text on top of the <canvas> with CSS positioning.
+		*/
+		// See the html sample above.
+		println("<br/>");
+		println("Draw the Pie by using &lt;canvas&gt;");
+
+
+		// Graphics with Flash
+		// See the details on pdf page 658.
+
+
+		// Graphics with Java
+		// See the details on pdf page 663.
+	</script>
+</html>
+

@@ -1,0 +1,15 @@
+When you feel you can't get more from twill script in python:
+
+for example:
+The clause "twill.commands.find('regular expression')" will not return result in python.
+(Although this case you can Use "html=twill.commands.show()  html.find('regular expression')")
+
+But somebody online said:
+
+Why use Twill if you are within python?? Why not use the mechanize/
+ClientForm modules? ... From what I know Twill is just a wrapper around 
+these anyway. There are good usage examples on their website :
+
+http://wwwsearch.sourceforge.net/mechanize/
+
+So, in the testtwill.py file, is there any way to invoke mechanize from twill module?

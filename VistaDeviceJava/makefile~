@@ -1,0 +1,9 @@
+main:
+	gcc -c -o bin\com_loadtrend_lib_sound_VistaAudioDevice.o com_loadtrend_lib_sound_VistaAudioDevice.c -I./lib
+	# if you are using gcc to compile the jni dll for java, --add-stdcall-alias option here should be added or "UnsatisfiedLinkError" will happen when call the dll method.
+	gcc -shared -Wl,--add-stdcall-alias -o bin\audio-device-java.dll bin\com_loadtrend_lib_sound_VistaAudioDevice.o -L./lib -laudio-device
+clean:
+	del bin\com_loadtrend_lib_sound_VistaAudioDevice.o bin\audio-device-java.dll
+all:
+    
+

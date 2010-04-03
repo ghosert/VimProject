@@ -1,0 +1,2979 @@
+cscope 16 E:\VimProject\VistaDevice"               0000018153
+	@audio-device.cpp
+
+1 
+	~<as£¹.h
+>
+
+2 
+	~<wšdows.h
+>
+
+3 
+	~<mmdeviû­i.h
+>
+
+4 
+	~<funùiÚdiscov”ykeys.h
+>
+
+5 
+	~<’dpoštvÞume.h
+>
+
+8 
+	~"audio-š‹º®.h
+"
+
+9 
+	~"audio-deviû.h
+"
+
+13 
+	$_G‘C­tu»DeviûLi¡
+(
+IÁ”ÇlDeviûInfo
+ *
+pIÁ”ÇlDeviûInfo
+)
+
+15 
+IMMDeviûEnum”©Ü
+ *
+pEnum”©Ü
+ = 
+pIÁ”ÇlDeviûInfo
+->pEnumerator;
+
+16 
+IMMDeviûCÞËùiÚ
+ *
+pC­tu»CÞËùiÚ
+ = 
+NULL
+;
+
+19 
+HRESULT
+ 
+hr
+ = 
+pEnum”©Ü
+->
+	`EnumAudioEndpošts
+(
+eC­tu»
+, 
+DEVICE_STATE_ACTIVE
+ | 0x10000000, &
+pC­tu»CÞËùiÚ
+);
+
+21 
+	`as£¹
+(
+hr
+ =ð
+S_OK
+);
+
+23 
+	`SAFE_RELEASE
+(
+pIÁ”ÇlDeviûInfo
+->
+pC­tu»CÞËùiÚ
+);
+
+24 
+pIÁ”ÇlDeviûInfo
+->
+pC­tu»CÞËùiÚ
+ =…CaptureCollection;
+
+27 
+	}
+}
+
+29 
+AUDIO_DEVICE_API
+ 
+BOOL
+ 
+	$In™ŸlizeAudioDeviû
+(
+DeviûInfo
+ **
+µDeviûInfo
+)
+
+32 
+IÁ”ÇlDeviûInfo
+ *
+pIÁ”ÇlDeviûInfo
+ = (IÁ”ÇlDeviûInfØ*è
+	`m®loc
+((InternalDeviceInfo));
+
+34 ià(
+pIÁ”ÇlDeviûInfo
+ =ð
+NULL
+è 
+FALSE
+;
+
+37 
+IMMDeviûEnum”©Ü
+ *
+pEnum”©Ü
+ = 
+NULL
+;
+
+38 
+	`CoIn™ŸlizeEx
+(
+NULL
+, 
+COINIT_MULTITHREADED
+);
+
+39 
+	`CoC»©eIn¡ªû
+(
+	`__uuidof
+(
+MMDeviûEnum”©Ü
+), 
+NULL
+,
+
+40 
+CLSCTX_ALL
+, 
+	`__uuidof
+(
+IMMDeviûEnum”©Ü
+),
+
+41 (**)&
+pEnum”©Ü
+);
+
+42 
+pIÁ”ÇlDeviûInfo
+->
+pEnum”©Ü
+ =…Enumerator;
+
+45 
+pIÁ”ÇlDeviûInfo
+->
+pC­tu»CÞËùiÚ
+ = 
+NULL
+;
+
+46 
+	`_G‘C­tu»DeviûLi¡
+(
+pIÁ”ÇlDeviûInfo
+);
+
+49 
+IPÞicyCÚfig
+ *
+pPÞicyCÚfig
+ = 
+NULL
+;
+
+50 
+	`CoIn™ŸlizeEx
+(
+NULL
+, 
+COINIT_MULTITHREADED
+);
+
+51 
+	`CoC»©eIn¡ªû
+(
+	`__uuidof
+(
+PÞicyCÚfig
+), 
+NULL
+,
+
+52 
+CLSCTX_ALL
+, 
+	`__uuidof
+(
+IPÞicyCÚfig
+),
+
+53 (**)&
+pPÞicyCÚfig
+);
+
+54 
+pIÁ”ÇlDeviûInfo
+->
+pPÞicyCÚfig
+ =…PolicyConfig;
+
+56 *
+µDeviûInfo
+ = (*è
+pIÁ”ÇlDeviûInfo
+;
+
+58  
+TRUE
+;
+
+59 
+	}
+}
+
+61 
+AUDIO_DEVICE_API
+ 
+	$De¡royAudioDeviû
+(
+DeviûInfo
+ *
+pDeviûInfo
+)
+
+63 
+IÁ”ÇlDeviûInfo
+ *
+pIÁ”ÇlDeviûInfo
+ = (IÁ”ÇlDeviûInfØ*è
+pDeviûInfo
+;
+
+65 
+	`SAFE_RELEASE
+(
+pIÁ”ÇlDeviûInfo
+->
+pPÞicyCÚfig
+);
+
+67 
+	`SAFE_RELEASE
+(
+pIÁ”ÇlDeviûInfo
+->
+pC­tu»CÞËùiÚ
+);
+
+69 
+	`SAFE_RELEASE
+(
+pIÁ”ÇlDeviûInfo
+->
+pEnum”©Ü
+);
+
+71 
+	`CoUnš™Ÿlize
+();
+
+73 
+	`ä“
+(
+pIÁ”ÇlDeviûInfo
+);
+
+76 
+	}
+}
+
+83 
+AUDIO_DEVICE_API
+ 
+	$G‘C­tu»DeviûLi¡CouÁ
+(
+DeviûInfo
+ *
+pDeviûInfo
+)
+
+85 
+IÁ”ÇlDeviûInfo
+ *
+pIÁ”ÇlDeviûInfo
+ = (IÁ”ÇlDeviûInfØ*è
+pDeviûInfo
+;
+
+87 
+HRESULT
+ 
+hr
+ = 
+S_OK
+;
+
+88 
+UINT
+ 
+couÁ
+ = 0;
+
+90 ià(
+pIÁ”ÇlDeviûInfo
+->
+pC­tu»CÞËùiÚ
+ !ð
+NULL
+) {
+
+91 
+hr
+ = 
+pIÁ”ÇlDeviûInfo
+->
+pC­tu»CÞËùiÚ
+->
+	`G‘CouÁ
+(&
+couÁ
+);
+
+93 
+	`as£¹
+(
+hr
+ =ð
+S_OK
+);
+
+94  
+couÁ
+;
+
+95 
+	}
+}
+
+102 
+	$_G‘DeviûName
+(
+IMMDeviû
+ *
+pDeviû
+, 
+LPWSTR
+ 
+pszBufãr
+, 
+bufãrL’
+, 
+DWORD
+ 
+dwKeyName
+)
+
+104 cÚ¡ 
+WCHAR
+ 
+szDeçuÉ
+[] = 
+L
+"<Device‚ot‡vailable>";
+
+106 
+HRESULT
+ 
+hr
+ = 
+E_FAIL
+;
+
+107 
+IPrÝ”tyStÜe
+ *
+pPrÝs
+ = 
+NULL
+;
+
+108 
+PROPVARIANT
+ 
+v¬Name
+;
+
+111 
+	`PrÝV¬ŸÁIn™
+(&
+v¬Name
+);
+
+113 
+	`as£¹
+(
+pszBufãr
+ !ð
+NULL
+);
+
+114 
+	`as£¹
+(
+bufãrL’
+ > 0);
+
+115 
+	`as£¹
+(
+dwKeyName
+ == 0 || dwKeyName == 1 || dwKeyName == 2);
+
+117 ià(
+pDeviû
+ !ð
+NULL
+)
+
+119 
+hr
+ = 
+pDeviû
+->
+	`O³nPrÝ”tyStÜe
+(
+STGM_READ
+, &
+pPrÝs
+);
+
+120 ià(
+hr
+ =ð
+S_OK
+)
+
+122 
+dwKeyName
+) {
+
+124 
+hr
+ = 
+pPrÝs
+->
+	`G‘V®ue
+(
+PKEY_Deviû_DeviûDesc
+, &
+v¬Name
+);
+
+127 
+hr
+ = 
+pPrÝs
+->
+	`G‘V®ue
+(
+PKEY_Deviû_Fr›ndlyName
+, &
+v¬Name
+);
+
+130 
+hr
+ = 
+pPrÝs
+->
+	`G‘V®ue
+(
+PKEY_DeviûIÁ”çû_Fr›ndlyName
+, &
+v¬Name
+);
+
+136 ià(
+hr
+ =ð
+S_OK
+)
+
+139 
+	`wc¢ýy_s
+(
+pszBufãr
+, 
+bufãrL’
+, 
+v¬Name
+.
+pwszV®
+, 
+_TRUNCATE
+);
+
+144 
+	`wc¢ýy_s
+(
+pszBufãr
+, 
+bufãrL’
+, 
+szDeçuÉ
+, 
+_TRUNCATE
+);
+
+147 
+	`PrÝV¬ŸÁCË¬
+(&
+v¬Name
+);
+
+148 
+	`SAFE_RELEASE
+(
+pPrÝs
+);
+
+151 
+	}
+}
+
+163 
+AUDIO_DEVICE_API
+ 
+	$G‘C­tu»Li¡DeviûName
+(
+DeviûInfo
+ *
+pDeviûInfo
+, 
+šdex
+, 
+LPWSTR
+ 
+szBufãr
+, 
+bufãrL’
+, 
+DWORD
+ 
+dwKeyName
+)
+
+165 
+IÁ”ÇlDeviûInfo
+ *
+pIÁ”ÇlDeviûInfo
+ = (IÁ”ÇlDeviûInfØ*è
+pDeviûInfo
+;
+
+167 
+HRESULT
+ 
+hr
+ = 
+S_OK
+;
+
+168 
+IMMDeviû
+ *
+pDeviû
+ = 
+NULL
+;
+
+170 ià(
+pIÁ”ÇlDeviûInfo
+->
+pC­tu»CÞËùiÚ
+ !ð
+NULL
+) {
+
+171 
+hr
+ = 
+pIÁ”ÇlDeviûInfo
+->
+pC­tu»CÞËùiÚ
+->
+	`I‹m
+(
+šdex
+, &
+pDeviû
+);
+
+174 
+	`as£¹
+(
+hr
+ =ð
+S_OK
+);
+
+176 
+	`_G‘DeviûName
+(
+pDeviû
+, 
+szBufãr
+, 
+bufãrL’
+, 
+dwKeyName
+);
+
+177 
+	`SAFE_RELEASE
+(
+pDeviû
+);
+
+180 
+	}
+}
+
+182 
+AUDIO_DEVICE_API
+ 
+	$G‘C­tu»Li¡DeviûId
+(
+DeviûInfo
+ *
+pDeviûInfo
+, 
+šdex
+, 
+LPWSTR
+ 
+szBufãr
+, 
+bufãrL’
+)
+
+184 
+IÁ”ÇlDeviûInfo
+ *
+pIÁ”ÇlDeviûInfo
+ = (IÁ”ÇlDeviûInfØ*è
+pDeviûInfo
+;
+
+186 
+HRESULT
+ 
+hr
+ = 
+S_OK
+;
+
+187 
+IMMDeviû
+ *
+pDeviû
+ = 
+NULL
+;
+
+189 ià(
+pIÁ”ÇlDeviûInfo
+->
+pC­tu»CÞËùiÚ
+ !ð
+NULL
+) {
+
+190 
+hr
+ = 
+pIÁ”ÇlDeviûInfo
+->
+pC­tu»CÞËùiÚ
+->
+	`I‹m
+(
+šdex
+, &
+pDeviû
+);
+
+193 
+	`as£¹
+(
+hr
+ =ð
+S_OK
+);
+
+196 
+WCHAR
+ *
+szTempId
+;
+
+197 
+pDeviû
+->
+	`G‘Id
+(&
+szTempId
+);
+
+198 
+	`wc¢ýy_s
+(
+szBufãr
+, 
+bufãrL’
+, 
+szTempId
+, 
+_TRUNCATE
+);
+
+200 
+	`SAFE_RELEASE
+(
+pDeviû
+);
+
+203 
+	}
+}
+
+205 
+AUDIO_DEVICE_API
+ 
+	$G‘DeçuÉC­tu»DeviûId
+(
+DeviûInfo
+ *
+pDeviûInfo
+, 
+LPWSTR
+ 
+szBufãr
+, 
+bufãrL’
+)
+
+207 
+IÁ”ÇlDeviûInfo
+ *
+pIÁ”ÇlDeviûInfo
+ = (IÁ”ÇlDeviûInfØ*è
+pDeviûInfo
+;
+
+209 
+HRESULT
+ 
+hr
+ = 
+S_OK
+;
+
+210 
+IMMDeviû
+ *
+pDeviû
+ = 
+NULL
+;
+
+212 
+hr
+ = 
+pIÁ”ÇlDeviûInfo
+->
+pEnum”©Ü
+->
+	`G‘DeçuÉAudioEndpošt
+(
+eC­tu»
+, 
+eMuÉimedŸ
+, &
+pDeviû
+);
+
+214 
+	`as£¹
+(
+hr
+ =ð
+S_OK
+);
+
+217 
+WCHAR
+ *
+szTempId
+;
+
+218 
+pDeviû
+->
+	`G‘Id
+(&
+szTempId
+);
+
+219 
+	`wc¢ýy_s
+(
+szBufãr
+, 
+bufãrL’
+, 
+szTempId
+, 
+_TRUNCATE
+);
+
+221 
+	`SAFE_RELEASE
+(
+pDeviû
+);
+
+224 
+	}
+}
+
+227 
+AUDIO_DEVICE_API
+ 
+BOOL
+ 
+	$G‘C­tu»Li¡DeviûS‹
+(
+DeviûInfo
+ *
+pDeviûInfo
+, 
+šdex
+)
+
+229 
+IÁ”ÇlDeviûInfo
+ *
+pIÁ”ÇlDeviûInfo
+ = (IÁ”ÇlDeviûInfØ*è
+pDeviûInfo
+;
+
+231 
+HRESULT
+ 
+hr
+ = 
+S_OK
+;
+
+232 
+IMMDeviû
+ *
+pDeviû
+ = 
+NULL
+;
+
+234 ià(
+pIÁ”ÇlDeviûInfo
+->
+pC­tu»CÞËùiÚ
+ !ð
+NULL
+) {
+
+235 
+hr
+ = 
+pIÁ”ÇlDeviûInfo
+->
+pC­tu»CÞËùiÚ
+->
+	`I‹m
+(
+šdex
+, &
+pDeviû
+);
+
+238 
+	`as£¹
+(
+hr
+ =ð
+S_OK
+);
+
+240 
+DWORD
+ 
+dwS‹
+;
+
+241 
+pDeviû
+->
+	`G‘S‹
+(&
+dwS‹
+);
+
+243 
+	`SAFE_RELEASE
+(
+pDeviû
+);
+
+245  
+dwS‹
+ =ð
+DEVICE_STATE_ACTIVE
+ ? 
+TRUE
+ : 
+FALSE
+;
+
+246 
+	}
+}
+
+254 
+AUDIO_DEVICE_API
+ 
+HRESULT
+ 
+	$S‘C­tu»Li¡DeviûVÞume
+(
+DeviûInfo
+ *
+pDeviûInfo
+, 
+šdex
+, 
+fVÞume
+)
+
+256 
+IÁ”ÇlDeviûInfo
+ *
+pIÁ”ÇlDeviûInfo
+ = (IÁ”ÇlDeviûInfØ*è
+pDeviûInfo
+;
+
+258 
+HRESULT
+ 
+hr
+;
+
+259 
+IMMDeviû
+ *
+pDeviû
+ = 
+NULL
+;
+
+260 
+IAudioEndpoštVÞume
+ *
+pAudioVÞume
+ = 
+NULL
+;
+
+262 ià(
+pIÁ”ÇlDeviûInfo
+->
+pC­tu»CÞËùiÚ
+ !ð
+NULL
+) {
+
+263 
+hr
+ = 
+pIÁ”ÇlDeviûInfo
+->
+pC­tu»CÞËùiÚ
+->
+	`I‹m
+(
+šdex
+, &
+pDeviû
+);
+
+265 ià(
+hr
+ !ð
+S_OK
+è
+”rÜs
+;
+
+267 
+hr
+ = 
+pDeviû
+->
+	`Aùiv©e
+(
+	`__uuidof
+(
+IAudioEndpoštVÞume
+), 
+CLSCTX_ALL
+, 
+NULL
+, (**)&
+pAudioVÞume
+);
+
+268 ià(
+hr
+ !ð
+S_OK
+è
+”rÜs
+;
+
+272 
+hr
+ = 
+pAudioVÞume
+->
+	`S‘Ma¡”VÞumeLev–SÿÏr
+(
+fVÞume
+, &
+g_Ev’tCÚ‹xt
+);
+
+274 
+”rÜs
+:
+
+275 
+	`SAFE_RELEASE
+(
+pAudioVÞume
+);
+
+276 
+	`SAFE_RELEASE
+(
+pDeviû
+);
+
+277  
+hr
+;
+
+278 
+	}
+}
+
+284 
+AUDIO_DEVICE_API
+ 
+HRESULT
+ 
+	$G‘C­tu»Li¡DeviûVÞume
+(
+DeviûInfo
+ *
+pDeviûInfo
+, 
+šdex
+, *
+pfVÞume
+)
+
+286 
+IÁ”ÇlDeviûInfo
+ *
+pIÁ”ÇlDeviûInfo
+ = (IÁ”ÇlDeviûInfØ*è
+pDeviûInfo
+;
+
+288 
+HRESULT
+ 
+hr
+;
+
+289 
+IMMDeviû
+ *
+pDeviû
+ = 
+NULL
+;
+
+290 
+IAudioEndpoštVÞume
+ *
+pAudioVÞume
+ = 
+NULL
+;
+
+292 ià(
+pIÁ”ÇlDeviûInfo
+->
+pC­tu»CÞËùiÚ
+ !ð
+NULL
+) {
+
+293 
+hr
+ = 
+pIÁ”ÇlDeviûInfo
+->
+pC­tu»CÞËùiÚ
+->
+	`I‹m
+(
+šdex
+, &
+pDeviû
+);
+
+295 ià(
+hr
+ !ð
+S_OK
+è
+”rÜs
+;
+
+297 
+hr
+ = 
+pDeviû
+->
+	`Aùiv©e
+(
+	`__uuidof
+(
+IAudioEndpoštVÞume
+), 
+CLSCTX_ALL
+, 
+NULL
+, (**)&
+pAudioVÞume
+);
+
+298 ià(
+hr
+ !ð
+S_OK
+è
+”rÜs
+;
+
+300 
+hr
+ = 
+pAudioVÞume
+->
+	`G‘Ma¡”VÞumeLev–SÿÏr
+(
+pfVÞume
+);
+
+302 
+”rÜs
+:
+
+303 
+	`SAFE_RELEASE
+(
+pAudioVÞume
+);
+
+304 
+	`SAFE_RELEASE
+(
+pDeviû
+);
+
+305  
+hr
+;
+
+306 
+	}
+}
+
+309 
+AUDIO_DEVICE_API
+ 
+HRESULT
+ 
+	$G‘C­tu»Li¡DeviûChªÃlCouÁ
+(
+DeviûInfo
+ *
+pDeviûInfo
+, 
+šdex
+, 
+UINT
+ *
+iCouÁ
+)
+
+311 
+IÁ”ÇlDeviûInfo
+ *
+pIÁ”ÇlDeviûInfo
+ = (IÁ”ÇlDeviûInfØ*è
+pDeviûInfo
+;
+
+313 
+HRESULT
+ 
+hr
+;
+
+314 
+IMMDeviû
+ *
+pDeviû
+ = 
+NULL
+;
+
+315 
+IAudioEndpoštVÞume
+ *
+pAudioVÞume
+ = 
+NULL
+;
+
+317 ià(
+pIÁ”ÇlDeviûInfo
+->
+pC­tu»CÞËùiÚ
+ !ð
+NULL
+) {
+
+318 
+hr
+ = 
+pIÁ”ÇlDeviûInfo
+->
+pC­tu»CÞËùiÚ
+->
+	`I‹m
+(
+šdex
+, &
+pDeviû
+);
+
+320 ià(
+hr
+ !ð
+S_OK
+è
+”rÜs
+;
+
+322 
+hr
+ = 
+pDeviû
+->
+	`Aùiv©e
+(
+	`__uuidof
+(
+IAudioEndpoštVÞume
+), 
+CLSCTX_ALL
+, 
+NULL
+, (**)&
+pAudioVÞume
+);
+
+323 ià(
+hr
+ !ð
+S_OK
+è
+”rÜs
+;
+
+325 
+hr
+ = 
+pAudioVÞume
+->
+	`G‘ChªÃlCouÁ
+(
+iCouÁ
+);
+
+327 
+”rÜs
+:
+
+328 
+	`SAFE_RELEASE
+(
+pAudioVÞume
+);
+
+329 
+	`SAFE_RELEASE
+(
+pDeviû
+);
+
+330  
+hr
+;
+
+331 
+	}
+}
+
+335 
+AUDIO_DEVICE_API
+ 
+HRESULT
+ 
+	$G‘C­tu»Li¡DeviûChªÃlVÞume
+(
+DeviûInfo
+ *
+pDeviûInfo
+, 
+šdex
+, *
+pfVÞume
+, 
+UINT
+ 
+iChªÃl
+)
+
+337 
+IÁ”ÇlDeviûInfo
+ *
+pIÁ”ÇlDeviûInfo
+ = (IÁ”ÇlDeviûInfØ*è
+pDeviûInfo
+;
+
+339 
+HRESULT
+ 
+hr
+;
+
+340 
+IMMDeviû
+ *
+pDeviû
+ = 
+NULL
+;
+
+341 
+IAudioEndpoštVÞume
+ *
+pAudioVÞume
+ = 
+NULL
+;
+
+343 ià(
+pIÁ”ÇlDeviûInfo
+->
+pC­tu»CÞËùiÚ
+ !ð
+NULL
+) {
+
+344 
+hr
+ = 
+pIÁ”ÇlDeviûInfo
+->
+pC­tu»CÞËùiÚ
+->
+	`I‹m
+(
+šdex
+, &
+pDeviû
+);
+
+346 ià(
+hr
+ !ð
+S_OK
+è
+”rÜs
+;
+
+348 
+hr
+ = 
+pDeviû
+->
+	`Aùiv©e
+(
+	`__uuidof
+(
+IAudioEndpoštVÞume
+), 
+CLSCTX_ALL
+, 
+NULL
+, (**)&
+pAudioVÞume
+);
+
+349 ià(
+hr
+ !ð
+S_OK
+è
+”rÜs
+;
+
+351 
+hr
+ = 
+pAudioVÞume
+->
+	`G‘ChªÃlVÞumeLev–SÿÏr
+(
+iChªÃl
+, 
+pfVÞume
+);
+
+353 
+”rÜs
+:
+
+354 
+	`SAFE_RELEASE
+(
+pAudioVÞume
+);
+
+355 
+	`SAFE_RELEASE
+(
+pDeviû
+);
+
+356  
+hr
+;
+
+357 
+	}
+}
+
+361 
+AUDIO_DEVICE_API
+ 
+HRESULT
+ 
+	$S‘C­tu»Li¡DeviûChªÃlVÞume
+(
+DeviûInfo
+ *
+pDeviûInfo
+, 
+šdex
+, 
+fVÞume
+, 
+UINT
+ 
+iChªÃl
+)
+
+363 
+IÁ”ÇlDeviûInfo
+ *
+pIÁ”ÇlDeviûInfo
+ = (IÁ”ÇlDeviûInfØ*è
+pDeviûInfo
+;
+
+365 
+HRESULT
+ 
+hr
+;
+
+366 
+IMMDeviû
+ *
+pDeviû
+ = 
+NULL
+;
+
+367 
+IAudioEndpoštVÞume
+ *
+pAudioVÞume
+ = 
+NULL
+;
+
+369 ià(
+pIÁ”ÇlDeviûInfo
+->
+pC­tu»CÞËùiÚ
+ !ð
+NULL
+) {
+
+370 
+hr
+ = 
+pIÁ”ÇlDeviûInfo
+->
+pC­tu»CÞËùiÚ
+->
+	`I‹m
+(
+šdex
+, &
+pDeviû
+);
+
+372 ià(
+hr
+ !ð
+S_OK
+è
+”rÜs
+;
+
+374 
+hr
+ = 
+pDeviû
+->
+	`Aùiv©e
+(
+	`__uuidof
+(
+IAudioEndpoštVÞume
+), 
+CLSCTX_ALL
+, 
+NULL
+, (**)&
+pAudioVÞume
+);
+
+375 ià(
+hr
+ !ð
+S_OK
+è
+”rÜs
+;
+
+377 
+hr
+ = 
+pAudioVÞume
+->
+	`S‘ChªÃlVÞumeLev–SÿÏr
+(
+iChªÃl
+, 
+fVÞume
+, &
+g_Ev’tCÚ‹xt
+);
+
+379 
+”rÜs
+:
+
+380 
+	`SAFE_RELEASE
+(
+pAudioVÞume
+);
+
+381 
+	`SAFE_RELEASE
+(
+pDeviû
+);
+
+382  
+hr
+;
+
+383 
+	}
+}
+
+389 
+AUDIO_DEVICE_API
+ 
+	$S‘EndpoštVisibž™y
+(
+DeviûInfo
+ *
+pDeviûInfo
+, 
+LPCWSTR
+ 
+Ícw¡rDeviûId
+, 
+BOOL
+ 
+bVisibž™y
+)
+
+391 
+IÁ”ÇlDeviûInfo
+ *
+pIÁ”ÇlDeviûInfo
+ = (IÁ”ÇlDeviûInfØ*è
+pDeviûInfo
+;
+
+393 
+HRESULT
+ 
+hr
+ = 
+S_OK
+;
+
+394 
+hr
+ = 
+pIÁ”ÇlDeviûInfo
+->
+pPÞicyCÚfig
+->
+	`S‘EndpoštVisibž™y
+(
+Ícw¡rDeviûId
+, 
+bVisibž™y
+);
+
+395 
+	`as£¹
+(
+hr
+ =ð
+S_OK
+);
+
+397 
+	}
+}
+
+400 
+AUDIO_DEVICE_API
+ 
+	$S‘DeçuÉEndpošt
+(
+DeviûInfo
+ *
+pDeviûInfo
+, 
+LPCWSTR
+ 
+Ícw¡rDeviûId
+)
+
+402 
+IÁ”ÇlDeviûInfo
+ *
+pIÁ”ÇlDeviûInfo
+ = (IÁ”ÇlDeviûInfØ*è
+pDeviûInfo
+;
+
+404 
+HRESULT
+ 
+hr
+ = 
+S_OK
+;
+
+405 
+hr
+ = 
+pIÁ”ÇlDeviûInfo
+->
+pPÞicyCÚfig
+->
+	`S‘DeçuÉEndpošt
+(
+Ícw¡rDeviûId
+, 
+eMuÉimedŸ
+);
+
+406 
+	`as£¹
+(
+hr
+ =ð
+S_OK
+);
+
+408 
+	}
+}
+
+411 
+AUDIO_DEVICE_API
+ 
+	$G‘MixFÜm©
+(
+DeviûInfo
+ *
+pDeviûInfo
+, 
+LPCWSTR
+ 
+Ícw¡rDeviûId
+, 
+WAVEFORMATEX
+ **
+µWaveFÜm©Ex
+)
+
+413 
+IÁ”ÇlDeviûInfo
+ *
+pIÁ”ÇlDeviûInfo
+ = (IÁ”ÇlDeviûInfØ*è
+pDeviûInfo
+;
+
+415 
+HRESULT
+ 
+hr
+ = 
+S_OK
+;
+
+416 
+hr
+ = 
+pIÁ”ÇlDeviûInfo
+->
+pPÞicyCÚfig
+->
+	`G‘MixFÜm©
+(
+Ícw¡rDeviûId
+, 
+µWaveFÜm©Ex
+);
+
+425 
+	`as£¹
+(
+hr
+ =ð
+S_OK
+);
+
+427 
+	}
+}
+
+	@audio-device.h
+
+1 #iâdeà
+AUDIO_DEVICE_H
+
+
+2 
+	#AUDIO_DEVICE_H
+
+
+	)
+
+4 #ifdeà
+__ýlu¥lus
+
+
+13 #ifdeà
+AUDIO_DEVICE_EXPORTS
+
+
+14 
+	#AUDIO_DEVICE_API
+ 
+	`__deþ¥ec
+(
+dÎexpÜt
+)
+
+	)
+
+16 
+	#AUDIO_DEVICE_API
+ 
+	`__deþ¥ec
+(
+dÎimpÜt
+)
+
+	)
+
+19 
+	tDeviûInfo
+;
+
+21 
+AUDIO_DEVICE_API
+ 
+BOOL
+ 
+In™ŸlizeAudioDeviû
+(
+DeviûInfo
+ **
+µDeviûInfo
+);
+
+23 
+AUDIO_DEVICE_API
+ 
+De¡royAudioDeviû
+(
+DeviûInfo
+ *
+pDeviûInfo
+);
+
+30 
+AUDIO_DEVICE_API
+ 
+G‘C­tu»DeviûLi¡CouÁ
+(
+DeviûInfo
+ *
+pDeviûInfo
+);
+
+42 
+AUDIO_DEVICE_API
+ 
+G‘C­tu»Li¡DeviûName
+(
+DeviûInfo
+ *
+pDeviûInfo
+, 
+šdex
+, 
+LPWSTR
+ 
+szBufãr
+, 
+bufãrL’
+, 
+DWORD
+ 
+dwKeyName
+);
+
+44 
+AUDIO_DEVICE_API
+ 
+G‘C­tu»Li¡DeviûId
+(
+DeviûInfo
+ *
+pDeviûInfo
+, 
+šdex
+, 
+LPWSTR
+ 
+szBufãr
+, 
+bufãrL’
+);
+
+46 
+AUDIO_DEVICE_API
+ 
+G‘DeçuÉC­tu»DeviûId
+(
+DeviûInfo
+ *
+pDeviûInfo
+, 
+LPWSTR
+ 
+szBufãr
+, 
+bufãrL’
+);
+
+49 
+AUDIO_DEVICE_API
+ 
+BOOL
+ 
+G‘C­tu»Li¡DeviûS‹
+(
+DeviûInfo
+ *
+pDeviûInfo
+, 
+šdex
+);
+
+55 
+AUDIO_DEVICE_API
+ 
+HRESULT
+ 
+S‘C­tu»Li¡DeviûVÞume
+(
+DeviûInfo
+ *
+pDeviûInfo
+, 
+šdex
+, 
+fVÞume
+);
+
+61 
+AUDIO_DEVICE_API
+ 
+HRESULT
+ 
+G‘C­tu»Li¡DeviûVÞume
+(
+DeviûInfo
+ *
+pDeviûInfo
+, 
+šdex
+, *
+pfVÞume
+);
+
+64 
+AUDIO_DEVICE_API
+ 
+HRESULT
+ 
+G‘C­tu»Li¡DeviûChªÃlCouÁ
+(
+DeviûInfo
+ *
+pDeviûInfo
+, 
+šdex
+, 
+UINT
+ *
+iCouÁ
+);
+
+68 
+AUDIO_DEVICE_API
+ 
+HRESULT
+ 
+G‘C­tu»Li¡DeviûChªÃlVÞume
+(
+DeviûInfo
+ *
+pDeviûInfo
+, 
+šdex
+, *
+pfVÞume
+, 
+UINT
+ 
+iChªÃl
+);
+
+72 
+AUDIO_DEVICE_API
+ 
+HRESULT
+ 
+S‘C­tu»Li¡DeviûChªÃlVÞume
+(
+DeviûInfo
+ *
+pDeviûInfo
+, 
+šdex
+, 
+fVÞume
+, 
+UINT
+ 
+iChªÃl
+);
+
+77 
+AUDIO_DEVICE_API
+ 
+S‘EndpoštVisibž™y
+(
+DeviûInfo
+ *
+pDeviûInfo
+, 
+LPCWSTR
+ 
+Ícw¡rDeviûId
+, 
+BOOL
+ 
+bVisibž™y
+);
+
+80 
+AUDIO_DEVICE_API
+ 
+S‘DeçuÉEndpošt
+(
+DeviûInfo
+ *
+pDeviûInfo
+, 
+LPCWSTR
+ 
+Ícw¡rDeviûId
+);
+
+83 
+AUDIO_DEVICE_API
+ 
+G‘MixFÜm©
+(
+DeviûInfo
+ *
+pDeviûInfo
+, 
+LPCWSTR
+ 
+Ícw¡rDeviûId
+, 
+WAVEFORMATEX
+ **
+µWaveFÜm©Ex
+);
+
+87 #ifdeà
+__ýlu¥lus
+
+
+	@audio-internal.h
+
+1 #iâdeà
+AUDIO_INTERNAL_H
+
+
+2 
+	#AUDIO_INTERNAL_H
+
+
+	)
+
+4 #ifdeà
+__ýlu¥lus
+
+
+10 #iâdeà
+__IPÞicyCÚfig_FWD_DEFINED__
+
+
+11 
+	#__IPÞicyCÚfig_FWD_DEFINED__
+
+
+	)
+
+12 
+š‹rçû
+ 
+	tIPÞicyCÚfig
+ IPolicyConfig;
+
+16 #iâdeà
+__PÞicyCÚfig_FWD_DEFINED__
+
+
+17 
+	#__PÞicyCÚfig_FWD_DEFINED__
+
+
+	)
+
+19 #ifdeà
+__ýlu¥lus
+
+
+20 
+þass
+ 
+	tPÞicyCÚfig
+ PolicyConfig;
+
+22 
+PÞicyCÚfig
+ 
+	tPÞicyCÚfig
+;
+
+27 #iâdeà
+__IPÞicyCÚfig_INTERFACE_DEFINED__
+
+
+28 
+	#__IPÞicyCÚfig_INTERFACE_DEFINED__
+
+
+	)
+
+34 
+EXTERN_C
+ cÚ¡ 
+IID
+ 
+	gIID_IPÞicyCÚfig
+;
+
+36 #ià
+defšed
+(
+__ýlu¥lus
+è&& !defšed(
+CINTERFACE
+)
+
+38 
+MIDL_INTERFACE
+("568B9108-44BF-40B4-9006-86AFE5B5A620")
+
+39 
+	gIPÞicyCÚfig
+ : 
+public
+ 
+IUnknown
+
+
+41 
+public
+:
+
+42 
+vœtu®
+ 
+HRESULT
+ 
+STDMETHODCALLTYPE
+ 
+G‘MixFÜm©
+(
+
+44 
+__š
+ 
+LPCWSTR
+ 
+Ícw¡rDeviûId
+,
+
+46 
+__out
+ 
+WAVEFORMATEX
+ **
+µwfxDeviûFÜm©
+) = 0;
+
+47 
+vœtu®
+ 
+HRESULT
+ 
+STDMETHODCALLTYPE
+ 
+G‘DeviûFÜm©
+() = 0;
+
+48 
+vœtu®
+ 
+HRESULT
+ 
+STDMETHODCALLTYPE
+ 
+S‘DeviûFÜm©
+() = 0;
+
+49 
+vœtu®
+ 
+HRESULT
+ 
+STDMETHODCALLTYPE
+ 
+G‘ProûssšgP”iod
+() = 0;
+
+50 
+vœtu®
+ 
+HRESULT
+ 
+STDMETHODCALLTYPE
+ 
+S‘ProûssšgP”iod
+() = 0;
+
+51 
+vœtu®
+ 
+HRESULT
+ 
+STDMETHODCALLTYPE
+ 
+G‘Sh¬eMode
+() = 0;
+
+52 
+vœtu®
+ 
+HRESULT
+ 
+STDMETHODCALLTYPE
+ 
+S‘Sh¬eMode
+() = 0;
+
+53 
+vœtu®
+ 
+HRESULT
+ 
+STDMETHODCALLTYPE
+ 
+G‘PrÝ”tyV®ue
+() = 0;
+
+54 
+vœtu®
+ 
+HRESULT
+ 
+STDMETHODCALLTYPE
+ 
+S‘PrÝ”tyV®ue
+() = 0;
+
+55 
+vœtu®
+ 
+HRESULT
+ 
+STDMETHODCALLTYPE
+ 
+S‘DeçuÉEndpošt
+(
+
+57 
+__š
+ 
+LPCWSTR
+ 
+Ícw¡rDeviûId
+,
+
+59 
+__š
+ 
+ERÞe
+ 
+rÞe
+) = 0;
+
+60 
+vœtu®
+ 
+HRESULT
+ 
+STDMETHODCALLTYPE
+ 
+S‘EndpoštVisibž™y
+(
+
+62 
+__š
+ 
+LPCWSTR
+ 
+Ícw¡rDeviûId
+,
+
+64 
+__š
+ 
+BOOL
+ 
+visibž™y
+) = 0;
+
+72 
+EXTERN_C
+ cÚ¡ 
+CLSID
+ 
+	gCLSID_PÞicyCÚfig
+;
+
+74 #ifdeà
+__ýlu¥lus
+
+
+76 
+þass
+ 
+DECLSPEC_UUID
+("294935CE-F637-4E7C-A41B-AB255460B862")
+
+77 
+	gPÞicyCÚfig
+;
+
+82 
+	#EXIT_ON_ERROR
+(
+h»s
+) \
+
+83 ià(
+	`FAILED
+(
+h»s
+)è{ 
+Ex™
+; }
+
+	)
+
+85 
+	#SAFE_RELEASE
+(
+punk
+) \
+
+86 ià((
+punk
+è!ð
+NULL
+) \
+
+87 { (
+punk
+)->
+	`R–—£
+(); (punkèð
+NULL
+; }
+
+	)
+
+91 
+GUID
+ 
+	gg_Ev’tCÚ‹xt
+ =
+
+100 
+IMMDeviûEnum”©Ü
+ *
+	gpEnum”©Ü
+;
+
+101 
+IMMDeviûCÞËùiÚ
+ *
+	gpC­tu»CÞËùiÚ
+;
+
+102 
+IPÞicyCÚfig
+ *
+	gpPÞicyCÚfig
+;
+
+103 } 
+	tIÁ”ÇlDeviûInfo
+;
+
+105 #ifdeà
+__ýlu¥lus
+
+
+	@test-audio-device.cpp
+
+1 
+	~<¡dio.h
+>
+
+2 
+	~<loÿË.h
+>
+
+3 
+	~<wšdows.h
+>
+
+4 
+	~"audio-deviû.h
+"
+
+6 
+	$maš
+(
+¬gc
+, *
+¬gv
+[]) {
+
+8 ià(
+¬gc
+ != 2) {
+
+9 
+	`´štf
+("Please input one‚umber‡fter‡udio-device.exe for selection of‡udio device.");
+
+14 
+	`£ŽoÿË
+(
+LC_CTYPE
+, ".936");
+
+16 
+DeviûInfo
+ *
+pDeviûInfo
+ = 
+NULL
+;
+
+18 
+BOOL
+ 
+bResuÉ
+ = 
+	`In™ŸlizeAudioDeviû
+(&
+pDeviûInfo
+);
+
+20 ià(!
+bResuÉ
+)  1;
+
+22 
+iCouÁ
+ = 
+	`G‘C­tu»DeviûLi¡CouÁ
+(
+pDeviûInfo
+);
+
+24 
+WCHAR
+ 
+szDeviûName
+[
+MAX_PATH
+];
+
+25 
+WCHAR
+ 
+szDeviûId
+[
+MAX_PATH
+];
+
+26 
+WCHAR
+ 
+szDeçuÉDeviûId
+[
+MAX_PATH
+];
+
+28 
+deçuÉIndex
+ = 0;
+
+29 
+	`G‘DeçuÉC­tu»DeviûId
+(
+pDeviûInfo
+, 
+szDeçuÉDeviûId
+, (szDefaultDeviceId) / (szDefaultDeviceId)[0]);
+
+31 
+i
+ = 0;
+
+32 ; 
+i
+ < 
+iCouÁ
+; i++) {
+
+33 
+	`G‘C­tu»Li¡DeviûName
+(
+pDeviûInfo
+, 
+i
+, 
+szDeviûName
+, (szDeviceName) / (szDeviceName)[0], 0);
+
+34 
+	`G‘C­tu»Li¡DeviûId
+(
+pDeviûInfo
+, 
+i
+, 
+szDeviûId
+, (szDeviceId) / (szDeviceId)[0]);
+
+35 ià(
+	`wcscmp
+(
+szDeviûId
+, 
+szDeçuÉDeviûId
+) == 0) {
+
+36 
+deçuÉIndex
+ = 
+i
+;
+
+37 
+	`w´štf
+(
+L
+"Capture device index: %d [default device]\n‚ame: %s\n id: %s\n state: %s\n\n",
+
+38 
+i
+, 
+szDeviûName
+, 
+szDeviûId
+, 
+	`G‘C­tu»Li¡DeviûS‹
+(
+pDeviûInfo
+, iè=ð
+TRUE
+ ? 
+L
+"ENABLED" : L"DISABLED");
+
+40 
+	`w´štf
+(
+L
+"Capture device index: %d\n‚ame: %s\n id: %s\n state: %s\n\n",
+
+41 
+i
+, 
+szDeviûName
+, 
+szDeviûId
+, 
+	`G‘C­tu»Li¡DeviûS‹
+(
+pDeviûInfo
+, iè=ð
+TRUE
+ ? 
+L
+"ENABLED" : L"DISABLED");
+
+46 
+	`G‘C­tu»Li¡DeviûName
+(
+pDeviûInfo
+, 
+deçuÉIndex
+, 
+szDeviûName
+, (szDeviceName) / (szDeviceName)[0], 0);
+
+47 
+	`w´štf
+(
+L
+"DeçuÉ deviû‚ame: % \n", 
+szDeviûName
+);
+
+50 
+	`G‘C­tu»Li¡DeviûName
+(
+pDeviûInfo
+, 
+	`©oi
+(
+¬gv
+[1]), 
+szDeviûName
+, (szDeviceName) / (szDeviceName)[0], 0);
+
+51 
+	`w´štf
+(
+L
+"S–eù deviû‚ame: % \n", 
+szDeviûName
+);
+
+53 
+WCHAR
+ 
+Í¡rId
+[
+MAX_PATH
+];
+
+54 
+	`G‘C­tu»Li¡DeviûId
+(
+pDeviûInfo
+, 
+	`©oi
+(
+¬gv
+[1]), 
+Í¡rId
+, (lpstrId) / (lpstrId)[0]);
+
+55 
+	`w´štf
+(
+L
+"S–eù Deviû ID: % \n", 
+Í¡rId
+);
+
+58 
+fVÞume
+ = 0;
+
+59 
+	`G‘C­tu»Li¡DeviûVÞume
+(
+pDeviûInfo
+, 
+	`©oi
+(
+¬gv
+[1]), &
+fVÞume
+);
+
+60 
+	`w´štf
+(
+L
+"G‘ S–eù deviû ma¡” vÞume: %à\n", 
+fVÞume
+);
+
+62 ià(
+fVÞume
+ >= 1.0f) {
+
+63 
+fVÞume
+ = 0.0f;
+
+65 
+fVÞume
+ = fVolume + 0.1f;
+
+66 
+	`w´štf
+(
+L
+"S‘ S–eù deviû ma¡” vÞume: %à\n", 
+fVÞume
+);
+
+67 
+	`S‘C­tu»Li¡DeviûVÞume
+(
+pDeviûInfo
+, 
+	`©oi
+(
+¬gv
+[1]), 
+fVÞume
+);
+
+70 
+UINT
+ 
+iChªÃlCouÁ
+ = 0;
+
+71 
+	`G‘C­tu»Li¡DeviûChªÃlCouÁ
+(
+pDeviûInfo
+, 
+	`©oi
+(
+¬gv
+[1]), &
+iChªÃlCouÁ
+);
+
+72 
+	`w´štf
+(
+L
+"G‘ S–eù deviû chªÃÈcouÁ: %d\n", 
+iChªÃlCouÁ
+);
+
+74 
+fChªÃlVÞume
+ = 0;
+
+75 
+	`w´štf
+(
+L
+"Get Select device channel volumes:");
+
+76 
+UINT
+ 
+j
+ = 0;
+
+77 ; 
+j
+ < 
+iChªÃlCouÁ
+; j++) {
+
+78 
+	`G‘C­tu»Li¡DeviûChªÃlVÞume
+(
+pDeviûInfo
+, 
+	`©oi
+(
+¬gv
+[1]), &
+fChªÃlVÞume
+, 
+j
+);
+
+79 
+	`w´štf
+(
+L
+" %à", 
+fChªÃlVÞume
+);
+
+81 
+	`w´štf
+(
+L
+"\n");
+
+83 ià(
+fChªÃlVÞume
+ >= 1.0f) {
+
+84 
+fChªÃlVÞume
+ = 0.0f;
+
+86 
+fChªÃlVÞume
+ = fChannelVolume + 0.1f;
+
+87 
+	`S‘C­tu»Li¡DeviûChªÃlVÞume
+(
+pDeviûInfo
+, 
+	`©oi
+(
+¬gv
+[1]), 
+fChªÃlVÞume
+, 0);
+
+88 
+	`w´štf
+(
+L
+"S‘ S–eù deviû fœ¡ chªÃÈvÞumby 0.1 inüe£d: %f\n", 
+fChªÃlVÞume
+);
+
+92 
+WAVEFORMATEX
+ *
+pWaveFÜm©Ex
+ = 
+NULL
+;
+
+93 
+	`G‘MixFÜm©
+(
+pDeviûInfo
+, 
+Í¡rId
+, &
+pWaveFÜm©Ex
+);
+
+94 
+	`w´štf
+(
+L
+"Sam¶³¸Sec: %d\n", 
+pWaveFÜm©Ex
+->
+nSam¶esP”Sec
+);
+
+97 
+	`S‘EndpoštVisibž™y
+(
+pDeviûInfo
+, 
+Í¡rId
+, 
+TRUE
+);
+
+98 
+	`w´štf
+(
+L
+"S‘EndpoštVisibž™y Sucûs Ú deviû Id: %s\n", 
+Í¡rId
+);
+
+101 
+	`S‘DeçuÉEndpošt
+(
+pDeviûInfo
+, 
+Í¡rId
+);
+
+102 
+	`w´štf
+(
+L
+"S‘DeçuÉEndpošˆSucûs Ú deviû id: %s\n", 
+Í¡rId
+);
+
+106 
+	`De¡royAudioDeviû
+(
+pDeviûInfo
+);
+
+109 
+	}
+}
+
+	@
+1
+.
+0
+4
+71
+audio-device.cpp
+audio-device.h
+audio-internal.h
+test-audio-device.cpp

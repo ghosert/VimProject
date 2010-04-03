@@ -1,0 +1,147 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+Contents
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+<body>
+
+<ul>
+	<li><object type="text/sitemap">
+		<param name="Name" value="Table of Contents">
+		<param name="Local" value="contents.htm">
+		</object>
+
+	<li><object type="text/sitemap">
+		<param name="Name" value="Toolbars">
+		</object>
+		<ul>
+
+		<li><object type="text/sitemap">
+			<param name="Name" value="Control Toolbar">
+			<param name="Local" value="toolbar_control.htm">
+			</object>
+
+		<li><object type="text/sitemap">
+			<param name="Name" value="Mixer Toolbar">
+			<param name="Local" value="toolbar_mixer.htm">
+			</object>
+
+		<li><object type="text/sitemap">
+			<param name="Name" value="Edit Toolbar">
+			<param name="Local" value="toolbar_edit.htm">
+			</object>
+
+		<li><object type="text/sitemap">
+			<param name="Name" value="Meter Toolbar">
+			<param name="Local" value="toolbar_meter.htm">
+			</object>
+
+      </ul>
+
+	<li><object type="text/sitemap">
+		<param name="Name" value="Menu Bar">
+	</object>
+
+		<ul>
+			<li><object type="text/sitemap">
+				<param name="Name" value="Track Pop-Down Menu">
+				<param name="Local" value="menu_track.htm">
+				</object>
+			<li><object type="text/sitemap">
+				<param name="Name" value="File Menu">
+				<param name="Local" value="menu_file.htm">
+				</object>
+			<li><object type="text/sitemap">
+				<param name="Name" value="Edit Menu">
+				<param name="Local" value="menu_edit.htm">
+				</object>
+			<li><object type="text/sitemap">
+				<param name="Name" value="View Menu">
+				<param name="Local" value="menu_view.htm">
+				</object>
+			<li><object type="text/sitemap">
+				<param name="Name" value="Project Menu">
+				<param name="Local" value="menu_project.htm">
+				</object>
+			<li><object type="text/sitemap">
+				<param name="Name" value="Generate menu">
+				<param name="Local" value="menu_generate.htm">
+				</object>
+			<li><object type="text/sitemap">
+				<param name="Name" value="Effect menu">
+				<param name="Local" value="menu_effect.htm">
+				</object>
+			<li><object type="text/sitemap">
+				<param name="Name" value="Analyze menu">
+				<param name="Local" value="menu_analyze.htm">
+				</object>
+			<li><object type="text/sitemap">
+				<param name="Name" value="Help menu">
+				<param name="Local" value="menu_help.htm">
+				</object>
+		</ul>
+
+	<li><object type="text/sitemap">
+		<param name="Name" value="Tracks">
+	</object>
+		<ul>
+
+		<li><object type="text/sitemap">
+			<param name="Name" value="Audio Track">
+			<param name="Local" value="track_audio.htm">
+			</object>
+
+		<li><object type="text/sitemap">
+			<param name="Name" value="Label Track">
+			<param name="Local" value="track_label.htm">
+			</object>
+
+		<li><object type="text/sitemap">
+			<param name="Name" value="Time Track">
+			<param name="Local" value="track_time.htm">
+			</object>
+
+		<li><object type="text/sitemap">
+			<param name="Name" value="MIDI Track">
+			<param name="Local" value="track_midi.htm">
+			</object>
+
+      </ul>
+
+	<li><object type="text/sitemap">
+		<param name="Name" value="Other">
+	</object>
+      <ul>
+
+		<li><object type="text/sitemap">
+			<param name="Name" value="Preferences">
+			<param name="Local" value="prefs.htm">
+			</object>	
+
+		<li><object type="text/sitemap">
+			<param name="Name" value="Sound File Formats">
+			<param name="Local" value="fileformats.htm">
+			</object>	
+
+		<li><object type="text/sitemap">
+			<param name="Name" value="Envelope Editing">
+			<param name="Local" value="envelope.htm">
+			</object>	
+
+		<li><object type="text/sitemap">
+			<param name="Name" value="Exporting MP3 Files">
+			<param name="Local" value="exportmp3.htm">
+			</object>
+
+		<li><object type="text/sitemap">
+			<param name="Name" value="General Public License">
+			<param name="Local" value="license.htm">
+			</object>
+		</ul>
+
+
+</ul>
+
+</body>
+</html>

@@ -1,0 +1,277 @@
+<html>
+	<head>
+
+		<script>
+
+			function println(obj) {
+				document.write(obj + '<br/>');
+			}
+
+			function square(x) { return x * x;}
+
+			println("Start Showing HTML Here.");
+
+		</script>
+	</head>
+
+	<body>
+		<iframe src="test.html">
+		</iframe>
+		<iframe src="http://www.google.com">
+		</iframe>
+		<H1>
+			Figure 13-1. The client-side object hierarchy and Level 0 DOM
+		</H1>
+		<img src="client-object-hierarchy.jpg"/>
+		
+		<br/>
+
+		<!-- Event Handler for JavaScript code. -->
+		<input type="checkbox" name="options" value="giftwrap" onclick="giftwrap = this.checked;" ><br/>
+
+		<!-- Because of The Same-Origin Policy(see below), you can read properties of frames[0], not frames[1]-->
+		<input type="checkbox" name="options" value="giftwrap" onclick="alert(frames[0].location);" >local src frame properties can be accessed.<br/>
+		<input type="checkbox" name="options" value="giftwrap" onclick="alert(frames[1].location);" >google src frame properties can't be accessed.<br/>
+
+		<!-- This is JavaScript in URLs so that it is treated as one string line, don't use // for comments, use /**/ instead. -->
+		<a href='javascript:
+		var e = "", r = ""; /* Expression to evaluate and the result */
+		do {
+		/* Display expression and result and ask for a new expression */
+		e = prompt("Expression: " + e + "\n" + r + "\n", e);
+		try { r = "Result: " + eval(e); } /* Try to evaluate the expression */
+		catch(ex) { r = ex; } /* Or remember the error instead */
+		} while(e); /* Continue until no expression entered or Cancel clicked */
+		void 0; /* This prevents the current document from being overwritten */
+		'>
+		JavaScript Evaluator </a>
+
+	</body>
+
+	<script>
+
+		println("");
+
+		// Window object, Document Object Model and event-driven programming model
+		// Document object represents an HTML document, and the Window object represents the browser window (or frame) that displays the document.
+
+		// The Window as Global Execution Context
+		// The Window object is the global object mentioned before, the twos line below perform essentially the same function:
+		var answer = 42; // Declare and initialize a global variable
+		window.answer = 42; // Create a new property of the Window object.
+		println(answer);
+		window.println(answer); // for the function, it's same, function is virtually variable as well.
+		println(document);
+		println(window.document); // document is virtually one of the window property.
+		println(window);
+		println(self);
+		println(window.window); // window object has two self-referential properties, window and self.
+		// Conclusion: multiple windows(or frames) have different unique window object, so a global variable declared in 1st window is not a
+		// global variable within a second window. But JavaScript can access a global variable of the 1st window.
+
+		// The Client-Side Object Hierarchy and the DOM
+		println(window.document);
+		println(window.location); // get current url
+		println(window.frames.length); // get iframe length
+		println(window.frames[0].window); // the top-level window object contains references to the window objects that represent the frames
+		println(window.frames[0].document); // refers to the document object of the first frame of the current window
+		println(window.frames[0].parent.location); // get frame's parent window's location property which is equal to the current window's location
+		println(window.document.forms.length);
+
+
+		// Embedding Scripts in HTML
+		// In HTML:
+		/**
+			<script>
+			// Your JavaScript code goes here
+			<//script>
+		**/
+
+		// In XHTML(Like Tapestry TML):
+		/** In XHTML, If your JavaScript code contains the < or & characters, these characters are interpreted as XML markup.
+		For this reason, it is best to put all JavaScript code within a CDATA section if you are using XHTML:
+			<script><![CDATA[// Your JavaScript code goes here
+			]]><//script>
+		**/
+		
+		// A single HTML document may contain any number of <script> elements.
+		// functions and variables defined in one script are available to all scripts that follow in the same HTML page.
+		// For exampe, we define square function in <head> above, but we can refer it here.
+		println(square(2));
+
+		// Scripts in External Files
+		// PLEASE ALWAYS DO THIS FOR YOUE PROJECTS.
+		// <script> src="../../scripts//util.js"<//script>
+		// Conclusion: because of src attribute, your javascript program from one web server can employ code exported by other web servers.
+		// Much Internet advertising relies on this fact.
+
+		// The <noscript> Tag
+		// HTML defines the <noscript> element to hold content that should be rendered only if JavaScript has been disabled in the browser.
+
+		// Hiding Scripts from Old Browsers
+		// If the old browser did not recognize the <script> tag, use the way below, or the script will be presented as page content.
+		/**
+			<script><!--
+			// script body goes here
+			//--><\/script>
+	    **/
+
+
+		// Event Handlers in HTML
+		// You can write javascript code in event handlers as one line string and 'javascript:' prefix which is not required.
+		// event handler attributes:
+		// onclick: if return false, it will not perform any actions on button or link, it's useful for validation on a submit form(submit button).
+		// onmousedown, onmouseup
+		// onmouseover, onmouseout
+		// onchange: <input>, <select>, <textarea>
+		// onload: This event handler may appear on the <body> tag and is triggered when the document and its external content
+		// (such as images) are fully loaded. The onload handler is often used to trigger code that manipulates the document content
+		// because it indicates that the document has reached a stable state and is safe to modify.
+
+
+		// JavaScript in URLs
+		// JavaScript in urls are treated as one line string, so use /**/ instead of // for comments in "JavaScript in URLs".
+		// You can test javascript wherever there is a url like address bar in browser.
+		// The javascript: pseudoprotocol can be used with HTML attributes whose value should be a URL like:
+		// 1. The HRef attribute of a hyperlink.
+		// 2. action attribute of a <form> tag.
+		// javascript:var now = new Date( ); "<h1>The time is:</h1>" + now;
+
+		// Compared two clauses below: The first one alter the current displayed document, because the the return value of
+		// the Window.open( ) method call would be converted to a string and displayed, to avoid this and make sure no changes for current document,
+		// Add "void 0" in the end:
+		// javascript:window.open("about:blank");
+		// javascript:window.open("about:blank"); void 0;
+
+		// Execution of JavaScript Programs
+		// When a file has more than one script, the scripts are executed in the order in which they appear
+		// Scripts can appear in the <head> or the <body> of an HTML document.
+
+		// Scripts in the <head> typically define functions to be called by other code.
+		// They may also declare and initialize variables that other code will use.
+		// Scripts in the <body> of a document can do everything that scripts in the <head> can do.
+		// It is more common to see calls to document.write( ) in these scripts, however. Scripts in the <body> of a document
+		// "may" also access and manipulate document elements and document content that appear before the script.
+
+		// The onload Event Handler
+		// onload handler can be registered by setting the onload attribute of the <body> tag.
+		// When the onload handler is triggered, the document is fully loaded and parsed, and any document
+		// element can be manipulated by JavaScript code. Also means all the other javascripts have been executed
+		// so that onload handler can access all functions defined and variables declared by all scripts in the document.
+		/**
+			Because onload event handlers are invoked after document parsing is complete, they must not call
+			document.write( ). Instead of appending to the current document, any such call would instead begin a
+			new document and overwrite the current document before the user even had a chance to view it.
+		**/ 
+
+		// Event Handlers and JavaScript URLs
+		/**
+			<script> elements are typically used to define functions, and event handlers are typically used to invoke
+			those functions in response to user input. Event handlers can define functions, of course, but this is an
+			uncommon (and not very useful) thing to do.
+			If an event handler calls document.write( ) on the document of which it is a part, it will overwrite that document and begin a new one.
+		**/
+
+		// The onunload Event Hanlder
+		/**
+			When the user navigates away from a web page, the browser triggers the onunload event handler, giving
+			the JavaScript code on that page one final chance to run.
+		**/
+
+		// The Window Object as Execution Context
+		// All scripts, event handlers, and JavaScript URLs in a document share the same Window object as their global object.
+
+		// Client-side JavaScript is single-threaded.
+		// If you must perform enough computation to cause a noticeable delay, break your computation down into discrete subtasks,
+		// then use methods such as setTimeout() and setInterval() to run the subtasks in the background while updating a progress indicator
+		// that displays feedback to the user.
+
+		// Manipulating the Document During Loading
+		/**
+			The only consensus that exists in this gray area is that it is safe to manipulate the document once the
+			onload event has been triggered, and this is what most JavaScript applications do: they use the onload
+			handler to trigger all document modifications.
+		**/ 
+
+		// Client-Side Compatibility
+		// http://www.quirksmode.org/dom/
+		// http://webdevout.net/browser_support.php
+
+		// Feature Testing(capability testing)
+		/**
+			if (element.addEventListener) { // Test for this W3C method before using it
+				element.addEventListener("keydown", handler, false);
+				element.addEventListener("keypress", handler, false);
+			}
+			else if (element.attachEvent) { // Test for this IE method before using it
+				element.attachEvent("onkeydown", handler);
+				element.attachEvent("onkeypress", handler);
+			}
+			else { // Otherwise, fall back on a universally supported technique
+				element.onkeydown = element.onkeypress = handler;
+			}
+		**/
+
+		// Conditional Comments in Internet Explorer for HTML:
+		/**
+			<!--[if IE]>
+			This content is actually inside an HTML comment.
+			It will only be displayed in IE.
+			<![endif]-->
+
+			<!--[if gte IE 6]>
+			This content will only be displayed by IE 6 and later.
+			<![endif]-->
+
+			<!--[if !IE]> <-->
+			This is normal HTML content, but IE will not display it
+			because of the comment above and the comment below.
+			<!--> <![endif]-->
+
+			This is normal content, displayed by all browsers.
+		**/
+		// Conditional Comments in Internet Explorer for JavaScript:
+		/*@cc_on
+		@if (@_jscript)
+		// This code is inside a conditional comment, which is also a
+		// regular JavaScript comment. IE runs it but other browsers ignore it.
+		alert('You are using Internet Explorer);
+		@else*/
+		// This code is no longer inside a JavaScript comment, but is still
+		// inside the IE conditional comment. This means that all browsers
+		// except IE will run this code.
+		alert('You are not using Internet Explorer');
+		/*@end
+		@*/
+
+		// Accessibility
+		// The proper role of JavaScript is to enhance the presentation of information, not to take over the presentation of that information.
+		// So that screen reader, mobile browser and people who intentionally disables JavaScript will not be bothered.
+		// Another important accessibility concern is for users who can use the keyboard but cannot use (or choose not to use)
+		// a pointing device such as a mouse.
+
+		// The Same-Origin Policy
+		/**
+			  Specifically, a script can read only the properties of windows and documents that have the same origin as the document
+			that contains the script. The same-origin policy also comes up when scripting HTTP with the XMLHttpRequest object.
+			This object allows client-side JavaScript code to make arbitrary HTTP requests but only to the web server from
+			which the containing document was loaded.
+			  The origin of a document is defined as the protocol, host, and port of the URL from which the document was loaded.
+			Documents loaded from different web servers have different origins. Documents loaded through different ports of the
+			same host have different origins. And a document loaded with the http: protocol has a different origin than one loaded
+			with the https: protocol, even if they come from the same web server.
+			  It is important to understand that the origin of the script itself is not relevant to the same-origin policy:
+			what matters is the origin of the document in which the script is embedded. Suppose, for example, that a
+			script from domain A is included (using the src property of the <script> tag) in a web page in domain B.
+			That script has full access to the content of the document that contains it. If the script opens a new
+			window and loads a second document from domain B, the script also has full access to the content of that
+			second document. But if the script opens a third window and loads a document from domain C (or even
+			from domain A) into it, the same-origin policy comes into effect and prevents the script from accessing
+			this document.
+
+			Multiple domain issue for a large web site solution about Same-Origin Policy and more details on this topic,
+			see pdf version page 343 - 343
+		**/
+
+	</script>
+</html>

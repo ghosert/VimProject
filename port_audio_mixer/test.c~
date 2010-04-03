@@ -1,0 +1,12 @@
+#include  <stdio.h>
+
+int * getIntPointer() {
+	int *i = malloc(sizeof(int));
+	return i;
+}
+
+int main(int argc, char *argv[]) {
+	printf("test sound.\n");
+	return 0;
+}
+

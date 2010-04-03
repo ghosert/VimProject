@@ -1,0 +1,18 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.7	//
+Study	.\study.py	/^class Study:$/;"	c
+TestMe	.\test.py	/^class TestMe:$/;"	c
+__getitem__	.\study.py	/^    def __getitem__(self, key):$/;"	m	class:Study	file:
+__setitem__	.\study.py	/^    def __setitem__(self, key, item):$/;"	m	class:Study	file:
+do	.\study.py	/^    def do(self):$/;"	m	class:Study
+doSomething	.\test.py	/^    def doSomething(self):$/;"	m	class:TestMe
+function	.\study.py	/^    def function(str):$/;"	f	function:studyMethod
+function1	.\study.py	/^    def function1(string, *tuple, **dictionary):$/;"	f	function:studyMethod
+function2	.\study.py	/^    def function2(one, two, three):$/;"	f	function:studyMethod
+inition	.\study.py	/^    print f("") # every function has at least one returned value, if no explicit definition, it's None.$/;"	f	function:studyMethod
+studyMethod	.\study.py	/^def studyMethod():$/;"	f
+test_method	.\test.py	/^def test_method():$/;"	f

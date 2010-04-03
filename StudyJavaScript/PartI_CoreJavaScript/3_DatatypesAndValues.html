@@ -1,0 +1,296 @@
+<html>
+	<head>
+	<script>
+		/*
+		1. primitive datatypes
+		  1.1 number
+		  1.2 string
+		  1.3 boolean
+		  1.4 null
+		  1.5 undefined
+		2. objects
+		  2.1 normal object (object literals)
+		  2.2 array (array literals)
+		  2.3 function (function literals)
+		  2.4 class: Date, RegExp, Error class
+		*/
+		document.writeln("Math.sin(Math.PI / 2): " + Math.sin(Math.PI / 2) + "<br/>");
+		document.writeln("Math.sqrt(9): " + Math.sqrt(9) + "<br/>");
+		document.writeln("Number.MIN_VALUE: " + Number.MIN_VALUE + "<br/>");
+		document.writeln("Number.MAX_VALUE: " + Number.MAX_VALUE + "<br/>");
+		document.writeln("1 / 0: " + (1 / 0) + "<br/>");
+		document.writeln("Number.POSITIVE_INFINITY: " + (Number.POSITIVE_INFINITY) + "<br/>");
+		document.writeln("-1 / 0: " + (-1 / 0) + "<br/>");
+		document.writeln("Number.NEGATIVE_INFINITY: " + (Number.NEGATIVE_INFINITY) + "<br/>");
+		document.writeln("0 / 0: " + (0 / 0) + "<br/>");
+		document.writeln("Number.NaN: " + (Number.NaN) + "<br/>");
+		document.writeln("Infinity: " + (Infinity) + "<br/>");
+		document.writeln("NaN: " + (NaN) + "<br/>");
+		document.writeln("isFinite(1 / 0): " + isFinite(1 / 0) + "<br/>");
+		document.writeln("isNaN(0 / 0): " + isNaN(0 / 0) + " (NaN value doesn't equal to any one, include itself, so introducing isNaN() here.)" + "<br/>");
+
+		document.writeln("String Literals: " + 'name="myform"' + "<br/>");
+		document.writeln("String Literals: " + "name=\"myform\"" + "<br/>");
+		document.writeln("String Literals: " + "Wouldn't you prefer O'Reilly's book?" + "<br/>");
+		document.writeln("String Literals: " + "This string\nhas two lines" + "<br/>");
+
+		msg = "Hello, " + "World";
+		// msg.length here is the length of string which is different from Java String which is using msg.length()
+		document.writeln("msg: " + msg + " msg.length: " + msg.length + " last_char: " + msg.charAt(msg.length - 1) +
+		                 " msg.substring(1, 4): " + msg.substring(1, 4) + " msg.indexOf('o'): " + msg.indexOf('o') + "<br/>");
+
+		// Converting Numbers to Strings.
+		var n = 100;
+		var s = n + " bottles of beer on the wall.";
+		var n_as_string = n + "";
+		var string_value = String(n);
+		string_value = n.toString();
+		string_value = n.toString(2);
+		document.writeln("number.toString(2): " + string_value + "<br/>");
+
+		var n = 123456.789;
+		n.toFixed(0); // "123457"
+		n.toFixed(2); // "123456.79"
+		n.toExponential(1); // "1.2e+5"
+		n.toExponential(3); // "1.235e+5"
+		n.toPrecision(4); // "1.235e+5"
+		n.toPrecision(7); // "123456.8"
+
+		// Converting Strings to Numbers
+		var product = "21" * "2"; // product is the number 42.
+		var product = "21" - 0; // product is the number 21.
+		var product = Number("21"); // product is the number 21.
+
+		// parseInt and parseFloat convert and return any number at the beginning of a string, ignoring any trailing nonnumbers.
+		parseInt("3 blind mice"); // Returns 3
+		parseFloat("3.14 meters"); // Returns 3.14
+		parseInt("12.34"); // Returns 12
+		parseInt("0xFF"); // Returns 255
+
+		// parseInt can even take a second argument specifying the radix(base) of the number to be parsed.
+		parseInt("11", 2); // Returns 3 = 1 * 2 + 1
+		parseInt("ff", 16); // Returns 255 = 15 * 16 + 15
+		parseInt("zz", 36); // Returns 1295 = 35 * 36 + 35
+		parseInt("077", 8); // Returns 63 = 7 * 8 + 7
+		parseInt("077", 10); // Returns 77 = 7 * 10 + 7
+
+		// Returns NaN below:
+		parseInt("eleven");
+		parseFloat("$72.47"); // Remember the string should start with number.
+
+		// Convert boolean type to strin and number.
+		document.writeln("String(true): " + String(true) + "<br/>");
+		document.writeln("String(false): " + String(false) + "<br/>");
+		document.writeln("Number(true): " + Number(true) + "<br/>");
+		document.writeln("Number(false): " + Number(false) + "<br/>");
+
+		// Like python: 0, NaN, "", null, undefined means false, others including not null object, array, or function converts to true.
+		// Convert and test boolean type use Boolean method below:
+		if ("jiawei") {
+			document.writeln("jiawei is true." + "<br/>");
+			document.writeln("Boolean('jiawei'): " + Boolean('jiawei') + "<br/>");
+			document.writeln("Boolean(''): " + Boolean('') + "<br/>");
+		}
+
+		// Creating Function:
+		function square(x) {
+			return x * x;
+		}
+		document.writeln("self-defined function square(): " + square(3) + "<br/>");
+
+		s = square; // Like python, function here is a value can be manipulated by JavaScript code.
+		document.writeln("s = square; s(3): " + s(3) + "<br/>");
+
+		// Function Literals: lambda function definition, just like Python:
+		var square = function(x) { return x * x; }
+		document.writeln("lambda square(3): " + square(3) + "<br/>");
+
+		// Creating Object:
+		image = new Object();
+		image.width = 5;
+		image.height = 6;
+		document.writeln("image.width: " + image.width + "<br/>");
+		document.writeln("image.height equals image['height']: " + image["height"] + "<br/>");
+
+		// javascript is using the function value as object property name and then use it as object method to be called.
+		// That is: object.functionPropertyName(params), see the sample method image.square below:
+		image.square = function() { return image.width * image.height; }
+		document.writeln("image.square(): " + image.square() + "<br/>");
+
+		// Creating other objects.
+		var now = new Date();
+		document.writeln("now = new Date(): " + now + "<br/>");
+
+		// Object Literals:
+		var point = {x: 2.3, y: -1.2}
+		// Or
+		var point = {"x": 2.3, "y": -1.2}
+		document.writeln("Object Literals point.x : " + point.x + " and point['x']: " + point['x'] + "<br/>");
+		// And can be nested.
+		var rectangle = {upperLeft: {x: 2, y: 2}, lowerRight: {x: 4, y: 4}}
+		// Conclution: there is no python dictionary concept in javascript, only Object, and js object just like python dictionary.
+
+		// Object Conversions:
+		point.toString = function() { return "I'm point."; }
+		document.writeln("call toString() when object in a string context: " + point + "<br/>");
+		point.valueOf = function() { return 1; }
+		document.writeln("call valueOf() when object in a numberic context: " + (point + 1) + "<br/>");
+
+		// Creating Arrays:
+		var a = new Array(); // new Array(5) to specified 5 undefined elements.
+		a[0] = 1.2;
+		a[1] = "JavaScript";
+		a[2] = true;
+		a[3] = {x: 1, y: 3};
+		document.writeln("The array of a[3]: " + a[3] + "<br/>");
+
+		var a = new Array(1.2, "JavaScript", true, {x: 1, y: 3});
+		document.writeln("The array of a: " + a + "<br/>");
+
+		// Array Literals:
+		var a = [1.2, "JavaScript", true, {x: 1, y: 3}];
+		a.push('jiawei')
+		document.writeln("a.push('jiawei'): " + a + "<br/>");
+		a.pop()
+		document.writeln("a.pop(): " + a + "<br/>");
+		var matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
+		document.writeln("matrix nested array: " + matrix[0][1] + "<br/>");
+		var sparseArray = [1, , , , 5];
+		document.writeln("array including undefined elements: " + sparseArray[0] + " and " + sparseArray[1] + "<br/>");
+
+		// null
+		if (!null) {
+			document.writeln("null is false, 0 and 'null' in Boolean, numeric and string context." + "<br/>");
+			document.writeln("(null + 2): " + (null + 2) + "  (null + jiawei): " + (null + "jiawei") + "<br/>");
+		}
+
+		// undefined
+		var jiawei;
+		document.writeln(jiawei + "<br/>");
+		document.writeln((jiawei == null) + "<br/>"); // get true here.
+		document.writeln((jiawei === null) + "<br/>"); // use === to distinguish null and undefined.
+		document.writeln("undefined is false, NaN and 'undefined' in Boolean, numeric and string context." + "<br/>");
+
+		// The Date Object
+		var now = new Date();
+		var xmas = new Date(2006, 11, 25); // months are zero-based.
+		xmas.setFullYear(xmas.getFullYear() + 1);
+		var weekday = xmas.getDay();
+		document.writeln("Today in utc is: " + now.toUTCString() + "<br/>");
+		document.writeln("Today in local is: " + now.toLocaleString() + "<br/>");
+
+		// Regular Expression Object
+		reg = new RegExp('^HTML')
+		document.writeln("RegExp('^HTML').test('HTMLjiawei'): " + reg.test('HTMLjiawei') + "<br/>");
+
+		// Regular Expression Literal
+		var matched = /^HTML/.test('HTMLjiawei')
+		document.writeln("/^HTML/.test('HTMLjiawei'): " + matched + "<br/>");
+
+		// Error Object
+		error = new Error('jiawei')
+		document.writeln("error object: " + error + "<br/>");
+
+		// Primitive Datetype Wrapper Objects
+		// JavaScript will internally create Number, String and Boolean objects when primitive datatypes: number, string and boolean
+		// are used in an object context so that you will see the sample below:
+		var len = "jiawei".length;
+		// "jiawei" above is a primitive string, but when it's in a object context,
+		// js will create a String object to allow you access the 'length' property.
+		var s = new String("jiawei"); // A String object.
+		msg = s + "!"; // same thing, String object can be converted to primitive string as well when in corresponding context.
+
+		// Object-to-Primitive Conversion
+		o = new Object();
+		o.valueOf = function() {return 1;}
+		o.toString = function() {return "i'm object.";}
+		document.writeln("print o: " + o + "<br/>");
+		document.writeln("print o: " + (o + 1) + "<br/>");
+		// Conclution: if you want (print, +, -, *, /, <, <=, >, >= and ==) operators on
+		// object-object or object-primitive(change object to number/string first, then begin to compare, details in 5_ExpressionsAndOperators.html.)
+		// Object will always try on invoking valueOf() method first(==/=== on object-object is not the case, only identical objects will be equal),
+		// if there is no valueOf() method in object or the return value doesn't make sense, then try on toString() method.
+		// try to comment the line o.valueOf above or chnange "return 1;" to "return this;" and see the result.
+		// Note: most object either don't have valueOf() methods or don't have valueOf() methods that return userful results, so it will use toString()
+		// But if you define a custom valueOf() method, this method will be used rather than toString() method.
+		// The only exception is Date() class it is using toString() on + operator and valueOf() on comparation operator.
+
+		// By value versus by reference
+
+		// 1. Copying, passing and comaring by value
+		var n = 1;
+		var m = n; // Copying
+		function add_to_total(total, x) { // Passing
+			total = total + x;
+		}
+		add_to_total(n, m)
+		if (n == 1) m = 2; // Comparing with ==
+
+		// 2. Copying, passing and comparing by reference
+		var xmas = new Date(2007, 11, 25);
+		var solstice = xmas;
+		solstice.setDate(21);
+		xmas.getDate(); // return 21, not the original value of 25
+		(xmas == solstice); // Evaluates to true
+		var xmas = new Date(2007, 11, 25);
+		var solstice_plus_4 = new Date(2007, 11, 25);
+		// Same date above, but, by the rules of "compare by reference", distinct objects are not equal!
+		(xmas != solstice_plus_4) // Evaluates to true
+		// Because arrays are objects as well, so they are passed by reference so that the function below can change the contents of the array
+		// through the reference, and those changes will be visible when the function returns.
+		function add_to_totals(totals, x) {
+			totals[0] = totals[0] + x;
+			totals[1] = totals[1] + x;
+			totals[2] = totals[2] + x;
+		}
+
+		// 3. References themselves are passed by value
+		function add_to_totals2(totals, x) {
+			newtotals = new Array(3);
+			newtotals[0] = totals[0] + x;
+			newtotals[1] = totals[1] + x;
+			newtotals[2] = totals[2] + x;
+			totals = newtotals; // This line has no effect outside of the function.
+		}
+
+		// 4. The code snip below will show true which demonstrates in js string is compared by value.
+		var s = "jiawei";
+		var string = new String("jiawei");
+		document.writeln('"jiawei" == new String("jiawei"): ' + (s == string) + "<br/>");
+
+		/* Conclustion:
+		For copy & pass string, you can assume it is by reference, and because string is immutable,
+		there is no way to modify the contents of a string (although it is by reference). This is just like Java.
+		For comparing string, js is using == by value. unlike Java which is better to use equals method for string comparison.
+		
+		Except string, for other primitive date types and objects, the rule is just same to Java, but js has no equals method but == for comparison.
+		*/
+
+		/*
+		    Java:
+			Type	Copied by	Passed by	Compared by(with ==/equals method)
+			primitive	Value	Value	Value
+			string	Immutable	Immutable	Reference/Value
+			object	Reference	Reference	Reference/Value
+
+		    JavaScript:
+			Type	Copied by	Passed by	Compared by(with ==/no equals method)
+			number	Value	Value	Value
+			boolean	Value	Value	Value
+			string	Immutable	Immutable	Value
+			object	Reference	Reference	Reference
+
+		    Python:
+			Type	Copied by	Passed by	Compared by(with ==/is keyword)
+			string/number object	Immutable	Immutable	java equals/java ==
+			Other object	Reference	Reference	java equals/java ==
+		*/
+		
+
+	</script>
+	</head>
+	<body>
+		<!-- Html and Javascript codes can be combined, it is better to use double quote for Html and single quote for JS like below: -->
+		<a href="" onclick="alert('Thank you')">Click Me</a>
+	</body>
+</html>

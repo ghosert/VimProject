@@ -1,0 +1,17 @@
+#debug_log { /* Styles for our debug message container */
+	background-color: #aaa; /* gray background */
+	border: solid black 2px; /* black border */
+	overflow: auto; /* scrollbars */
+	width: 75%; /* not as wide as full window */
+	height: 300px; /* don't take up too much vertical space */
+}
+#debug_log:before { /* Give our logging area a title */
+	content: "Debugging Messages";
+	display: block;
+	text-align: center;
+	font: bold 18pt sans-serif ;
+}
+.debug_message { /* Place a thin black line between debug messages */
+	border-bottom: solid black 1px;
+}
+

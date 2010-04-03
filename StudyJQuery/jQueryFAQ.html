@@ -1,0 +1,266 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+		<title>jQuery FAQ</title>
+	</head>
+	<script src="jquery-1.3.2.js"></script>
+	<script>
+		$(document).ready(function ()
+		{
+    		// How to select an item using class or id or tag name?
+			var myDivElement = $('#myDivId');
+			var myCssDivElement = $('.myCssClass');   // could be many.
+			var inputElement = $('input');
+			
+			var textBoxValue = inputElement.val();    // get the value of an element.
+			myDivElement.html('Show value in textbox: ' + textBoxValue);	// html() method like element.innerHTML
+			
+			inputElement.click(function (event)
+			{
+                inputElement.val("hello world");     // set the value of an element.
+                $(this).val("hello world");     	 // equals to above.
+			});
+			
+			
+			// How do I test whether an element has a particular class? 
+			myCssDivElement.click(function()
+			{
+				if ($(this).hasClass('myCssClass')) { // hassClass() here equals to is() method.
+					alert($(this).html());
+				}
+            });
+			// Conclusion: We have two elements in myCssDivElement in our case and both will be binded click event handler.
+			// If you only the first one is binded by click event handler, use "myCssDivElement.eq(0).click(fn);"
+			
+			var hiddenDiv = $('#hiddenDivId');
+			if (hiddenDiv.hasClass(':hidden')) { // use custom ':hidden' / ':visible' selector to check whether an element is hidden.
+				hiddenDiv.show(); 				 // show the hidden div by show() method.
+			}
+			
+			
+			// How do I test whether an element exists?
+			myDivElement.html(myDivElement.html() + " [ div length: " + myDivElement.length + " ]"); // return 0, if not exists
+			myCssDivElement.html(myCssDivElement.html() + " [ div length: " + myCssDivElement.length + " ]");
+			// You don't have to test element existence for every case, for example:
+			// "$('#myDivId').show()" show the item if it exists, and do nothing (no errors) if it did not.
+			
+			
+			// How do I determine the state of a toggled element?
+            var isVisible = $('#myDivId').is(':visible');
+            var isHidden = $('#myDivId').is(':hidden');
+			myDivElement.html(myDivElement.html() + " [ div visible: " + isVisible + " div hidden: " + isHidden + " ]");
+			// if you're simply acting on an element based on its visibility, just include ":visible" or ":hidden" in the selector expression.
+			// For example:
+            $('#myDivId:visible').animate({left: '+=200px'}, 'slow');
+			
+			
+			// How do I select an element by an ID that has characters used in CSS notation? 
+			// The colon (":") and period (".") are problematic within the context of a jQuery selector because they indicate a pseudo-class and class, respectively.
+			// So, escaped colon and period.
+			
+			// Does not work
+            // $("#some:id")
+             
+            // Works!
+            // $("#some\\:id")
+            
+            // Does not work
+            // $("#some.id")
+             
+            // Works!
+            // $("#some\\.id")
+			
+			// Or you can use the util method below:
+            function jq(myid) { 
+                return '#' + myid.replace(/(:|\.)/g,'\\$1');
+            }
+
+            // The function can be used like so:
+            $(jq('some.id')); // get "#some\\.id"
+            
+			
+			// How do I disable/enable an element?
+			$('#btDisable').click(function (event)
+			{
+				$('#x').attr('disabled','disabled'); // equals to <select id="x" disabled="disabled" style="width:200px;">
+			});
+			$('#btEnable').click(function (event)
+			{
+    			$('#x').removeAttr('disabled');
+			});
+			
+			
+			// How do I check/uncheck an input?
+			$('#btChecked').click(function (event)
+			{
+				$('#c').attr('checked','checked');
+			});
+			$('#btUnChecked').click(function (event)
+			{
+    			$('#c').removeAttr('checked');
+			});
+			
+			
+			// How do I get the text value of a selected option?
+			$('#btGetValue').click(function (event)
+			{
+				alert($('#myselect').val());
+			});
+			$('#btGetTextValue').click(function (event)
+			{
+				alert($('#myselect option:selected').text()); // text()/html() method can get/set stuffs between tags: <div>xxx</div> <a>yyy</a>
+			});
+			
+			
+			// How do I replace text from the 3rd element of a list of 10 items?
+			var $thirdLink = $('#myul').find('li a').eq(2); // find all the 'li a' in #myul, then get the 3rd item, here is <a href="#">foo</a>.
+			var linkText = $thirdLink.text().replace('foo', 'bar');
+			$thirdLink.text(linkText);
+			
+			
+			// How do I compress my code?
+			// Generally the best way to do it is to use the YUI compressor.
+			// See more details at Frequently Asked Questions online documentation.
+			
+			
+			// How do I get and use the server response from an AJAX request?
+			// XXX: In this case we are using Level 0 event model(See details in VimProject/StudyJavaScript) rather than jQuery event binding. The benefit is that:
+			// Define global function for ajax and using Level 0 event model so that the ajax call can be made once the a tag below is loaded rather than the whole DOM is ready.
+			window.ajaxCallSample = function () {
+    			$.ajax({
+                     url: 'jQueryDoc.txt',
+                     success: function(response) {
+						$('#ajaxCallDiv pre').text(response);
+                     },
+                     error: function(xhr) {
+                        alert('Error!  Status = ' + xhr.status);
+                     }
+                 });
+			}
+			
+			// Return the server response from an AJAX call.
+			window.ajaxCallSample2 = function () {
+				getUrlStatus('jQueryDoc.txt', function (status)
+				{
+					alert(status);
+				});
+			}
+			
+            function getUrlStatus(url, callback) {
+                 $.ajax({
+                     url: url,
+                     complete: function(xhr) {
+                         callback(xhr.status);
+                     }
+                 });
+             }
+			 
+			 
+            // Why do my events stop working after an AJAX request?
+            // When you call $('a') it returns all the links on the page at the time and .click(fn) adds your handler to each individual
+            // element. When new links are added(by AJAX call), they are unaffected.
+			
+            // 1. Re-binding solution:
+			function testClick()
+			{
+				alert("I'm binding after ajax call.");
+			}
+            $('#rebinding1').load('my.html',function(){
+                $('#rebinding1 a').click(testClick);
+            });
+			// Load HTML from a remote file and inject it into the DOM.
+			// The function called when the ajax request is complete (not necessarily success). 
+			
+			// 2. jQuery live solution:
+			// Added in jQuery 1.3: Binds a handler to an event (like click) for all current - and future - matched element.
+			// Can also bind custom events.
+			$('#rebinding2 a').live('click', testClick);
+            $('#rebinding2').load('my.html');
+			
+			// Conclusion: See FAQ documentation for other solutions.
+			
+			
+			// Why doesn't an event work on a new element I've created? 
+			// Similar to jQuery live solution above.
+			
+			
+			// Why do animations set the display style to block?
+			$('span').eq(0).show('show');
+			$('span').eq(1).fadeIn('show');
+			
+			
+			// CookBook:
+			// Recipe: Simple menu with hover to show sub-menu items
+			// Recipe: Hide All divs Except One(like tabs)
+			// Recipe: Multi-select Listbox without the Ctrl key
+			// See FAQ documentation.
+			 
+		});
+	</script>
+	<style>
+		.myCssClass {
+		}
+	</style>
+	
+	<body>
+		Click on text box to see the effect.
+		<input type="textbox" value="jQuery">
+		<div id="myDivId"></div>
+		<div class="myCssClass">Click on me.</div>
+		<div class="myCssClass">Click on me.</div>
+		<div id="hiddenDivId" style="display:none;">I was hidding div originally, but is shown by show() method.</div>
+		
+		<select id="x" style="width:200px;">
+            <option>one</option>
+   			<option>two</option>
+ 		</select>
+        <button id="btDisable">Disable</button>
+        <button id="btEnable">Enable</button>
+		
+		<label><input type="checkbox" id="c"/> I'll be checked/unchecked.</label>
+        <button id="btChecked">Checked</button>
+        <button id="btUnChecked">UnChecked</button>
+		
+		<select id="myselect">
+            <option value="1">Mr</option>
+            <option value="2">Mrs</option>
+            <option value="3">Ms</option>
+            <option value="4">Dr</option>
+            <option value="5">haseeb</option>
+        </select>
+        <button id="btGetValue">Get Value</button>
+        <button id="btGetTextValue">Get Text Value</button>
+		
+		
+		<ul id="myul">
+			<li><a href="#">jia</a></li>
+			<li><a href="#">wei</a></li>
+			<li><a href="#">foo</a></li>
+			<li><a href="#">abc</a></li>
+			<li><a href="#">123</a></li>
+		</ul>
+		
+		<a href="#" onclick="ajaxCallSample(); return false;">Click to start a local ajax call.</a>
+		<div id="ajaxCallDiv"><pre></pre></div>
+		
+		<a href="#" onclick="ajaxCallSample2(); return false;">Click to start a local ajax call 2.</a>
+		
+		<br/> <br/>
+		
+		<div id="rebinding1"></div>
+		
+		<br/>
+		
+		<div id="rebinding2"></div>
+		
+		<br/>
+		
+		This is a animations test for block. <span style="display:none">test span here.</span>
+		
+		<br/>
+		
+		This is a animations test for inline(avoid block). <span style="display:none">test span here.</span>
+		
+	</body>
+</html>

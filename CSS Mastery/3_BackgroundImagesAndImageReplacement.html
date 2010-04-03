@@ -1,0 +1,218 @@
+<!--
+Should put DOCTYPE element here, like 7_Layout.html, but I don't want to retest this page after adding DOCTYPE, so ...
+-->
+<html>
+	<head>
+		<style type="text/css">
+			<!--
+
+			body {
+				background: #FFFFCC url(note_background.jpg) repeat-x;
+			}
+
+			#banding {
+				width: 224px;
+				height: 162px;
+				background: url(img_flwr.png) no-repeat;
+			}
+
+			#bordering h2 {
+				padding-left: 30px;
+				background: url(star_on_sm.gif) no-repeat left center; /* left center here are the keywords while pixel and percentage could be used as well, see below. */
+				border-style: dashed;
+				border-color: rgb(255, 0, 0);
+				border-width: 2;
+			}
+
+			#bordering h3 {
+				padding-left: 30px;
+				background: url(star_on_sm.gif) no-repeat 0% 50%; /* percentage % here can be pixel px as well. */
+				border-style: dashed;
+				border-color: rgb(255, 0, 0);
+				border-width: 2;
+			}
+
+			.box {
+				width: 418px;
+				background: #effce7 url(Source Code/Chapter03/images/bottom.gif) no-repeat left bottom;
+			}
+			.box h2 {
+				background: url(Source Code/Chapter03/images/top.gif) no-repeat left top;
+			}
+			.box h2 {
+				padding: 10px 20px 0 20px;
+			}
+			.box p {
+				padding: 0 20px 10px 20px;
+			}
+
+			.box1 {
+				width: 424px;
+				background: url(Source Code/Chapter03/images/tile2.gif) repeat-y;
+			}
+			.box1 h2 {
+				background: url(Source Code/Chapter03/images/top2.gif) no-repeat left top;
+				padding-top: 20px;
+			}
+			.box1 .last {
+				background: url(Source Code/Chapter03/images/bottom2.gif) no-repeat left bottom;
+				padding-bottom: 20px;
+			}
+			.box1 h2, .box1 p {
+				padding-left: 20px;
+				padding-right: 20px;
+			}
+
+			.box2 {
+				width: 20em; /* This width can be adjusted, so that .box2 class can be enlarged vertically. */
+				background: #effce7 url(Source Code/Chapter03/images/bottom-left.gif)
+				no-repeat left bottom;
+			}
+			.box2-outer {
+				background: url(Source Code/Chapter03/images/bottom-right.gif) no-repeat right bottom;
+				padding-bottom: 5%;
+			}
+			.box2-inner {
+				background: url(Source Code/Chapter03/images/top-left.gif) no-repeat left top;
+			}
+			.box2 h2 {
+				background: url(Source Code/Chapter03/images/top-right.gif) no-repeat right top;
+				padding-top: 5%;
+			}
+			.box2 h2, .box2 p {
+				padding-left: 5%;
+				padding-right: 5%;
+			}
+
+			/* Drop shadow effect. */
+			.img-wrapper {
+				background: url(Source Code/Chapter03/images/shadow.gif) no-repeat bottom right;
+				float: left;
+			}
+			.img-wrapper img {
+				position: relative;
+				left: -5px;
+				top: -5px;
+			}
+
+			/* Drop fuzzy shadow effect, more beautiful */
+			.img-wrapper1 {
+				background: url(Source Code/Chapter03/images/shadow.gif) no-repeat right bottom;
+				float: left;
+				clear: both;
+			}
+			.img-wrapper1 div {
+				background: url(Source Code/Chapter03/images/mask.png) no-repeat left top !important;
+				background: url(Source Code/Chapter03/images/mask.gif) no-repeat left top;
+				padding: 0 5px 5px 0;
+				float: left; /* :KLUDGE: Fixes problem in IE5.2/Mac */
+			}
+			.img-wrapper1 img {
+			}
+
+			.img-replacement {
+				clear: both;
+			}
+			.img-replacement h2 {
+				width: 276px;
+				height: 162px;
+				position: relative;
+			}
+			.img-replacement span {
+				background: url(logo.gif) no-repeat;
+				position: absolute;
+				width: 100%;
+				height: 100%;
+			}
+			
+
+			-->
+		</style>
+	</head>
+	<body>
+		<p> Hello World !  </p>
+		<p> Hello World !  </p>
+		<p> Hello World !  </p>
+		<p> Hello World !  </p>
+		<p> Hello World !  </p>
+		<p> Hello World !  </p>
+		<p> Hello World !  </p>
+		<p> Hello World !  </p>
+		<p> Hello World !  </p>
+		<p> Hello World !  </p>
+		<p> Hello World !  </p>
+		<p> Hello World !  </p>
+		<p> Hello World !  </p>
+		<p> Hello World !  </p>
+		<p> Hello World !  </p>
+		<p> Hello World !  </p>
+		<p> Hello World !  </p>
+		<p> Hello World !  </p>
+		<p> Hello World !  </p>
+		<p> Hello World !  </p>
+		<p> Hello World !  </p>
+		<p> Hello World !  </p>
+		<p> Hello World !  </p>
+		<p> Hello World !  </p>
+		<p> Hello World !  </p>
+		<p> Hello World !  </p>
+		<p> Hello World !  </p>
+		<p> Hello World !  </p>
+		<p> Hello World !  </p>
+		<p> Hello World !  </p>
+		<p> Hello World !  </p>
+
+		<div id="banding"></div>
+
+		<div id="bordering">
+			<h2>H2 Title With Image Is Here.</h2>
+			<h3>H3 Title With Image Is Here.</h3>
+	    </div>
+
+		<div class="box">
+			<h2>Headline</h2>
+			<p>Test Rounded-corner Box 1: Simple rounded-corner box, two images: top and bottom images.</p>
+		</div>
+
+		<br/>
+
+		<div class="box1">
+			<h2>Headline</h2>
+			<p class="last">Test Rounded-corner Box 2: Advanced rounded-corner box, three images: top, bottom and tiled images, box can be vertically increased, but can not be hospitally increased.</p>
+		</div>
+
+		<br/>
+
+		<div class="box2">
+			<div class="box2-outer">
+				<div class="box2-inner">
+					<h2>Headline</h2>
+					<p>Test Rounded-corner Box 3: Advanced rounded-corner box, three images: top, bottom and tiled images, box can be both vertically and hospitally increased (See comments in .box2 class above).</p>
+				</div>
+			</div>
+		</div>
+
+		<br/>
+
+		<div class="img-wrapper"><img src="Source Code/Chapter03/images/dunstan.jpg" width="300"
+		height="300" alt="Dunstan Orchard" /></div>
+		
+	    <br/>
+
+		<div class="img-wrapper1">
+			<div><img src="Source Code/Chapter03/images/dunstan.jpg" width="300" height="300" alt="Dunstan" /></div>
+		</div>
+
+		<div class="img-replacement">
+			<p>We should use text instead of image based text where is possible, but for some certain branding text which we have
+			no such font, we can use image replacement technology. But make sure that 1. search engine will not ignore the text(Don't use display:none).
+			2. people can read the text even they disable the CSS or turn off the image but turn on the CSS(Don't use the technology like text-indent: -10000em).</p>
+			<h2>
+				<span></span>Image Replacement Text
+			</h2>
+		</div>
+		
+
+	</body>
+</html>
+

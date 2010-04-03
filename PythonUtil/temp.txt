@@ -1,0 +1,396 @@
+AT LINE: ['<string buffer>']:0
+AT LINE: ['<string buffer>']:1
+AT LINE: ['<string buffer>']:2
+AT LINE: ['<string buffer>']:3
+==> at https://developer.emetrix.com
+AT LINE: ['<string buffer>']:4
+AT LINE: ['<string buffer>']:5
+AT LINE: ['<string buffer>']:6
+Note: submit is using submit button: name="None", value=" Login "
+
+AT LINE: ['<string buffer>']:7
+==> at https://developer.emetrix.com/storefront/productupdate.asp?PID=11784033
+AT LINE: ['<string buffer>']:8
+==> at https://developer.emetrix.com/storefront/send_DL.asp?ProductID=11784033
+AT LINE: ['<string buffer>']:9
+AT LINE: ['<string buffer>']:10
+AT LINE: ['<string buffer>']:11
+AT LINE: ['<string buffer>']:12
+AT LINE: ['<string buffer>']:13
+Note: submit is using submit button: name="FormAction", value="Send Software"
+
+
+
+<html>
+
+<head>
+<title>Send Full Version Download Link | Emetrix Developer Administration</title>
+</head>
+<SCRIPT LANGUAGE="JavaScript">
+<!-- Begin
+function win() {
+window.open("/admin/lookup/productlookup.asp","","height=600,width=800,left=1,top=1,scrollbars=1,resizable=1");
+}
+// End -->
+</script>
+<BODY BGCOLOR="#153A5F" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" background="/images/background_main.gif" link="#D1D1D1" alink="#D1D1D1" vlink="#D1D1D1" text="#D1D1D1">
+
+<table border="0" width="762" cellpadding="0" cellspacing="0">
+  <tr>
+    <td><a href="http://www.emetrix.com/"><img border="0" src="/images/logo_EmetrixText.gif" width="271" height="30"></a><img border="0" src="/images/logo_EmetrixSpacer.gif" width="244" height="30"></td>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="762">
+  <tr>
+    <td width="125" background="/images/circuitboard_bg.gif" rowspan="10" valign="top">
+      <div align="left">
+        <table border="0" cellpadding="0" cellspacing="0" width="125">
+          <tr>
+            <td><a href="https://developer.emetrix.com/"><img border="0" src="/images/logo_EmetrixSymbol.jpg" width=125 height=87 align="top"></a></td>
+          </tr>
+          <tr>
+            <td><img border="0" src="/images/circuitboard_sp1.gif" width="125" height="25"></td>
+          </tr>
+          <tr>
+            <td><a href="/storefront/"><img border="0" src="/images/nav_MyStorefront.gif" width="125" height="24" alt="My Storefront"></a></td>
+          </tr>
+          <tr>
+            <td><img border="0" src="/images/5tall.gif" width="1" height="5"></td>
+          </tr>
+          <tr>
+            <td><a href="/customers/"><img border="0" src="/images/nav_MyCustomers.gif" width="125" height="24" alt="My Customers"></a></td>
+          </tr>
+          <tr>
+            <td><img border="0" src="/images/5tall.gif" width="1" height="5"></td>
+          </tr>
+          <tr>
+            <td><a href="/reports/"><img border="0" src="/images/nav_MyReports.gif" width="125" height="24" alt="My Reports"></a></td>
+          </tr>
+          <tr>
+            <td><img border="0" src="/images/5tall.gif" width="1" height="5"></td>
+          </tr>
+          <tr>
+            <td><a href="/affiliates/"><img border="0" src="/images/nav_MyAffiliates.gif" width="125" height="24" alt="My Affiliates"></a></td>
+          </tr>
+          <tr>
+            <td><img border="0" src="/images/5tall.gif" width="1" height="5"></td>
+          </tr>
+          <tr>
+            <td><a href="/marketing/"><img border="0" src="/images/nav_MyMarketing.gif" width="125" height="24" alt="My Marketing"></a></td>
+          </tr>          
+          <tr>
+            <td><img border="0" src="/images/5tall.gif" width="1" height="5"></td>
+          </tr>          
+          <tr>
+            <td><a href="/profile/"><img border="0" src="/images/nav_MyProfile.gif" width="125" height="24" alt="My Profile"></a></td>
+          </tr>
+          <tr>
+            <td><img border="0" src="/images/5tall.gif" width="1" height="5"></td>
+          </tr>
+          <tr>
+            <td><a href="/support/"><img border="0" src="/images/nav_MySupport.gif" width="125" height="24" alt="My Support"></a></td>
+          </tr>
+          <tr>
+            <td><img border="0" src="/images/circuitboard_sp2.gif" width="125" height="139"></td>
+          </tr>
+          <tr>
+            <td><img border="0" src="/images/wires.gif" width="125" height="29"></td>
+          </tr>
+          <tr>
+            <td></td>
+          </tr>
+        </table>
+      </div>
+    </td>
+    <td bgcolor="#FFFFFF" valign="top" align="left" width="3" rowspan="4"><img border="0" src="/images/wires_tips.gif" width="3" height="548"></td>
+    <td bgcolor="#153A5F" valign="top" align="left" width="562" colspan="3">
+
+        
+<div align="center">
+  <table border="0" cellpadding="0" cellspacing="0" width="562">
+    <tr>
+      <td width="562" colspan="3" valign="top" align="left">
+      <map name="StorefrontMap">
+<area href="/storefront/productwizard1.asp" shape="rect" coords="22, 56, 113, 73" alt="Product Add">
+<area href="/storefront/productupdate.asp" shape="rect" coords="117, 56, 225, 73" alt="Product Update">
+<area href="/storefront/upsell.asp" shape="rect" coords="230, 56, 324, 73" alt="Upsell Rules">
+<area href="/storefront/customorderform.asp" shape="rect" coords="328, 56, 418, 73" alt="Form Builder">
+<area href="/storefront/emailcustom.asp" shape="rect" coords="423, 56, 559, 73" alt="Email Confirmations">
+</map>
+
+<img border="0" src="/images/header_MyStoreFront.gif" usemap="#StorefrontMap" width="562" height="79"><br>
+
+      </td>
+    </tr>
+      <td width="5"></td>
+      <td width="552"><br><font face="Verdana" size="2"><b>Send Full Version Download Link</b></font><br><br>
+      <font face="Verdana" size="1">
+
+<div align="left">
+  <table border="0" cellpadding="4" cellspacing="0" width="540">
+    <tr>
+      <form action="/storefront/send_DL.asp" method="post" name="f1">
+      <td align="left"><font face="Verdana" size="1">Select a Product:</font><br>
+      <select name="ProductID" onChange="document.f1.submit()">
+      <option></option>
+      <option value=11784033 selected>Windows Audio Recorder Professional</option>
+
+      </select>
+      <input type="hidden" name="EmailAddress" value="">
+      <br><br><td>
+      </form>
+    </tr>
+  </table>
+</div>
+
+<div align="left">
+  <table border="0" cellpadding="0" cellspacing="1" width="540">
+    <tr>
+      <td width="540" align="left" valign="bottom"><font face="Verdana" size="1"><br><b>Click below to download the full version of Windows Audio Recorder Professional</b>:
+      <a href="http://www.emetrix.com/sd/8117903/25551048/Official_Recorder_Professional.exe">http://www.emetrix.com/sd/8117903/25551048/Official_Recorder_Professional.exe</a>
+      </font></td>
+    </tr>
+  </table>
+</div>
+
+
+      </font>
+      </td>
+      <td width="5"></td>
+    </tr>
+  </table>
+</div>
+
+<script language="JavaScript">
+<!----//
+function logoffcancel(url) {
+ if (confirm("Are you sure you want to logoff?\n\nClick OK to logoff.\nClick Cancel to return."))
+         {
+         window.location=url;
+         return;
+         }
+}
+//---->
+</script>
+
+    <br><img src="/images/5wide.gif"><font face="Verdana" size="1">[ <a href="JavaScript:logoffcancel('/logoff.asp')">logoff ghost_e</a> ]</font><br>
+
+    <img src="/images/5tall.gif"><br><img src="/images/5wide.gif"><font face="Verdana" size="1">© 2000 - 2010 Emetrix. All rights reserved. <a href="http://www.emetrix.com/company/legal.asp">Legal</a> | <a href="http://www.emetrix.com/company/privacy.asp">Privacy</a><br>
+    <img src="/images/5tall.gif"></font></td>
+    <td bgcolor="#FFFFFF" valign="top" align="left" rowspan="2" width="2"></td>
+    <td bgcolor="#000000" valign="top" align="left" rowspan="2" width="70">
+      <img border="0" src="/images/filmstrip.gif" width="70" height="548">
+    </td>
+  </tr>
+
+</table>
+
+
+
+</body>
+
+</html>
+============================================
+
+
+<html>
+
+<head>
+<title>Send Full Version Download Link | Emetrix Developer Administration</title>
+</head>
+<SCRIPT LANGUAGE="JavaScript">
+<!-- Begin
+function win() {
+window.open("/admin/lookup/productlookup.asp","","height=600,width=800,left=1,top=1,scrollbars=1,resizable=1");
+}
+// End -->
+</script>
+<BODY BGCOLOR="#153A5F" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" background="/images/background_main.gif" link="#D1D1D1" alink="#D1D1D1" vlink="#D1D1D1" text="#D1D1D1">
+
+<table border="0" width="762" cellpadding="0" cellspacing="0">
+  <tr>
+    <td><a href="http://www.emetrix.com/"><img border="0" src="/images/logo_EmetrixText.gif" width="271" height="30"></a><img border="0" src="/images/logo_EmetrixSpacer.gif" width="244" height="30"></td>
+  </tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="0" width="762">
+  <tr>
+    <td width="125" background="/images/circuitboard_bg.gif" rowspan="10" valign="top">
+      <div align="left">
+        <table border="0" cellpadding="0" cellspacing="0" width="125">
+          <tr>
+            <td><a href="https://developer.emetrix.com/"><img border="0" src="/images/logo_EmetrixSymbol.jpg" width=125 height=87 align="top"></a></td>
+          </tr>
+          <tr>
+            <td><img border="0" src="/images/circuitboard_sp1.gif" width="125" height="25"></td>
+          </tr>
+          <tr>
+            <td><a href="/storefront/"><img border="0" src="/images/nav_MyStorefront.gif" width="125" height="24" alt="My Storefront"></a></td>
+          </tr>
+          <tr>
+            <td><img border="0" src="/images/5tall.gif" width="1" height="5"></td>
+          </tr>
+          <tr>
+            <td><a href="/customers/"><img border="0" src="/images/nav_MyCustomers.gif" width="125" height="24" alt="My Customers"></a></td>
+          </tr>
+          <tr>
+            <td><img border="0" src="/images/5tall.gif" width="1" height="5"></td>
+          </tr>
+          <tr>
+            <td><a href="/reports/"><img border="0" src="/images/nav_MyReports.gif" width="125" height="24" alt="My Reports"></a></td>
+          </tr>
+          <tr>
+            <td><img border="0" src="/images/5tall.gif" width="1" height="5"></td>
+          </tr>
+          <tr>
+            <td><a href="/affiliates/"><img border="0" src="/images/nav_MyAffiliates.gif" width="125" height="24" alt="My Affiliates"></a></td>
+          </tr>
+          <tr>
+            <td><img border="0" src="/images/5tall.gif" width="1" height="5"></td>
+          </tr>
+          <tr>
+            <td><a href="/marketing/"><img border="0" src="/images/nav_MyMarketing.gif" width="125" height="24" alt="My Marketing"></a></td>
+          </tr>          
+          <tr>
+            <td><img border="0" src="/images/5tall.gif" width="1" height="5"></td>
+          </tr>          
+          <tr>
+            <td><a href="/profile/"><img border="0" src="/images/nav_MyProfile.gif" width="125" height="24" alt="My Profile"></a></td>
+          </tr>
+          <tr>
+            <td><img border="0" src="/images/5tall.gif" width="1" height="5"></td>
+          </tr>
+          <tr>
+            <td><a href="/support/"><img border="0" src="/images/nav_MySupport.gif" width="125" height="24" alt="My Support"></a></td>
+          </tr>
+          <tr>
+            <td><img border="0" src="/images/circuitboard_sp2.gif" width="125" height="139"></td>
+          </tr>
+          <tr>
+            <td><img border="0" src="/images/wires.gif" width="125" height="29"></td>
+          </tr>
+          <tr>
+            <td></td>
+          </tr>
+        </table>
+      </div>
+    </td>
+    <td bgcolor="#FFFFFF" valign="top" align="left" width="3" rowspan="4"><img border="0" src="/images/wires_tips.gif" width="3" height="548"></td>
+    <td bgcolor="#153A5F" valign="top" align="left" width="562" colspan="3">
+
+        
+<div align="center">
+  <table border="0" cellpadding="0" cellspacing="0" width="562">
+    <tr>
+      <td width="562" colspan="3" valign="top" align="left">
+      <map name="StorefrontMap">
+<area href="/storefront/productwizard1.asp" shape="rect" coords="22, 56, 113, 73" alt="Product Add">
+<area href="/storefront/productupdate.asp" shape="rect" coords="117, 56, 225, 73" alt="Product Update">
+<area href="/storefront/upsell.asp" shape="rect" coords="230, 56, 324, 73" alt="Upsell Rules">
+<area href="/storefront/customorderform.asp" shape="rect" coords="328, 56, 418, 73" alt="Form Builder">
+<area href="/storefront/emailcustom.asp" shape="rect" coords="423, 56, 559, 73" alt="Email Confirmations">
+</map>
+
+<img border="0" src="/images/header_MyStoreFront.gif" usemap="#StorefrontMap" width="562" height="79"><br>
+
+      </td>
+    </tr>
+      <td width="5"></td>
+      <td width="552"><br><font face="Verdana" size="2"><b>Send Full Version Download Link</b></font><br><br>
+      <font face="Verdana" size="1">
+
+<div align="left">
+  <table border="0" cellpadding="4" cellspacing="0" width="540">
+    <tr>
+      <form action="/storefront/send_DL.asp" method="post" name="f1">
+      <td align="left"><font face="Verdana" size="1">Select a Product:</font><br>
+      <select name="ProductID" onChange="document.f1.submit()">
+      <option></option>
+      <option value=11784033 selected>Windows Audio Recorder Professional</option>
+
+      </select>
+      <input type="hidden" name="EmailAddress" value="">
+      <br><br><td>
+      </form>
+    </tr>
+  </table>
+</div>
+
+<div align="left">
+  <table border="0" cellpadding="0" cellspacing="1" width="540">
+    <tr>
+      <td width="540" align="left" valign="bottom"><font face="Verdana" size="1"><br><b>Click below to download the full version of Windows Audio Recorder Professional</b>:
+      <a href="http://www.emetrix.com/sd/8117903/25551048/Official_Recorder_Professional.exe">http://www.emetrix.com/sd/8117903/25551048/Official_Recorder_Professional.exe</a>
+      </font></td>
+    </tr>
+  </table>
+</div>
+
+
+      </font>
+      </td>
+      <td width="5"></td>
+    </tr>
+  </table>
+</div>
+
+<script language="JavaScript">
+<!----//
+function logoffcancel(url) {
+ if (confirm("Are you sure you want to logoff?\n\nClick OK to logoff.\nClick Cancel to return."))
+         {
+         window.location=url;
+         return;
+         }
+}
+//---->
+</script>
+
+    <br><img src="/images/5wide.gif"><font face="Verdana" size="1">[ <a href="JavaScript:logoffcancel('/logoff.asp')">logoff ghost_e</a> ]</font><br>
+
+    <img src="/images/5tall.gif"><br><img src="/images/5wide.gif"><font face="Verdana" size="1">© 2000 - 2010 Emetrix. All rights reserved. <a href="http://www.emetrix.com/company/legal.asp">Legal</a> | <a href="http://www.emetrix.com/company/privacy.asp">Privacy</a><br>
+    <img src="/images/5tall.gif"></font></td>
+    <td bgcolor="#FFFFFF" valign="top" align="left" rowspan="2" width="2"></td>
+    <td bgcolor="#000000" valign="top" align="left" rowspan="2" width="70">
+      <img border="0" src="/images/filmstrip.gif" width="70" height="548">
+    </td>
+  </tr>
+
+</table>
+
+
+
+</body>
+
+</html>
+============================================
+Links:
+
+0.  ==> http://www.emetrix.com/
+1.  ==> https://developer.emetrix.com/
+2.  ==> /storefront/
+3.  ==> /customers/
+4.  ==> /reports/
+5.  ==> /affiliates/
+6.  ==> /marketing/
+7.  ==> /profile/
+8.  ==> /support/
+9.  ==> /storefront/productwizard1.asp
+10.  ==> /storefront/productupdate.asp
+11.  ==> /storefront/upsell.asp
+12.  ==> /storefront/customorderform.asp
+13.  ==> /storefront/emailcustom.asp
+14. http://www.emetrix.com/sd/8117903/25551048/Official_Recorder_Professional.exe ==> http://www.emetrix.com/sd/8117903/25551048/Official_Recorder_Professional.exe
+15. logoff ghost_e ==> JavaScript:logoffcancel('/logoff.asp')
+16. Legal ==> http://www.emetrix.com/company/legal.asp
+17. Privacy ==> http://www.emetrix.com/company/privacy.asp
+
+[Link(base_url='https://developer.emetrix.com/storefront/send_DL.asp?PID=11784033&UN=ghost_e&FFN=Official_Recorder_Professional.exe&PN=Windows%20Audio%20Recorder%20Professional&FFS=5119714', url='http://www.emetrix.com/', text='', tag='a', attrs=[('href', 'http://www.emetrix.com/')]), Link(base_url='https://developer.emetrix.com/storefront/send_DL.asp?PID=11784033&UN=ghost_e&FFN=Official_Recorder_Professional.exe&PN=Windows%20Audio%20Recorder%20Professional&FFS=5119714', url='https://developer.emetrix.com/', text='', tag='a', attrs=[('href', 'https://developer.emetrix.com/')]), Link(base_url='https://developer.emetrix.com/storefront/send_DL.asp?PID=11784033&UN=ghost_e&FFN=Official_Recorder_Professional.exe&PN=Windows%20Audio%20Recorder%20Professional&FFS=5119714', url='/storefront/', text='', tag='a', attrs=[('href', '/storefront/')]), Link(base_url='https://developer.emetrix.com/storefront/send_DL.asp?PID=11784033&UN=ghost_e&FFN=Official_Recorder_Professional.exe&PN=Windows%20Audio%20Recorder%20Professional&FFS=5119714', url='/customers/', text='', tag='a', attrs=[('href', '/customers/')]), Link(base_url='https://developer.emetrix.com/storefront/send_DL.asp?PID=11784033&UN=ghost_e&FFN=Official_Recorder_Professional.exe&PN=Windows%20Audio%20Recorder%20Professional&FFS=5119714', url='/reports/', text='', tag='a', attrs=[('href', '/reports/')]), Link(base_url='https://developer.emetrix.com/storefront/send_DL.asp?PID=11784033&UN=ghost_e&FFN=Official_Recorder_Professional.exe&PN=Windows%20Audio%20Recorder%20Professional&FFS=5119714', url='/affiliates/', text='', tag='a', attrs=[('href', '/affiliates/')]), Link(base_url='https://developer.emetrix.com/storefront/send_DL.asp?PID=11784033&UN=ghost_e&FFN=Official_Recorder_Professional.exe&PN=Windows%20Audio%20Recorder%20Professional&FFS=5119714', url='/marketing/', text='', tag='a', attrs=[('href', '/marketing/')]), Link(base_url='https://developer.emetrix.com/storefront/send_DL.asp?PID=11784033&UN=ghost_e&FFN=Official_Recorder_Professional.exe&PN=Windows%20Audio%20Recorder%20Professional&FFS=5119714', url='/profile/', text='', tag='a', attrs=[('href', '/profile/')]), Link(base_url='https://developer.emetrix.com/storefront/send_DL.asp?PID=11784033&UN=ghost_e&FFN=Official_Recorder_Professional.exe&PN=Windows%20Audio%20Recorder%20Professional&FFS=5119714', url='/support/', text='', tag='a', attrs=[('href', '/support/')]), Link(base_url='https://developer.emetrix.com/storefront/send_DL.asp?PID=11784033&UN=ghost_e&FFN=Official_Recorder_Professional.exe&PN=Windows%20Audio%20Recorder%20Professional&FFS=5119714', url='/storefront/productwizard1.asp', text='', tag='area', attrs=[('href', '/storefront/productwizard1.asp'), ('shape', 'rect'), ('coords', '22, 56, 113, 73'), ('alt', 'Product Add')]), Link(base_url='https://developer.emetrix.com/storefront/send_DL.asp?PID=11784033&UN=ghost_e&FFN=Official_Recorder_Professional.exe&PN=Windows%20Audio%20Recorder%20Professional&FFS=5119714', url='/storefront/productupdate.asp', text='', tag='area', attrs=[('href', '/storefront/productupdate.asp'), ('shape', 'rect'), ('coords', '117, 56, 225, 73'), ('alt', 'Product Update')]), Link(base_url='https://developer.emetrix.com/storefront/send_DL.asp?PID=11784033&UN=ghost_e&FFN=Official_Recorder_Professional.exe&PN=Windows%20Audio%20Recorder%20Professional&FFS=5119714', url='/storefront/upsell.asp', text='', tag='area', attrs=[('href', '/storefront/upsell.asp'), ('shape', 'rect'), ('coords', '230, 56, 324, 73'), ('alt', 'Upsell Rules')]), Link(base_url='https://developer.emetrix.com/storefront/send_DL.asp?PID=11784033&UN=ghost_e&FFN=Official_Recorder_Professional.exe&PN=Windows%20Audio%20Recorder%20Professional&FFS=5119714', url='/storefront/customorderform.asp', text='', tag='area', attrs=[('href', '/storefront/customorderform.asp'), ('shape', 'rect'), ('coords', '328, 56, 418, 73'), ('alt', 'Form Builder')]), Link(base_url='https://developer.emetrix.com/storefront/send_DL.asp?PID=11784033&UN=ghost_e&FFN=Official_Recorder_Professional.exe&PN=Windows%20Audio%20Recorder%20Professional&FFS=5119714', url='/storefront/emailcustom.asp', text='', tag='area', attrs=[('href', '/storefront/emailcustom.asp'), ('shape', 'rect'), ('coords', '423, 56, 559, 73'), ('alt', 'Email Confirmations')]), Link(base_url='https://developer.emetrix.com/storefront/send_DL.asp?PID=11784033&UN=ghost_e&FFN=Official_Recorder_Professional.exe&PN=Windows%20Audio%20Recorder%20Professional&FFS=5119714', url='http://www.emetrix.com/sd/8117903/25551048/Official_Recorder_Professional.exe', text='http://www.emetrix.com/sd/8117903/25551048/Official_Recorder_Professional.exe', tag='a', attrs=[('href', 'http://www.emetrix.com/sd/8117903/25551048/Official_Recorder_Professional.exe')]), Link(base_url='https://developer.emetrix.com/storefront/send_DL.asp?PID=11784033&UN=ghost_e&FFN=Official_Recorder_Professional.exe&PN=Windows%20Audio%20Recorder%20Professional&FFS=5119714', url="JavaScript:logoffcancel('/logoff.asp')", text='logoff ghost_e', tag='a', attrs=[('href', "JavaScript:logoffcancel('/logoff.asp')")]), Link(base_url='https://developer.emetrix.com/storefront/send_DL.asp?PID=11784033&UN=ghost_e&FFN=Official_Recorder_Professional.exe&PN=Windows%20Audio%20Recorder%20Professional&FFS=5119714', url='http://www.emetrix.com/company/legal.asp', text='Legal', tag='a', attrs=[('href', 'http://www.emetrix.com/company/legal.asp')]), Link(base_url='https://developer.emetrix.com/storefront/send_DL.asp?PID=11784033&UN=ghost_e&FFN=Official_Recorder_Professional.exe&PN=Windows%20Audio%20Recorder%20Professional&FFS=5119714', url='http://www.emetrix.com/company/privacy.asp', text='Privacy', tag='a', attrs=[('href', 'http://www.emetrix.com/company/privacy.asp')])]
+
+===============Way 1 showlinks() method to Get the link you want.=============================
+
+http://www.emetrix.com/sd/8117903/25551048/Official_Recorder_Professional.exe
+
+===============Way 2 regular expression to Get the link you want.=============================
+
+http://www.emetrix.com/sd/8117903/25551048/Official_Recorder_Professional.exe
+

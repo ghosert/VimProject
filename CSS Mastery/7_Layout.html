@@ -1,0 +1,339 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+	<head>
+		<style type="text/css">
+			<!--
+
+		        /* Centering a design using auto margins. */
+			    body {
+					text-align: center; /* For IE6 bug, page 135. */
+				}
+			    #wrapper1 {
+					width: 720px;
+					margin: 0 auto; /* means top left here.*/
+					border: 2px solid #fff;
+					text-align: left; /* For IE6 bug, page 135. */
+				}
+				/* Two-column floated layout. */
+				#wrapper1 #branding {
+					border: 2px solid #fff;
+				}
+				#wrapper1 #content {
+					/* The plus of width of content and mainNav equals 520 + 180 = 700px while wrapper1 is 720px, so there is a 20 virtual gutter.
+					We use this method rather than horizontal margin or padding to create gutters because of IE bugs.
+					*/
+					width: 520px;
+					float: right;
+					border: 2px solid #fff;
+				}
+				#wrapper1 #mainNav {
+					width: 180px;
+					float: left;
+					border: 2px solid #fff;
+				}
+				#wrapper1 #footer {
+					clear: both;
+					border: 2px solid #fff;
+				}
+				#wrapper1 #mainNav {
+					padding-top: 20px;
+					padding-bottom: 20px;
+				}
+				#wrapper1 #mainNav li {
+					/* For the HORIZONTAL, add horizontal padding to the navigation area's content not navigation itself. Or IE 5.x it's not ok.*/
+					padding-left: 20px;
+					padding-right: 20px;
+				}
+				#wrapper1 #content h1, #wrapper1 #content h2, #wrapper1 #content p {
+					/* For the HORIZONTAL, add horizontal padding to the navigation area's content not navigation itself. Or IE 5.x it's not ok.*/
+					padding-right: 20px;
+				}
+				/* Three-column floated layout. */
+				#wrapper1 #mainContent {
+					width: 320px;
+					float: left;
+					border: 2px solid #fff;
+				}
+				#wrapper1 #secondaryContent {
+					width: 180px;
+					float: right;
+					border: 2px solid #fff;
+				}
+				#wrapper1 #secondaryContent h1, #wrapper1 #secondaryContent h2, #wrapper1 #secondaryContent p {
+					/* For the HORIZONTAL, add horizontal padding to the navigation area's content not navigation itself. Or IE 5.x it's not ok.*/
+					padding-left: 20px;
+					padding-right: 20px;
+				}
+				#wrapper1 {
+					/*
+					 * Faux columns technique:
+					 * You may have noticed that the navigation and secondary content areas on all these layouts
+					 * have been given a light gray background. Ideally the background would stretch the full
+					 * height of the layout, creating a column effect. However, because the navigation and secondary
+					 * content areas don’t span the full height, neither do their backgrounds.
+					 * To create the column effect, you need to create fake columns by applying a repeating
+					 * background image to an element that does span the full height of the layout, such as a
+					 * wrapper div.
+					 *
+					 * NOTICE: Below is the sample to prove the faux column technique for three-column, fixed-width layout. 
+					 *         For faux column technique for liquid layout, see the book CSS Mastery, page 151 - 152.
+					 */
+					background: #fff url(images/bg-fixed.gif) repeat-y left top;
+				}
+
+				/* Above are fixed-width layout designs, they are easy to be controlled over layout and positioning. But they have downsides:
+				1. Not good for small or large screen resolutions.
+				2. increase the text size cause problem.
+				To sovle these issues we use liquid or elastic layout instead of fixed-width layout below.
+				With liquid layouts, dimensions are set using percentages instead of pixels. (liquid layouts have their own problem, see page 142.)
+				*/
+			    #wrapper2 {
+					width: 85%;
+					margin: 0 auto; /* means top left here.*/
+					border: 2px solid #fff;
+					text-align: left; /* For IE6 bug, page 135. */
+				}
+				/* Two-column floated layout. */
+				#wrapper2 #branding {
+					border: 2px solid #fff;
+					height: 171px;
+
+					/* Handle pixel fixed image in liquid/elastic layout page.
+					 * 1. Consider background image, as the branding element scales, more or less image will be revealed.
+					 *    By this way, when you browser window scales, your pixel-fixed image will not break the layout.
+					 * 2. If you do need image element, see #wrapper2 #footer sample below.
+					 * 3. Giving images a percentage width and max-width to make sure they scale nicely and never larger than its actual size.
+					 *    See sample in #wrapper2 #mainContent .news blow.
+					 */
+					background: url(images/branding.png) no-repeat right top;
+				}
+				#wrapper2 #content {
+					/* The plus of width of content and mainNav equals 75% + 23% = 98% while wrapper2 is 100%, so there is a 2% virtual gutter.
+					We use this method rather than horizontal margin or padding to create gutters because of IE bugs.
+					*/
+					width: 75%;
+					float: right;
+					border: 2px solid #fff;
+				}
+				#wrapper2 #mainNav {
+					width: 23%;
+					float: left;
+					border: 2px solid #fff;
+				}
+				#wrapper2 #footer {
+					clear: both;
+					border: 2px solid #fff;
+					/* Set width 100% and overflow: hidden to make sure the image element inner will not break the layout once the window scales. */
+					width: 100%;
+					overflow: hidden;
+				}
+				#wrapper2 #mainNav {
+					padding-top: 20px;
+					padding-bottom: 20px;
+				}
+				#wrapper2 #mainNav li {
+					/* For the HORIZONTAL, add horizontal padding to the navigation area's content not navigation itself. Or IE 5.x it's not ok.*/
+					padding-left: 20px;
+					padding-right: 20px;
+				}
+				#wrapper2 #content h1, #wrapper2 #content h2, #wrapper2 #content p {
+					/* For the HORIZONTAL, add horizontal padding to the navigation area's content not navigation itself. Or IE 5.x it's not ok.*/
+					padding-right: 20px;
+				}
+				/* Three-column floated layout. */
+				#wrapper2 #mainContent {
+					width: 66%;
+					float: left;
+					border: 2px solid #fff;
+				}
+				#wrapper2 #secondaryContent {
+					/* To make sure the secondaryContent is same width as mainnavigation 75% / 23% * 100% = 31%.
+					   and then leave 3% as the gutter, we get 100% - 31% - 3% = 66% as the width of mainContent. */
+					width: 31%;
+					float: right;
+					border: 2px solid #fff;
+				}
+				#wrapper2 #secondaryContent h1, #wrapper2 #secondaryContent h2, #wrapper2 #secondaryContent p {
+					/* For the HORIZONTAL, add horizontal padding to the navigation area's content not navigation itself. Or IE 5.x it's not ok.*/
+					padding-left: 20px;
+					padding-right: 20px;
+				}
+				#wrapper2 #mainContent .news img {
+					width: 25%;
+					max-width: 200px;
+					float: left;
+					padding: 2%;
+				}
+				#wrapper2 #mainContent .news p {
+					width: 68%;
+					float: right;
+					padding: 2% 2% 2% 0;
+				}
+
+				/* Elastic layout:
+				Elastic layouts work by setting the width of elements relative to the font size instead of the
+				browser width. By setting widths in ems, you ensure that when the font size is increased
+				the whole layout scales. This allows you to keep line lengths to a readable size and is particularly
+				useful for people with reduced vision or cognitive disorders.
+				1em roughly equals 10 pixels. */
+				
+				#wrapper3 {
+					/* Since default font size is 16 pixels and 1em = 10 pixels, the default 16 pixels will large the whole layout.
+					 * To make sure the width of wrapper1 and wrapper3 is same, reduce the font-size by default-size * 10/16(62.5%)
+					 * And now change the font size in browser will cause whole layout scale.
+					 */
+					font-size: 62.5%; 
+				}
+				#wrapper3 {
+					width: 72em;  /* equal to 720 pixels above. */
+
+					mix-width: 100%; /* elastic, liquid hybrid to make sure on browsers that support max-width,
+					                    this layout will scale relative to the font size but will never get any larger than the width of the window */
+					margin: 0 auto;
+					text-align: left;
+					border: 2px solid #fff;
+				}
+				#wrapper3 #branding {
+					border: 2px solid #fff;
+				}
+				#wrapper3 #mainNav {
+					width: 18em;
+					max-width: 23%; /* elastic, liquid hybrid. */
+					float: left;
+					border: 2px solid #fff;
+				}
+				#wrapper3 #footer {
+					clear: both;
+					border: 2px solid #fff;
+				}
+				#wrapper3 #content {
+					width: 52em;
+					max-width: 75%; /* elastic, liquid hybrid. */
+					float: right;
+					border: 2px solid #fff;
+				}
+				#wrapper3 #mainContent {
+					width: 32em;
+					max-width: 66%; /* elastic, liquid hybrid. */
+					float: right;
+					float: left;
+					border: 2px solid #fff;
+				}
+				#wrapper3 #secondaryContent {
+					width: 18em;
+					max-width: 31%; /* elastic, liquid hybrid. */
+					float: right;
+					border: 2px solid #fff;
+				}
+				
+			-->
+		</style>
+	</head>
+	<body>
+		<!-- Centering a design using auto margins. -->
+		<div id="wrapper1">
+			<div id="branding">
+				<p> I'm branding. </p>
+				<p>
+					Centering a design using auto margins.
+				</p>
+			</div>
+			<div id="content">
+				<div id="mainContent">
+				    <p> I'm mainContent in fixed-width layout div. </p>
+				</div>
+				<div id="secondaryContent">
+				    <p> I'm secondaryContent. </p>
+				</div>
+			</div>
+			<div id="mainNav">
+				<ul>
+					<li>First Item</li>
+					<li>Second Item</li>
+					<li>Third Item</li>
+				</ul>
+			</div>
+			<div id="footer">
+				<p> I'm footer. </p>
+			</div>
+		</div>
+
+		<br/>
+
+		<!-- Liquid layouts, dimentions are set using percentages instead of pixels. -->
+		<div id="wrapper2">
+			<div id="branding">
+				<p> I'm branding. </p>
+				<p>
+					Centering a design using auto margins.
+				</p>
+			</div>
+			<div id="content">
+				<div id="mainContent">
+				    <p> I'm mainContent in liquid layout div. </p>
+					<div class="news">
+						<img src="images/andy.jpg">
+						<p>
+						    Blah, blah, blah, blah, blah, blah, blah, blah, blah, blah
+						    Blah, blah, blah, blah, blah, blah, blah, blah, blah, blah
+						    Blah, blah, blah, blah, blah, blah, blah, blah, blah, blah
+						    Blah, blah, blah, blah, blah, blah, blah, blah, blah, blah
+						    Blah, blah, blah, blah, blah, blah, blah, blah, blah, blah
+						    Blah, blah, blah, blah, blah, blah, blah, blah, blah, blah
+						    Blah, blah, blah, blah, blah, blah, blah, blah, blah, blah
+						    Blah, blah, blah, blah, blah, blah, blah, blah, blah, blah
+						    Blah, blah, blah, blah, blah, blah, blah, blah, blah, blah
+						    Blah, blah, blah, blah, blah, blah, blah, blah, blah, blah
+						    Blah, blah, blah, blah, blah, blah, blah, blah, blah, blah
+						</p>
+					</div>
+				</div>
+				<div id="secondaryContent">
+				    <p> I'm secondaryContent. </p>
+				</div>
+			</div>
+			<div id="mainNav">
+				<ul>
+					<li>First Item</li>
+					<li>Second Item</li>
+					<li>Third Item</li>
+				</ul>
+			</div>
+			<div id="footer">
+				<img src="images/branding.png" width="1600" height="171" />
+			</div>
+		</div>
+
+		<br/>
+
+		<!-- Elastic layout. -->
+		<div id="wrapper3">
+			<div id="branding">
+				<p> I'm branding. </p>
+				<p>
+					Centering a design using auto margins.
+				</p>
+			</div>
+			<div id="content">
+				<div id="mainContent">
+				    <p> I'm mainContent in elastic layout div. </p>
+				</div>
+				<div id="secondaryContent">
+				    <p> I'm secondaryContent. </p>
+				</div>
+			</div>
+			<div id="mainNav">
+				<ul>
+					<li>First Item</li>
+					<li>Second Item</li>
+					<li>Third Item</li>
+				</ul>
+			</div>
+			<div id="footer">
+				<p> I'm footer. </p>
+			</div>
+		</div>
+
+	</body>
+</html>
+

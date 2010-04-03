@@ -1,0 +1,74 @@
+<html>
+	<head>
+	<script>
+
+		function println(obj) {
+			document.write(obj + '<br/>');
+		}
+
+		// Untyped Language
+		var j = 'ten';
+		var j = 10;
+		println(j + ' ten'); // Because of weakly typed feature, js can converts values from one type to another automatically.
+
+		// Variable Declaration
+		var i;
+		var sum;
+		var i, sum;
+		var message = 'hello';
+		var i = 0, j = 0, k = 0;
+		println(sum); // print 'undefined' here because no initialized value for sum.
+		// println(ijk); // attempt to read an undeclared variable ijk here will lead to error.
+
+		globalvar = 0; // declared globalvar without 'var' keyword will be created as global variable implicityly.
+		println(globalvar); // so it's best to use var for all variables whether global or local.
+
+		// Variable Scope
+		var scope = "global"; // Declare a global variable
+		function checkscope() {
+			var scope = "local"; // Declare a local variable with the same name, without 'var' here means: use global 'scope' variable above.
+			println(scope); // Use the local variable, not the global one
+		}
+		checkscope(); // Prints "local"
+
+		// function can be nested so that local variable can be nested as well.
+		var scope = "global scope"; // A global variable
+		function checkscope( ) {
+			var scope = "local scope"; // A local variable
+			function nested( ) {
+				var scope = "nested scope"; // A nested scope of local variables
+				println(scope); // Prints "nested scope"
+			}
+			nested( );
+		}
+		checkscope( );
+
+		// No Block Scope
+		// All variables declared in a function, no matter where they are declared, are defined throughout the function.
+		function test(o) {
+			var i = 0; // i is defined throughout function
+			if (typeof o == "object") {
+				var j = 0; // j is defined everywhere, not just block
+				for(var k=0; k < 10; k++) { // k is defined everywhere, not just loop
+					println(k);
+				}
+				println(k); // k is still defined: prints 10
+			}
+			println(j); // j is defined, but may not be initialized: if o is not object, j exists like 'var j;' which will print 'undefined'
+		}
+		println('Test No Block Scope1: ');
+		test(1);
+		println('Test No Block Scope2: ');
+		test(new Object());
+
+		// Undefined Versus Unassigned
+		var xx;
+		println(xx); // xx here is unassigned varialbe(but declared) which will be printed as 'undefined'
+		// alert(uu); // uu here is undefined/undeclared variable, which will cause a runtime error.
+		uu = 3; // Assigning a value to an undelcared variable creates the variable as global variable.
+
+	</script>
+	</head>
+	<body>
+	</body>
+</html>

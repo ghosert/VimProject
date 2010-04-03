@@ -1,0 +1,104 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+<title>Audacity - Edit Menu</title>
+</head>
+
+<body text="#000000" link="#000099" vlink="#000099">
+
+<font color="#000099">
+<h1>Edit Menu</h1>
+</font>
+
+<p><b>Undo</b> - This will undo the last editing operation you performed to your
+project.  Audacity supports full unlimited undo - meaning
+you can undo every editing operation back to when you opened the window.
+</p>
+
+<p><b>Redo</b> - This will redo any editing operations that were just undone.
+After you perform a new editing operation,
+you can no longer redo the operations that were undone.
+</p>
+
+
+<p><b>Cut</b> - Removes the selected audio data and places it on the clipboard.
+Only one "thing" can be on the clipboard at a time, but it may
+contain multiple tracks.
+</p>
+
+
+<p><b>Copy</b> - Copies the selected audio data to the clipboard without
+removing it from the project.
+</p>
+
+
+<p><b>Paste</b> - Inserts whatever is on the clipboard at the position of the
+selection or cursor in the project, replacing whatever audio data
+is currently selected, if any.</p>
+
+<p><b>Trim</b> - Removes everything to the left and right of the selection.
+</p>
+
+<p><b>Delete</b> - Removes the audio data that is currently selected without
+copying it to the clipboard.</p>
+
+<p><b>Silence</b> - Erases the audio data currently selected, replacing it with
+silence instead of removing it.</p>
+
+<p><b>Split</b> - Moves the selected region into its own track or tracks,
+replacing the affected portion of the original track with silence.
+See the figure below:</p>
+
+<center><img border=0 src="images/split.png" width="320" height="88" alt="Split function illustration" /></center>
+
+<p><b>Duplicate</b> - Makes a copy of all or part of a track or set of tracks
+into new tracks.  See the figure below:
+<p/>
+
+<center><img border=0 src="images/duplicate.png" width="320" height="88" alt="Duplicate function illustration" /></center>
+
+<p><b>Select ... > All</b> - Selects all of the audio in all of the tracks.</p>
+
+<p><b>Select ... > Start to Cursor</b> - Selects from the beginning of the
+selected tracks to the cursor position.</p>
+
+<p><b>Select ... > Cursor to End</b> - Selects from the cursor position to the
+end of the selected tracks.</p>
+
+<p><b>Find Zero Crossings</b> - Modifies the selection slightly so that both
+the left and right edge of the selection appear on a positive-slope
+zero crossing.  This makes it easier to cut and paste audio without resulting
+in a large audible clicking sound.</p>
+
+<p><b>Selection Save</b> - Remembers the current selection (or cursor position),
+allowing you to restore it later.</p>
+
+<p><b>Selection Restore</b> - Restores the cursor position to the last position
+saved by "Selection Save".</p>
+
+<p><b>Move Cursor ... > to Track Start</b> - Moves the cursor to the start
+of the current track.</p>
+<p><b>Move Cursor ... > to Track End</b> - Move the cursor to the
+end of the currently selected track.</p>
+<p><b>Move Cursor ... > to Selection Start</b> - Moves the cursor
+to the start of the current selection.</p>
+<p><b>Move Cursor ... > to Selection End</b> - Moves the cursor to the
+end of the current selection.</p>
+
+<p><b>Snap-To ... > Snap On</b> - Enable Snap-To mode. When
+Snap-To mode is enabled, the selection will be
+constrained to the nearest interval, by default the nearest second.
+So if you click and drag from 4.2 seconds to 9.8 seconds, it will result
+in a selection from 4 seconds to 10 seconds, exactly.  You can change the
+units that are snapped to using the "Set Selection Format" option in the
+<a href="menu_view.htm">View Menu</a>.</p>
+
+<p><b>Snap-To ... > Snap Off</b> - Turns Snap-To mode off, letting you select
+arbitrary ranges of time.</p>
+
+<p><b>Preferences...</b> - opens the <a href="prefs.htm">Preferences</a>
+dialog.</p>
+
+</body>
+</html>
+

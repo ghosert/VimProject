@@ -1,0 +1,212 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+	<head>
+		<style type="text/css">
+			<!--
+
+			a:link {color: blue;}
+			a:visited {color: green;}
+			a:hover, a:active {color: red;} /* When hovered over or clicked, the link will be red. */
+
+			/* Make sure you apply your link styles in the following order: link, visited, hover, active */
+			/* Or the override issue will be caused. */
+			p#style1 a:link, p#style1 a:visited {
+				text-decoration: none;
+				font-weight: bold;
+			}
+			p#style1 a:hover, p#style1 a:active {
+				text-decoration: underline;
+			}
+
+			p#style2 a:link, p#style2 a:visited {
+				text-decoration: none;
+				font-weight: bold;
+				border-bottom: 1px dotted #000;
+			}
+			p#style2 a:hover, p#style2 a:active {
+				border-bottom-style: solid;
+			}
+
+			p#style3 a:link, p#style3 a:visited {
+				color:#666;
+				text-decoration: none;
+				background: url(images/underline1.gif) repeat-x left bottom;
+			}
+			p#style3 a:hover, p#style3 a:active {
+				background-image: url(images/underline1-hover.gif);
+			}
+
+			/* For external link, apply the externalLink icon. */
+			p#style4 a[href^="http:"] {
+				background: url(images/externalLink.gif) no-repeat right top;
+				padding-right: 10px;
+			}
+			/* Exclude your own site. */
+			p#style5 a[href^="http://www.yoursite.com"], a[href^="http://yoursite.com"] {
+				background-image: none;
+				padding-right: 0;
+			}
+
+			/* Link styled like a button. */
+			p#style6 a {
+				display: block;
+				width: 6em; /* dimensions needed for IE5.x/Win */
+				padding: 0.2em;
+				line-height: 1.4;
+				background-color: #94B8E9;
+				border: 1px solid black;
+				color: #000;
+				text-decoration: none;
+				text-align: center;
+			}
+			p#style6 a:hover {
+				background-color: #369;
+				color: #fff;
+			}
+
+			/* Link styled like a button, rather than using background-color, using background image instead for more complicated button. */
+			p#style7 a:link, p#style7 a:visited {
+				display: block;
+				width: 200px;
+				height: 40px;
+				line-height: 40px;
+				color: #000;
+				text-decoration: none;
+				background: #94B8E9 url(images/button.gif) no-repeat left top;
+				text-indent: 50px;
+			}
+			p#style7 a:hover {
+				background: #369 url(images/button-over.gif) no-repeat left top;
+				color: #fff;
+			}
+
+			/* Link styled like a button, using a single image rather than multiple ones for different button state. */
+			/* TODO: CSS Mastery.pdf page 79 is mentioned a IE bug, please confirm whether it is still there in IE7, 8 ? */
+			p#style8 a:link, p#style8 a:visited {
+				display: block;
+				width: 200px;
+				height: 40px;
+				line-height: 40px;
+				color: #000;
+				text-decoration: none;
+				background: #94B8E9 url(images/pixy-rollover.gif) no-repeat left top;
+				text-indent: 50px;
+			}
+			p#style8 a:hover {
+				background-color: #369;
+				background-position: right top; /* equals to background-position: -200px 0px; */
+				color: #fff;
+			}
+
+			/* Visited-link styles. */ 
+			ul {
+				list-style:none;
+			}
+			li {
+				margin: 5px 0;
+			}
+			li a {
+				display: block;
+				width: 300px;
+				height: 30px;
+				line-height: 30px;
+				color: #000;
+				text-decoration: none;
+				background: #94B8E9 url(images/visited.gif) no-repeat left top;
+				text-indent: 10px;
+			}
+			li a:visited {
+				background-position: right top;
+			}
+
+			/* Test tooltips when hovering over link. */
+			p#style9 .tooltip {
+				position: relative;
+			}
+			p#style9 .tooltip span {
+                /* Don't display anything when CSS is valid, but the content of span will be shown once CSS is invalid which make more sense. */
+				display: none;
+			}
+			p#style9 .tooltip:hover span { /* When hovering on link, set absolute position, top and left on span and paint a tooltip outline.*/
+				display:block;
+				position:absolute;
+				top:1em;
+				left:2em;
+				padding: 0.2em 0.6em;
+				border:1px solid #996633;
+				background-color:#FFFF66;
+				color:#000;
+				width: 150px;
+			}
+
+			-->
+		</style>
+	</head>
+	<body>
+
+		<p id="style1"><a href="#mainContent">Skip to main content</a></p>
+		<p id="style2"><a href="#mainContent">Skip to main content</a></p>
+		<p id="style3"><a href="#mainContent">Skip to main content</a></p>
+		<p id="style4"><a href="http://www.google.com" target="_blank">Skip to main content</a></p>
+		<p id="style5"><a href="http://www.yoursite.com">Skip to main content</a></p>
+		<p id="style6"><a href="http://www.google.com">Join Today!</a></p>
+		<p id="style7"><a href="http://www.google.com">Join Today!</a></p>
+		<p id="style8"><a href="http://www.google.com">Join Today!</a></p>
+		<ul>
+			<li><a href="http://www.andybudd.com/">Andy Budd's Blogography</a></li>
+			<li><a href="http://allthatmalarkey.co.uk/">Stuff and Nonsense</a></li>
+			<li><a href="http://www.hicksdesign.co.uk/">Hicks Design</a></li>
+			<li><a href="http://www.clagnut.com/">Clagnut</a></li>
+			<li><a href="http://www.htmldog.com/">HTML Dog</a></li>
+			<li><a href="http://adactio.com/journal/">Adactio</a></li>
+			<li><a href="http://www.allinthehead.com/">All In The Head</a></li>
+			<li><a href="http://www.markboulton.co.uk/">Mark Boulton</a></li>
+			<li><a href="http://www.ian-lloyd.com/">Ian Lloyd</a></li>
+		</ul>
+		<p id="style9">
+			<a href="http://www.andybudd.com/" class="tooltip">Andy Budd<span> (This website rocks) </span></a>
+			is a web developer based in Brighton England.<b>Test tooltips when hovering on link.</b>
+		</p>
+		<p>
+			Blah, blah, blah, blah, blah</br>
+			Blah, blah, blah, blah, blah</br>
+			Blah, blah, blah, blah, blah</br>
+			Blah, blah, blah, blah, blah</br>
+			Blah, blah, blah, blah, blah</br>
+			Blah, blah, blah, blah, blah</br>
+			Blah, blah, blah, blah, blah</br>
+			Blah, blah, blah, blah, blah</br>
+			Blah, blah, blah, blah, blah</br>
+			Blah, blah, blah, blah, blah</br>
+			Blah, blah, blah, blah, blah</br>
+			Blah, blah, blah, blah, blah</br>
+			Blah, blah, blah, blah, blah</br>
+			Blah, blah, blah, blah, blah</br>
+			Blah, blah, blah, blah, blah</br>
+			Blah, blah, blah, blah, blah</br>
+			Blah, blah, blah, blah, blah</br>
+			Blah, blah, blah, blah, blah</br>
+			Blah, blah, blah, blah, blah</br>
+			Blah, blah, blah, blah, blah</br>
+			Blah, blah, blah, blah, blah</br>
+			Blah, blah, blah, blah, blah</br>
+			Blah, blah, blah, blah, blah</br>
+			Blah, blah, blah, blah, blah</br>
+			Blah, blah, blah, blah, blah</br>
+			Blah, blah, blah, blah, blah</br>
+			Blah, blah, blah, blah, blah</br>
+			Blah, blah, blah, blah, blah</br>
+			Blah, blah, blah, blah, blah</br>
+			Blah, blah, blah, blah, blah</br>
+			Blah, blah, blah, blah, blah</br>
+			Blah, blah, blah, blah, blah</br>
+			Blah, blah, blah, blah, blah</br>
+			Blah, blah, blah, blah, blah</br>
+			Blah, blah, blah, blah, blah</br>
+			Blah, blah, blah, blah, blah</br>
+		</p>
+		<h1><a name="mainContent">Welcome</a></h1>
+
+	</body>
+</html>
+

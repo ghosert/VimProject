@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>flickr Style Image Maps</title>
+
+
+<style type="text/css">
+<!--
+
+/* :BUG: The example in the book uses an img element to display the image.
+However IE6/7 seems to have problems displaying the anchors as block when over an image element
+As such, I have updated the example to use background images instead */
+
+body {
+  font: 76%/1.8 "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+  background-color: #fff;
+}
+
+#pic {
+  width: 640px;
+  height: 425px;
+  position: relative;
+	background: url(images/group-photo.jpg) no-repeat;
+}
+
+#pic ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+#pic a {
+  position: absolute;
+  width: 100px;
+  height: 120px;
+  color: #000;
+  text-decoration: none;
+  border: 1px solid transparent;
+}
+
+
+#pic a .outer {
+  display: block;
+  width: 98px;
+  height: 118px;
+}
+
+#pic a .inner {
+  display: block;
+  width: 96px;
+  height: 116px;
+}
+
+#pic a:hover {
+  border-color: #d4d82d;
+}
+
+#pic:hover a .outer, #pic a:hover .outer {
+  border: 1px solid #000;
+}
+
+#pic:hover a .inner, #pic a:hover .inner {
+  border: 1px solid #fff;
+}
+
+
+#pic .rich a {
+  top: 15px;
+  left: 95px;
+}
+
+#pic .andy a {
+  top: 115px;
+  left: 280px;
+}
+
+#pic .jeremy a {
+  top: 250px;
+  left: 425px;
+}
+
+#pic a .note {
+  position: absolute;
+  bottom: -3em;
+  width: 9em;
+  padding: 0.2em 0.5em;
+  background-color:#ffc;
+  text-align: center;
+  left: -30000px;
+  margin-left: -5em;
+}
+
+#pic a:hover .note {
+  left: 50px;
+}
+
+
+
+-->
+</style>
+</head>
+
+<body>
+
+<div id="pic">
+<ul>
+<li class="rich"><a href="http://www.clagnut.com/"><span class="outer"><span class="inner"><span class="note">Richard Rutter</span></span></span></a></li>
+<li class="andy"><a href="http://www.andybudd.com/"><span class="outer"><span class="inner"><span class="note">Andy Budd</span></span></span></a></li>
+<li class="jeremy"><a href="http://www.adactio.com/"><span class="outer"><span class="inner"><span class="note">Jeremy Keith</span></span></span></a></li>
+</ul>
+</div>
+
+</body>
+</html>

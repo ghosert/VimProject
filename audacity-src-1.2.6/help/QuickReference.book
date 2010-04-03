@@ -1,0 +1,26 @@
+#HTMLDOC 1.8.24 Open Source
+#HTMLDOC This is used to create the PDF quick reference from the wxhelp simplified html sources. simply run $ htmldoc --batch QuickReference.doc; to create the pdf
+-t pdf14 -f QuickReference.pdf --webpage --no-title --logoimage wxhelp/images/audacity-blue-flat.png --linkcolor #0000ff --linkstyle underline --size Universal --left 1.00in --right 0.50in --top 0.50in --bottom 0.50in --header ... --footer ..1 --nup 1 --tocheader .t. --tocfooter ..i --portrait --color --no-pscommands --no-xrxcomments --compression=7 --jpeg=0 --fontsize 12.0 --fontspacing 1.2 --headingfont Helvetica --bodyfont Times --headfootsize 12.0 --headfootfont Helvetica --charset iso-8859-1 --links --no-embedfonts --pagemode document --pagelayout single --firstpage p1 --pageeffect none --pageduration 10 --effectduration 1.0 --no-encryption --permissions all  --owner-password ""  --user-password "" --browserwidth 680 --no-strict
+wxhelp/contents.htm
+wxhelp/toolbar_control.htm
+wxhelp/toolbar_mixer.htm
+wxhelp/toolbar_meter.htm
+wxhelp/toolbar_edit.htm
+wxhelp/menu_track.htm
+wxhelp/menu_file.htm
+wxhelp/menu_edit.htm
+wxhelp/menu_view.htm
+wxhelp/menu_project.htm
+wxhelp/menu_generate.htm
+wxhelp/menu_effect.htm
+wxhelp/menu_analyze.htm
+wxhelp/menu_help.htm
+wxhelp/track_audio.htm
+wxhelp/track_label.htm
+wxhelp/track_time.htm
+wxhelp/track_midi.htm
+wxhelp/prefs.htm
+wxhelp/fileformats.htm
+wxhelp/envelope.htm
+wxhelp/exportmp3.htm
+wxhelp/license.htm

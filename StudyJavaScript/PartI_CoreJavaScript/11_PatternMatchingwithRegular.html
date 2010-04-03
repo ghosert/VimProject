@@ -1,0 +1,253 @@
+<html>
+	<head>
+	<script>
+
+		function println(obj) {
+			document.write(obj + '<br/>');
+		}
+
+		// Defining Regular Expressions
+		var pattern = /s$/;
+		var pattern = new RegExp('s$');
+		println('jiaweis'.match(pattern));
+
+		var pattern = /s\$/; // use \ to escape meaningful character $
+		println('s$'.match(pattern));
+
+		/**
+			Table 11-1. Regular-expression literal characters
+			Character Matches Alphanumeric character Itself
+			\0 The NUL character (\u0000)
+			\t Tab (\u0009)
+			\n Newline (\u000A)
+			\v Vertical tab (\u000B)
+			\f Form feed (\u000C)
+			\r Carriage return (\u000D)
+			\xnn The Latin character specified by the hexadecimal number nn; for example, \x0A is the same as \n
+			\uxxxx The Unicode character specified by the hexadecimal number xxxx; for example, \u0009 is the same as \t
+			\cX The control character ^X; for example, \cJ is equivalent to the newline character \n
+
+			A number of punctuation characters have special meanings in regular expressions. They are:
+
+			^ $ . * + ? = ! : | \ / ( ) [ ] { }
+
+			Add \ preceding them as well.
+		**/		
+
+		println('c'.match(/[abc]/)); // c, any of a, b or c exists is fine.
+		println('abc'.match(/[abc]/)); // a
+
+		println('d'.match(/[^abc]/)); // d, any of characters other than a, b or c is fine.
+		println('a'.match(/[^abc]/)); // null, any of characters other than a, b or c is fine.
+
+		// /[a-z]/, /[a-zA-Z0-9]/
+
+		/**
+			Table 11-2. Regular expression character classes
+			Character Matches
+			[...] Any one character between the brackets.
+			[^...] Any one character not between the brackets.
+			. Any character except newline or another Unicode line terminator.
+			\w Any ASCII word character. Equivalent to [a-zA-Z0-9_].
+			\W Any character that is not an ASCII word character. Equivalent to [^a-zA-Z0-9_].
+			\s Any Unicode whitespace character.
+			\S Any character that is not Unicode whitespace. Note that \w and \S are not the same thing.
+			\d Any ASCII digit. Equivalent to [0-9].
+			\D Any character other than an ASCII digit. Equivalent to [^0-9].
+			[\b] A literal backspace (special case). // because \b means word boundary in regular expression.
+		**/
+		// special character-class escapes can be used within square brackets: /[\s\d]/ matches any one whitespace character or digit.
+		
+
+		// Repetition
+
+		var fourNumber = /\d\d\d\d/;
+		println('1234'.match(fourNumber));
+
+		/**
+			Table 11-3. Regular expression repetition characters
+			Character Meaning
+			{n,m} Match the previous item at least n times but no more than m times.
+			{n,} Match the previous item n or more times.
+			{n} Match exactly n occurrences of the previous item.
+			? Match zero or one occurrences of the previous item. That is, the previous item is optional.
+			Equivalent to {0,1}.
+			+ Match one or more occurrences of the previous item. Equivalent to {1,}.
+			* Match zero or more occurrences of the previous item. Equivalent to {0,}.
+		**/
+		// The following lines show some examples:
+		//	/\d{2,4}/		// Match between two and four digits
+		//	/\w{3}\d?/		// Match exactly three word characters and an optional digit
+		//	/\s+java\s+/	// Match "java" with one or more spaces before and after
+		//	/[^"]*/			// Match zero or more non-quote characters
+		
+
+		// Nongreedy repetition
+		// HOW: Simply follow the repetition character or characters with a question mark: ??, +?, *?, or even {1,5}?.
+		println('aaa'.match(/a+/)); // aaa
+		println('aaa'.match(/a+?/)); // a
+
+
+		// Alternation, Grouping, and References
+
+		// '|' for Alternation
+		/ab|cd|ef/; // matched the string 'ab' or 'cd' or 'ef'
+		/\d{3}|[a-z]{4}/; // matches either three digits or four lowercase letters.
+		println('ab'.match(/a|ab/)); // return a, alternatives are considered from left to right. if the left one matches, the right one is ignored.
+
+		// '()' for Grouping
+		// '()' have several purpose in regular expressions:
+		// One purpose is to group separate items into a single subexpression so that the items can be treated as a single unit by |, *, +, ?, e.g.:
+		println('javascript'.match(/java(script)?/)); // return "javascript, script" (how come? explain it below)
+		println('abcdef'.match(/(ab|cd)+|ef/)); // return "abcd, cd" (how come? explain it below)
+		// Another purpose is for grouping
+		println('111abcd1234aaa'.match(/[a-z]+(\d+)/)); // abcd1234, 1234
+		println('111abcd1234aaa'.match(/[a-z]+(\d+)/)[0]); // abcd1234, get whole matched one
+		println('111abcd1234aaa'.match(/[a-z]+(\d+)/)[1]); // 1234, get what matched in parentheses
+
+		// following a character by a digit or digits for References
+		// \digit is used to represent the former matched string in parentheses, notice nested parentheses are taken \2 below:
+		println('javascript is fun,javascript,script,fun'.match(/([Jj]ava([Ss]cript)?)\sis\s(fun\w*),\1,\2,\3/)); // \1=javascript \2=script \3=fun
+		var pattern = /['"][^'"]*['"]/;
+		var s = '"ddd\''; // means "ddd' here
+		println(s.match(pattern)); // s above is matched pattern above
+		var pattern = /(['"])[^'"]*\1/;
+		println(s.match(pattern)); // null, because of \1 above. only both single quotes or both double quotes can get not null.
+		println('"ddd"'.match(pattern)); // "ddd", both single quotes or both double quotes can get not null.
+		// group items in a regular expression without creating a numbered reference to those items, see below:
+		// instead of grouping the items within ( and ), begin the group with (?: and ) to skip numbered reference:
+		println('javascript is fun,javascript,fun'.match(/([Jj]ava(?:[Ss]cript)?)\sis\s(fun\w*),\1,\2/)); // \1=javascript \2=fun
+		// because of (?:[Ss]cript), \2 now refers to the text matched by (fun\w*)
+
+		// Specifying Match Position
+		println('hello java'.match(/\bjava\b/));
+		println('hello javascript'.match(/\bjava\b/));
+		println('hello javascript'.match(/\bjava\B/));
+		// (?= and )
+		// the below sample matched anything Java(Script) string, but it should contain colon subsequently.
+		println("JavaScript: The Definitive Guide".match(/[Jj]ava([Ss]cript)?(?=\:)/)); // matched, get JavaScript, Script
+		println("Java in a Nutshell".match(/[Jj]ava([Ss]cript)?(?=\:)/)); // not matched, since no :
+		// (?! and )
+		// the clause below matches "Java" followed by a capital letter and any \w, as long as "Java" is not followed by "Script"
+		println("JavaBeans".match(/Java(?!Script)([A-Z]\w*)/)); // matches
+		println("Javanese".match(/Java(?!Script)([A-Z]\w*)/)); // not matches
+		println("JavaScrip".match(/Java(?!Script)([A-Z]\w*)/)); // matches
+		println("JavaScript".match(/Java(?!Script)([A-Z]\w*)/)); // not matches
+		println("JavaScripter".match(/Java(?!Script)([A-Z]\w*)/)); // not matches
+
+		// Flags
+		// Instead of appearing within the slashes, flags appear following the second slash
+		// i: case-insensitive, g: global match, m: matching in multiline mode.
+		println("java hello Java".match(/\bJava\b/gi)); // java, Java
+		println("java\nisfun".match(/java$/)); // null
+		println("java\nisfun".match(/java$/m)); // java
+
+
+		// String Methods for Pattern Matching
+
+		// String.search(): return the position of the first matching substring or -1 if there is no match, doesn't support the flag 'g', will ignore it
+		println('JavaScript'.search(/script/i)); // return 4
+		println('JavaScript'.search('Script')); // return 4, will try to convert arguments to RegExp object.
+
+		// String.replace(): replace the finding text with new ones. support 'g', add flag 'g' means 'relace al'
+		println('javascript is not Javascript.'.replace(/javascript/gi, 'JavaScript')); // replace all 'javascript' like string, ignore capital or not
+		// A quote is a quotation mark, followed by any number of
+		// nonquotation-mark characters (which we remember), followed
+		// by another quotation mark.
+		var quote = /"([^"]*)"/g;
+		// Replace the straight quotation marks with "square backet"
+		// and leave the contents of the quote (stored in $1) unchanged.
+		println('"jiawei zhang"'.replace(quote, "[$1]"));
+
+		// String.match(): take a regular expression and returns an array that contains the results of the match, if there is 'g', returns all matches.
+		println("1 plus 2 equals 3".match(/\d+/)) // returns ["1"]
+		println("1 plus 2 equals 3".match(/\d+/g)) // returns ["1", "2", "3"]
+		// match() will return array even if there is no flag 'g', see the sample below:
+		var url = /(\w+):\/\/([\w.]+)\/(\S*)/;
+		var text = "Visit my blog at http://www.example.com/~david";
+		var result = text.match(url);
+		if (result != null) {
+			var fullurl = result[0]; // Contains "http://www.example.com/~david", fully matched text.
+			var protocol = result[1]; // Contains "http", the matched substring in first parentheses.
+			var host = result[2]; // Contains "www.example.com", the matched substring in second parentheses.
+			var path = result[3]; // Contains "~david", the matched substring in third parentheses.
+		}
+		println(result.index); // "17", means the position of the first sub string which matched pattern.
+		println(result.input); // same to text variable above, it's the original string to be matched.
+		println('123 abc'.match(/(\d+)\s(\w+)/)); // ["123 abc", "123", "abc"]
+		println('123 abc'.match(/(\d+)\s(\w+)/g)); // ["123 abc"], with flag 'g', it just ignore to show stuffs in parentheses ().
+		println('123 abc 456 xyz'.match(/(\d+)\s(\w+)/g)); // ["123 abc", "456 xyz"], with flag 'g', it just ignore to show stuffs in parentheses ().
+		println("");
+
+		// String.split()
+		// Take string as arguments.
+		println('123,456,789'.split(',')); // return ["123", "456", "789"]
+		// Take regular expression as arugments. You can now specify a separator character that allows an arbitrary amount of whitespace on either side.
+		println("1, 2, 3, 4, 5".split(/\s*,\s*/)); // Returns ["1","2","3","4","5"]
+		println("");
+
+
+		// The RegExp Object
+
+		// Find all five-digit numbers in a string. Note the double \\ in this case.
+		// The first arugment is string-like regular expression, the second one are the flags.
+		var zipcode = new RegExp("\\d{5}", "g");
+		println('0123456789'.match(zipcode)); // 01234, 56789
+		// Compared with regular-expression literal syntax, RegExp object is useful, when you want to create regular expression runtime.
+		// Such as the user entered expression.
+		println("");
+
+		// RegExp Methods for Pattern Matching
+		// RegExp.exec() is similar to String.match(), it takes string as arguments while String.match() takes regular-expression as arguments.
+		var reg = new RegExp('(\\d+)(\\w+)', 'g');
+		var result = reg.exec('123xyz');
+		println(result[0]); // '123xyz'
+		println(result[1]); // '123'
+		println(result[2]); // 'xyz'
+		println(result.index); // 0
+		println(result.input); // '123xyz'
+		println("");
+
+		// String.match() is same to RegExp.exec() without setting flag 'g'
+		// When setting flag 'g', String.match() will return a list while RegExp.exec() will return first matched item and wating for next invoking.
+		// See the samples below:
+		// println("1 plus 2 equals 3".match(/\d+/g)) // returns ["1", "2", "3"]
+		var pattern = /\d+/g;
+		var text = "1 plus 2 equals 3";
+		var result;
+		while((result = pattern.exec(text)) != null) {
+			println("Matched '" + result[0] + "'" + " at position " + result.index + "; next search begins at " + pattern.lastIndex);
+			println(result);
+		}
+		println(result); // null
+		println(pattern.lastIndex); // 0, set 0 if there is no match, you can also set 0 manually when you want to quit search.
+		println("");
+
+		// RegExp.test(): the behavior of this method just same to RegExp.exec(),
+		// if there is a flag 'g', it will return true when get first matched item and waiting for next invoking
+		var pattern = /java/i;
+		println(pattern.test("JavaScript")); // Returns true
+		var pattern = /java/ig;
+		println(pattern.test("JavaScript java")); // Returns true
+		println(pattern.lastIndex); // 4
+		println(pattern.test("JavaScript java")); // Returns true
+		println(pattern.lastIndex); // 15
+		println(pattern.test("JavaScript java")); // Returns false
+		println(pattern.lastIndex); // 0
+		println("");
+ 
+		// Five properties in RegExp
+		var pattern = /java/igm
+		pattern.test('javascript');
+		println(pattern.source); // java
+		println(pattern.global); // true
+		println(pattern.ignoreCase); // true
+		println(pattern.multiline); // true
+		println(pattern.lastIndex); // 4, lastIndex only works with flag 'g' when invoking RegExp.exec() and RegExp.test(), will be ignored if no 'g'
+		                            // lastIndex indicate the next position which will begin to search, you can set it manually.
+
+	</script>
+	</head>
+	<body>
+	</body>
+</html>

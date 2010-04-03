@@ -1,0 +1,559 @@
+ /* CSS Mastery: Advanced Web Standards Solutions - Simon Collison's tutorial */
+
+/* the appropriate background class will be applied based on class attached to the body */
+
+body {
+margin: 0;
+padding: 0;
+font:70% 'Lucida Grande',Verdana, Helvetica, sans-serif;
+}
+#threeColLayout {
+background: #CAC78A url(background.gif) repeat-x fixed;
+}
+#twoColLayout {
+background: #CAC78A url(background.gif) repeat-x fixed;
+}
+#oneColLayout {
+background: #CAC78A url(background.gif) repeat-x fixed;
+}
+
+/* default links */
+
+a:link {
+background-color: transparent;
+text-decoration: underline;
+color: #666;
+}
+a:hover {
+background-color: #FFC;
+text-decoration: underline;
+color: #990;
+}
+a:visited {
+background-color: transparent;
+text-decoration: underline;
+color: #666
+}
+
+/* headers here */
+
+h1 {
+margin: 0;
+padding: 30px;
+font-size: 150%;
+color: #FF0000;
+text-indent: -9000px;
+}
+
+h2 {
+margin: 0 10px 0 10px;
+padding: 2px;
+font-size: 130%;
+color: #A3A06F;
+background: #E5E2A9;
+}
+
+/* and then these h3 statements, unique to whichever section has been attached above, will give the headers the appropriate background color */
+
+h3 {
+text-transform: uppercase;
+display: inline;
+font-size: 92%;
+margin: 10px 5px 0 5px;
+padding: 2px;
+}
+
+.default h3 {
+background: #F6CE45;
+}
+.careers h3 {
+background: #F762E0;
+}
+.one_man h3 {
+font-size: 110%;
+background: #B18FD1;
+}
+.interviews h3 {
+font-size: 110%;
+background: #D7D493;
+}
+.profiles h3 {
+background: #C4DDB8;
+}
+
+/* main wrapper that holds it all centrally */
+
+#wrapper {
+width:750px;
+margin:0 auto;
+background-color: #D7D493;
+padding: 0 10px 10px 10px;
+}
+
+/* default masthead holding the banner and mainNav */
+
+#header {
+width: 750px;
+height: 170px;
+background:url(header.gif);
+}
+
+/* now the three main columns, named in order of importance and display when styles switched off */
+
+#primaryContent {
+float:left;
+width:750px;
+display:inline;
+margin: 0 0 20px 0;
+}
+
+/* note here that specifying threeColLayout in the body will activate the following div instead of the default primaryContent */
+
+#threeColLayout #primaryContent {
+float:left;
+width:270px;
+margin: 0 0 20px 195px;
+}
+
+/* note here that specifying twoColLayout in the body will activate the following div instead of the default primaryContent */
+
+#twoColLayout #primaryContent {
+width:555px;
+float:left;
+margin: 0 0 20px 195px;
+}
+
+/* just incase twoColLayout is specified in body, and secondaryContent is left in, we turn it off - not ideal, but it works */
+
+#twoColLayout #secondaryContent {
+display: none;
+}
+
+#secondaryContent{
+float:left;
+width:270px;
+margin: 0 0 20px 15px;
+}
+
+#sideContent{
+float:left;
+width:180px;
+margin: 0 0 20px -750px;
+}
+
+/* just incase oneColLayout is specified in body, and these are left in, we turn them off - not ideal, but it works */
+
+#oneColLayout #secondaryContent, #oneColLayout #sideContent {
+display: none;
+}
+
+/* twoColContent - used to span two right-hand columns - ONLY LEAVE THIS IN IF I DISCUSS IT - box used only if no selector */
+
+#twoColContent{
+width:555px;
+float:left;
+margin: 0 0 20px 195px;
+}
+
+/* cbSide controls non-rounded boxes in the thinner left column, known as sideContent */
+
+.cbSide {
+width:160px;
+margin: 5px 0 0 10px;
+padding: 10px 0 5px 0;
+background: #FFF;
+}
+.cbSide p {
+margin: 0;
+padding: 0 5px 2px 5px;
+font-size: 90%;
+color: #666;
+}
+
+/* box is the shaded area that holds a rounded corner box or flat box, fitting the given width of the column it is in. Usually combined with another class to control inner elements, eg box default */
+
+.box {
+margin: 15px 0 0 0;
+padding: 5px 0 5px 0;
+background:url(diags.gif);
+}
+
+/* Styling of the boxes if there is no JavaScript support */
+
+.cbb {
+margin: 0 10px 0 10px;
+background: #FFF;
+padding: 5px 0 5px 0;
+line-height: 170%;
+}
+
+/* paragraph styles for any main boxes */
+.cbb p, .cb p {
+margin: 0;
+padding: 0 5px 5px 50px;
+color: #333;
+}
+
+/* Insert the custom corners and borders for browsers with sufficient JavaScript support */
+
+.cb {
+margin: 0.5em 0;
+line-height: 170%;
+	}
+
+/* Rules for the top corners and border */
+.bt {
+	background:url(box.png) no-repeat 100% 0 !important;
+	background:url(box.gif) no-repeat 100% 0;
+	margin:0 0 0 18px;
+	height:27px;
+	}
+.bt div {
+	height:27px;
+	width:18px;
+	position:relative;
+	left:-18px;
+	background:url(box.png) no-repeat 0 0 !important;
+	background:url(box.gif) no-repeat 0 0;
+	}
+
+/* Rules for the bottom corners and border */
+.bb {
+	background:url(box.png) no-repeat 100% 100% !important;
+	background:url(box.gif) no-repeat 100% 100%;
+	margin:0 0 0 12px;
+	height:14px;
+	}
+.bb div {
+	height:14px;
+	width:12px;
+	position:relative;
+	left:-12px;
+	background:url(box.png) no-repeat 0 100% !important;
+	background:url(box.gif) no-repeat 0 100%;
+	}
+
+/* Insert the left border */
+.i1 {
+	padding: 0 0 0 12px;
+	background:url(borders.png) repeat-y 0 0 !important;
+	background:url(borders.gif) repeat-y 0 0;
+	}
+/* Insert the right border */
+.i2 {
+	padding: 0 12px 0 0;
+	background:url(borders.png) repeat-y 100% 0 !important;
+	background:url(borders.gif) repeat-y 100% 0;
+	}
+/* Wrapper for the content. Use it to set the background colour and insert some padding between the borders and the content. */
+.i3 {
+	background:#FFF;
+border: 1px solid #FFF;
+	border-width:1px 0;
+	padding:0 5px;
+	}
+/* CSS for the box ends here */
+
+/* date and posted control the small text info in article blurbs */
+
+.date {
+font-size: 85%;
+font-weight: bold;
+color: #666;
+}
+
+.posted {
+display: block;
+margin: -5px 0 0 50px;
+padding: 0 0 10px 0;
+font-weight: bold;
+color: #666;
+}
+
+.postedUnderline {
+display: block;
+margin: 0 5px 5px 50px;
+padding: 0 0 5px 0;
+font-weight: bold;
+color: #666;
+border-bottom: 1px solid #999;
+}
+
+address {
+margin-left: 50px;
+}
+
+/* erm, the footer */
+
+#footer{
+	clear:both;
+width: 750px;
+height: 85px;
+background: transparent url(footer.gif);
+padding: 0px;
+}
+#footer p {
+margin: 10px 10px 0 0;
+padding: 50px 4px 4px 0;
+font-weight: bold;
+}
+
+#footer a:link, #footer a:visited {
+color: #D7D493;
+}
+#footer a:hover {
+color: #000;
+background: #D7D493;
+}
+
+/* image control. First we define stuff common to ALL images on the page. It is then up to other styles to override these. By default, all images will have a 2px border, and bottom and right margins of 5px. They will all float left. */
+
+img {
+float: left;
+margin: 0px 0 2px 5px;
+border: 2px solid #C5BDBD;
+}
+
+/* For any images in the default boxes - the pencil icons - I don't want the 2px border. So I set border to 0 */
+
+.default img {
+border: 0;
+}
+
+/* For these larger images, I don't want them to float, for that causes the h3 above to be pushed to the right. I also declare a top margin to space the header and image apart, and also increase the border width slightly.  We also set it to display:block so that if body id is twoColLayout, the image will force the header and other bits to wrap around it */
+
+.mainImage {
+display: block;
+float: none;
+margin-top: 4px;
+border: 3px solid #C5BDBD;
+}
+
+/* drop shadow effect for the gallery thumbnails. Sadly this requires a div to be wrapped around the image markup, which is a shame */
+
+.img-wrapper {
+margin: 20px 40px 0 0;
+background: url(shadow.gif) no-repeat bottom right;
+float:left;
+line-height:0;
+}
+ 
+.img-wrapper img {
+float:none;
+margin:0;
+background:#fff;
+padding:4px;
+border:1px solid #C5BDBD;
+position:relative;
+left:-5px;
+top:-5px;
+}
+
+/* used to ensure all our floated thumbnails stay the right width away from the left side of the box */
+
+.thumbnails {
+margin: 0 0 20px 50px;
+}
+
+/* spacer used immediately after the floated gallery thumbnails to ensure the box expands to hold them all */
+
+.spacer {
+clear: both;
+}
+
+/* CSS for the ticked off links. Note, I am not ordering things in the LVHA way, as I prefer the visited tick to work above the arrow once visited. */
+
+.cbSide ul {
+list-style-type: none;
+margin-top: 0px;
+margin-left: 0;
+margin-bottom: 0;
+padding: 3px;
+}
+
+.cbSide li a:link {
+color:#333;
+line-height:150%;
+text-decoration:none;
+display:block;
+width:154px;
+border-bottom: 1px solid #EDEAEB;
+background: #FFF url(ticks.gif);
+}
+
+.cbSide li a:active {
+color:#333;
+line-height:150%;
+text-decoration:none;
+display:block;
+width:154px;
+border-bottom: 1px solid #EDEAEB;
+background: #FFF url(ticks.gif);
+}
+
+.cbSide li a:hover {
+color:#990000;
+line-height:150%;
+display:block;
+width:154px;
+border-bottom: 1px solid #EDEAEB;
+background: #FFF url(ticks.gif) 0px -20px;
+text-decoration:none;
+}
+
+.cbSide li a:visited {
+color: #999;
+text-decoration:none;
+line-height:150%;
+display:block;
+width:154px;
+border-bottom: 1px solid #EDEAEB;
+background: #FFF url(ticks.gif);
+background-position: 0 -40px;
+}
+
+/* horizontal main menu navigation - based on a method from Richard Rutter */
+
+ #mainNav
+{
+margin: 30px 0 0 0;
+padding: 0;
+width: 750px;
+height: 35px;
+font-weight: bold;
+font-size: 90%;
+}
+
+#mainNav ul
+{
+list-style: none;
+margin: 0;
+padding: 0;
+border: none;
+}
+
+#mainNav li
+{
+display: block;
+margin: 0;
+padding: 0;
+float: left;
+width: auto;
+}
+
+#mainNav a
+{
+color: #D7D493;
+display: inline;
+width: auto;
+text-decoration: none;
+background: #000;
+margin: 0;
+padding: 10px 10px;
+border-right: 1px solid #FFF;
+}
+
+#mainNav a:hover, #mainNav a:active { background: #D7D493;color: #000; }
+
+#mainNav a.active:link, #mainNav a.active:visited
+{
+position: relative;
+z-index: 102;
+background: #BBB;
+color: #D7D493;
+font-weight: bold;
+}
+
+/* Highlighting the current page */
+
+body.home #mainNav a#home, body.gallery #mainNav a#gallery, body.contact #mainNav a#contact { 
+  color: #fff;
+text-decoration: underline;
+}
+body.home #mainNav a:hover#home, body.gallery #mainNav a:hover#gallery, body.contact #mainNav a:hover#contact { 
+  color: #000;
+}
+
+/* Highlighting external links ONLY in the main text areas, so as not to screw up the ticked-off links */
+
+.box.default a[href^="http:"] { 
+  background: url(external.gif) no-repeat right top;
+  padding-right: 10px; 
+} 
+ .box.default a[href^="http://www.collylogic.com"], .box.default a[href^="http://www.collylogic.com"] { 
+  background-image: none; 
+  padding-right: 0; 
+}
+
+/* form styling - not much though kids */
+
+form {
+margin: 0;
+padding: 0;
+font-size: 80%;
+}
+
+fieldset {
+width: 146px;
+border: 0;
+margin: 0 0 10px 0;
+padding: 5px;
+}
+
+.default fieldset {
+width: auto;
+border: 0;
+margin: 10px 0 10px 50px;
+padding: 0;
+}
+
+legend {
+text-transform: uppercase;
+font-size: 110%;
+font-weight: bold;
+margin: 10px 0 2px 0px;
+padding: 2px;
+background: #D72E2E;
+color: #FFF;
+}
+
+.default legend {
+display: none;
+}
+
+label {
+display: none;
+}
+
+.default label {
+display: block;
+font-weight: bold;
+}
+
+input {
+margin-top:0;
+padding: 2px;
+border: 0;
+background: #D7E7E9;
+color: #333;
+}
+
+textarea {
+margin-top:0;
+padding: 2px;
+border: 0;
+background: #D7E7E9;
+color: #333;
+}
+
+.default input {
+display: block;
+}
+
+input.submit {
+	border: 0;
+	margin-bottom: -6px;
+padding: 2px;
+	background: transparent;
+	font-size: 10px;
+}

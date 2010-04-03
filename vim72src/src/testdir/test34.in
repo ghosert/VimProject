@@ -1,0 +1,66 @@
+Test for user functions.
+Also test an <expr> mapping calling a function.
+
+STARTTEST
+:so small.vim
+:function Table(title, ...)
+:  let ret = a:title
+:  let idx = 1
+:  while idx <= a:0
+:    exe "let ret = ret . a:" . idx
+:    let idx = idx + 1
+:  endwhile
+:  return ret
+:endfunction
+:function Compute(n1, n2, divname)
+:  if a:n2 == 0
+:    return "fail"
+:  endif
+:  exe "let g:" . a:divname . " = ". a:n1 / a:n2
+:  return "ok"
+:endfunction
+:func Expr1()
+:  normal! v
+:  return "111"
+:endfunc
+:func Expr2()
+:  call search('XX', 'b')
+:  return "222"
+:endfunc
+:func ListItem()
+:  let g:counter += 1
+:  return g:counter . '. '
+:endfunc
+:func ListReset()
+:  let g:counter = 0
+:  return ''
+:endfunc
+:let counter = 0
+:inoremap <expr> ( ListItem()
+:inoremap <expr> [ ListReset()
+:imap <expr> + Expr1()
+:imap <expr> * Expr2()
+:let retval = "nop"
+/^here
+C=Table("xxx", 4, "asdf")
+ =Compute(45, 0, "retval")
+ =retval
+ =Compute(45, 5, "retval")
+ =retval
+
+XX+-XX
+---*---
+(one
+(two
+[(one again:$-5,$w! test.out
+:delfunc Table
+:delfunc Compute
+:delfunc Expr1
+:delfunc Expr2
+:delfunc ListItem
+:delfunc ListReset
+:unlet retval counter
+:q!
+ENDTEST
+
+here

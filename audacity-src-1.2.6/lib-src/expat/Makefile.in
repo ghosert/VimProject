@@ -1,0 +1,18 @@
+CC = @CC@
+
+override CFLAGS += @CFLAGS@ -Ixmlparse -Ixmltok
+
+OBJS = xmlparse/xmlparse.o xmltok/xmlrole.o xmltok/xmltok.o
+
+expat.a: $(OBJS)
+	ar ruv expat.a $(OBJS)
+	ranlib expat.a
+
+clean:
+	rm -f expat.a xmlparse/*.o xmltok/*.o
+
+distclean:
+	rm -f Makefile
+
+%.o: %.c Makefile
+	$(CC) -c $(CFLAGS) $< -o $@

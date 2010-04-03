@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+<title>Audacity - Meter Toolbar</title>
+</head>
+
+<body text="#000000" link="#000099" vlink="#000099">
+
+<font color="#000099">
+<h1>Meter Toolbar</h1>
+</font>
+
+<img src="images/toolbar_meter.png" width="527" height="55">
+<br><p>
+
+The Meter Toolbar is used for monitoring the input and output audio
+levels.  Typically it is used to make sure that the loudest volume
+is as loud as possible (for maximum fidelity) without clipping or 
+distorting it.
+The output (playback) meter is the green one, on the left pictured
+above, and the input (recording) meter is in red, on the right.
+<br>
+It toolbar provides a visual indication of the current audio levels going
+in and out of audacity.
+<p>
+
+If you float the Meter Toolbar, either by dragging it out of the toolbar
+or by selecting "Float Meter Toolbar" from the View menu, you can resize it
+and even orient it vertically.
+
+<p>
+
+Normally the meters are only active when you are playing or recording audio.
+However, you can also monitor input when you're not recording - to do this,
+either select "Monitor Input" from the input meter's pop-up menu, or else
+just click on the input meter.  If you have a microphone or other input
+source attached, you will be able to watch the level of the audio before
+you start recording.
+
+<p>
+
+Each meter shows several characteristics of the audio level at once:
+<ul>
+	<li>The right hand end of the meter corresponds to the point at
+	which the audio will be clipped, and the left hand end is silence</li>
+	<li>For stereo, the top bar shows the left channel, and the bottom
+	bar shows the right channel.</li>
+	<li>The brightest part of the bar shows the average audio
+	level (related to the loudness) and the darker part of the 
+	bar shows the peak audio level.</li>
+	<li>The peak-hold line to the right of this shows the maximum
+	audio level achieved in the last 3 seconds.</li>
+	<li>Finally, the clipping indicators on the far right of
+	each meter will light up if clipping is detected (meaning that
+	the audio was too loud and will sound distorted).</li></ul>
+<p>
+If clipping is detected when you are recording, you should stop, lower
+the volume of your input source, and start recording again from the start.
+If the output meter clips then you need to make some or all of your tracks
+quieter using the track <a href="track_audio.htm">gain control</a>.
+<br>
+If the level of the input (recording) source is too high, you can try
+to lower the input level using the <a href="toolbar_mixer.htm">Mixer
+Toolbar</a>, but if this doesn't work, you should try to lower the volume
+of the external input source (e.g., your microphone, cassette player, or
+record player).
+
+<p>
+
+It is possible, especially if you have an older, slower computer, that
+the Meter Toolbar may interfere with Audacity's ability to record or play
+audio with the highest quality, because your computer is so busy redrawing
+the meters that it doesn't have time to process enough audio.  In this is the
+case for you, you can disable the Meter Toolbar in the Interface tab of
+the <a href="prefs.htm">Preferences</a> dialog.
+
+<p>
+</body>
+</html>
+

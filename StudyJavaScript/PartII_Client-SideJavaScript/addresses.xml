@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<contacts>
+<contact name="Able Baker"><email>able@example.com</email></contact>
+<contact name="Careful Dodger"><email>dodger@example.com</email></contact>
+<contact name="Eager Framer" personal="true"><email>framer@example.com</email>
+</contact>
+</contacts>
+

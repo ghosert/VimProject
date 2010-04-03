@@ -1,0 +1,163 @@
+Australia*(No State)*Adelaide*Dove Traceroute Gateway*Apache/1.3.6*203.15.24.1
+Australia*(No State)*Kenwick*Escape Net*Apache/1.1.1*203.25.185.2
+Australia*(No State)*(Unknown City)*Telstra Net*Apache/1.3.9*210.8.232.2
+Australia*(No State)*(Unknown City)*Telstra Net*Apache/1.3.9*210.8.224.2
+Australia*(No State)*(Unknown City)*Cyberlink Accsess Systems*Apache/1.3b5*203.24.198.1
+Australia*(No State)*Flagstaff Hill*South Australia's Largest ISP*WN/2.0.6*203.11.90.240
+Australia*(No State)*(Unknown City)*Satori Traceroute gateway*Apache/1.3.9*203.21.11.200
+Australia*(No State)*Brisbane*Brisbane Internet Technology*Apache/1.3.3*203.18.94.3
+Australia*(No State)*(Unknown City)*NSW Regional Network Organisation*Apache/1.3.3*203.15.123.114
+Austria*(No State)*Vienna*Telecom*Netscape-FastTrack/3.01*194.118.1.130
+Austria*(No State)*Vienna*AT Net*Roxen·Challenger/1.3.111*62.116.33.47
+Austria*(No State)*(Unknown City)*ISP Austria*Apache/1.2.4*195.58.162.92
+Belgium*(No State)*(Unknown City)*Belgian Research Network*Apache/1.3.3*193.190.198.13
+Belgium*(No State)*(Unknown City)*Intersight*Microsoft-IIS/3.0*193.121.16.55
+Brazil*(No State)*Sao Paulo*Rede Internet Minas*Apache/1.3.9*200.19.159.9
+Bulgaria*(No State)*Sofia*Lirex Looking Glass*Apache/1.3.3*194.12.224.34
+Canada*(No State)*Sherwood Park*David's Net-Presence*Apache/1.3.9*204.209.9.33
+Canada*(No State)*Prince George*Mag-Net Internet*Apache/1.3.9*207.102.83.2
+Canada*(No State)*Echo Online*University of Toronto Toronto*Apache/1.3.11*205.189.151.6
+Canada*(No State)*Ottawa*Carleton University*Apache/1.2.4*134.117.14.93
+Czech Republic*(No State)*Praha*CZECH-NET*Apache/1.3.6*194.213.224.29
+Czech Republic*(No State)*Frydek-Mistek*Traceroute AppleT.cz*Apache/1.3.9*212.71.150.6
+Denmark*(No State)*Tranbjerg*Teledenmark Erhverv Data Divisionen*Apache/1.2b8*193.162.146.38
+Denmark*(No State)*Lyngby*Niels Bohr Institute*CERN/3.0*130.225.212.55
+Estonia*(No State)*Tallinn*MicroLink Online*Apache/1.1.1*194.106.96.6
+Estonia*(No State)*Tallinn*Estonia-Wide Web*Apache/1.3.6*212.107.32.146
+Estonia*(No State)*Tallinn*Estonian Telephone Company*Apache/1.3.6*194.126.101.67
+Estonia*(No State)*Tallinn*Quake Complex*Apache/1.3.6*212.7.0.177
+Finland*(No State)*KPNQwest Finland*EUnet Helsinki*Apache/1.3.3*193.66.1.35
+France*(No State)*Paris*Easynet France Web*Apache/1.3.6*195.114.64.197
+France*(No State)*Caen*CPOD Provider Monitoring*Apache/1.3.9*212.39.128.2
+France*(No State)*VilleJuif*French engineering school*Apache/1.3.1*194.2.204.1
+France*(No State)*free domain names*EU.org Longpont-sur-Orge (Paris)*Apache/1.3.9*193.56.58.251
+France*(No State)*Vincennes*Oleane Net*Apache/1.3.3*194.2.28.18
+France*(No State)*(Unknown City)*Institut National de Physique Nucleaire/Phynet*NCSA/1.5.2*134.158.69.19
+France*(No State)*(Unknown City)*Internet-Way/UUNet France*Netscape-Enterprise/2.01c*194.98.48.36
+France*(No State)*(Unknown City)*France Telecom M-Net*Apache/1.2.5*212.234.130.1
+France*(No State)*(Unknown City)*AFNIC*Apache/1.3.9*192.134.4.20
+Germany*(No State)*Hamburg*RADIUS.DESY.DE*Apache/1.3.4*131.169.118.35
+Germany*(No State)*Stuttgart*LF.net*Apache/1.2.0*212.9.160.38
+Germany*(No State)*Hamburg*Internet Service Center*Apache/1.2.5*195.64.96.71
+Germany*(No State)*Duesseldorf*Tegtmeyer*Apache/1.3.6*195.145.137.222
+Germany*(No State)*Berlin*Online now*Apache/1.3b3*195.211.16.224
+Germany*(No State)*Braunschweig*Lanobis*Apache/1.1.3*212.68.74.156
+Germany*(No State)*Muenchen*Klammeraffe*Apache/1.3.6*62.208.181.42
+Germany*(No State)*Karlsruhe*Tracer*Apache/1.3.3*212.227.14.17
+Hong Kong*(No State)*Hongkong*Hongkong Telecom*Apache/1.3.3*202.84.255.15
+Hungary*(No State)*Budapest*Institute for particle and nuclear physics*Apache/1.3.6*148.6.168.10
+Iceland*(No State)*Reykjavik*ISnet - Internet a Islandi*Apache/1.3.9*193.4.58.29
+Iceland*(No State)*Reykjavik*MI.is*Apache/1.3.6*193.4.192.13
+Israel*(No State)*Tel-Aviv*IBM Israel*Apache/1.3.6*192.115.72.170
+Israel*(No State)*ISP*Isracom 2000 Tel-Aviv*Apache/1.3.9*192.117.208.10
+Israel*(No State)*Jerusalem*ILAN Looking Glass*Apache/1.3.9*128.139.252.3
+Italy*(No State)*Forte dei Marmi ,194.184.72.2*Versilia.net*AS3269*Apache/1.2.6
+Italy*(No State)*Bologna*Istituto Nazionale di Fisica Nucleare 131.154.1.53*AS5441*Apache/1.3.0
+Japan*(No State)*Tsukuba*Traceroute from yumj2.kek.jp*Apache/1.3.9*130.87.34.37
+Japan*(No State)*(Unknown City)*The URAWA Internet*Apache/1.3.9*202.218.252.1
+Japan*(No State)*Tokyo*(Unknown Provider)*NCSA/1.4*133.35.211.104
+Japan*(No State)*Tokyo*Hart Computer*Apache/1.2.5*210.172.75.130
+South Korea*(No State)*Taejon*Measurement for APAN*Apache/1.3.4*192.249.24.20
+South Korea*(No State)*Seoul*BORANet*(Unknown Server)*203.248.240.230
+Latvia*(No State)*Riga*PARKS Traceroute*Apache/1.3.12*195.2.96.6
+Mexico*(No State)*Mexico*Mazatlan ISP*Microsoft-IIS/4.0*200.34.47.11
+Netherlands*(No State)*Utrecht*WIND Information Server*Apache/1.3.4*192.87.110.4
+Netherlands*(No State)*Amsterdm*UUNET Nederland*Apache/1.3.4*193.67.79.138
+Netherlands*(No State)*Amsterdam*National Institute for Nuclear Physics*(Unknown Server)*192.16.199.133
+Puerto Rico*San Juan*Puerto Rico Internet Corp.*Apache/1.3.6*209.91.218.5
+Poland*(No State)*National Louis University*Wyzsza Szkola Biznesu Nowy Sacz*Apache/1.3.9*195.205.100.110
+Poland*(No State)*Lublin*Radio Club ARIADNA*Apache/1.2.6*212.182.117.131
+Russia*(No State)*Moscow*Relcom*(Unknown Server)*193.124.23.4
+Russia*(No State)*Novosibirsk*Novosibirsk University*(Unknown Server)*193.124.209.71
+Russia*(No State)*Novosibirsk*Budker Institute of Nuclear Physics*(Unknown Server)*193.124.167.29
+Russia*(No State)*Moscow*Institute of Physics and Technology*CERN/3.0*193.125.142.43
+Russia*(No State)*Internet Monitoring*Parkline Moscow*Apache/1.3.9*195.209.63.167
+Russia*(No State)*Yaroslavl*Yaroslavl Computer Networks*(Unknown Server)*193.124.252.73
+Singapore*(No State)*Singapore*Network Operations Centre*Apache/1.3.9*203.120.90.126
+Singapore*(No State)*Singapore*Singapore Telecom*Apache/1.3.3*203.127.108.245
+South Africa*(No State)*Pinetown*Premier SA ISP*Apache/1.3.3*196.22.200.2
+Spain*(No State)*(Unknown City)*The Ocean System*Apache/1.3.6*193.127.68.3
+Spain*(No State)*Barcelona*Datagrama*Apache/1.3.9*212.9.70.2
+Switzerland*(No State)*Network Management*URBAnet Lausanne*Apache/1.3.9*195.202.193.103
+Switzerland*(No State)*Geneva*Communications Systems Group*Apache/1.3.0*137.138.28.176
+Switzerland*(No State)*Geneva*CIXP-Reflector-Server*Apache/1.2.5*192.65.185.20
+Switzerland*(No State)*Zurich*Swiss Academic & Research Network*Apache/1.2.5*130.59.10.30
+Switzerland*(No State)*(Unknown City)*Swisscom IP-Plus Internet Services*Roxen·Challenger/1.2*164.128.252.6
+Switzerland*(No State)*Lausanne*Fast Internet Services*Apache/1.2.1*193.246.63.121
+Switzerland*(No State)*(Unknown City)*The Baboon BBS*Apache/1.3.3*195.65.45.3
+Switzerland*(No State)*(Unknown City)*Netzwerk Tools Siconline*Apache/1.3.1*195.65.243.60
+Switzerland*(No State)*Lausanne*Global One Communications*Apache/1.3.3*194.235.29.119
+Switzerland*(No State)*Zurich*Gerszt Software-Engineering*Apache/1.3.9*195.226.1.146
+Switzerland*(No State)*(Unknown City)*Globacom*Microsoft-IIS/4.0*195.89.4.121
+Switzerland*(No State)*(Unknown City)*Internet Services EYE Communications*Apache/1.3.0*157.161.182.11
+Switzerland*(No State)*(Unknown City)*ActiveNet Network Managemen*Apache/1.3.1*195.246.69.67
+Switzerland*(No State)*Geneva*Deckpoint*Apache/1.3.9*194.38.160.152
+Switzerland*(No State)*Winterthur*Luc de Louw 's Homepage*Apache/1.3.6*62.2.247.131
+Switzerland*(No State)*Bern*Nextra*Apache/1.3.6*212.47.161.34
+Turkey*(No State)*National Academic Backbone*UlakNet Ankara*Apache/1.3.4*193.140.83.20
+Turkey*(No State)*Ankara*Middle East Technical University*Apache/1.3.6*144.122.156.91
+Ukraine*(No State)*Kiev*School Net*Apache/1.2.6*194.183.164.164
+United Kingdom*(No State)*Internet Provider*Shellnet Manchester*Microsoft-IIS/3.0*194.129.209.7
+United Kingdom*(No State)*London*KingFisher Software*Roxen·Challenger*194.159.240.140
+United Kingdom*(No State)*London*XCIV.ORG*Apache/1.3.9*195.82.119.76
+United Kingdom*(No State)*Slough*Argus Internet Monitoring Utility*Apache/1.3.9*195.172.1.29
+United Kingdom*(No State)*Network Utilities*Newton Solutions Warlingham*Apache/1.3.9*195.112.3.18
+United Kingdom*(No State)*Birmingham*University of Birmingham*Apache/1.3.11*147.188.128.100
+United Kingdom*(No State)*Warrington*Daresbury Network Monitoring*Apache/1.3.3*193.62.127.224
+USA*Arizona*Internet Access*Getnet Chandler*Apache/1.3.9*206.124.164.18
+USA*Arizona*Tucson*University of Arizona*Apache/1.3.9*128.196.128.4
+USA*Arizona*Tucson*Opus One*OSU/3.6b*192.245.12.7
+USA*Arizona*Phoenix*PCSLink*Apache/1.3.6*206.43.160.5
+USA*California*Santa Clara*Voice of America*Apache/1.3.6*209.67.208.25
+USA*California*Santa Clara*Yahoo*Apache/1.3.4*206.132.105.74
+USA*California*Internet Access*Gem Dot Net Los Angeles*Apache/1.0.3*207.151.83.10
+USA*California*San Francisco*Network Diagnosis*NCSA/1.4.1*199.2.106.1
+USA*California*ISP*JetNet Chatsworth*Netscape-Enterprise/3.0*206.83.0.42
+USA*California*Monterey*Forth Interest Group*Apache/1.3.6*206.55.232.73
+USA*California*Foresthill*Foothill.Net*Apache/1.3.9*206.170.175.1
+USA*California*San Jose*AboveNet*Apache/1.3b3*207.126.96.163
+USA*California*San Jose*Bungi.com*NCSA/1.5.2*207.126.97.22
+USA*California*San Jose*Fifi.Org*Apache/1.3.3*209.133.45.185
+USA*California*Stanford*Stanford University*Netscape-Enterprise/3.0K*134.79.18.133
+USA*California*Mountain View*Best Internet Communications*BESTWWWD/2.4*206.184.139.13 (14)(12)
+USA*California*Mountain View*Malch.com*BESTWWWD/2.4*209.24.112.189
+USA*California*Los Alamitos*4CNet*Apache/1.3.4*130.150.20.11
+USA*California*Berkeley*International Computer Science Institute*NCSA/1.5.1*128.32.201.6
+USA*California*Berkeley*Berkeley Lab Networking*Netscape-FastTrack/2.01*131.243.64.60
+USA*California*Berkeley*Energy Sciences Network*Netscape-Enterprise/3.6*198.128.3.92
+USA*California*Sacramento*San Francisco Online*Apache/1.2.5*205.162.14.36
+USA*California*Marina del Rey*SamSpade.org*Apache/1.3.9*206.117.161.81
+USA*Georgia*Atlanta*Lyceum Support Tools*NCSA/1.4.2*205.142.28.7
+USA*Georgia*Atlanta*Southern CrossRoads*Apache/1.3.1*130.207.244.51
+USA*Georgia*Atlanta*Courtesy of Lotus Productions*Apache/1.3.3*216.25.63.17
+USA*Hawaii*Elmsford*Hawaii's Award Winning Internet Service*Apache/1.3.3*199.222.42.2
+USA*Hawaii*Honolulu*Wurldlink Corporation*Apache/1.2.6*216.235.52.2
+USA*Iowa*Des Moines*netINS backbone*Apache/1.3b3*167.142.225.150
+USA*Illinois*High Energy Physics*Fermilab Batavia*Netscape-Enterprise/3.6*131.225.110.11
+USA*Illinois*Argonne*Mathematics and Computer Science Division*Microsoft-IIS/4.0*140.221.9.190
+USA*Maine*Ellsworth*AcadiaNet*Apache/1.3.3*205.217.210.1
+USA*Maryland*URL Geography*This site Hyatsville*Apache/1.3.6*63.69.177.2
+USA*Maryland*Germantown*Department of Energy*NCSA/1.5.2*192.73.213.17
+USA*Maryland*Internet Services*ABSnet Baltimore*Apache/1.3.6*207.114.0.131
+USA*Massachusetts*Cambridge*Big-Screw.MIT.EDU*Apache-SSL-US/1.0.3*18.72.0.176
+USA*Michigan*Grand Haven*Novagate Communications*Apache/1.3.6*205.138.138.6
+USA*Missouri*Columbia*Socket Communications*Apache/1.3.12*216.106.2.148
+USA*Nebraska*Omaha*Novia Internetworking*Apache/1.3.9*216.40.24.1
+USA*New Mexico*Albuquerque*New Mexico Technet*Netscape-Enterprise/3.5.1G*129.121.1.17
+USA*North Carolina*Research Triangle Park*Internet Solutions*Apache/1.3.3*206.66.160.5
+USA*Oregon*ISP*Willamette Valley Internet Eugene*Apache/1.3.9*204.119.27.10
+USA*Pennsylvania*Erie*Stargate*Apache/1.3.6*208.138.204.11
+USA*Pennsylvania*Doylestown*PlantageNet*NaviServer/2.0*207.8.164.225
+USA*Pennsylvania*Pittsburgh*Carnegi Melon Network Group*Apache/1.3.6*128.2.4.6
+USA*Pennsylvania*Bethlehem*Trio Networks*Apache/1.3.11*206.245.168.47
+USA*Texas*ISP*Illuminati Online Austin*Apache/1.3.9*199.170.88.41,(39),(21)
+USA*Texas*Austin*Fmp Computer Services*Apache/1.3.3*216.171.14.34
+USA*Texas*College Station*Texas A&M University System*WN/2.2.6*165.91.106.81
+USA*Texas*High Energy Physics*A&M University Prairie View*Apache/1.2.5*129.207.10.9
+USA*Texas*Arlington*Hexillion Technologies*Microsoft-IIS/5.0*216.46.230.21
+USA*Utah*SkyLynx Company*Calweb Salt Lake City*Apache/1.3.9*209.210.251.101
+USA*Virginia*Fairfax*UUNET Web Hosting*Apache/1.3.9*208.240.92.204
+USA*Virginia*Web Hosting Provaider*USA domains Alexandria*Apache/1.3.4*209.207.176.96
+USA*Virginia*Reston*Global One*Apache/1.0.2*204.59.152.196
+USA*Washington*Richland*Atmospheric Radiation Measurement*Apache/1.3.6*192.148.93.21
+USA*Wisconsin*Madison*University of Wisconsin*Apache/1.3.6*128.104.208.20

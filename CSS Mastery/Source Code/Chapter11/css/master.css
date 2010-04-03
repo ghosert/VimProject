@@ -1,0 +1,391 @@
+/*
+-----------------------------------------------
+Style Sheet
+
+Site: Tuscany Luxury Resorts
+Author:   Cameron Moll    www.cameronmoll.com
+Version:  2005.11
+----------------------------------------------- */
+
+html, body, div, p {
+	font-family: Verdana, Arial, sans-serif; 
+	color: #444;
+}
+
+body {
+	margin: 10px; 
+	background: #FFF;
+}
+
+
+/*
+LINKS --------------------- */
+
+a:link, a:active, a:visited {
+	color: #48546A;
+}
+
+a img {
+	border-width: 0; 
+	border-style: none;
+}
+
+
+/*
+COMMON --------------------- */
+
+br {
+	clear: both;
+}
+
+hr {
+	display: none;
+}
+
+p {
+	margin: 0; 
+	padding-top: 1em; 
+	line-height: 150%;
+}
+
+
+/*
+MASTHEAD + SUBMAST --------------------- */
+
+h1 {
+	margin: 0; 
+	position: absolute; 
+	top: 20px; 
+	left: 46px; 
+	z-index: 3; 
+	width: 126px; 
+	background: url(../img/logo.gif) no-repeat;
+	text-indent: -9000px;
+}
+
+h1 a {
+	display: block;
+	background: url(../img/logo.gif) no-repeat;
+	height: 87px;
+}
+
+#mast-content {
+	position: absolute; 
+	top: 0; 
+	left: 0; 
+	z-index: 4; 
+	margin-left: 50%; 
+	width: 50%;
+}	
+
+#masthead {
+	position: relative; 
+	background: #F7F7F4 url(../img/bg_repeat.gif) repeat-x;
+	height: 15.4em;
+}
+
+#meta {
+	margin: 35px 50px 0 0; 
+	font: .6em Georgia, serif; 
+	color: #777; 
+	padding: 3px; 
+	border-top: 1px solid #D2D4CF; 
+	border-bottom: 1px solid #D2D4CF; 
+	text-transform: uppercase; 
+	letter-spacing: 1px;
+}
+
+#meta p {
+	display: block; 
+	float: left; 
+	padding-top: 0; 
+	font-family: Georgia, serif; 
+	color: #777;
+}
+
+#meta span {
+	display: block; 
+	float: right; 
+	line-height: 140%;
+}
+
+#main-image {
+	position: absolute; 
+	top: 0; 
+	left: 0; 
+	z-index: 2; 
+	width: 566px; 
+	height: 246px; 
+	background: url(../img/main-image.jpg) no-repeat;
+}
+
+#side-image {
+	position: absolute; 
+	top: 0; 
+	right: 0; 
+	z-index: 1; 
+	width: 289px; 
+	height: 246px; 
+	background: url(../img/side-image.jpg) no-repeat;
+}
+
+#navcontainer {
+	float: left; 
+	width: 49%; 
+	margin-top: 13px;
+}
+
+ul#nav {
+	margin: 0; 
+	padding: 0; 
+	list-style: none;
+}
+
+/* Two backgrounds are used, the second being a hack for Internet Explorer */
+#nav li {
+	margin: 8px 0; 
+	padding-top: 1px; 
+	font: .6em Georgia, serif; 
+	color: #777; 
+	text-transform: uppercase; 
+	letter-spacing: 1px; 
+	background: url(../img/bg_dotted.gif) repeat-x 0 77% !important; 
+	background-position: 0 61%;
+} 
+
+#nav li a {
+	float: left; 
+	background: #FFF;
+	color: #777; 
+	text-decoration: none;  
+	padding: 1px 3px; 
+}
+
+#nav li a:hover {
+	color: #48546A; 
+	background: #ECEEF0;
+}
+
+ul#nav li span {
+	display: block; 
+	float: right; 
+	padding: 1px 3px; 
+	background: #FFF;
+}	
+
+#home #nav-home {
+	font-weight: bold;
+}
+
+#quote {
+	float: left; 
+	width: 49%; 
+	margin-top: 23px; 
+	height: 136px; 
+	background: url(../img/quote.gif) no-repeat center;
+	text-indent: -9000px;
+}
+
+
+/*
+MAIN CONTENT --------------------- */
+
+#content {
+	float: left; 
+	width: 50%; 
+	padding: 0 0 1em; 
+	background: #E2E2D2 url(../img/bg_lightbot.gif) repeat-x top left; 
+	font-size: .7em;
+}
+
+#content h2 {
+	position: relative;
+	margin: 0 auto; 
+	padding: 25px 0 15px 25px; 
+	width: 85%; 
+	font: normal 2em Georgia, serif; 
+	color: #48546A; 
+	letter-spacing: -1px; 
+	background: url(../img/l.gif) no-repeat 0 .72em;
+}
+
+#content h2 strong {
+	position: absolute; 
+	left: -9000px;
+}
+
+#content a:link, #content a:active {
+	padding: 1px 2px; 
+	text-decoration: none; 
+	border-bottom: 1px dotted #48546A;
+}
+
+#content a:visited {
+	color: #777; 
+	padding: 1px 2px; 
+	text-decoration: none; 
+	border-bottom: 1px dotted #777;
+}
+
+#content a:hover {
+	color: #1D1D1D;
+	margin: 0 -3px;
+	border: 3px double; 
+	border-color: #F1F1F1 #C0C0C0 #C0C0C0 #F1F1F1; 
+	background: #FFF url(../img/btnbg.gif) bottom center repeat-x; 
+	}
+
+#content p {
+	text-indent: 2em; 
+	text-align: justify;
+}
+
+#title {
+	background: url(../img/bg_hmain.gif) repeat-x bottom;
+}
+
+
+/*
+SIDEBAR --------------------- */
+
+#cap {
+	position: absolute; 
+	top: 0; 
+	left: 0; 
+	width: 15px; 
+	height: 46px; 
+	background: url(../img/div_cap.gif) no-repeat;
+}
+
+#hpic1 {
+	background: #E2E2D2 url(../img/hpic_bath.jpg) no-repeat center center;
+}
+
+#hpic2 {
+	background: #E2E2D2 url(../img/hpic_man.jpg) no-repeat center center;
+}
+
+#hpic3 {
+	background: #E2E2D2 url(../img/hpic_food.jpg) no-repeat center center;
+}
+
+
+/* Two widths are used, the second being a hack for Internet Explorer */
+#sidebar {
+	position: relative; 
+	float: left; 
+	width: 50% !important;
+	width: 49.9%;
+	padding-top: 25px; 
+	background: url(../img/bg_darkbot.gif) repeat-x top left; 
+	font-size: .7em;
+}
+
+.section {
+	clear: both; 
+	padding-top: 1.5em; 
+	border-bottom: 3px double #E5E5DA; 
+	background: url(../img/leaf.gif) no-repeat 100% 1.8em;
+}
+
+.section h3 {
+	margin: 0; 
+	font: normal 1.55em Georgia, serif; 
+	color: #48546A; 
+	letter-spacing: -1px;
+}
+
+/* The padding and margin here offset each other, allowing padding for a:hover without affecting the h3 positioning */
+.section h3 a {
+	margin: -1px -3px; 
+	padding: 1px 3px; 
+	text-decoration: none;
+}
+
+.section h3 a:hover {
+	background: #E2E2D2;
+}
+
+.section p {
+	margin-bottom: 1.5em; 
+	color: #777;
+	}
+
+.section_pic {
+	float: left; 
+	margin-right: 1.25em; 
+	width: 34%; 
+	height: 70px; 
+	border: 4px solid #EBEBE5;
+	text-indent: -9000px;
+}
+
+	
+/*
+FOOTER --------------------- */
+
+#footer {
+	padding: 8px 0 1em; 
+	background: url(../img/bg_barbottom.gif) repeat-x top left;
+}
+
+#footer p {
+	font-size: 10px; 
+	color: #999;
+}
+
+#footer p#copy {
+	float: left; 
+	width: 40%;
+}
+
+#footer p#imagery {
+	float: right; 
+	width: 40%; 
+	text-align: right;
+}
+
+
+/*
+MISC --------------------- */
+
+#container {
+	background: url(../img/bg_container.gif) repeat-y center;
+}
+
+/* 'margin: 0 auto' is necessary so the layout stays centered on screen when browser width is more than 1200px */
+#container, #footer {
+	margin: 0 auto; 
+	min-width: 740px;
+	max-width: 1200px; 
+}
+
+.shell {
+	margin: 0 auto; 
+	width: 85%;
+}
+
+#skip, #back {
+	display: none;
+	}
+
+
+/*
+P.I.E. FLOAT CLEARING
+See http://www.positioniseverything.net/easyclearing.html 
+--------------------- */
+
+.clearfix:after {
+  content: ".";
+  clear: both;
+  height: 0;
+  visibility: hidden;
+  display: block;
+}
+.clearfix {
+  display: inline-block; /* Fixes IE/Mac */
+}
+/* Hides from IE-mac \*/
+* html .clearfix {height: 1%;}
+.clearfix {display: block;}
+/* End hide from IE-mac */		

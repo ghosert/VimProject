@@ -1,0 +1,15 @@
+# To build Audacity on Panther (10.3) while retaining Jaguar (10.2)
+# compatibility, type these options into tcsh:
+
+setenv MACOSX_DEPLOYMENT_TARGET 10.2
+setenv NEXT_ROOT /Developer/SDKs/MacOSX10.2.7.sdk
+setenv C_INCLUDE_PATH /Developer/SDKs/MacOSX10.2.7.sdk/usr/include
+setenv LIBRARY_PATH /Developer/SDKs/MacOSX10.2.7.sdk/usr/lib/gcc/darwin/3.3
+
+# Also recommended for good performance:
+
+setenv LD_PREBIND 1
+
+# Note that Audacity will also be compatible with 10.1 as long as
+# lrint and lrintf are not called.
+

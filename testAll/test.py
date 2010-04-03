@@ -1,0 +1,2 @@
+def ttt():
+    print 'jiawei'

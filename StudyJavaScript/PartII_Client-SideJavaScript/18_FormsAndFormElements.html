@@ -1,0 +1,152 @@
+<html>
+	<head>
+		<script>
+			function println(obj) {
+				document.write(obj + '<br/>');
+			}
+			function $(name) {
+				if (typeof name == 'string') {
+					return document.getElementById(name);
+				}
+				return name;
+			}
+		</script>
+	</head>
+
+    <body>
+		<form id="firstForm" name="firstFormName">
+			<select name="country">
+			</select>
+		</form>
+		<form id="secondForm">
+			<input id="element1" type="textbox" value="element1">
+			<input id="element2" type="textbox" value="element2">
+			<input id="element3" type="textbox" value="element3">
+		</form>
+		<form id="lastForm" name="lastFormName">
+			<input name="element1Name" type="textbox" value="element1">
+			<input type="radio" name="browser" checked>
+			<input type="radio" name="browser" value="off">
+			<input type="radio" name="browser">
+			<input type="checkbox" name="extras">
+			<input type="checkbox" name="extras" checked>
+			<input type="checkbox" name="extras">
+		</form>
+
+		<br/>
+
+		<!-- Defining Form Elements -->
+		<a href="18_Sample.html"> Click Here To See Form Sample </a>
+
+		<br/><br/>
+
+		<!-- Push Buttons -->
+		<button><b>jiawei</b></button>
+		<button><img src="draggable.gif"></button>
+
+		<br/><br/>
+
+		<!-- Select and Option Elements -->
+		<select> <!-- select element contains options[] array in JavaScript. -->
+			<option value="1">Shanghai</option> <!-- option has value property while select has not, this value will be sent to server.-->
+			<option value="2">Beijing</option>  <!-- option.text is equal to "Beijing" here.-->
+			<option value="3">HongGong</option> <!-- options.length = 0 can be used to remove all the options.--> 
+		</select>
+		<!-- Remove a single Option object from the Select element
+			// The Option that was previously at options[11] gets moved to options[10]...
+			document.address.country.options[10] = null;
+
+			Also, see Select.add() for a DOM Level 2 alternative for adding new options.
+		-->
+
+		<select multiple>
+			<option value="1">Shanghai</option>
+			<option value="2">Beijing</option>
+		</select>
+
+		<br/><br/>
+
+	</body>
+
+	<script>
+
+		// The Form Object
+		// First Form in the document:
+		println(document.forms[0].id);
+		// Last Form in the document:
+		println(document.forms[document.forms.length - 1].id)
+		// input elements in form:
+		println(document.forms[1].elements[2].id);
+		// form.submit()/form.onsubmit(); form.reset()/form.onreset();
+		// form.onsubmit() handler only is triggered by a genuine click on a submit button, calling the submit() method of a form does not trigger it.
+		// form.onreset is similar to onsubmit handler which can be used to confirm the reset action.
+		println("");
+
+
+		// Defining Form Elements
+
+		// Scripting Form Elements
+		println(document.forms['lastFormName'].id);
+		println(document.lastFormName.id);
+		println(document.lastFormName.element1Name.value);
+		println("");
+		println(document.lastFormName.browser[0].value);
+		println(document.lastFormName.browser[0].checked);
+		println(document.lastFormName.browser[1].value);
+		println(document.lastFormName.browser[1].checked);
+		println(document.lastFormName.browser[2].value);
+		println(document.lastFormName.browser[2].checked);
+		println("");
+
+		// Form Element Properties
+		// type, form, name, value
+
+		// Form Element Event Handlers
+		// onclick, onchange, onfocus, onblur
+		// In the form element event handler, "this" means the element which triggered the event.
+		// Since all form elements have a form property that refers to the containing form,
+		// the event handlers of a form element can always refer to the Form object as "this.form".
+		// And sibling form element named x can be accessible by "this.form.x"
+		
+		// Push Buttons
+		// Both button and link have the same onclick event so that they can be repalced with each other. The difference is button looks like a
+		// graphical push button while link is a "Following a link"(Although link can be CSSed as a button like link.)
+		// button & link with onclick event handler and form.submit() method, you don't have to have <input type="submit"> in the form.
+		// <button></button> can be inserted any html content, see html sample above.
+
+		// Toggle Buttons
+		println(document.lastFormName.extras[0].checked);
+		println(document.lastFormName.extras[1].checked);
+		println(document.lastFormName.extras[2].checked);
+		// Set "value" property of radio/checkbox does not alter the visual appearance of the element, the property is only used for web server.
+
+		// Text Fields
+		// You may return false from the onkeypress or onkeydown event handlers to prevent the user's keystroke from being recorded.
+		// This can be useful, for example, if you want to force the user to enter only digits into a particular text input field.
+
+		// Select and Option Elements
+		// See the html sample above.
+		/*
+			For select-one Select elements, the read/write selectedIndex property specifies by number which one of the
+			options is currently selected. For select-multiple elements, the single selectedIndex property is not
+			sufficient to represent the complete set of selected options. In this case, to determine which options are
+			selected, you must loop through the elements of the options[] array and check the value of the selected
+			property for each Option object.
+		*/
+		// Create a new Option object
+		var zaire = new Option("Zaire", // The text property
+		"zaire", // The value property
+		false, // The defaultSelected property
+		false); // The selected property
+		// Display it in a Select element by appending it to the options array:
+		var countries = document.firstFormName.country; // Get the Select object
+		countries.options[countries.options.length] = zaire;
+
+
+		// Form Verification Example
+		// See sample in pdf page 543-545
+		
+
+	</script>
+</html>
+

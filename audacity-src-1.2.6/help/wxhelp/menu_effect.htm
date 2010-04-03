@@ -1,0 +1,153 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<html>
+<head>
+<title>Audacity - Effect Menu</title>
+</head>
+
+<body text="#000000" link="#000099" vlink="#000099">
+
+<font color="#000099">
+<h1>Effect Menu</h1>
+</font>
+
+The items in this menu only work when you have audio selected.
+Audacity does not have any real-time effects; you must select the
+audio, apply the effect, and then listen to the results.
+<br><p>
+Most effects have a Preview button.  Clicking on this button plays
+up to three seconds of audio, allowing you to hear what it will sound
+like after the effect is applied.  This is useful for fine-tuning the
+effect parameters.
+<br><p>
+
+<b>Repeat Last Effect</b> - selecting this command is a shortcut to
+applying the most recent effect with the same settings.  This is a
+convenient way to quickly apply the same effect to many different parts of
+a file.
+<br><p>
+
+<hr width="50%">
+<br><p>
+
+<b>Amplify</b> - changes the volume of the selected audio.  If you
+click the "Don't allow clipping" checkbox, it won't let you amplify
+so much that the audio ends up beyond the range of the waveform.
+<br><p>
+
+<b>BassBoost</b> - enhances the bass frequencies
+<br><p>
+
+<b>Change Pitch</b> - changes the pitch/frequency of the selected audio
+without changing the tempo.  When you open the dialog, the starting
+frequency is set to Audacity's best guess as to the frequency of the
+selection.  This works well for recordings of singing or musical
+instruments without background noise.  You can specify the pitch change
+in one of four different ways: musical note, semitones, frequency, or
+percent change.
+<br><p>
+
+<b>Change Speed</b> - changes the speed of the audio by resampling.
+Making the speed higher will also increase the pitch, and vice versa.
+This will change the length of the selection.
+<br><p>
+
+<b>Change Tempo</b> - changes the tempo (speed) of the audio without
+changing the pitch.  This will change the length of the selection.
+<br><p>
+
+<b>Click Removal</b> - This effect is designed to remove the annoying clicks
+on recordings from vinyl records without damaging the rest of the audio.
+You can choose how sensitive the click detection is, and what the maximum
+length of a click is.
+<br><p>
+
+
+<b>Compressor</b> - compresses the dynamic range of the selection so
+that the loud parts are softer while keeping the volume of the soft
+parts the same.  You can optionally apply gain, resulting
+in the entire piece having higher perceived volume.
+<br><p>
+
+<b>Echo</b> - very simple effect that repeats the selection with a
+decay, sounding like a series of echos.  This effect does not change
+the length of the selection, so you may want to add silence to the end
+of the track before applying it (using the
+<a href="menu_generate.htm">Generate Menu</a>).
+<br><p>
+
+<b>Equalization</b> - Boost or reduce arbitrary frequencies.  You can
+select one of a number of different curves designed to equalize the
+sound of some popular record players, or draw your own curve.
+<br><p>
+
+<b>Fade In</b> - fades the selection in linearly
+<br><p>
+
+<b>Fade Out</b> - fades the selection out linearly
+<br><p>
+
+<b>FFT Filter</b> - similar to Equalization, lets you enhance or reduce
+arbitrary frequencies.  The curve here uses a linear scale for
+frequency.
+<br><p>
+
+<b>Invert</b> - Flips the waveform vertically, reversing its phase.
+<br><p>
+
+<b>Noise Removal</b> - This effect lets you clean up noise from a recording.
+First, select a small piece of audio that is silent except for the noise,
+select "Noise Removal", and click on the "Get Noise Profile" button.
+Then select all of the audio you want filtered select "Noise Removal"
+again, and click the "Remove Noise" button.  You can experiment with
+the slider to try to remove more or less noise.  It is normal for
+Noise Removal to result in some distortion.  It works best when the
+audio signal is much louder than the noise.
+<br><p>
+
+<b>Normalize</b> - allows you to correct for DC offset (a vertical
+displacement of the track) and/or amplify such that the maximum
+amplitude is a fixed amount, -3 dB.  It's useful to normalize all
+of your tracks before mixing.
+<br><p>
+
+<b>Nyquist Prompt</b> - for advanced users only.  Allows you to
+express arbitrary transormations using a powerful functional
+programming language.  See the Nyquist section of the Audacity
+website for more information.
+<br><p>
+
+<b>Phaser</b> - the name "Phaser" comes from "Phase Shifter", because it
+works by combining phase-shifted signals with the original
+signal.  The movement of the phase-shifted signals is
+controlled using a Low Frequency Oscillator (LFO).
+<br><p>
+
+<b>Repeat</b> - repeats the selection a certain number of times.
+This operation is quite fast and space-efficient, so it is practical
+to use it to create nearly-infinite loops.
+<br><p>
+
+<b>Reverse</b> - This effect reverses the selected audio temporally;
+after the effect the end of the audio will be heard first and the
+beginning last.
+<br><p>
+
+<b>Wahwah</b> - uses a moving bandpass filter to create its
+sound.  A low frequency oscillator (LFO) is used to
+control the movement of the filter throughout the
+frequency spectrum.  Adjusts the phase of the left and right
+channels when given a stereo selection, so that the effect seems
+to travel across the speakers.
+<br><p>
+
+<hr width="50%">
+<br><p>
+
+Any items which appear after these built-in effects are VST,
+Ladspa, or Nyquist plug-ins.  It is possible for a poorly written
+plug-in to crash Audacity, so always save your work before using a
+plug-in effect.
+
+</body>
+</html>
+

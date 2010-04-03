@@ -1,0 +1,3 @@
+Same-Origin policy for ajax call exists, but how google map works?
+
+goole map is now using json for this cross domain issue. I may can have a further investigation by google search.

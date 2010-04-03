@@ -1,0 +1,148 @@
+2004-01-16  rossbencina  <rossbencina@keyhole>
+
+	* Makefile, Makefile_freebsd:
+	removed old makefiles, see V19 Tree Cleanups thread on mailing list Jan 15 2004
+
+2003-09-23  rossbencina  <rossbencina@keyhole>
+
+	* pa_unix_oss.c:
+	fixed yesterdays attempted fix for only using the thread for callback streams
+	cleaned up yesterdays fix for inputParameters->device and outputParameters->device already being in host API format
+
+	* pa_unix_oss.c:
+	fixed bug with device ids being converted to host format even though they were already in host format
+	fixed bug with thread being started and stopped for blocking read/write stream
+
+2003-09-20  rossbencina  <rossbencina@keyhole>
+
+	* pa_unix_oss.c:
+	pa_win_ds.c, pa_unix_oss.c, pa_skeleton.c, pa_linux_alsa.c, pa_jack.c, pa_asio.c:
+		- switched to using separate DummyGetReadAvailable,DummyGetWriteAvailable
+	pa_stream.h
+		- doc cleanup
+		- made separate dummy functions for DummyGetReadAvailable,DummyGetWriteAvailable, previously DummyGetAvailable. both are needed because they return different error codes
+	pa_stream.c
+		- doc cleanup
+		- now return correct error codes from dummy read/write/available functions
+		- implemented separate DummyGetReadAvailable,DummyGetWriteAvailable
+	portaudio.h:
+		- doc cleanup
+		- added new error codes for blocking read/write streams
+	pa_front.c
+		- new error text for new error codes
+		- now returns errors (although not correct codes yet) for invalid ReadStream and WriteStream params
+	pa_win_wmme.h
+		- doc cleanup
+		- RENAMED numBuffers to bufferCount
+	pa_win_wmme.c
+		- implemented ReadStream, WriteStream, GetStreamReadAvailable, GetStreamWriteAvailable
+		- major refactoring to increase code reusue between input and output operations - the WMME API functions are different for input and output but the data structures and general methodology are the same, now trying to leverage this.
+
+2003-09-15  rossbencina  <rossbencina@keyhole>
+
+	* pa_unix_oss.c: - brought todo items up to date in pa_process.c
+	- implemented code to pass status flags to callback via new parameter of PaUtil_BeginBufferProcessing()
+	- stubbed new PaUtil_BeginBufferProcessing() parameter in implementations
+
+2003-09-02  joshua  <joshua@keyhole>
+
+	* pa_unix_oss.c:
+	update for Ross's const-correctness changes to common code
+
+2003-06-30  philburk  <philburk@keyhole>
+
+	* pa_unix.c, pa_unix_oss.c:
+	Eliminate unused variable warnings, by Thomas Richter.
+
+2003-05-22  rossbencina  <rossbencina@keyhole>
+
+	* pa_unix_oss.c:
+	added initialization of callbackResult prior to passing it to PaUtil_EndBufferProcessing - this is now necessary because PaUtil_EndBufferProcessing can be called to drain its internal buffer, even after the stream callback has returned paComplete or paAbort
+
+2003-04-11  philburk  <philburk@keyhole>
+
+	* pa_unix.c, pa_unix.h: Bjorn's fixes for pthread_t problems.
+
+2003-03-06  philburk  <philburk@keyhole>
+
+	* pa_unix.c: declare envdev in ANSI style
+
+2003-03-04  philburk  <philburk@keyhole>
+
+	* pa_unix.c, pa_unix_solaris.c: Solaris mods by  Martin Rohrbach
+
+2003-02-10  dmazzoni  <dmazzoni@keyhole>
+
+	* pa_unix_oss.c:
+	Ported pa_unix_oss to v19, added it to build system, and started
+	porting a couple of tests to v19.
+
+2002-10-28  philburk  <philburk@keyhole>
+
+	* pa_unix.c: Clarify some comments about the watchdog actions.
+
+2002-10-18  philburk  <philburk@keyhole>
+
+	* Makefile:
+	Added targets with suffix .app and .run so any test can be built
+	without having to edit the Makefile.
+
+	* pa_unix_oss.c:
+	Fill device info table with actual sample rates instead of wished for rates.
+	Allow stream to open if sample rate within 10% of desired rate.
+
+2002-06-26  philburk  <philburk@keyhole>
+
+	* Makefile, pa_unix.c, pa_unix.h, pa_unix_oss.c:
+	Add prototypes to prevent warning.
+	Fix indentation by converting tabs to spaces.
+
+2002-06-25  philburk  <philburk@keyhole>
+
+	* Makefile, pa_unix.c, pa_unix.h, pa_unix_oss.c, pa_unix_solaris.c:
+	Add nods from Sam Bayer and Augustus Saunders for Solaris compatibility.
+	Split unix common code to pa_unix.c
+	Host code to pa_unix_oss.c or pa_solaris.c
+
+	* pa_unix.c, pa_unix.h, pa_unix_solaris.c: New file.
+
+2002-02-25  philburk  <philburk@keyhole>
+
+	* pa_unix_oss.c:
+	If watchdog detects canary getting starved, then just lower audio thread
+	priority instead of killing it. If audio completely hung then still kill it.
+
+2002-02-22  philburk  <philburk@keyhole>
+
+	* Makefile: Add more tests.
+
+	* pa_unix_oss.c: Only use Get_AFMT_S16_NE is not defined.
+
+	* pa_unix_oss.c: Added WatchDog proc if audio running at high priority.
+	Check error return from read() and write().
+	Check CPU endianness instead of assuming Little Endian.
+
+2002-02-19  dmazzoni  <dmazzoni@keyhole>
+
+	* pa_unix_oss.c:
+	Fixed the nonblocking open - now it tries to open each device in
+	nonblocking mode, and if that succeeds, closes it and opens it
+	again in blocking mode - and added a new Pa_StreamTime
+	implementation that uses SNDCTL_DSP_GET[I/O]PTR.
+
+2002-02-18  dmazzoni  <dmazzoni@keyhole>
+
+	* pa_unix_oss.c:
+	Added O_NONBLOCK to all open() calls, so that PortAudio
+	does not hang if the device is in use by another program.
+
+2002-01-22  phil  <phil@keyhole>
+
+	* low_latency_tip.txt, recplay.c: New file.
+
+	* low_latency_tip.txt, recplay.c: no message
+
+	* Makefile, Makefile_freebsd, pa_unix_oss.c: New file.
+
+	* Makefile, Makefile_freebsd, pa_unix_oss.c: no message
+
