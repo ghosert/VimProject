@@ -4,5 +4,45 @@ http://www.kernel.org/pub/software/scm/git/docs/gittutorial.html
 http://www.spheredev.org/wiki/Git_for_the_lazy
 http://www.kernel.org/pub/software/scm/git/docs/everyday.html
 
-End Of Reference
+1. FOR LOCAL:
+
+git log v10..v20 -p -n3
+git log stable..master
+
+git diff v10 v20
+git diff stable master
+
+(v10 v20 above can be HEAD)
+
+
+2. FOR REMOTE:
+
+#see the changes before merging...
+
+git fetch origin (not git fetch origin master !!!)
+git log master..origin/master
+git diff master origin/master
+gitk master..origin/master
+
+git fetch origin master
+git log HEAD..FETCH_HEAD
+git diff HEAD FETCH_HEAD
+gitk HEAD..FETCH_HEAD
+
+#begin to pull and merge
+
+git pull origin master
+git push origin master
+
+
+3. REVERT CHANGES:
+
+revert uncommitted changes:
+git reset --hard
+
+soft revert committed changes to cache:
+git reset --soft HEAD^
+
+hard revert committed changes to local:
+git reset --hard HEAD^
 
