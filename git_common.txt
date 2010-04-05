@@ -46,3 +46,36 @@ git reset --soft HEAD^
 hard revert committed changes to local:
 git reset --hard HEAD^
 
+4. Multiple Accounts for github.com
+See details at http://github.com/guides/multiple-github-accounts
+
+1) Enter file in which to save the key (/Users/tom/.ssh/id_rsa):
+Instead of using “id_rsa”, you should use something like “id_rsa_github_useraccount” to denote the purpose of the key. So ultimately, you would enter:
+/Users/tom/.ssh/id_rsa_github_useraccount
+Still, add your public key in ~/.ssh/*.pub to your github account.
+
+2) vi (~/.ssh/config) file, add the following:
+
+# GitHub for cylence
+Host github-tom
+  HostName github.com
+  User git
+  IdentityFile /Users/tom/.ssh/id_rsa_git_tom
+
+If you are using ssh-agent (with or without keychain) you might also have to enable ForwardAgent:
+
+# GitHub for cylence
+Host github-tom
+  HostName github.com
+  User git
+  ForwardAgent yes
+  IdentityFile /Users/tom/.ssh/id_rsa_git_tom
+
+3) Instead of using:
+
+git clone git@github.com:account/repository.git
+
+USE
+
+git clone git@github-tom:account/repository.git
+
