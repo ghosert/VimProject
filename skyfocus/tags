@@ -1,0 +1,58 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.7	//
+Channel	.\thread_util.py	/^class Channel:$/;"	c
+ConsumerThread	.\thread_util.py	/^class ConsumerThread(KThread):$/;"	c
+FeedProducer	.\testFeed.py	/^class FeedProducer(thread_util.Producer):$/;"	c
+FeedProducer	.\testFeed_print_more.py	/^class FeedProducer(thread_util.Producer):$/;"	c
+FullQueue	.\thread_util.py	/^class FullQueue(Exception):$/;"	c
+KThread	.\thread_util.py	/^class KThread(threading.Thread):$/;"	c
+MyProducer	.\thread_util.py	/^    class MyProducer(Producer):$/;"	c	class:Channel
+MyProducer2	.\thread_util.py	/^    class MyProducer2(Producer):$/;"	c	class:Channel
+MyProducer3	.\thread_util.py	/^    class MyProducer3(Producer):$/;"	c	class:Channel
+MyRequest	.\thread_util.py	/^    class MyRequest(Request):$/;"	c	class:Channel
+MyRequest2	.\thread_util.py	/^    class MyRequest2(Request):$/;"	c	class:Channel
+Producer	.\thread_util.py	/^class Producer:$/;"	c
+ProducerThread	.\thread_util.py	/^class ProducerThread(KThread):$/;"	c
+Request	.\thread_util.py	/^class Request:$/;"	c
+__init__	.\testFeed.py	/^    def __init__(self, timerSeconds, currentEntry = None):$/;"	m	class:FeedProducer
+__init__	.\testFeed_print_more.py	/^    def __init__(self, timerSeconds, currentEntry = None):$/;"	m	class:FeedProducer
+__init__	.\thread_util.py	/^    def __init__(self, *args, **kwargs):$/;"	m	class:KThread
+__init__	.\thread_util.py	/^    def __init__(self, maxsize = 0):$/;"	m	class:Channel
+__init__	.\thread_util.py	/^    def __init__(self, queue, block = True, timeout = None):$/;"	m	class:ConsumerThread
+__init__	.\thread_util.py	/^    def __init__(self, queue, channel, producer):$/;"	m	class:ProducerThread
+__init__	.\thread_util.py	/^    def __init__(self, timerSeconds = None):$/;"	m	class:Producer
+__run	.\thread_util.py	/^    def __run(self):$/;"	m	class:KThread	file:
+convertGmailPublished	.\testFeed.py	/^def convertGmailPublished(published):$/;"	f
+convertGmailPublished	.\testFeed_print_more.py	/^def convertGmailPublished(published):$/;"	f
+doAction	.\thread_util.py	/^        def doAction(self):$/;"	m	class:Channel.MyRequest
+doAction	.\thread_util.py	/^        def doAction(self):$/;"	m	class:Channel.MyRequest2
+doAction	.\thread_util.py	/^    def doAction(self):$/;"	m	class:Request
+getTimerSeconds	.\thread_util.py	/^    def getTimerSeconds(self):$/;"	m	class:Producer
+globaltrace	.\thread_util.py	/^    def globaltrace(self, frame, why, arg):$/;"	m	class:KThread
+kill	.\thread_util.py	/^    def kill(self):$/;"	m	class:KThread
+localtrace	.\thread_util.py	/^    def localtrace(self, frame, why, arg):$/;"	m	class:KThread
+process	.\testFeed.py	/^    def process(self, channel):$/;"	m	class:FeedProducer
+process	.\testFeed_print_more.py	/^    def process(self, channel):$/;"	m	class:FeedProducer
+process	.\thread_util.py	/^        def process(self, channel):$/;"	m	class:Channel.MyProducer
+process	.\thread_util.py	/^        def process(self, channel):$/;"	m	class:Channel.MyProducer2
+process	.\thread_util.py	/^        def process(self, channel):$/;"	m	class:Channel.MyProducer3
+process	.\thread_util.py	/^    def process(self, channel):$/;"	m	class:Producer
+putRequest	.\thread_util.py	/^    def putRequest(self, request, block = True, timeout = None):$/;"	m	class:Channel
+run	.\thread_util.py	/^    def run(self):$/;"	m	class:ConsumerThread
+run	.\thread_util.py	/^    def run(self):$/;"	m	class:ProducerThread
+shutdown	.\thread_util.py	/^    def shutdown(self):$/;"	m	class:ConsumerThread
+shutdown	.\thread_util.py	/^    def shutdown(self):$/;"	m	class:ProducerThread
+size	.\thread_util.py	/^    def size(self):$/;"	m	class:Channel
+start	.\thread_util.py	/^    def start(self):$/;"	m	class:KThread
+startConsumer	.\thread_util.py	/^    def startConsumer(self, maxsize, block = True, timeout = None):$/;"	m	class:Channel
+startProducer	.\thread_util.py	/^    def startProducer(self, producers):$/;"	m	class:Channel
+stopConsumer	.\thread_util.py	/^    def stopConsumer(self):$/;"	m	class:Channel
+stopProducer	.\thread_util.py	/^    def stopProducer(self):$/;"	m	class:Channel
+utcToLocalString	.\testFeed.py	/^def utcToLocalString(format, st):$/;"	f
+utcToLocalString	.\testFeed_print_more.py	/^def utcToLocalString(format, st):$/;"	f
+waitingForConsumerExist	.\thread_util.py	/^    def waitingForConsumerExist(self):$/;"	m	class:Channel
+waitingForProducerExist	.\thread_util.py	/^    def waitingForProducerExist(self):$/;"	m	class:Channel
