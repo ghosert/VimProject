@@ -34,6 +34,9 @@ gitk HEAD..FETCH_HEAD
 git pull origin master
 git push origin master
 
+git pull is not safe enough since it will auto merge if no conflicts.
+so that just keep in mind to recheck the auto merged files after pull action.
+
 
 3. REVERT CHANGES:
 
