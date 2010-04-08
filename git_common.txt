@@ -22,7 +22,7 @@ git diff stable master
 
 git fetch origin (not git fetch origin master !!!)
 git log master..origin/master
-git diff master origin/master
+git diff master origin/master (after git fetch command, use this to see whether local repository is same to remote one.)
 gitk master..origin/master
 
 git fetch origin master
@@ -32,10 +32,14 @@ gitk HEAD..FETCH_HEAD
 
 #begin to pull and merge
 
-git pull origin master
+git merge origin/master
+
+Or, which means and equals to 
+
+git pull origin master (pull command will not refresh origin/master fetch head.)
 git push origin master
 
-git pull is not safe enough since it will auto merge if no conflicts.
+git merge/pull is not safe enough since it will auto merge if no conflicts.
 so that just keep in mind to recheck the auto merged files after pull action.
 
 
