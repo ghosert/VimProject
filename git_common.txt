@@ -34,7 +34,7 @@ gitk HEAD..FETCH_HEAD
 
 git merge origin/master
 
-Or, which means and equals to 
+Or, which means and equals to the lines below(preferred):
 
 git pull origin master (pull command will not refresh origin/master fetch head.)
 git push origin master
