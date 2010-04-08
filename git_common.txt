@@ -88,3 +88,21 @@ USE
 
 git clone git@github-tom:account/repository.git
 
+
+5. For trailing whitespace error when committing in Cygwin for dos format file:
+
+1) Solution 1: open file with vi and :set fileformat=unix
+
+2) Solution 2:
+Modify the perl script <GIT_DIR>/.git/hooks/pre-commit  (where <GIT_DIR> is the top level of the copy of the repository on my local machine) , and comment out the following lines:
+
+if (/\s$/) {
+bad_line("trailing whitespace", $_);
+}
+
+like so:
+
+# if (/\s$/) {
+# bad_line("trailing whitespace", $_);
+# }
+
