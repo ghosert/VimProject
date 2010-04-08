@@ -49,6 +49,7 @@ git reset --soft HEAD^
 hard revert committed changes to local:
 git reset --hard HEAD^
 
+
 4. Multiple Accounts for github.com
 See details at http://github.com/guides/multiple-github-accounts
 
