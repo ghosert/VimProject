@@ -36,7 +36,7 @@ git merge origin/master
 
 Or, which means and equals to the lines below(preferred):
 
-git pull origin master ("git pull origin master" will not refresh origin/master fetch head while "git pull/git pull origin" will.)
+git pull origin master ("git pull origin master" will not refresh origin/master fetch head above while "git pull/git pull origin"[for a git clone repository] will.)
 git push origin master
 
 git merge/pull is not safe enough since it will auto merge if no conflicts.
