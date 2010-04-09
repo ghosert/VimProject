@@ -15,6 +15,12 @@ git diff stable master
 
 (v10 v20 above can be HEAD)
 
+gitk is a gui version for git log I think, so that you can:
+
+gitk v10..v20
+gitk stable..master
+gitk filenmae
+
 
 2. FOR REMOTE:
 
@@ -40,7 +46,10 @@ git pull origin master ("git pull origin master" will not refresh origin/master 
 git push origin master
 
 git merge/pull is not safe enough since it will auto merge if no conflicts.
-so that just keep in mind to recheck the auto merged files after pull action.
+so that just keep in mind to recheck the auto merged files after pull action by the way below,(suppose the auto merged file name is test):
+git diff HEAD^:test HEAD:test
+OR
+gitk test
 
 
 3. REVERT CHANGES:
