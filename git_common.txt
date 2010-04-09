@@ -45,6 +45,9 @@ so that just keep in mind to recheck the auto merged files after pull action.
 
 3. REVERT CHANGES:
 
+untag uncommitted changes:
+git reset
+
 revert uncommitted changes:
 git reset --hard
 
