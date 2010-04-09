@@ -24,7 +24,7 @@ gitk filenmae
 
 2. FOR REMOTE:
 
-#see the changes before merging...
+1) see the changes before merging...
 
 git fetch origin (not git fetch origin master !!!)
 git log master..origin/master
@@ -36,17 +36,25 @@ git log HEAD..FETCH_HEAD
 git diff HEAD FETCH_HEAD
 gitk HEAD..FETCH_HEAD
 
-#begin to pull and merge
+2) begin to merge after fetch...
 
 git merge origin/master
 
-Or, which means and equals to the lines below(preferred):
+3) Or, "pull = fetch + merge" above:
 
-git pull origin master ("git pull origin master" will not refresh origin/master fetch head above while "git pull/git pull origin"[for a git clone repository] will.)
-git push origin master
+for cloned project:
+Use "git pull/git pull origin" means "git fetch origin"(refresh origin/master fetch head above) + "git merge origin/master"
+
+for initialized/cloned project:
+Use "git pull origin master" means "git fetch origin master"(refresh FETCH_HEAD above) + "git merge origin/master"
+
+4) IMPORTANT FOR NOW, use the clause to make sure you've syn local and remote respository.
+a. git pull origin master (will prompt commit if any uncommited files which in both local & remote repository have been changed.)
+b. git status (make sure no uncommited files in local respository)
+c. git push origin master (may prompt pull action if you skip step 1 above, after this push, you can make sure, both your local & remote respository are synchronized.)
 
 git merge/pull is not safe enough since it will auto merge if no conflicts.
-so that just keep in mind to recheck the auto merged files after pull action by the way below,(suppose the auto merged file name is test):
+so that just keep in mind to "RECHECK THE AUTO MERGED FILES" after pull action by the way below, (suppose the auto merged file name is test):
 git diff HEAD^:test HEAD:test
 OR
 gitk test
