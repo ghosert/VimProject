@@ -48,16 +48,37 @@ Use "git pull/git pull origin" means "git fetch origin"(refresh origin/master fe
 for initialized/cloned project:
 Use "git pull origin master" means "git fetch origin master"(refresh FETCH_HEAD above) + "git merge origin/master"
 
+
+====================================================================================================================================
 4) IMPORTANT FOR NOW, use the clause to make sure you've syn local and remote respository.
-a. git pull origin master (will prompt commit if any uncommited files which in both local & remote repository have been changed.)
-b. git status (make sure no uncommited files in local respository)
-c. git push origin master (may prompt pull action if you skip step a. above,ince remote repository version may be ahead of local one, after this push, you can make sure, both your local & remote respository are synchronized.)
+.. FIRST OF ALL: convert initialized project to cloned project by typing
+"git config branch.master.remote origin" & "git config branch.master.merge refs/heads/master"
+in a git folder like VimProject so that the initialized project can support "git pull/git pull origin" above/below so that you can use "git diff master origin/master" after pull before push.
+Initialized project means the initial project which is used to push to github at the very beginning.
+
+optional steps before pull:
+git fetch origin
+git diff master origin/master
+
+a. git pull/git pull origin
+(will prompt commit if any uncommited files which in both local & remote repository have been changed.)
+
+b. git status
+(make sure no uncommited files in local respository)
+
+optional steps before push:
+git diff master origin/master
+to see whether local repository is same to remote one or what's the difference between local & remote.
+
+c. git push origin master
+(may prompt pull action if you skip step a. above,ince remote repository version may be ahead of local one, after this push, you can make sure, both your local & remote respository are synchronized.)
 
 git merge/pull is not safe enough since it will auto merge if no conflicts.
 so that just keep in mind to "RECHECK THE AUTO MERGED FILES" after pull action by the way below, (suppose the auto merged file name is test):
 git diff HEAD^:test HEAD:test
 OR
 gitk test
+====================================================================================================================================
 
 
 3. REVERT CHANGES:
