@@ -68,7 +68,7 @@ b. git status
 
 optional steps before push:
 git diff master origin/master
-to see whether local repository is same to remote one or what's the difference between local & remote.
+(see difference & what will be pushed to remote, return empty means "same" so that you can skip step c. below.)
 
 c. git push origin master
 (may prompt pull action if you skip step a. above,ince remote repository version may be ahead of local one, after this push, you can make sure, both your local & remote respository are synchronized.)
