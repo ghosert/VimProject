@@ -5,6 +5,15 @@ http://www.spheredev.org/wiki/Git_for_the_lazy
 http://www.kernel.org/pub/software/scm/git/docs/everyday.html
 http://progit.org/book/
 
+0.
+
+git add filenmae
+git commit -m 'commit message'
+
+Or simply tht two steps above like blow:
+
+git commit -a -m 'commit message'
+
 1. FOR LOCAL:
 
 git log v10..v20 -p -n3
