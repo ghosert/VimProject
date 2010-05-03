@@ -80,7 +80,7 @@ git diff master origin/master
 (see difference & what will be pushed to remote, return empty means "same" so that you don't have to push.)
 
 c. git push origin master
-(may prompt pull action if you skip step a. above,ince remote repository version may be ahead of local one, after this push, you can make sure, both your local & remote respository are synchronized.)
+(may prompt pull action if you skip step a. above, since remote repository version may be ahead of local one, after this push, you can make sure, both your local & remote respository are synchronized.)
 
 git merge/pull is not safe enough since it will auto merge if no conflicts.
 so that just keep in mind to "RECHECK THE AUTO MERGED FILES" after pull action by the way below, (suppose the auto merged file name is test):
