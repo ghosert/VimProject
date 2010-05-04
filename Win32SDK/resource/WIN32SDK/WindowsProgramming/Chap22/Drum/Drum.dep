@@ -1,0 +1,19 @@
+# Microsoft Developer Studio Generated Dependency File, included by Drum.mak
+
+.\Drum.c : \
+	".\DrumFile.h"\
+	".\DrumTime.h"\
+	
+
+.\Drum.rc : \
+	".\drum.ico"\
+	
+
+.\DrumFile.c : \
+	".\DrumFile.h"\
+	".\DrumTime.h"\
+	
+
+.\DrumTime.c : \
+	".\DrumTime.h"\
+	

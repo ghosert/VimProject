@@ -1,0 +1,5 @@
+# Microsoft Developer Studio Generated Dependency File, included by About1.mak
+
+.\About1.rc : \
+	".\About1.ico"\
+	

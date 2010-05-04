@@ -1,0 +1,5 @@
+# Microsoft Developer Studio Generated Dependency File, included by StrProg.mak
+
+.\StrProg.c : \
+	".\StrLib.h"\
+	

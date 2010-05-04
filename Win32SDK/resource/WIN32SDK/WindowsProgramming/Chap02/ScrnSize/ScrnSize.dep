@@ -1,0 +1,5 @@
+# Microsoft Developer Studio Generated Dependency File, included by ScrnSize.mak
+
+.\ScrnSize.c : \
+	"..\..\..\progra~1\micros~3\vc98\include\basetsd.h"\
+	

@@ -1,0 +1,6 @@
+# Microsoft Developer Studio Generated Dependency File, included by HexCalc.mak
+
+.\HexCalc.rc : \
+	".\HexCalc.dlg"\
+	".\HexCalc.ico"\
+	

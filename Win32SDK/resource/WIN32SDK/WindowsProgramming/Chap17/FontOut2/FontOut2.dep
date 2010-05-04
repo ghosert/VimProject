@@ -1,0 +1,13 @@
+# Microsoft Developer Studio Generated Dependency File, included by FontOut2.mak
+
+..\EzTest\EzFont.c : \
+	"..\EzTest\ezfont.h"\
+	
+
+..\EZTest\FontDemo.c : \
+	"..\EZTest\\EzFont.h"\
+	
+
+.\FontOut2.c : \
+	"..\EZTest\\EzFont.h"\
+	

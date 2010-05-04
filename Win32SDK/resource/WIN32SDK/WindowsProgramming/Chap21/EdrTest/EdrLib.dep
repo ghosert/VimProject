@@ -1,0 +1,5 @@
+# Microsoft Developer Studio Generated Dependency File, included by EdrLib.mak
+
+.\EdrLib.c : \
+	".\EdrLib.h"\
+	

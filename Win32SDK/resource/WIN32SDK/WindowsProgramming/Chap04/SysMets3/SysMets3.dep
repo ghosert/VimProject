@@ -1,0 +1,6 @@
+# Microsoft Developer Studio Generated Dependency File, included by SysMets3.mak
+
+.\SysMets3.c : \
+	"..\..\..\program files\microsoft visual studio\vc98\include\basetsd.h"\
+	".\SysMets.h"\
+	

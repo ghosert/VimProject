@@ -1,0 +1,5 @@
+# Microsoft Developer Studio Generated Dependency File, included by PopPad3.mak
+
+.\poppad.rc : \
+	".\poppad.ico"\
+	

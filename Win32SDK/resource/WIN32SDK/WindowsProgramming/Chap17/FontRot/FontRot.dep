@@ -1,0 +1,13 @@
+# Microsoft Developer Studio Generated Dependency File, included by FontRot.mak
+
+..\EZTest\EZFont.c : \
+	"..\EZTest\ezfont.h"\
+	
+
+..\EZTest\FontDemo.c : \
+	"..\EZTest\\EzFont.h"\
+	
+
+.\FontRot.c : \
+	"..\EZTest\\EzFont.h"\
+	

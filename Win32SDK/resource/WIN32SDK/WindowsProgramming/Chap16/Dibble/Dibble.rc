@@ -1,0 +1,171 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+DIBBLE MENU DISCARDABLE 
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "&Open...\tCtrl+O",            IDM_FILE_OPEN
+        MENUITEM "&Save...\tCtrl+S",            IDM_FILE_SAVE
+        MENUITEM SEPARATOR
+        MENUITEM "&Print...\tCtrl+P",           IDM_FILE_PRINT
+        MENUITEM SEPARATOR
+        MENUITEM "Propert&ies...",              IDM_FILE_PROPERTIES
+        MENUITEM SEPARATOR
+        MENUITEM "E&xit",                       IDM_APP_EXIT
+    END
+    POPUP "&Edit"
+    BEGIN
+        MENUITEM "Cu&t\tCtrl+X",                IDM_EDIT_CUT
+        MENUITEM "&Copy\tCtrl+C",               IDM_EDIT_COPY
+        MENUITEM "&Paste\tCtrl+V",              IDM_EDIT_PASTE
+        MENUITEM "&Delete\tDelete",             IDM_EDIT_DELETE
+        MENUITEM SEPARATOR
+        MENUITEM "&Flip",                       IDM_EDIT_FLIP
+        MENUITEM "&Rotate",                     IDM_EDIT_ROTATE
+    END
+    POPUP "&Show"
+    BEGIN
+        MENUITEM "&Actual Size",                IDM_SHOW_NORMAL, CHECKED
+        MENUITEM "&Center",                     IDM_SHOW_CENTER
+        MENUITEM "&Stretch to Window",          IDM_SHOW_STRETCH
+        MENUITEM "Stretch &Isotropically",      IDM_SHOW_ISOSTRETCH
+    END
+    POPUP "&Palette"
+    BEGIN
+        MENUITEM "&None",                       IDM_PAL_NONE, CHECKED
+        MENUITEM "&Dib ColorTable",             IDM_PAL_DIBTABLE
+        MENUITEM "&Halftone",                   IDM_PAL_HALFTONE
+        MENUITEM "&All-Purpose",                IDM_PAL_ALLPURPOSE
+        POPUP "&Gray Shades"
+        BEGIN
+            MENUITEM "&1. 2 Grays",                 IDM_PAL_GRAY2
+            MENUITEM "&2. 3 Grays",                 IDM_PAL_GRAY3
+            MENUITEM "&3. 4 Grays",                 IDM_PAL_GRAY4
+            MENUITEM "&4. 8 Grays",                 IDM_PAL_GRAY8
+            MENUITEM "&5. 16 Grays",                IDM_PAL_GRAY16
+            MENUITEM "&6. 32 Grays",                IDM_PAL_GRAY32
+            MENUITEM "&7. 64 Grays",                IDM_PAL_GRAY64
+            MENUITEM "&8. 128 Grays",               IDM_PAL_GRAY128
+            MENUITEM "&9. 256 Grays",               IDM_PAL_GRAY256
+        END
+        POPUP "&Uniform Colors"
+        BEGIN
+            MENUITEM "&1. 2R x 2G x 2B (8)",        IDM_PAL_RGB222
+            MENUITEM "&2. 3R x 3G x 3B (27)",       IDM_PAL_RGB333
+            MENUITEM "&3. 4R x 4G x 4B (64)",       IDM_PAL_RGB444
+            MENUITEM "&4. 5R x 5G x 5B (125)",      IDM_PAL_RGB555
+            MENUITEM "&5. 6R x 6G x 6B (216)",      IDM_PAL_RGB666
+            MENUITEM "&6. 7R x 7G x 5B (245)",      IDM_PAL_RGB775
+            MENUITEM "&7. 7R x 5B x 7B (245)",      IDM_PAL_RGB757
+            MENUITEM "&8. 5R x 7G x 7B (245)",      IDM_PAL_RGB577
+            MENUITEM "&9. 8R x 8G x 4B (256)",      IDM_PAL_RGB884
+            MENUITEM "&A. 8R x 4G x 8B (256)",      IDM_PAL_RGB848
+            MENUITEM "&B. 4R x 8G x 8B (256)",      IDM_PAL_RGB488
+        END
+        POPUP "&Optimized"
+        BEGIN
+            MENUITEM "&1. Popularity Algorithm (4 bits)", IDM_PAL_OPT_POP4
+            MENUITEM "&2. Popularity Algorithm (5 bits)", IDM_PAL_OPT_POP5
+            MENUITEM "&3. Popularity Algorithm (6 bits)", IDM_PAL_OPT_POP6
+            MENUITEM "&4. Median Cut Algorithm ",   IDM_PAL_OPT_MEDCUT
+        END
+    END
+    POPUP "Con&vert"
+    BEGIN
+        MENUITEM "&1. to 1 bit per pixel",      IDM_CONVERT_01
+        MENUITEM "&2. to 4 bits per pixel",     IDM_CONVERT_04
+        MENUITEM "&3. to 8 bits per pixel",     IDM_CONVERT_08
+        MENUITEM "&4. to 16 bits per pixel",    IDM_CONVERT_16
+        MENUITEM "&5. to 24 bits per pixel",    IDM_CONVERT_24
+        MENUITEM "&6. to 32 bits per pixel",    IDM_CONVERT_32
+    END
+    POPUP "&Help"
+    BEGIN
+        MENUITEM "&About",                      IDM_APP_ABOUT
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+DIBBLE ACCELERATORS DISCARDABLE 
+BEGIN
+    "C",            IDM_EDIT_COPY,          VIRTKEY, CONTROL, NOINVERT
+    "O",            IDM_FILE_OPEN,          VIRTKEY, CONTROL, NOINVERT
+    "P",            IDM_FILE_PRINT,         VIRTKEY, CONTROL, NOINVERT
+    "S",            IDM_FILE_SAVE,          VIRTKEY, CONTROL, NOINVERT
+    "V",            IDM_EDIT_PASTE,         VIRTKEY, CONTROL, NOINVERT
+    VK_DELETE,      IDM_EDIT_DELETE,        VIRTKEY, NOINVERT
+    "X",            IDM_EDIT_CUT,           VIRTKEY, CONTROL, NOINVERT
+END
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

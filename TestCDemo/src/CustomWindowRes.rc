@@ -1,0 +1,16 @@
+// Microsoft Developer Studio generated resource script.
+// #include "resource.h"
+// #include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+// Bitmap
+
+CUSTOMWINDOW                 BITMAP  DISCARDABLE     "src/customwindow.bmp"
+CUSTOMBUTTON                 BITMAP  DISCARDABLE     "src/custombutton.bmp"
+CUSTOMBUTTON_MOVEIN          BITMAP  DISCARDABLE     "src/custombutton_movein.bmp"
+CUSTOMBUTTON_DOWN          BITMAP  DISCARDABLE     "src/custombutton_down.bmp"
+
+HORN                 BITMAP  DISCARDABLE     "src/horn.bmp"
+HORN_MOVEIN          BITMAP  DISCARDABLE     "src/horn_movein.bmp"
+HORN_DOWN          BITMAP  DISCARDABLE     "src/horn_down.bmp"
+

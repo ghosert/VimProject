@@ -1,0 +1,14 @@
+#-----------------------
+# MAKEFILE for SYSMETS3
+#-----------------------
+
+!include <win32.mak>
+
+sysmets3.exe : sysmets3.obj
+     $(link) $(linkdebug) $(guiflags) -out:sysmets3.exe \
+          sysmets3.obj $(guilibs)
+
+sysmets3.obj : sysmets3.c
+     $(cc) $(cflags) $(cvars) $(cdebug) sysmets3.c
+
+

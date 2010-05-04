@@ -1,0 +1,18 @@
+//Microsoft Developer Studio generated resource script.
+
+// #include "resource.h"
+
+// #include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+// Bitmap
+
+1                       BITMAP  DISCARDABLE     "src/bitmap1.bmp"
+2                       BITMAP  DISCARDABLE     "src/bitmap2.bmp"
+3                       BITMAP  DISCARDABLE     "src/bitmap3.bmp"
+4                       BITMAP  DISCARDABLE     "src/bitmap4.bmp"
+5                       BITMAP  DISCARDABLE     "src/bitmap5.bmp"
+6                       BITMAP  DISCARDABLE     "src/bitmap6.bmp"
+7                       BITMAP  DISCARDABLE     "src/bitmap7.bmp"
+8                       BITMAP  DISCARDABLE     "src/bitmap8.bmp"
+9                       BITMAP  DISCARDABLE     "src/bitmap9.bmp"

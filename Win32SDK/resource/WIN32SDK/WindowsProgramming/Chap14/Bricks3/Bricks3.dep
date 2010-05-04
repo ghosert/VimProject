@@ -1,0 +1,5 @@
+# Microsoft Developer Studio Generated Dependency File, included by Bricks3.mak
+
+.\Bricks3.rc : \
+	".\Bricks.bmp"\
+	

@@ -1,0 +1,22 @@
+# Microsoft Developer Studio Generated Dependency File, included by Dibble.mak
+
+.\Dibble.c : \
+	".\DibConv.h"\
+	".\DibHelp.h"\
+	".\DibPal.h"\
+	
+
+.\DibConv.c : \
+	".\DibConv.h"\
+	".\DibHelp.h"\
+	".\DibPal.h"\
+	
+
+.\DibHelp.c : \
+	".\DibHelp.h"\
+	
+
+.\DibPal.c : \
+	".\DibHelp.h"\
+	".\DibPal.h"\
+	

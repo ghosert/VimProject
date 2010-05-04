@@ -1,0 +1,13 @@
+# Microsoft Developer Studio Generated Dependency File, included by FontFill.mak
+
+..\EzTest\EzFont.c : \
+	"..\EzTest\ezfont.h"\
+	
+
+..\EZTest\FontDemo.c : \
+	"..\EZTest\\EzFont.h"\
+	
+
+.\FontFill.c : \
+	"..\EZTest\\EzFont.h"\
+	

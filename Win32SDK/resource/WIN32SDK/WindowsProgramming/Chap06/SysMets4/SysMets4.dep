@@ -1,0 +1,5 @@
+# Microsoft Developer Studio Generated Dependency File, included by SysMets4.mak
+
+.\SysMets4.c : \
+	".\SysMets.h"\
+	

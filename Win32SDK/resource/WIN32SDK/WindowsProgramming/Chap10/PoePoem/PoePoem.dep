@@ -1,0 +1,6 @@
+# Microsoft Developer Studio Generated Dependency File, included by PoePoem.mak
+
+.\PoePoem.rc : \
+	".\poepoem.ico"\
+	".\poepoem.txt"\
+	

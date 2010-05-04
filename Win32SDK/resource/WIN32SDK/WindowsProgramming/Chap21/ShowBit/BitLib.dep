@@ -1,0 +1,13 @@
+# Microsoft Developer Studio Generated Dependency File, included by BitLib.mak
+
+.\BitLib.rc : \
+	".\bitmap1.bmp"\
+	".\bitmap2.bmp"\
+	".\bitmap3.bmp"\
+	".\bitmap4.bmp"\
+	".\BITMAP5.BMP"\
+	".\BITMAP6.BMP"\
+	".\BITMAP7.BMP"\
+	".\BITMAP8.BMP"\
+	".\BITMAP9.BMP"\
+	

@@ -1,0 +1,39 @@
+//Microsoft Developer Studio generated resource script.
+
+
+#include "resource.h"
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+// Dialog
+
+ENTERDLG DIALOG DISCARDABLE  20, 20, 186, 47
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Enter"
+FONT 8, "MS Sans Serif"
+BEGIN
+    LTEXT           "&Enter:",IDC_STATIC,7,7,26,9
+    EDITTEXT        IDC_STRING,31,7,148,12,ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "OK",IDOK,32,26,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,104,26,50,14
+END
+
+DELETEDLG DIALOG DISCARDABLE  20, 20, 186, 47
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Delete"
+FONT 8, "MS Sans Serif"
+BEGIN
+    LTEXT           "&Delete:",IDC_STATIC,7,7,26,9
+    EDITTEXT        IDC_STRING,31,7,148,12,ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "OK",IDOK,32,26,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,104,26,50,14
+END
+/////////////////////////////////////////////////////////////////////////////
+// Menu
+
+STRPROG MENU DISCARDABLE 
+BEGIN
+    MENUITEM "&Enter!",                     IDM_ENTER
+    MENUITEM "&Delete!",                    IDM_DELETE
+END
+

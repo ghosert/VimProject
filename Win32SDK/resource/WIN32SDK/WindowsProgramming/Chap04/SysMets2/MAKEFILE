@@ -1,0 +1,14 @@
+#-----------------------
+# MAKEFILE for SYSMETS2
+#-----------------------
+
+!include <win32.mak>
+
+sysmets2.exe : sysmets2.obj
+     $(link) $(linkdebug) $(guiflags) -out:sysmets2.exe \
+          sysmets2.obj $(guilibs)
+
+sysmets2.obj : sysmets2.c
+     $(cc) $(cflags) $(cvars) $(cdebug) sysmets2.c
+
+

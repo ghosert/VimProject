@@ -1,0 +1,9 @@
+# Microsoft Developer Studio Generated Dependency File, included by Apollo11.mak
+
+.\Apollo11.c : \
+	".\DibFile.h"\
+	
+
+..\ShowDib1\DibFile.c : \
+	"..\ShowDib1\dibfile.h"\
+	
