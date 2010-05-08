@@ -1,0 +1,4 @@
+*.class
+*.pyc
+*.[oa] # for c language
+*.swp # for vi
