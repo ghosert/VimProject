@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <windows.h>
 
-typedef struct _TestStruct {
+typedef struct _TestStruct
+{
     int i;
     char *string;
 } TestStruct;
