@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-# Insertion sort:
+# Insertion sort: page 19 - 20
 
 A = [5, 2, 4, 6, 1, 3]
 
