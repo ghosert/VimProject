@@ -54,6 +54,33 @@ def merge_sort(A, p, r):
         merge_sort(A, q + 1, r)
         merge(A, p, q, r)
 
+# Binary search: Page 36
+def binary_search(A, a, p, r):
+    while p <= r:
+        p, r = binary(A, a, p, r)
+    return  r if A[r] == a else None
+
+def binary(A, a, p, r):
+    z = (p + r) / 2
+    if A[z] == a:
+        return z + 1, z
+    elif A[z] < a:
+        return z + 1, r
+    elif A[z] > a:
+        return p, z - 1
+
+# Bubble sort: Page 37
+def bubble_sort(A):
+    for i in range(len(A)):
+        j = len(A) - 1 - i
+        for k in range(j):
+            l = len(A) - 1 - k
+            if A[l] < A[l - 1]:
+                temp = A[l]
+                A[l] = A[l - 1]
+                A[l - 1] = temp
+
+
 if __name__ == '__main__':
 
     A = [5, 2, 4, 6, 1, 3]
@@ -69,6 +96,15 @@ if __name__ == '__main__':
 
     A = [5, 2, 4, 7, 1, 3, 2, 6]
     merge_sort(A, 0, len(A) - 1)
+    print A
+    
+    # Given a sorted list for binary search
+    A = [1, 2, 2, 3, 4, 5, 6, 7]
+    # print binary_search(A, 5, 0, len(A) - 1)
+    print binary_search(A, 1, 0, 7)
+
+    A = [5, 2, 4, 7, 1, 3, 2, 6]
+    bubble_sort(A)
     print A
 
 
