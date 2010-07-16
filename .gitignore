@@ -1,4 +1,8 @@
+# list the ignore file formats here.
+# bin/ means all the "bin" folder in the current/sub folders will be ignored.
+bin/
 *.class
 *.pyc
-*.[oa] # for c language
-*.swp # for vi
+*.[oa]
+*.so
+*.swp

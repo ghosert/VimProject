@@ -1,5 +1,5 @@
 main:
-	gcc -c -o sort.o sort.c
-	gcc -o sort sort.o
+	gcc -c -o bin/sort.o sort.c
+	gcc -o bin/sort bin/sort.o
 clean:
-	rm sort.o sort
+	rm bin/* -r
