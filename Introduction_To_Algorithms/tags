@@ -9,15 +9,24 @@ A	sort.py	/^    A = [2, 4, 5, 7, 1, 2, 3, 6]$/;"	v
 A	sort.py	/^    A = [5, 2, 4, 6, 1, 3]$/;"	v
 A	sort.py	/^    A = [5, 2, 4, 7, 1, 3, 2, 6]$/;"	v
 Decimal	sort.py	/^from decimal import Decimal$/;"	i
+MAX_NUM	sort.c	61;"	d	file:
 binary	sort.py	/^def binary(A, a, p, r):$/;"	f	access:public
 binary_search	sort.c	/^int binary_search(int *, int, int, int);$/;"	p	file:	signature:(int *, int, int, int)
 binary_search	sort.c	/^int binary_search(int *ap, int v, int low, int high)$/;"	f	signature:(int *ap, int v, int low, int high)
 binary_search	sort.py	/^def binary_search(A, a, p, r):$/;"	f	access:public
+bubble_sort	sort.c	/^void bubble_sort(int *, int);$/;"	p	file:	signature:(int *, int)
+bubble_sort	sort.c	/^void bubble_sort(int *ap, int n)$/;"	f	signature:(int *ap, int n)
 bubble_sort	sort.py	/^def bubble_sort(A):$/;"	f	access:public
 infinity	sort.py	/^infinity = Decimal('Infinity')$/;"	v
+insertion_sort	sort.c	/^void insertion_sort(int *, int);$/;"	p	file:	signature:(int *, int)
+insertion_sort	sort.c	/^void insertion_sort(int *ap, int n)$/;"	f	signature:(int *ap, int n)
 insertion_sort	sort.py	/^def insertion_sort(A):$/;"	f	access:public
 main	sort.c	/^int main(int argc, char *argv[])$/;"	f	signature:(int argc, char *argv[])
+merge	sort.c	/^void merge(int *, int, int, int);$/;"	p	file:	signature:(int *, int, int, int)
+merge	sort.c	/^void merge(int *ap, int p, int q, int r)$/;"	f	signature:(int *ap, int p, int q, int r)
 merge	sort.py	/^def merge(A, p, q, r):$/;"	f	access:public
+merge_sort	sort.c	/^void merge_sort(int *, int, int);$/;"	p	file:	signature:(int *, int, int)
+merge_sort	sort.c	/^void merge_sort(int *ap, int p, int r)$/;"	f	signature:(int *ap, int p, int r)
 merge_sort	sort.py	/^def merge_sort(A, p, r):$/;"	f	access:public
 printArray	sort.c	/^void printArray(int *, int);$/;"	p	file:	signature:(int *, int)
 printArray	sort.c	/^void printArray(int *ap, int i)$/;"	f	signature:(int *ap, int i)

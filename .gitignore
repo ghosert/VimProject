@@ -6,3 +6,6 @@ bin/
 *.[oa]
 *.so
 *.swp
+cscope.files
+cscope.out
+tags
