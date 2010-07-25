@@ -118,14 +118,16 @@ void randomize_in_place(int *ap, int n)
 {
     srand(time(NULL));
     int i;
+    printf("Randomly swap A[i] value in place:");
     for (i = 0; i < n; i++) {
         int j = (rand() % (n - i)) + i; // random(i, n)
-        printf("%d ", j);
+        printf(" %d", j);
         // swap A[i] <--> A[RANDOM(i, n)]
         int temp = ap[j];
         ap[j] = ap[i];
         ap[i] = temp;
     }
+    printf("\n");
 }
 
 void printArray(int *ap, int i)
