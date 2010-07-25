@@ -82,7 +82,7 @@ void insertion_sort(Entity *, int);
 
 // Although I'm using insertion sort for convenience here, O(n**2).
 // But for comparison sort, on the worst-case, the best running time is omiga(nlgn).
-// And for insertion sort, the running time for average case is theta(nlgn).
+// So that we may use merge sort / heap sort to substitute insertion sort here.
 void permute_by_sorting(int *ap, int n)
 {
     Entity e[n];
