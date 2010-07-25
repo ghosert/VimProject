@@ -61,6 +61,8 @@ void randomized_hire_assistant(int *ap, int n)
     printf("After randomize in place:\n");
     printArray(ap, n);
 
+    // Conclude: Option 2 is O(n) which is better than Option 1 nlgn
+
     int best = 0;
     int i;
     for (i = 0; i < n; i++) {
@@ -78,7 +80,9 @@ typedef struct entity {
 
 void insertion_sort(Entity *, int);
 
-// for comparison sort, the running time is omiga(nlgn) for average case.
+// Although I'm using insertion sort for convenience here, O(n**2).
+// But for comparison sort, on the worst-case, the best running time is omiga(nlgn).
+// And for insertion sort, the running time for average case is theta(nlgn).
 void permute_by_sorting(int *ap, int n)
 {
     Entity e[n];
