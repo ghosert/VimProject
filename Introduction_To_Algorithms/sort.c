@@ -8,6 +8,7 @@ void printArray(int *, int);
 void merge(int *, int, int, int);
 void merge_sort(int *, int, int);
 
+
 int main(int argc, char *argv[])
 {
     printf("\n");
