@@ -7,16 +7,27 @@ void build_max_heap(int *ap, int n);
 
 void heapsort(int *ap, int n);
 
+// max priority queue operations:
+void insert(int **ap, x), maximum(A), extract_max(A), increase_key(A, x, key)
+
 void printArray(int *ap, int i);
 
 int main(int argc, char *argv[]) {
     int A[] = {4, 1, 3, 2, 16, 9, 10, 14, 8, 7};
-    int n = sizeof(A) / sizeof(int);
+    int n = 10;
+    int *ap = (int *) malloc(sizeof(int) * n);
+
+    // Heap sort
     printf("Before heap sorting:\n");
     printArray(A, n);
     heapsort(A, n);
     printf("After heap sorting:\n");
     printArray(A, n);
+
+    // max priority queue
+    // Page 122: insert(A, x), maximum(A), extract_max(A), increase_key(A, x, key)
+    insert(S)
+
 }
 
 // Page 116: The running time is O(lgN) which is equal to on a node of height h as O(h).
