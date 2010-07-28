@@ -1,33 +1,49 @@
 #include  <stdio.h>
 #include  <stdlib.h>
+#include  <math.h>
 
+// Heap sort.
 void max_heapify(int *ap, int i, int heap_size);
-
 void build_max_heap(int *ap, int n);
-
 void heapsort(int *ap, int n);
 
-// max priority queue operations:
-void insert(int **ap, x), maximum(A), extract_max(A), increase_key(A, x, key)
+// Page 122: max priority queue operations:
+// Can be used in job shcedule like applications.
+int heap_maximum(int *ap);
+int heap_extract_max(int *ap, int *heap_size);
+void heap_increase_key(int *ap, int i, int key);
+void max_heap_insert(int *ap, int key, int *heap_size);
+
+#define MIN_NUM -1000;
 
 void printArray(int *ap, int i);
+void printHeap(int *ap, int heap_size);
 
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
     int A[] = {4, 1, 3, 2, 16, 9, 10, 14, 8, 7};
-    int n = 10;
-    int *ap = (int *) malloc(sizeof(int) * n);
+    int n = sizeof(A) / sizeof(int);
 
     // Heap sort
-    printf("Before heap sorting:\n");
+    printf("\nBefore heap sorting:\n");
     printArray(A, n);
     heapsort(A, n);
     printf("After heap sorting:\n");
     printArray(A, n);
 
-    // max priority queue
-    // Page 122: insert(A, x), maximum(A), extract_max(A), increase_key(A, x, key)
-    insert(S)
+    // rebuild max heap for max priority queue below
+    int B[] = {4, 1, 3, 2, 16, 9, 10, 14, 8, 7};
+    n = sizeof(B) / sizeof(int);
+    build_max_heap(B, n);
 
+    // max priority queue
+    int *heap_size = &n;
+    printf("\nheap maximum: %d\n", heap_maximum(B));
+    printf("Before extract heap maximum: \n");
+    printHeap(B, *heap_size);
+    printf("extract heap maximum: %d\n", heap_extract_max(B, heap_size));
+    printf("After extract heap maximum: \n");
+    printHeap(B, *heap_size);
 }
 
 // Page 116: The running time is O(lgN) which is equal to on a node of height h as O(h).
@@ -69,7 +85,8 @@ void build_max_heap(int *ap, int n)
 // Page 120: Exchange the maximum ap[0] to the last position of the array, and then max heapify the ap[0] once again.
 // Until all the n - 1 elements are handled, so that we got a heap sorted array.
 // Running time: O(NlgN), since each of the n - 1 calls on max_heapify takes time O(lgN), while build_max_heap takes O(N)
-void heapsort(int *ap, int n) {
+void heapsort(int *ap, int n)
+{
     build_max_heap(ap, n);
     int i;
     for (i = n - 1; i >= 1; i--) {
@@ -80,6 +97,54 @@ void heapsort(int *ap, int n) {
     }
 }
 
+// Returns the element of A with the largest key.
+// Running time: theta(1);
+int heap_maximum(int *ap)
+{
+    return ap[0];
+}
+
+// Remove and return the element with largest key.
+// Running time: O(lgN)
+int heap_extract_max(int *ap, int *heap_size)
+{
+    if ((*heap_size) < 0) {
+        printf("heap underflow");
+    }
+    int max = ap[0];
+    ap[0] = ap[*heap_size - 1];
+    *heap_size = *heap_size - 1;
+    max_heapify(ap, 0, *heap_size);
+    return max;
+}
+
+// increases the value of element i with new value key, which is assumed to be at least as large as i's current key value.
+// Running time: O(lgN)
+void heap_increase_key(int *ap, int i, int key)
+{
+    if (key < ap[i]) {
+        printf("new key is smalller than current key");
+    }
+    ap[i] = key;
+    int parent = i / 2;
+    while (parent > 0 && ap[parent] < ap[i]) {
+        int temp = ap[parent];
+        ap[parent] = ap[i];
+        ap[i] = temp;
+        i = parent;
+        parent = i / 2;
+    }
+}
+
+// Insert the new element with the value key to set.
+// Running time: O(lgN)
+void max_heap_insert(int *ap, int key, int *heap_size)
+{
+    *heap_size = *heap_size + 1;
+    ap[*heap_size - 1] = MIN_NUM;
+    heap_increase_key(ap, *heap_size - 1, key);
+}
+
 void printArray(int *ap, int i)
 {
     int j;
@@ -87,4 +152,18 @@ void printArray(int *ap, int i)
         printf("%d ", ap[j]);
     }
     printf("\n");
+}
+
+void printHeap(int *ap, int heap_size)
+{
+    int i, j;
+    int height = log2(heap_size) + 1;
+    for (i = 0; i < height; i++) {
+        for (j = 0; j < pow(2, i); j++) {
+            int index = (int) pow(2, i) + j - 1;
+            if (index == heap_size) break;
+            printf("%d ", ap[index]);
+        }
+        printf("\n");
+    }
 }
