@@ -35,14 +35,23 @@ int main(int argc, char *argv[])
     int B[] = {4, 1, 3, 2, 16, 9, 10, 14, 8, 7};
     n = sizeof(B) / sizeof(int);
     build_max_heap(B, n);
+    printf("\nmax heap:\n");
+    printArray(B, n);
 
-    // max priority queue
+    // max priority queue: for insert/remove element from B, it's better to use linkedlist instead of array in real codes.
+    // c array can't change the size arbitrary.
     int *heap_size = &n;
-    printf("\nheap maximum: %d\n", heap_maximum(B));
+    printf("heap maximum: %d\n", heap_maximum(B));
     printf("Before extract heap maximum: \n");
     printHeap(B, *heap_size);
     printf("extract heap maximum: %d\n", heap_extract_max(B, heap_size));
     printf("After extract heap maximum: \n");
+    printHeap(B, *heap_size);
+    heap_increase_key(B, 4, 11);
+    printf("After increase heap by change the value of the 5th element from 7 to 11: \n");
+    printHeap(B, *heap_size);
+    max_heap_insert(B, 12, heap_size);
+    printf("After insert a new element with the value 12 to max heap: \n");
     printHeap(B, *heap_size);
 }
 
@@ -124,15 +133,16 @@ void heap_increase_key(int *ap, int i, int key)
 {
     if (key < ap[i]) {
         printf("new key is smalller than current key");
+        return;
     }
     ap[i] = key;
-    int parent = i / 2;
+    int parent = (i + 1) / 2 - 1;
     while (parent > 0 && ap[parent] < ap[i]) {
         int temp = ap[parent];
         ap[parent] = ap[i];
         ap[i] = temp;
         i = parent;
-        parent = i / 2;
+        parent = (i + 1) / 2 - 1;
     }
 }
 
