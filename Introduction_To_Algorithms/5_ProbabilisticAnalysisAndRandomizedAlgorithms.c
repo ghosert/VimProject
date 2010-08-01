@@ -1,11 +1,11 @@
 #include  <stdio.h>
 #include  <math.h>
+#include  "util.h"
 
 void hire_assistant(int *, int);
 void randomized_hire_assistant(int *, int);
 void permute_by_sorting(int *, int);
 void randomize_in_place(int *, int);
-void printArray(int *ap, int i);
 
 int main(int argc, char *argv[])
 {
@@ -134,11 +134,3 @@ void randomize_in_place(int *ap, int n)
     printf("\n");
 }
 
-void printArray(int *ap, int i)
-{
-    int j;
-    for (j = 0; j < i; j++) {
-        printf("%d ", ap[j]);
-    }
-    printf("\n");
-}

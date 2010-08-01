@@ -1,4 +1,5 @@
 #include  <stdio.h>
+#include  "util.h"
 
 // Page 128-129
 
@@ -16,9 +17,6 @@ int partition(int *ap, int p, int r);
 int randomized_partition(int *ap, int p, int r);
 void randomized_quick_sort(int *ap, int p, int r);
 int random(int p, int r);
-
-void printArray(int *ap, int i);
-
 
 int main(int argc, char *argv[])
 {
@@ -95,14 +93,5 @@ int random(int p, int r)
 {
     srand(time(NULL));
     return (rand() % (r - p + 1)) + p; // random(p, r)
-}
-
-void printArray(int *ap, int i)
-{
-    int j;
-    for (j = 0; j < i; j++) {
-        printf("%d ", ap[j]);
-    }
-    printf("\n");
 }
 
