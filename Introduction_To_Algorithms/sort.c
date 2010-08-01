@@ -1,9 +1,9 @@
 #include  <stdio.h>
+#include  "util.c"
 
 void insertion_sort(int *, int);
 int binary_search(int *, int, int, int);
 void bubble_sort(int *, int);
-void printArray(int *, int);
 
 void merge(int *, int, int, int);
 void merge_sort(int *, int, int);
@@ -157,14 +157,5 @@ void bubble_sort(int *ap, int n)
             }
         }
     }
-}
-
-void printArray(int *ap, int i)
-{
-    int j;
-    for (j = 0; j < i; j++) {
-        printf("%d ", ap[j]);
-    }
-    printf("\n");
 }
 

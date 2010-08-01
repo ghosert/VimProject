@@ -11,7 +11,7 @@ main:
 	gcc -o $(GCC_TMP)/util.o -c util.c
 	gcc -o $(GCC_LIB)/libutil.so $(GCC_TMP)/util.o -shared -lm
 	gcc -c -o $(GCC_TMP)/sort.o sort.c
-	gcc -o $(GCC_BIN)/sort $(GCC_TMP)/sort.o
+	gcc -o $(GCC_BIN)/sort $(GCC_TMP)/sort.o -L$(LD_PATH) -lutil
 	gcc -c -o $(GCC_TMP)/5_ProbabilisticAnalysisAndRandomizedAlgorithms.o 5_ProbabilisticAnalysisAndRandomizedAlgorithms.c
 	gcc -o $(GCC_BIN)/5_ProbabilisticAnalysisAndRandomizedAlgorithms $(GCC_TMP)/5_ProbabilisticAnalysisAndRandomizedAlgorithms.o -L$(LD_PATH) -lutil -lm
 	gcc -c -o $(GCC_TMP)/6_Heapsort.o 6_Heapsort.c
