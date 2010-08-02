@@ -20,6 +20,8 @@ main:
 	gcc -o $(GCC_BIN)/6_Heapsort $(GCC_TMP)/6_Heapsort.o -L$(LD_PATH) -lutil
 	gcc -o $(GCC_TMP)/7_Quicksort.o $(COMPILEOPTION) 7_Quicksort.c
 	gcc -o $(GCC_BIN)/7_Quicksort $(GCC_TMP)/7_Quicksort.o -L$(LD_PATH) -lutil
+	gcc -o $(GCC_TMP)/8_SortingInLinearTime.o $(COMPILEOPTION) 8_SortingInLinearTime.c
+	gcc -o $(GCC_BIN)/8_SortingInLinearTime $(GCC_TMP)/8_SortingInLinearTime.o -L$(LD_PATH) -lutil -lm
 	cp *.h $(GCC_INCLUDE)/
 clean:
 	rm $(GCC_BIN)/* -rf
