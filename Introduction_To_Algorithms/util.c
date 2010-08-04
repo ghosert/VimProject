@@ -25,3 +25,9 @@ void printHeap(int *ap, int heap_size)
     }
 }
 
+int random(int p, int r)
+{
+    srand(time(NULL));
+    return (rand() % (r - p + 1)) + p; // random(p, r)
+}
+

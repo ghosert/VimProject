@@ -16,7 +16,6 @@ int partition(int *ap, int p, int r);
 // Many people regard the resulting randomized version of quick sort as the sorting algorithm of choice for large enough inputs.
 int randomized_partition(int *ap, int p, int r);
 void randomized_quick_sort(int *ap, int p, int r);
-int random(int p, int r);
 
 int main(int argc, char *argv[])
 {
@@ -87,11 +86,5 @@ void randomized_quick_sort(int *ap, int p, int r)
         randomized_quick_sort(ap, p, q - 1);
         randomized_quick_sort(ap, q + 1, r);
     }
-}
-
-int random(int p, int r)
-{
-    srand(time(NULL));
-    return (rand() % (r - p + 1)) + p; // random(p, r)
 }
 
