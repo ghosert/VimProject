@@ -1,3 +1,0 @@
-Read the GETTING STARTED & API REFERENCE
-
-http://docs.jquery.com/Main_Page

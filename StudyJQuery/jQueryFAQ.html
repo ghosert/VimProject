@@ -134,7 +134,7 @@
 			// Define global function for ajax and using Level 0 event model so that the ajax call can be made once the a tag below is loaded rather than the whole DOM is ready.
 			window.ajaxCallSample = function () {
     			$.ajax({
-                     url: 'jQueryDoc.txt',
+                     url: 'my.html',
                      success: function(response) {
 						$('#ajaxCallDiv pre').text(response);
                      },
@@ -146,7 +146,7 @@
 			
 			// Return the server response from an AJAX call.
 			window.ajaxCallSample2 = function () {
-				getUrlStatus('jQueryDoc.txt', function (status)
+				getUrlStatus('my.html', function (status)
 				{
 					alert(status);
 				});

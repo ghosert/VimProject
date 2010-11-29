@@ -1,0 +1,143 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <script type="text/javascript" src="jquery-1.4.4.js"></script>
+
+	<style type="text/css">
+		a.test { font-weight: bold; }
+    </style>
+
+    <script type="text/javascript">
+
+	// PartI Begin: How JQuery Works
+    	
+    	// Use $(document).ready() instead of window.onload() to launch code. It starts when dom loading is completed,
+		// ignore the other stuffs like images loading compared with window.onload().
+    	$(document).ready(function ()
+		{
+			// Add click handler(event handler binding) for "<a>" tag link.
+			$('a#part1').click(function(event)
+			{
+				alert('hello');
+				
+				// Means 'return false;' in event handler, so that this will prevent default behaviour.
+				event.preventDefault();
+				
+    			// Adding and Removing a CSS Class
+				// (CSS allows multiple classes to be added to an element.) 
+				if ($('a#part1').hasClass('test')) {
+        			$('a#part1').removeClass('test');
+				} else {
+        			$('a#part1').addClass('test');
+				}
+			});
+			
+			// Special Effects
+			$('div#part1').click(function (event)
+			{
+				$(this).hide('slow');
+			});
+			
+			// Callback without arguments
+			function myCallBack()
+			{
+				alert("I'm myCallBack method.");
+			}
+			// $ here means: $ === jQuery. $.get() means jQuery.get() is a ajax call, and support to read local file... cool.
+			$.get('HowJQueryWorks.html', myCallBack);
+			
+			// Callback with arguments
+			function myCallBack2(data, textStatus)
+			{
+				alert(data);
+				alert("Status:" + textStatus + " I'm myCallBack2 method.");
+			}
+			$.get('HowJQueryWorks.html', function (data, textStatus)
+			{
+				myCallBack2(data, textStatus);
+			});
+
+	// PartI End: How JQuery Works
+
+
+	// PartII Begin: jQueryForDesigners
+
+		 $(".article .thebody").hide();
+		 $("#container .article ul")
+		   .prepend("<li class='readbody'><a href='' title='Read the article'>Read Body</a></li>");
+		 
+		 $(".actions li.readbody a").click(function(event){
+		   $(this).parents("ul").prev(".thebody").toggle();
+		   
+		   // Stop the link click from doing its normal thing
+		   event.preventDefault();
+		 });
+
+		});
+
+	// PartII End: jQueryForDesigners
+
+    </script>
+	
+	<!-- PartII Begin: jQueryForDesigners -->
+	<script>
+		$(function ()
+		{
+			$('dd label').append(': The colon is appended by jQuery.');
+			$('dd label').prepend('* The star is prepended by jQuery.');
+		});
+	</script>
+	<!-- PartII End: jQueryForDesigners -->
+
+  </head>
+  <body>
+  	
+    <p><b>PartI: How JQuery Works:</b></p>
+
+    <a id="part1" href="http://jquery.com/">jQuery</a>
+
+	<div id="part1">Click Me To Hide Me.</div>
+
+
+	<p><b>PartII : jQueryForDesigners:</b></p>
+
+	<dl>
+		<dt>Hello</dt>
+		<dd><label>Jiawei</label></dd>
+		<dt>Hello</dt>
+		<dd><label>World</label></dd>
+	</dl>
+	
+	<div id="container">
+		<div class="article">
+			 <h3>Title 01</h3>
+							 
+			 <p class="summary">Summary 01</p>
+			 <p class="thebody">Lorem ipsum....</p>
+							 
+			 <ul class="actions">
+			   <li><a href="" onclick="return false;">comment</a></li>
+			   <li><a href="" onclick="return false;">Trackback</a></li>
+			 </ul> 
+		</div>
+					   
+		<div class="article">
+			 <h3>Title 02</h3>
+						 
+			 <p class="summary">Summary 02</p>
+			 <p class="thebody">Lorem ipsum....</p>
+						 
+			 <ul class="actions">
+			   <li><a href="" onclick="return false;">comment</a></li>
+			   <li><a href="" onclick="return false;">Trackback</a></li>
+			 </ul>
+		</div>
+	</div>
+
+
+	<p><b>PartIII Using jQuery with Other Libraries:</b></p>
+
+    <a href="http://docs.jquery.com/Using_jQuery_with_Other_Libraries">Using jQuery with Other Libraries</a>
+
+  </body>
+</html>
