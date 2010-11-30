@@ -1,1 +1,0 @@
-The main logic is located custom.js, check out this file to study the case.
