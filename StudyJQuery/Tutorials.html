@@ -44,7 +44,7 @@
 				alert("I'm myCallBack method.");
 			}
 			// $ here means: $ === jQuery. $.get() means jQuery.get() is a ajax call, and support to read local file... cool.
-			$.get('HowJQueryWorks.html', myCallBack);
+			$.get('my.html', myCallBack);
 			
 			// Callback with arguments
 			function myCallBack2(data, textStatus)
@@ -52,7 +52,7 @@
 				alert(data);
 				alert("Status:" + textStatus + " I'm myCallBack2 method.");
 			}
-			$.get('HowJQueryWorks.html', function (data, textStatus)
+			$.get('my.html', function (data, textStatus)
 			{
 				myCallBack2(data, textStatus);
 			});
