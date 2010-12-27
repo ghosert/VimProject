@@ -114,7 +114,7 @@ if __name__ == "__main__":
     print a
     a[0:2] = [] # should be [123, 1234]
     print a
-    a[1:1] = ['bletch', 'xyzzy'] # insert some items in the position 1, and only take 1 space. should be 1, 'bletch', 'xyzzy', 1234
+    a[1:1] = ['bletch', 'xyzzy'] # insert some items in the position 1, and only take 1 space. should be 123, 'bletch', 'xyzzy', 1234
     print a
     a[:0] = a
     print a
@@ -322,6 +322,10 @@ if __name__ == "__main__":
     # evaluation stops as soon as the outcome is determined, so the result below is 'Ture Value' while other expression is false.
     print '' or [] or None or {} or () or 0 or 'True Value'
     print "True Value" and "True Value"
+
+    # In Python, there is no expression like: boolean ? valueForTrue : valueForFalse
+    # But we have this now in python 2.6 later:
+    print 'valueForTrue' if True else 'valueForFalse'
 
 # module in python
 
