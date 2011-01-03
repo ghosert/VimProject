@@ -12,3 +12,4 @@ make -f Make_ming.mak gvim.exe
 rename $VIM\vim72\gvim.exe to gvim_default.exe
 copy vim72src/src/gvim.exe to $VIM\vim72\
 
+test line
