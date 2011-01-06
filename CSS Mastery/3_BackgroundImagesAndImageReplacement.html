@@ -1,5 +1,7 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!--
-Should put DOCTYPE element here, like 7_Layout.html, but I don't want to retest this page after adding DOCTYPE, so ...
+After put DOCTYPE above, make sure all the values which are not 0 in css should add unit like 'px', 'em' and percentage %.
+Otherwise, css will fail to work. Means, only 0 value can ignore the unit.
 -->
 <html>
 	<head>
@@ -21,7 +23,7 @@ Should put DOCTYPE element here, like 7_Layout.html, but I don't want to retest 
 				background: url(star_on_sm.gif) no-repeat left center; /* left center here are the keywords while pixel and percentage could be used as well, see below. */
 				border-style: dashed;
 				border-color: rgb(255, 0, 0);
-				border-width: 2;
+				border-width: 2px;
 			}
 
 			#bordering h3 {
@@ -29,7 +31,7 @@ Should put DOCTYPE element here, like 7_Layout.html, but I don't want to retest 
 				background: url(star_on_sm.gif) no-repeat 0% 50%; /* percentage % here can be pixel px as well. */
 				border-style: dashed;
 				border-color: rgb(255, 0, 0);
-				border-width: 2;
+				border-width: 2px;
 			}
 
 			.box {
@@ -194,13 +196,13 @@ Should put DOCTYPE element here, like 7_Layout.html, but I don't want to retest 
 
 		<br/>
 
-		<div class="img-wrapper"><img src="Source Code/Chapter03/images/dunstan.jpg" width="300"
-		height="300" alt="Dunstan Orchard" /></div>
+		<div class="img-wrapper"><img src="Source Code/Chapter03/images/dunstan.jpg" width="300px"
+		height="300px" alt="Dunstan Orchard" /></div>
 		
 	    <br/>
 
 		<div class="img-wrapper1">
-			<div><img src="Source Code/Chapter03/images/dunstan.jpg" width="300" height="300" alt="Dunstan" /></div>
+			<div><img src="Source Code/Chapter03/images/dunstan.jpg" width="300px" height="300px" alt="Dunstan" /></div>
 		</div>
 
 		<div class="img-replacement">

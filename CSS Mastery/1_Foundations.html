@@ -1,12 +1,14 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!--
-Should put DOCTYPE element here, like 7_Layout.html, but I don't want to retest this page after adding DOCTYPE, so ...
+After put DOCTYPE above, make sure all the values which are not 0 in css should add unit like 'px', 'em' and percentage %.
+Otherwise, css will fail to work. Means, only 0 value can ignore the unit.
 -->
 <html>
 	<head>
 		<!-- Two ways to import external css file to html.
 		It's important to know that the css in <link> tag below will be overriding @import.
 		-->
-		<link href="basic.css" rel="stylesheet" type="text/css"/>
+		<link href="1_Foundations.css" rel="stylesheet" type="text/css"/>
 		<style type="text/css">
 			<!--
 			/* @import clause below should be the first rule in a style sheet, or it may not work properly. */
