@@ -1,0 +1,10 @@
+# Activate virtual python env first:
+# source ~/mydevenv/bin/activate
+# To create a new project named helloword and running it:
+# $ paster create -t pylons StudyPylons
+# cd StudyPylons
+# $ paster serve --reload development.ini
+# Visiting http://127.0.0.1:5000/ to see welcome page.
+# To create a controller, this will produce a module which is located at studypylons/controllers/hello.py:
+# $ paster controller hello
+# Visiting http://127.0.0.1:5000/hello/index
