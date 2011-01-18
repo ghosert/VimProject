@@ -17,10 +17,13 @@ states = ['Delaware', 'Pennsylvania', 'New Jersey', 'Georgia',
 
 class RpctestController(XMLRPCController):
 
+    # TO MAKE SURE THIS CONTROLLER WORKS, ADD THE LINE BELOW TO studypylons/config/routing.py, otherwise you will get a 404 error.
+    # map.connect('/{controller}/')
+
     # For testing this service:
     # from pprint import pprint
     # import xmlrpclib
-    # srvr = xmlrpclib.Server("http://example.com/rpctest/")
+    # srvr = xmlrpclib.Server("http://127.0.0.1:5000/rpctest/")
     # pprint(srvr.system.listMethods())
     # ['system.listMethods', 'system.methodHelp', 'system.methodSignature', 'test.battingOrder']
     # print srvr.system.methodHelp('test.battingOrder')
@@ -77,3 +80,4 @@ class RpctestController(XMLRPCController):
     def xmlrpc_fault(code, message):
         """Convenience method to return a Pylons response XMLRPC Fault"""
         return
+

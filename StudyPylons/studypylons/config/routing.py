@@ -23,4 +23,8 @@ def make_map(config):
     map.connect('/{controller}/{action}')
     map.connect('/{controller}/{action}/{id}')
 
+    # This is dedicated for RpctestController class in studypylons/controllers/rpctest.py
+    map.connect('/{controller}/')
+
     return map
+
