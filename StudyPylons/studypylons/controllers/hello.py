@@ -19,6 +19,15 @@ class HelloController(BaseController):
         # or, return a string
         return 'Hello World'
 
+    # To use mako template, create a folder 'studypylons/templates' and put the file 'sample.mako' in it.
+    # see more default template variables in 'sample.mako' file.
+    # Template engine can be configured in config/environment.py
+    # Dynamic web content is located at studypylons/templates
+    # Static files is located at studypylons/public
+    def sample(self):
+        c.name = 'Zhang Jiawei'
+        return render('/sample.mako')
+
     # Prefix __ to keep method private.
     def __edit_generic(self):
         "I can't be called from web!"
