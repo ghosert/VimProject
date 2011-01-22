@@ -8,3 +8,6 @@
 # To create a controller, this will produce a module which is located at studypylons/controllers/hello.py:
 # $ paster controller hello
 # Visiting http://127.0.0.1:5000/hello/index
+# For SQLAlchemy:
+#     1. Put model classes like person.py, address.py into studypylons/model/
+#     2. Run "paster setup-app development.ini" to create the tables in the database, this command will call studypylons/websetup.py
