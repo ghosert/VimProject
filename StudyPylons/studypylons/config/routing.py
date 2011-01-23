@@ -23,6 +23,9 @@ def make_map(config):
     map.connect('/{controller}/{action}')
     map.connect('/{controller}/{action}/{id}')
 
+    # routes for PersonController in person.py
+    map.connect('/{controller}/{action}/{name}/{email}')
+
     # This is dedicated for RpctestController class in studypylons/controllers/rpctest.py
     map.connect('/{controller}/')
 

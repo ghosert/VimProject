@@ -11,3 +11,4 @@
 # For SQLAlchemy:
 #     1. Put model classes like person.py, address.py into studypylons/model/
 #     2. Run "paster setup-app development.ini" to create the tables in the database, this command will call studypylons/websetup.py
+# Visiting http://127.0.0.1:5000/person/index to see a sample for SQLAlchemy
