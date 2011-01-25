@@ -12,7 +12,7 @@
 </head>
 <body>
 	<h3>Index page for Persons:</h3>
-	<form>
+	<form method="post">
 		% if c.persons:
 		<table>
 			<tr><th>Id</th><th>Name</th><th>Email</th><th>Update</th><th>Delete</th></tr>
@@ -21,8 +21,8 @@
 				<td>${person.id}</td>
 				<td><input type="textbox" value="${person.name}"/></td>
 				<td><input type="textbox" value="${person.email}"/></td>
-				<td><input type="button" value="Update" onclick="update_person(this.form, ${person.id}, ${person.name}, ${person.email})"/></td>
-				<td><input type="button" value="Delete" onclick="delete_person(this.form, ${person.id})"/></td>
+				<td><input type="button" value="Update" onclick="update_person(this.form, '${person.id}', '${person.name}', '${person.email}')"/></td>
+				<td><input type="button" value="Delete" onclick="delete_person(this.form, '${person.id}')"/></td>
 		% endfor
 		</table>
 		<input type="hidden" name="name"/>

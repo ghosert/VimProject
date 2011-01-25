@@ -5,6 +5,8 @@ from pylons.controllers.util import abort, redirect
 
 from studypylons.lib.base import BaseController, render
 
+from cgi import escape
+
 log = logging.getLogger(__name__)
 
 from studypylons.lib.base import Session
