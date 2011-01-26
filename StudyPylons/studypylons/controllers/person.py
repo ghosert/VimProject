@@ -24,7 +24,6 @@ class PersonController(BaseController):
 
     def create(self, name, email):
         person = Person(name = name, email = email)
-        print name, email
         Session.add(person)
         Session.commit()
         redirect('/person/index')
