@@ -20,6 +20,22 @@
 #     5. Run "paster serve --reload development.ini"
 # Visiting http://127.0.0.1:5000/person/index to see a sample for SQLAlchemy
 #
-# for unit testing:
+# For unit testing:
 # Run "nosetests" in "StudyPylons" folder to start unit testing, it will automatically run the test case in StudyPylons/studypylons/tests
 #
+# Using the model standalone:
+# % python
+# Python 2.5.1 (r251:54863, Oct 5 2007, 13:36:32)
+# [GCC 4.1.3 20070929 (prerelease) (Ubuntu 4.1.2-16ubuntu2)] on linux2
+# Type "help", "copyright", "credits" or "license" for more information.
+# >>> import sqlalchemy as sa
+# >>> engine = sa.create_engine("sqlite:///test.sqlite")
+# >>> from studypylons.model import init_model, Person
+# >>> from studypylons.model.meta import Session, Base
+# >>> init_model(engine)
+# >>> a = Person()
+# >>> a.name = "Aaa"
+# >>> a.email = "aaa@example.com"
+# >>> Session.add(a)
+# >>> Session.commit()
+
