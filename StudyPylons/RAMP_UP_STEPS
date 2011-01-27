@@ -1,13 +1,16 @@
 # Activate virtual python env first:
 # source ~/mydevenv/bin/activate
+#
 # To create a new project named helloword and running it:
 # $ paster create -t pylons StudyPylons
 # cd StudyPylons
 # $ paster serve --reload development.ini
 # Visiting http://127.0.0.1:5000/ to see welcome page.
+#
 # To create a controller, this will produce a module which is located at studypylons/controllers/hello.py:
 # $ paster controller hello
 # Visiting http://127.0.0.1:5000/hello/index
+#
 # For SQLAlchemy:
 #     0. "service mysql status" to make sure mysql is running.
 #     1. Make sure you log into mysql console and run "CREATE DATABASE studypylons DEFAULT CHARACTER SET utf8;" first, and if it's a mysql on amazon ec2, 3306 port on ec2 should be exposed for outsider.
@@ -16,3 +19,7 @@
 #     4. Run "paster setup-app development.ini" to create the tables in the database, this command will call studypylons/websetup.py
 #     5. Run "paster serve --reload development.ini"
 # Visiting http://127.0.0.1:5000/person/index to see a sample for SQLAlchemy
+#
+# for unit testing:
+# Run "nosetests" in "StudyPylons" folder to start unit testing, it will automatically run the test case in StudyPylons/studypylons/tests
+#
