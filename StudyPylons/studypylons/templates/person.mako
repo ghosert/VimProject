@@ -30,7 +30,7 @@
 	</table>
 	% endif
 
-	<form>
+	<form method="post">
 		<span> name: </span>
 		<input type="textbox" name="name"/>
 		<span> email:</span>
