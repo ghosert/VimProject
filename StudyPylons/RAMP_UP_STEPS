@@ -38,4 +38,10 @@
 # >>> a.email = "aaa@example.com"
 # >>> Session.add(a)
 # >>> Session.commit()
-
+#
+# For Generating the Production Configuration
+# paster make-config studypylons production.ini
+#
+# Put set-up once objects for the entire application to config/environment.py or lib/app_globals __init__() method.
+#
+#

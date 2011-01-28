@@ -5,6 +5,7 @@
 </%def>
 
 <h3>The current configs in INI file in StudyPylons, for example: development.ini</h3>
+<h3>And the key-value in StudyPylons/studypylons/config/environment.py</h3>
 
 <ul>
 	% for key, value in c.config.iteritems():
