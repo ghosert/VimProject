@@ -44,4 +44,9 @@
 #
 # Put set-up once objects for the entire application to config/environment.py or lib/app_globals __init__() method.
 #
+# Put custom middleware to config/middleware.py at comment marker:
+# # CUSTOM MIDDLEWARE HERE (filtered by error hanlding middlewares)
+#
+# StudyPylons is a standard Python package which contains setup.py where defines the package dependencies
+# To re-parse the setup.py line for new dependencies, run "$ python setup.py develop"
 #
