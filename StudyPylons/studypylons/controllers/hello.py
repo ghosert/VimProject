@@ -5,7 +5,7 @@ from pylons.controllers.util import abort, redirect
 
 from studypylons.lib.base import BaseController, render
 
-log = logging.getLogger(__name__)
+log = logging.getLogger(__name__) # __name__ here is full qualified name: 'studypylons.controllers.hello'
 
 # Customizing controller name:
 # name with 'Controller' is default mechanism, you can change 'HelloController' to 'Hello' and then set variable '__controller__' below to customize controller name.
@@ -14,10 +14,12 @@ log = logging.getLogger(__name__)
 class HelloController(BaseController):
 
     def index(self):
-        # Return a rendered template
-        #return render('/hello.mako')
-        # or, return a string
-        return 'Hello World'
+        content_type = 'text/plain'
+        content = 'Hello World!'
+
+        log.debug('Returning: %s (content-type: %s)', content, content_type)
+        response.content_type = content_type
+        return content
 
     # To use mako template, create a folder 'studypylons/templates' and put the file 'sample.mako' in it.
     # see more default template variables in 'sample.mako' file.
