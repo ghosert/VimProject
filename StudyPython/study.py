@@ -285,6 +285,12 @@ if __name__ == "__main__":
     print "dictionary: {0}".format(tel)
     print "dictionary keys: {0}".format(tel.keys())
     print "'guido' in tel: {0}".format('guido' in tel)
+    try:
+        print tel['jay']
+    except:
+        print "tel['jay'] will cause an exception since 'jay' is not a key for tel dictionary"
+        print "Using tel.get('jay', 'default_value') to avoid the exception and set a default value in this case: %s" % tel.get('jay', 'default_value')
+
     # Using dict() to build a dictionary. dict() equals to {}
     tel = dict([('sape', 4139), ('guido', 4127), ('jack', 4098)])
     print "dictionary built by dict(): {0}".format(tel)
