@@ -76,6 +76,13 @@
 		<div>${c.page2.pager('Item $first_item - $last_item / ~2~')}</div>
 	</p>
 
+	<div>
+		<form method="post" action="/person/upload" enctype="multipart/form-data">
+		    <input type="file" name="myfile"/>
+			<input type="submit"/>
+		</form>
+	</div>
+
 </body>
 
 <script type="text/javascript">
