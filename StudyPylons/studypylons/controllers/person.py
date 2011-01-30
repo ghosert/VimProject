@@ -9,14 +9,14 @@ from cgi import escape
 
 log = logging.getLogger(__name__)
 
-import os
+import os, shutil
 
 from studypylons.lib.base import Session
 from studypylons.model import Person
 
 import webhelpers.paginate
 
-permanent_store = '~/Templates/'
+permanent_store = '/home/jiawzhang/Templates/'
 
 class PersonController(BaseController):
 
@@ -27,7 +27,7 @@ class PersonController(BaseController):
         # c.names = [person.name for person in self.person_q.all()] # self.person_1.all() method here will cause the db performing.
 
         # pagination is smart enough to get only 10 rows belong to the page 1 via LIMIT/OFFSET in the actual SQL query.
-        iPage = request.params.get('page', 1) # If there is no 'page' key or the key submitted without value(get empty string at this moment), 1 is the default value for the case.
+        iPage = request.params.get('page', 1) # If there is no 'page' key, 1 is the default value for the case. The key submitted without value will get empty string.
         # print request.params['page'] # If you make sure page passed in always, this is ok, otherwise, it raised a key not found exception, use the invoking above to handle this.
         # print request.params.get('page') # This invoking is equivalent to above.
         # print request.params.getall('page') # If you have multiple same key name, the invoking above will return the first value, to get all, using this, it returns a list contains all values.
@@ -70,9 +70,19 @@ class PersonController(BaseController):
 
     def upload(self):
         myfile = request.POST['myfile']
-        permanent_file = open(os.path.join(permanent_store, myfile.filename.lstrip(os.sep)), 'w')
-        shutil.copyfileobj(myfile.file, permanent_file)
-        myfile.file.close()
-        permanent_file.close()
-        return 'Successfully uploaded: %s, description: %s' % (myfile.filename, request.POST['description'])
+        # Suppose
+        # permanent_store = '/home/jiawzhang/Templates/'    myfile.filename = '/testfile.txt'
+        # os.path.join(permanent, myfile.filename.lstrip(os.sep)) = '/home/jiawzhang/Templates/testfile.txt'
+        # remember to lstrip the filename always otherwise you will get '/testfile.txt' in this case.
+        myfile.file.seek(0, 2)
+        filesize = myfile.file.tell()
+        myfile.file.seek(0)
+        if filesize > 1024 * 1024:
+            return "The size of file is more than 1M."
+        else:
+            permanent_file = open(os.path.join(permanent_store, myfile.filename.lstrip(os.sep)), 'w')
+            shutil.copyfileobj(myfile.file, permanent_file)
+            myfile.file.close()
+            permanent_file.close()
+            return 'Successfully uploaded: %s, size: %.2fKB, description: %s' % (myfile.filename, filesize/1024.0, request.POST['description'])
 

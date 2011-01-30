@@ -78,8 +78,9 @@
 
 	<div>
 		<form method="post" action="/person/upload" enctype="multipart/form-data">
-		    <input type="file" name="myfile"/>
-			<input type="submit"/>
+		    <div><input type="file" name="myfile"/></div>
+			<div><input type="textbox" name="description"/></div>
+			<div><input type="submit"/></div>
 		</form>
 	</div>
 
