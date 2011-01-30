@@ -30,9 +30,6 @@
 	</table>
 	% endif
 
-	<div>The pagination bar will only show when the pages are more than 1, means more than 10 persons created.</div>
-	<div> ${c.persons.pager('Page $page: $link_previous $link_next ~4~')} </div>
-
 	<form method="post">
 		<span> name: </span>
 		<input type="textbox" name="name"/>
@@ -41,7 +38,12 @@
 		<input type="submit" value="Create new person" onclick="create_person(this.form, this.form.name.value, this.form.email.value);" />
 	</form>
 
-	<div>Pagination info about pagination page 1:</div>
+	<h3>Test on person pagination:</h3>
+
+	<div>The pagination bar will only show when the pages are more than 1, means more than 10 persons created.</div>
+	<div> ${c.persons.pager('Page $page: $link_previous $link_next ~4~')} </div>
+
+	<h3>Pagination info about pagination page 1:</h3>
 	<pre>
 		${c.page2}
 	</pre>
@@ -76,11 +78,20 @@
 		<div>${c.page2.pager('Item $first_item - $last_item / ~2~')}</div>
 	</p>
 
+	<h3>Test on File Upload:</h3>
 	<div>
 		<form method="post" action="/person/upload" enctype="multipart/form-data">
 		    <div><input type="file" name="myfile"/></div>
 			<div><input type="textbox" name="description"/></div>
 			<div><input type="submit"/></div>
+		</form>
+	</div>
+
+	<h3>Test on Form validation:</h3>
+	<div>
+		<form name="test" method="GET" action="/person/email">
+			Email Address: <input type="text" name="email" />
+			<input type="submit" name="submit" value="Submit" />
 		</form>
 	</div>
 

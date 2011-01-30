@@ -86,3 +86,6 @@ class PersonController(BaseController):
             permanent_file.close()
             return 'Successfully uploaded: %s, size: %.2fKB, description: %s' % (myfile.filename, filesize/1024.0, request.POST['description'])
 
+    def email(self):
+        return 'Your email is: %s' % request.params.get('email')
+
