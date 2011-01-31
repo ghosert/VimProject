@@ -18,7 +18,7 @@ void _GetCaptureDeviceList(InternalDeviceInfo *pInternalDeviceInfo)
 	// So the google propose using 0x10000000 instead of the tags above.
     HRESULT hr = pEnumerator->EnumAudioEndpoints(eCapture, DEVICE_STATE_ACTIVE | 0x10000000, &pCaptureCollection);
 
-	assert(hr == S_OK);
+	// assert(hr == S_OK);
 
 	SAFE_RELEASE(pInternalDeviceInfo->pCaptureCollection);
 	pInternalDeviceInfo->pCaptureCollection = pCaptureCollection;
@@ -90,7 +90,7 @@ AUDIO_DEVICE_API int GetCaptureDeviceListCount(DeviceInfo *pDeviceInfo)
     if (pInternalDeviceInfo->pCaptureCollection != NULL) {
         hr = pInternalDeviceInfo->pCaptureCollection->GetCount(&count);
     }
-    assert(hr == S_OK);
+    // assert(hr == S_OK);
     return count;
 }
 
@@ -110,9 +110,9 @@ void _GetDeviceName(IMMDevice *pDevice, LPWSTR pszBuffer, int bufferLen, DWORD d
     // Initialize container for property value.
     PropVariantInit(&varName);
 
-    assert(pszBuffer != NULL);
-    assert(bufferLen > 0);
-	assert(dwKeyName == 0 || dwKeyName == 1 || dwKeyName == 2);
+    // assert(pszBuffer != NULL);
+    // assert(bufferLen > 0);
+	// assert(dwKeyName == 0 || dwKeyName == 1 || dwKeyName == 2);
 
     if (pDevice != NULL)
     {
@@ -171,7 +171,7 @@ AUDIO_DEVICE_API void GetCaptureListDeviceName(DeviceInfo *pDeviceInfo, int inde
         hr = pInternalDeviceInfo->pCaptureCollection->Item(index, &pDevice);
     }
 
-    assert(hr == S_OK);
+    // assert(hr == S_OK);
 
 	_GetDeviceName(pDevice, szBuffer, bufferLen, dwKeyName);
 	SAFE_RELEASE(pDevice);
@@ -190,7 +190,7 @@ AUDIO_DEVICE_API void GetCaptureListDeviceId(DeviceInfo *pDeviceInfo, int index,
         hr = pInternalDeviceInfo->pCaptureCollection->Item(index, &pDevice);
     }
 
-    assert(hr == S_OK);
+    // assert(hr == S_OK);
 
 	// Copy and return the Id String.
 	WCHAR *szTempId;
@@ -211,7 +211,7 @@ AUDIO_DEVICE_API void GetDefaultCaptureDeviceId(DeviceInfo *pDeviceInfo, LPWSTR 
 
 	hr = pInternalDeviceInfo->pEnumerator->GetDefaultAudioEndpoint(eCapture, eMultimedia, &pDevice);
 
-    assert(hr == S_OK);
+    // assert(hr == S_OK);
 
 	// Copy and return the Id String.
 	WCHAR *szTempId;
@@ -235,7 +235,7 @@ AUDIO_DEVICE_API BOOL GetCaptureListDeviceState(DeviceInfo *pDeviceInfo, int ind
         hr = pInternalDeviceInfo->pCaptureCollection->Item(index, &pDevice);
     }
 
-    assert(hr == S_OK);
+    // assert(hr == S_OK);
 
 	DWORD dwState;
 	pDevice->GetState(&dwState);
@@ -392,7 +392,7 @@ AUDIO_DEVICE_API void SetEndpointVisibility(DeviceInfo *pDeviceInfo, LPCWSTR lpc
 
     HRESULT hr = S_OK;
 	hr = pInternalDeviceInfo->pPolicyConfig->SetEndpointVisibility(lpcwstrDeviceId, bVisibility);
-    assert(hr == S_OK);
+    // assert(hr == S_OK);
 	return;
 }
 
@@ -403,7 +403,7 @@ AUDIO_DEVICE_API void SetDefaultEndpoint(DeviceInfo *pDeviceInfo, LPCWSTR lpcwst
 
     HRESULT hr = S_OK;
 	hr = pInternalDeviceInfo->pPolicyConfig->SetDefaultEndpoint(lpcwstrDeviceId, eMultimedia);
-    assert(hr == S_OK);
+    // assert(hr == S_OK);
 	return;
 }
 
@@ -422,7 +422,7 @@ AUDIO_DEVICE_API void GetMixFormat(DeviceInfo *pDeviceInfo, LPCWSTR lpcwstrDevic
 		wprintf(L"GetMixFormat hresult: %s\n", pbuffer);
     */
 
-    assert(hr == S_OK);
+    // assert(hr == S_OK);
 	return;
 }
 
