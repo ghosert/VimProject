@@ -1,5 +1,5 @@
 rem produce the VistaAudioDevice.class
-javac -d ./bin com/loadtrend/lib/sound/VistaAudioDevice.java
+javac -source 1.4 -target 1.4 -d ./bin com/loadtrend/lib/sound/VistaAudioDevice.java
 
 rem produce the .h file
 javah -jni -classpath ./bin com.loadtrend.lib.sound.VistaAudioDevice
