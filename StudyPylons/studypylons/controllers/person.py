@@ -16,6 +16,9 @@ from studypylons.model import Person
 
 import webhelpers.paginate
 
+from studypylons.model.form import EmailForm
+from studypylons.lib.base import validate
+
 permanent_store = '/home/jiawzhang/Templates/'
 
 class PersonController(BaseController):
@@ -86,6 +89,7 @@ class PersonController(BaseController):
             permanent_file.close()
             return 'Successfully uploaded: %s, size: %.2fKB, description: %s' % (myfile.filename, filesize/1024.0, request.POST['description'])
 
+    @validate(schema = EmailForm(), form = 'index') # form=action_name, it's index action here.
     def email(self):
-        return 'Your email is: %s' % request.params.get('email')
+        return 'Your email is: %s' % self.form_result.get('email_validation_field')
 

@@ -6,6 +6,7 @@ from pylons.controllers import WSGIController
 from pylons.templating import render_mako as render
 
 from studypylons.model.meta import Session
+from pylons.decorators import validate
 
 class BaseController(WSGIController):
 

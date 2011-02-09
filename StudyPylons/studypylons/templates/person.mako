@@ -20,8 +20,8 @@
 		<form method="post">
 			<tr>
 				<td>${person.id}</td>
-				<td><input name="name" type="textbox" value="${person.name}"/></td>
-				<td><input name="email" type="textbox" value="${person.email}"/></td>
+				<td><input name="name" type="text" value="${person.name}"/></td>
+				<td><input name="email" type="text" value="${person.email}"/></td>
 				<td><input type="button" value="Update" onclick="update_person(this.form, '${person.id}')"/></td>
 				<td><input type="button" value="Delete" onclick="delete_person(this.form, '${person.id}')"/></td>
 			</tr>
@@ -32,9 +32,9 @@
 
 	<form method="post">
 		<span> name: </span>
-		<input type="textbox" name="name"/>
+		<input type="text" name="name"/>
 		<span> email:</span>
-		<input type="textbox" name="email"/>
+		<input type="text" name="email"/>
 		<input type="submit" value="Create new person" onclick="create_person(this.form, this.form.name.value, this.form.email.value);" />
 	</form>
 
@@ -82,18 +82,29 @@
 	<div>
 		<form method="post" action="/person/upload" enctype="multipart/form-data">
 		    <div><input type="file" name="myfile"/></div>
-			<div><input type="textbox" name="description"/></div>
+			<div><input type="text" name="description"/></div>
 			<div><input type="submit"/></div>
 		</form>
 	</div>
 
 	<h3>Test on Form validation:</h3>
+	<h3>Input something which is not email address here to see the error message, and form validation here only works on method='post' not 'get':</h3>
+	<h3>And inputbox name in html: "email_validation_field" should be unique for all the other forms in html, otherwise, wired stuff will happen.</h3>
+	<h3>And "email_validation_field" should be same name in controller: person.py and validator: form.py</h3>
 	<div>
-		<form name="test" method="GET" action="/person/email">
-			Email Address: <input type="text" name="email" />
+		<form name="test" method="post" action="/person/email">
+			Email Address: <input type="text" name="email_validation_field" />
 			<input type="submit" name="submit" value="Submit" />
 		</form>
 	</div>
+
+	<h3>This form is produced by using Helpers (Should add 'from webhelpers.html.tags import *' first for leveraging h.form h.text below')</h3>
+	<h3>Which is equivalent to the original form definition above.</h3>
+	${h.form(h.url(controller='person', action='email'), method='post')}
+	Email Address: ${h.text('email_validation_field')}
+	${h.submit('idSubmit', 'Submit')}
+	${h.end_form()}
+
 
 </body>
 
