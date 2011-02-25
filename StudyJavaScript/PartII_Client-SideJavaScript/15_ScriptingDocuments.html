@@ -285,6 +285,8 @@
 
 			// Conclusion: We have document.getElementsTagName, document.getElementById and document.getElementsByName methods to find a specified tag.
 
+            /* HTMLElement.childNodes contain all the text nodes and element nodes, use node.nodeType = 1(ElEMENT_NODE) or 3(Text_NODE) to distingish, see below. */
+	        /* Unlike document has three methods on document.getElementXXX() above , HTMLElement contains only one element getter which is node.getElementsByTagName() */
 
 			// Modifying a Document
 			function sortkids(e) {
