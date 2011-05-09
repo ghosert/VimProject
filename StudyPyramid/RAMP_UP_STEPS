@@ -1,10 +1,12 @@
 First Pyramid Application:
 1. start it:
-	~/devenv/bin/python ~/VimProject/StudyPyramid/helloworld.py
+	~/devenv/bin/python helloworld.py
+	OR
+	source ~/devenv/bin/activate && python helloworld.py
 2. visit it:
 	http://localhost:8080/
 	http://localhost:8080/goodbye
-
+	http://localhost:8080/hello
 
 
 # Activate virtual python env first:
