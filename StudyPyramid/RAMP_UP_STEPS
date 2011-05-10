@@ -8,6 +8,17 @@ First Pyramid Application:
 	http://localhost:8080/goodbye
 	http://localhost:8080/hello
 
+Creating a Pyramid Project:
+	source ~/devenv/bin/activate
+# Create new project
+	paster create -t pyramid_routesalchemy MyProject
+# Make sure from now on your working directory is your project folder: MyProject
+	cd MyProject
+# Install new project for development, this will install a distribution into the python interpreter's library.
+	python setup.py develop
+# Run test case, the tests are in MyProject/myproject/tests.py
+	python setup.py tset -q
+
 
 # Activate virtual python env first:
 # source ~/mydevenv/bin/activate
