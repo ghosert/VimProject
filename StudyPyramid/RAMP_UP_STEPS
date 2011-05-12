@@ -17,7 +17,13 @@ Creating a Pyramid Project:
 # Install new project for development, this will install a distribution into the python interpreter's library.
 	python setup.py develop
 # Run test case, the tests are in MyProject/myproject/tests.py
-	python setup.py tset -q
+	python setup.py test -q
+# Interactive shell, "MyProject" here is the value of section name "app" in development.ini file, see more about pshell in pyramid docs.
+	paster pshell development.ini MyProject
+# Running the project application
+	paster serve development.ini
+	OR for development phase:
+	paster serve development.ini --reload
 
 
 # Activate virtual python env first:
