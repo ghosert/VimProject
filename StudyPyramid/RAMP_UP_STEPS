@@ -24,6 +24,18 @@ Creating a Pyramid Project:
 	paster serve development.ini
 	OR for development phase:
 	paster serve development.ini --reload
+	OR for production phase:
+	paster serve production.ini
+# tar your application:
+	python setup.py sdist
+	This will tar a .tar.gz file for your application, and make sure all the non-python file types are in your MANIFEST.in file, otherwise, the tar will miss these unspecified file types.
+# Modifying Package Structure:
+	You can create a new package for example "blog" under "myproject" folder and "cp views.py blog/views.py", and change the "myproject/__init__.py"
+	from:
+	config.add_view('myproject.views.my_view', renderer='myproject:templates/mytemplate.pt')
+	to:
+	config.add_view('myproject.views.blog.my_view', renderer='myproject:templates/mytemplate.pt')
+
 
 
 # Activate virtual python env first:
