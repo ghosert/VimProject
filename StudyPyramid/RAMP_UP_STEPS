@@ -35,6 +35,14 @@ Creating a Pyramid Project:
 	config.add_view('myproject.views.my_view', renderer='myproject:templates/mytemplate.pt')
 	to:
 	config.add_view('myproject.views.blog.my_view', renderer='myproject:templates/mytemplate.pt')
+# myproject/__init__.py:main function:
+	def main(global_config, **settings=settings):
+		config = Configurator(root_factory = Root, settings = settings)
+		// blablabla
+	if you have a "[DEFAULT]" section in development.ini, "global_config" here stores all the key/values pairs in "[DEFAULT]" section.
+	"settings" here stores all the key/values pairs in "[app.MyProject]" section in development except one: "use = egg:MyProject"
+	 you can put anything you want here into "settings" and access it later from "view callable" by invoking request.registry.setting dictionary at application runtime.
+# URL dispatch:
 
 
 
