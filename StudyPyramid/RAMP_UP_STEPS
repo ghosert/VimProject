@@ -43,6 +43,51 @@ Creating a Pyramid Project:
 	"settings" here stores all the key/values pairs in "[app.MyProject]" section in development except one: "use = egg:MyProject"
 	 you can put anything you want here into "settings" and access it later from "view callable" by invoking request.registry.setting dictionary at application runtime.
 # URL dispatch:
+	1. "config" below is presumed to be an instance of the pyramid.config.Configurator class; "myview" is assumed to be a "view callable" function
+	from myproject.views import myview
+	config.add_route('myroute', '/prefix/{one}/{two}', view=myview)
+	2. "config" below is presumed to be an instance of the pyramid.config.Configurator class; "myview" is assumed to be a "view callable" function
+	config.add_route('myroute', '/prefix/{one}/{two}', view='myproject.views.myview')
+# Route pattern syntax:
+
+	pattern: {foo}/bar/baz equals to /{foo}/bar/baz, the slash wil be prepended automatically anyway.
+
+	pattern: foo/{baz}/{bar}
+	url: foo/1/2        -> {'baz':u'1', 'bar':u'2'}
+	url: foo/abc/def    -> {'baz':u'abc', 'bar':u'def'}
+	url: foo/1/2/        -> No match (trailing slash)
+	url: bar/abc/def     -> First segment literal mismatch
+
+	pattern: foo/{name}.html
+	url: /foo/biz.html  -> {'name':u'biz'}
+
+	pattern: foo/{name}.{ext}
+	url: /foo/biz.html  -> {'name':u'biz', 'ext':u'html'}
+
+	regular expession pattern: {foo} is actually: {foo:[^/]+} by default so that a replacement markder don't need to be preceded by a / slash, you can also change it to {foo:\d+}
+
+	regular expression pattern: foo/{bar}
+	foo/La%20Pe%C3%B1a  -> {'bar':u'La Pe\xf1a'}
+	The matchdict will be URL-decoded / UTF-8 decoded.
+
+	If the pattern has a * in it, the name which follows it is considered a “remainder match”. A remainder match must come at the end of the pattern.
+	Unlike segment replacement markers, it does not need to be preceded by a slash. For example:
+	regular expression pattern: foo/{baz}/{bar}*fizzle
+	foo/1/2/           ->	{'baz':u'1', 'bar':u'2', 'fizzle':()}
+	foo/abc/def/a/b/c  ->	{'baz':u'abc', 'bar':u'def', 'fizzle':(u'a', u'b', u'c')}
+
+	regular expression way to the similar things for above:
+	foo/{baz}/{bar}{fizzle:.*}
+	foo/1/2/           -> {'baz':u'1', 'bar':u'2', 'fizzle':()}
+	foo/abc/def/a/b/c  -> {'baz':u'abc', 'bar':u'def', 'fizzle': u'a/b/c')}
+	This occurs because the default regular expression for a marker is [^/]+ which will match everything up to the first /, while {fizzle:.*} will result in a regular expression match of .* capturing the
+remainder into a single value.
+
+	Route Declaration Ordering:
+	memebers/{def}
+	memebers/abc
+	The "memebers/abc" will never be matched, since the ordering will always match the members/{def} first.
+
 
 
 
