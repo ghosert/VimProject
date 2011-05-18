@@ -119,6 +119,22 @@ remainder into a single value.
 	The matched route is availabe as "request.matched_route", the useful attribute of this object is the "name" attribute, if no route url pattern matches, request.matched_route is None.
 
 # Route Examples:
+	Example 3:
+	An example of using a route with a factory:
+	config.add_route('idea', 'ideas/{idea}', view='myproject.views.idea_view', factory='myproject.resources.Idea')
+	The above route will manufacture an Idea resource as a context, assuming that mypackage.resources.Idea resolves to a class that accepts a request in its __init__. For example:
+	class Idea(object):
+		def __init__(self, request):
+			pass
+	In a more complicated application, this root factory might be a class representing a SQLAlchemy model.
+	
+	Example 4:
+	config.add_route('idea', 'site/{id}')
+	config.add_view(route_name='idea', view='mypackage.views.site_view')
+	are same to
+	config.add_route('idea', 'site/{id}', view='mypackage.views.site_view')
+
+
 
 
 
