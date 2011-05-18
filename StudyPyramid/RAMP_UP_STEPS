@@ -42,7 +42,8 @@ Creating a Pyramid Project:
 	if you have a "[DEFAULT]" section in development.ini, "global_config" here stores all the key/values pairs in "[DEFAULT]" section.
 	"settings" here stores all the key/values pairs in "[app.MyProject]" section in development except one: "use = egg:MyProject"
 	 you can put anything you want here into "settings" and access it later from "view callable" by invoking request.registry.setting dictionary at application runtime.
-# URL dispatch:
+
+URL dispatch:
 	1. "config" below is presumed to be an instance of the pyramid.config.Configurator class; "myview" is assumed to be a "view callable" function
 	from myproject.views import myview
 	config.add_route('myroute', '/prefix/{one}/{two}', view=myview)
@@ -57,6 +58,7 @@ Creating a Pyramid Project:
 	url: foo/abc/def    -> {'baz':u'abc', 'bar':u'def'}
 	url: foo/1/2/        -> No match (trailing slash)
 	url: bar/abc/def     -> First segment literal mismatch
+	And the the matched dict will be availabe as "request.matchdic"
 
 	pattern: foo/{name}.html
 	url: /foo/biz.html  -> {'name':u'biz'}
@@ -83,10 +85,42 @@ Creating a Pyramid Project:
 	This occurs because the default regular expression for a marker is [^/]+ which will match everything up to the first /, while {fizzle:.*} will result in a regular expression match of .* capturing the
 remainder into a single value.
 
-	Route Declaration Ordering:
+# Route Declaration Ordering:
 	memebers/{def}
 	memebers/abc
 	The "memebers/abc" will never be matched, since the ordering will always match the members/{def} first.
+
+# Custom Route Predicates
+
+	info['match'] is useful when predicates need access to the route match. For example:
+
+	def any_of(segment_name, *allowed):
+	    def predicate(info, request):
+	        if info['match'][segment_name] in allowed:
+	            return True
+	    return predicate
+	num_one_two_or_three = any_of('num', 'one', 'two', 'three')
+	config.add_route('num', '/{num}', custom_predicates=(num_one_two_or_three,))
+	
+	This will ensure the "num" segment here is one of the values one, two or three.
+
+	info['route'] is an object has two useful attributes: name and pattern
+	1  def twenty_ten(info, request):
+	2      if info['route'].name in ('ymd', 'ym', 'y'):
+	3          return info['match']['year'] == '2010'
+	4
+	5  config.add_route('y', '/{year}', custom_predicates=(twenty_ten,))
+	6  config.add_route('ym', '/{year}/{month}', custom_predicates=(twenty_ten,))
+	7  config.add_route('ymd', '/{year}/{month}/{day}',
+	8                   custom_predicates=(twenty_ten,))
+	The above predicate, when added to a number of route configurations ensures that the year match argument is ‘2010’ if and only if the route name is ‘ymd’, ‘ym’, or ‘y’.
+
+# The Matched Route
+	The matched route is availabe as "request.matched_route", the useful attribute of this object is the "name" attribute, if no route url pattern matches, request.matched_route is None.
+
+# Route Examples:
+
+
 
 
 
