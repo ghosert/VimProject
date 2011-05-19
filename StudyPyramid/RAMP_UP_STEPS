@@ -141,6 +141,72 @@ remainder into a single value.
 
 # Generating Route URLs
 
+	If you’ve configured a route with the name “foo” and the pattern “{a}/{b}/{c}”, you might do this.
+
+	1 from pyramid.url import route_url
+	2 url = route_url('foo', request, a='1', b='2', c='3')
+
+	This would return something like the string http://example.com/1/2/3 (at least if the current protocol and hostname implied http:/example.com).
+
+# Redirecting to Slash-Appended Routes
+	config.add_route('hasslash', 'has_slash/', view='myproject.views.has_slash')
+	config.add_view(context='pyramid.exceptions.NotFound', view='pyramid.view.append_slash_notfound_view')
+
+	This will make sure the url path like "/has_slash" to be redirect to "/has_slash/"
+
+	If still, when it can't redirect to a slash-appended url, it will go to 404 not found page. In this case, if you want to custom not found view when it can't redirect to a slash-appended url, do this:
+
+	from pyramid.exceptions import NotFound
+	from pyramid.view import AppendSlashNotFoundViewFactory
+
+	def notfound_view(context, request):
+		return HTTPNotFound('It aint there, stop trying!')
+
+	custom_append_slash = AppendSlashNotFoundViewFactory(notfound_view)
+	config.add_view(custom_append_slash, context=NotFound)
+
+# Cleaning Up After a Request:
+	
+	In mypackage.__init__ module:
+
+	from mypackage.models import DBSession
+
+	from pyramid.events import subscriber
+	from pyramid.events import NewRequest
+
+	def cleanup_callback(request):
+		DBSession.remove()
+
+	@subscriber(NewRequest)
+	def add_cleanup_callback(event):
+		event.request.add_finished_callback(cleanup_callback)
+
+	And make sure pyramid.config.Configurator.scan() is called since we have @subscriber here.
+
+# Using Pyramid Security With URL Dispatch
+	allow the editor the view permission:
+	class Article(object):
+		def __init__(self, request):
+		   matchdict = request.matchdict
+		   article = matchdict.get('article', None)
+		   if article == '1':
+			   self.__acl__ = [ (Allow, 'editor', 'view') ]
+
+# Debugging Route Matching
+	jiawzhang@home-pc:~$ PYRAMID_DEBUG_ROUTEMATCH=true paster server development.ini
+
+# Displaying All Application Routes
+	jiawzhang@home-pc:~$ paster proutes development.ini MyProject
+
+
+
+
+
+
+
+
+
+
 
 
 
