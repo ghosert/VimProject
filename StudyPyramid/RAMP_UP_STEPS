@@ -134,9 +134,12 @@ remainder into a single value.
 	are same to
 	config.add_route('idea', 'site/{id}', view='mypackage.views.site_view')
 
+# Matching the Root URL
+	config.add_route('root', '', view='mypackage.views.root_view')
+	Or provide the literal string / as the pattern:
+	config.add_route('root', '/', view='mypackage.views.root_view')
 
-
-
+# Generating Route URLs
 
 
 
