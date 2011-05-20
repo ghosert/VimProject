@@ -1,3 +1,5 @@
+This document is mainly from official site of pyramid: http://docs.pylonsproject.org/projects/pyramid/1.0/index.html, check it out if you can find answer below.
+
 First Pyramid Application:
 1. start it:
 	~/devenv/bin/python helloworld.py
@@ -199,11 +201,128 @@ remainder into a single value.
 	jiawzhang@home-pc:~$ paster proutes development.ini MyProject
 
 
+Views
 
+# Defining a View Callable as a Function
 
+	1 from pyramid.response import Response
+	2
+	3 def hello_world(request):
+	4     return Response('Hello world!')
 
+# Defining a View Callable as a Class
 
+	Views defined as classes must have the following traits:
+	• an __init__ method that accepts a request argument.
+	• a __call__ (or other) method that accepts no parameters and which returns a response.
 
+	1 from pyramid.response import Response
+	2
+	3 class MyView(object):
+	4     def __init__(self, request):
+	5         self.request = request
+	6
+	7     def __call__(self):
+	8         return Response('hello')
+
+	If you want to access "context", try "request.context"
+
+# View Callable Responses
+
+	1 from pyramid.response import Response
+	2
+	3 def view(request):
+	4     return Response('OK')
+
+	You don’t need to always use Response to represent a response like HTTPFound in pyramid.httpexceptions can be returned too. A view can actually return any object that has the following attributes.
+
+	status: The HTTP status code (including the name) for the response as a string. E.g. 200 OK or 401 Unauthorized.
+	headerlist: A sequence of tuples representing the list of headers that should be set in the response. E.g. [('Content-Type', 'text/html'), ('Content-Length', '412')]
+	app_iter: An iterable representing the body of the response. This can be a list, e.g. ['<html><head></head><body>Hello world!</body></html>'] or it can be a file-like object, or any other sort of iterable.
+
+# Using a View Callable to Do an HTTP Redirect
+
+	You can issue an HTTP redirect from within a view by returning a particular kind of response.
+
+	1 from pyramid.httpexceptions import HTTPFound
+	2
+	3 def myview(request):
+	4     return HTTPFound(location='http://example.com')
+
+	All exception types from the pyramid.httpexceptions module implement the Response interface; any can be returned as the response from a view.
+	It also includes other response types that imply other HTTP response codes, such as HTTPUnauthorized for 401 Unauthorized.
+					
+# Using Special Exceptions In View Callables
+
+	Usually when a Python exception is raised within a view callable, Except pyramid.exceptions.NotFound and pyramid.exceptions.Forbidden,
+	Pyramid allows all the other exception to propagate all the way out to the WSGI server which invoked the application.
+	The two special exceptions accept a single positional constructor argument: a message.
+	If NotFound is raised within view code, the result of the Not Found View will be returned to the user agent which performed the request.
+	If Forbidden is raised within view code, the result of the Forbidden View will be returned to the user agent which performed the request.
+	In all cases, the message provided to the exception constructor is made available to the view which Pyramid invokes as request.exception.args[0].
+
+# Exception Views
+
+	For example, given the following exception class in a module named helloworld.exceptions:
+
+	1 class ValidationFailure(Exception):
+	2     def __init__(self, msg):
+	3         self.msg = msg
+
+	You can wire a view callable to be called whenever any of your other code raises a hellworld.exceptions.ValidationFailure exception:
+
+	1 from helloworld.exceptions import ValidationFailure
+	2
+	3 @view_config(context=ValidationFailure)
+	4 def failed_validation(exc, request):
+	5     response =  Response('Failed validation: %s' % exc.msg)
+	6     response.status_int = 500
+	7     return response
+
+	This view callable will be invoked whenever a helloworld.exceptions.ValidationError is raised by your application’s view code.
+
+	Other normal view predicates can also be used in combination with an exception view registration:
+
+	1 from pyramid.view import view_config
+	2 from pyramid.exceptions import NotFound
+	3 from pyramid.httpexceptions import HTTPNotFound
+	4
+	5 @view_config(context=NotFound, route_name='home')
+	6 def notfound_view(request):
+	7     return HTTPNotFound()
+
+	The above exception view names the route_name of home, meaning that it will only be called when the route matched has a name of home.
+
+# Handling Form Submissions in View Callables (Unicode and Character Set Issues)
+
+	As an example, let’s assume that the following form page is served up to a browser client, and its action points at some Pyramid view code:
+
+	1 <html xmlns="http://www.w3.org/1999/xhtml">
+	2   <head>
+	3     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	4   </head>
+	5   <form method="POST" action="myview">
+	6     <div>
+	7       <input type="text" name="firstname"/>
+	8     </div>
+	9     <div>
+	10       <input type="text" name="lastname"/>
+	11     </div>
+	12     <input type="submit" value="Submit"/>
+	13   </form>
+	14 </html>
+
+	The values below in the request is converted from UTF-8 to Unicode implicitily.
+
+	1 def myview(request):
+	2     firstname = request.params['firstname']
+	3     lastname = request.params['lastname']
+
+	So make sure "charset=UTF-8" is always set in HTML head meta tag, otherwise this implicitily convertion will be failed.
+	Since this implicitily convertion from UTF-8 to Unicode happens already, don't do this once again like: reqeust.params['firstname'].decode('utf-8')
+	This convertion will happen only in reqeust.params, request.GET, request.POST
+				 
+Renderers
 
 
 
