@@ -11,6 +11,7 @@ First Pyramid Application:
 	http://localhost:8080/hello
 
 Creating a Pyramid Project:
+# Before you do anything else, activate virtual python env first:
 	source ~/devenv/bin/activate
 # Create new project
 	paster create -t pyramid_routesalchemy MyProject
@@ -324,24 +325,131 @@ Views
 				 
 Renderers
 
+	A view needn’t always return a Response object. If a view happens to return something which does not implement the Pyramid Response interface,
+	Pyramid will attempt to use a renderer to construct a response. For example:
+
+	from pyramid.response import Response
+	from pyramid.view import view_config
+
+	@view_config(renderer='json')
+	def hello_world(request):
+		return {'content':'Hello!'}
+	
+	Means, you should either return a "Reponse" or specify a "renderer" to construct a respose.
+
+# Writing View Callables Which Use a Renderer
+
+	1 config.add_view('myproject.views.my_view', renderer='json')
+
+	Returning "response" will overwrite specifying renderer.
+	For example, if your view callable returns an instance of the pyramid.httpexceptions.HTTPFound class as a response, no renderer will be employed.
+
+	1 from pyramid.httpexceptions import HTTPFound
+	2
+	3 def view(request):
+	4     return HTTPFound(location='http://example.com') # any renderer avoided, a http redirect instead.
+
+# Built-In Renderers
+	1. string:String Render
+
+	@view_config(renderer='string')
+	def hello_world(request):
+		return {'content':'Hello!'}
+
+	2. json:JSON Render
+
+	@view_config(renderer='json')
+	def hello_world(request):
+		return {'content':'Hello!'}
+	
+	OR
+
+	config.add_view('myproject.views.hello_world', name='hello', context='myproject.resources.Hello', renderer='json')
+	
+	@view_config and config.add_view() are actually same thing.
+
+	
+	3. *.pt or *.txt: Chameleon Template Renders
+
+	config.add_view('myproject.views.hello_world', name='hello', context='myproject.resources.Hello', renderer='myproject:templates/foo.pt')
+	config.add_view('myproject.views.hello_world', name='hello', context='myproject.resources.Hello', renderer='myproject:templates/foo.txt')
+
+	4. *.mak or *.mako: Mako Template Render
+
+	1) relative path(The relative 'foo.mako' below is not relative to the package, but is relative to the directory configured for Mako via the mako.directories configuration file setting.):
+	config.add_view('myproject.views.hello_world', name='hello', context='myproject.resources.Hello', renderer='foo.mako')
+
+	2) asset specification(e.g. apackage:templates/sometemplate.mak):
+	config.add_view('myproject.views.hello_world', name='hello', context='myproject.resources.Hello', renderer='mypackage:templates/foo.mak')
+
+# Varying Attributes of Rendered Responses
+
+	View callables that don’t directly return a response should set these attributes on the request object via setattr during their execution, to influence associated response attributes.
+	If return a response directly, you can set attributes on Response object I think, see later.
+
+	response_content_type: Defines the content-type of the resulting response, e.g. text/xml.
+	response_headerlist: A sequence of tuples describing cookie values that should be set in the response, e.g. [('Set-Cookie', 'abc=123'), ('X-My-Header', 'foo')].
+	response_status: A WSGI-style status code (e.g. 200 OK) describing the status of the response.
+	response_charset: The character set (e.g. UTF-8) of the response.
+	response_cache_for: A value in seconds which will influence Cache-Control and Expires headers in the returned response. The same can also be achieved by returning various values in the response_headerlist, this is purely a convenience. 
+
+	For example:
+
+	from pyramid.view import view_config
+
+	@view_config(name='gone', renderer='templates/gone.pt')
+	def myview(request):
+		request.response_status = '404 Not Found'
+		return {'URL':request.URL}
+
+# Adding and Changing Renderers
+	Check out: http://docs.pylonsproject.org/projects/pyramid/1.0/narr/renderers.html
+
+# Overriding A Renderer At Runtime
+	Check out: http://docs.pylonsproject.org/projects/pyramid/1.0/narr/renderers.html
+
+Templates
+
+# Using Templates Directly
+
+	In this section, it's actually return Response rather than specifying renderer.
+
+	1 from pyramid.renderers import render_to_response
+	2
+	3 def sample_view(request):
+	4     return render_to_response('mypackage:templates/foo.mako',
+	5                               {'foo':1, 'bar':2},
+	6                               request=request)
+
+	render_to_response() here is an extension api for the native template api offered by a giving template engine like Chameleon or Mako.
+
+	Or, you can generate string first, then construct the response like below, it's same to above.
+
+	1 from pyramid.renderers import render
+	2 from pyramid.response import Response
+	3
+	4 def sample_view(request):
+	5     result = render('mypackage:templates/foo.pt',
+	6                     {'foo':1, 'bar':2},
+	7                     request=request)
+	8     response = Response(result)
+	9     return response
+
+	It's also doable to invoke your own 3rd party template Apis in view callable, since you can construct Response like above.
+	See more: http://docs.pylonsproject.org/projects/pyramid/1.0/narr/templates.html
+
+	If you want to control more about response, do something like below:
+	7     response.content_type = 'text/plain'
+	8     response.status_int = 204
 
 
 
 
 
-# Activate virtual python env first:
-# source ~/mydevenv/bin/activate
-#
-# To create a new project named helloword and running it:
-# $ paster create -t pylons StudyPylons
-# cd StudyPylons
-# $ paster serve --reload development.ini
-# Visiting http://127.0.0.1:5000/ to see welcome page.
-#
-# To create a controller, this will produce a module which is located at studypylons/controllers/hello.py:
-# $ paster controller hello
-# Visiting http://127.0.0.1:5000/hello/index
-#
+
+
+
+
 # For SQLAlchemy:
 #     0. "service mysql status" to make sure mysql is running.
 #     1. Make sure you log into mysql console and run "CREATE DATABASE studypylons DEFAULT CHARACTER SET utf8;" first, and if it's a mysql on amazon ec2, 3306 port on ec2 should be exposed for outsider.
@@ -350,9 +458,6 @@ Renderers
 #     4. Run "paster setup-app development.ini" to create the tables in the database, this command will call studypylons/websetup.py
 #     5. Run "paster serve --reload development.ini"
 # Visiting http://127.0.0.1:5000/person/index to see a sample for SQLAlchemy
-#
-# For unit testing:
-# Run "nosetests" in "StudyPylons" folder to start unit testing, it will automatically run the test case in StudyPylons/studypylons/tests
 #
 # Using the model standalone:
 # % python
