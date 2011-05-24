@@ -371,6 +371,10 @@ Renderers
 	
 	3. *.pt or *.txt: Chameleon Template Renders
 
+	1) relative path is different from Mako, which means relative to the path which defines the view callable. 
+	config.add_view('myproject.views.hello_world', name='hello', context='myproject.resources.Hello', renderer='templates/foo.pt')
+
+	2) asset specification, same to Mako.
 	config.add_view('myproject.views.hello_world', name='hello', context='myproject.resources.Hello', renderer='myproject:templates/foo.pt')
 	config.add_view('myproject.views.hello_world', name='hello', context='myproject.resources.Hello', renderer='myproject:templates/foo.txt')
 
@@ -442,11 +446,27 @@ Templates
 	7     response.content_type = 'text/plain'
 	8     response.status_int = 204
 
+# System Values Used During Rendering
+	context
+	    The current Pyramid context if request was provided as a keyword argument, or None.
+	request
+		The request provided as a keyword argument.
+	renderer_name
+		The renderer name used to perform the rendering, e.g. mypackage:templates/foo.pt.
+	renderer_info
+		An object implementing the pyramid.interfaces.IRendererInfo interface. Basically, an object with the following attributes: name, package and type.
+	These variables are made as top-level template variables, you can access them in template by something like ${request}, ${render_info.name}
 
+# Templates Used as Renderers via Configuration
 
+	1 from pyramid.view import view_config
+	2
+	3 @view_config(renderer='templates/foo.pt')
+	4 def my_view(request):
+	5     return {'foo':1, 'bar':2}
 
-
-
+	This is a better way compared with "# Using Template Directly"
+	if you want to do the same thing in "# Using Template Directly" to control more about response, you should set request rather than response, see: "# Varying Attributes of Rendered Responses"
 
 
 
