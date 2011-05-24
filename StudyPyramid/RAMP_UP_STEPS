@@ -468,6 +468,8 @@ Templates
 	This is a better way compared with "# Using Template Directly"
 	if you want to do the same thing in "# Using Template Directly" to control more about response, you should set request rather than response, see: "# Varying Attributes of Rendered Responses"
 
+# Templating With Mako Templates
+
 
 
 # For SQLAlchemy:
