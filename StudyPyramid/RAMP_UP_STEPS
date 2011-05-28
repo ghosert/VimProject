@@ -202,7 +202,20 @@ remainder into a single value.
 	jiawzhang@home-pc:~$ paster proutes development.ini MyProject
 
 
+Much Ado About Traversal
+
+	It introduce the concepts on "Traversal", "Resource", "View Lookup" and "Use Cases" for Traversal, read it will be helpful for knowing general concept purpose.
+	Check out: http://docs.pylonsproject.org/projects/pyramid/1.0/narr/muchadoabouttraversal.html
+
+
+Traversal
+
+    Skipped.
+	Check it out: http://docs.pylonsproject.org/projects/pyramid/1.0/narr/traversal.html
+
+
 Views
+
 
 # Defining a View Callable as a Function
 
@@ -497,6 +510,178 @@ Templates
 	[app:main]
 	use = egg:MyProject#app
 	reload_templates = true
+
+
+View Configuration
+
+# View configuration parameters:
+	1) non predicate arguments 2) predicate arguments
+	Check out: http://docs.pylonsproject.org/projects/pyramid/1.0/narr/viewconfig.html
+
+# View Configuration Using the @view_config Decorator
+	It's a better way compared with imperative configuration for the same purpose.
+
+	An example of the view_config decorator might reside in a Pyramid application module views.py:
+
+	1 from resources import MyResource
+	2 from pyramid.view import view_config
+	3 from pyramid.response import Response
+	4
+	5 @view_config(name='my_view', request_method='POST', context=MyResource,
+	6              permission='read')
+	7 def my_view(request):
+	8     return Response('OK')
+
+	Using this decorator as above replaces the need to add this imperative configuration stanza:
+
+	1 config.add_view('.views.my_view', name='my_view', request_method='POST',
+	2                 context=MyResource, permission='read')
+
+	All arguments to view_config may be omitted. For example:
+
+	1 from pyramid.response import Response
+	2 from pyramid.view import view_config
+	3
+	4 @view_config()
+	5 def my_view(request):
+	6     """ My view """
+	7     return Response()
+
+	To make Pyramid process your view_config declarations, you must do use the scan method of a Configurator:
+
+	1 # config is assumed to be an instance of the
+	2 # pyramid.config.Configurator class
+	3 config.scan()
+
+@view_config Placement
+
+	A view_config decorator can be placed in various points in your application.
+
+	If your view callable is a function, it may be used as a function decorator:
+
+	1 from pyramid.view import view_config
+	2 from pyramid.response import Response
+	3
+	4 @view_config(name='edit')
+	5 def edit(request):
+	6     return Response('edited!')
+
+	If your view callable is a class, the decorator can also be used as a class decorator in Python 2.6 and better (Python 2.5 and below do not support class decorators).
+
+	1 from pyramid.response import Response
+	2 from pyramid.view import view_config
+    3
+	4 @view_config()
+	5 class MyView(object):
+    6     def __init__(self, request):
+    7         self.request = request
+	8
+	9     def __call__(self):
+	10         return Response('hello')
+
+	More than one view_config decorator can be stacked on top of any number of others. Each decorator creates a separate view registration. For example:
+
+	from pyramid.view import view_config
+	from pyramid.response import Response
+
+	@view_config(name='edit')
+	@view_config(name='change')
+	def edit(request):
+		    return Response('edited!')
+
+	This registers the same view under two different names.
+
+	The decorator can also be used against class methods:
+
+	 from pyramid.response import Response
+	 from pyramid.view import view_config
+
+	 class MyView(object):
+		 def __init__(self, request):
+			 self.request = request
+
+		 @view_config(name='hello')
+		 def amethod(self):
+			 return Response('hello')
+
+	The code above is equivalent/same to below, means by default it will invoke __call__ method in class, but add a non-predicate paramter "attr" can specify a method you want to be called,
+	when the view callable is invoked.
+
+	from pyramid.response import Response
+	from pyramid.view import view_config
+
+	@view_config(attr='amethod', name='hello')
+	class MyView(object):
+	    def __init__(self, request):
+            self.request = request
+
+	    def amethod(self):
+	        return Response('hello')
+
+# View Registration Using add_view()
+
+	1 from pyramid.response import Response
+	2
+	3 def hello_world(request):
+	4     return Response('hello!')
+	5
+	6 # config is assumed to be an instance of the
+	7 # pyramid.config.Configurator class
+	8 config.add_view(hello_world, name='hello.html')
+
+
+# Using Resource Interfaces in View Configuration
+	I've skipped this portion, since it's traverse/resource/zope related.
+	Check it out later: http://docs.pylonsproject.org/projects/pyramid/1.0/narr/viewconfig.html
+
+# Configuring View Security
+
+	1 # config is an instance of pyramid.config.Configurator
+	2
+	3 config.add_view('myproject.views.add_entry', name='add.html',
+	4                 context='myproject.resources.IBlog', permission='add')
+
+	When an authorization policy is enabled, this view will be protected with the add permission.
+	The view will not be called if the user does not possess the add permission relative to the current context.
+	Instead the forbidden view result will be returned to the client as per Protecting Views with Permissions.
+	Question: In Router based pyramid, the context here is always "root" ?
+
+# NotFound Errors:
+
+	Set debug_notfound = True in configuration .ini file will tell you why a view was not found from stderr, and browser representation of the error will include the same information.
+
+
+Resources
+	Skipped.
+	Check it out if necessary at http://docs.pylonsproject.org/projects/pyramid/1.0/narr/resources.html#resources-which-implement-interfaces
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
