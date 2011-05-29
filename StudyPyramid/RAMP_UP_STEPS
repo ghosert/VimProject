@@ -656,6 +656,30 @@ Resources
 	Check it out if necessary at http://docs.pylonsproject.org/projects/pyramid/1.0/narr/resources.html#resources-which-implement-interfaces
 
 
+Static Assets
+
+# Serving Static Assets
+	1) absolute path:
+	1 # config is an instance of pyramid.config.Configurator
+	2 config.add_static_view(name='static', path='/var/www/static')
+
+	In the example above, name is static, and path is /var/www/static.
+	In English, this means that you wish to serve the files that live in /var/www/static as sub-URLs of the /static URL prefix. Therefore, the file /var/www/static/foo.css will be
+	returned when the user visits your application’s URL /static/foo.css.
+
+	2) asset specification
+	1 # config is an instance of pyramid.config.Configurator
+	2 config.add_static_view(name='static', path='some_package:a/b/c/static')
+
+	3) "name" argument is a external URL:
+	1 # config is an instance of pyramid.config.Configurator
+	2 config.add_static_view(name='http://example.com/images',
+	3                        path='mypackage:images')
+	In this mode, the name is used as the URL prefix when generating a URL using pyramid.url.static_url(). Static assets can be served from external web server.
+
+# Generating Static Asset URLs
+
+
 
 
 
