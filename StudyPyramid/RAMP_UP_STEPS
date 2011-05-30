@@ -762,9 +762,97 @@ Static Assets
 
 Request and Response Objects
 
+# Request
 
+	pyramid.request.Request
 
+	req.method:
+		The request method, e.g., 'GET', 'POST'
+	req.GET:
+		A multidict with all the variables in the query string.
+	req.POST:
+		A multidict with all the variables in the request body. This only has variables if the request was a POST and it is a form submission.
+	req.params:
+		A multidict with a combination of everything in req.GET and req.POST.
+	req.body:
+		The contents of the body of the request. This contains the entire request body as a string. This is useful when the request is a POST that is not a form submission, or a request like a PUT. You can also get req.body_file for a file-like object.
+	req.cookies:
+		A simple dictionary of all the cookies.
+	req.headers:
+		A dictionary of all the headers. This dictionary is case-insensitive.
+	req.urlvars and req.urlargs:
+		req.urlvars are the keyword parameters associated with the request URL. req.urlargs are the positional parameters. These are set by products like Routes and Selector.
 
+	Also, for standard HTTP request headers there are usually attributes, for instance: req.accept_language, req.content_length, req.user_agent, as an example. These properties expose the parsed form of each header, for whatever parsing makes sense. For instance, req.if_modified_since returns a datetime object (or None if the header is was not provided).
+
+	In addition to these attributes, there are several ways to get the URL of the request. I’ll show various values for an example URL http://localhost/app/blog?id=10, where the application is mounted at http://localhost/app.
+
+	req.url:
+		The full request URL, with query string, e.g., http://localhost/app/blog?id=10
+	req.host:
+		The host information in the URL, e.g., localhost
+	req.host_url:
+		The URL with the host, e.g., http://localhost
+	req.application_url:
+		The URL of the application (just the SCRIPT_NAME portion of the path, not PATH_INFO). E.g., http://localhost/app
+	req.path_url:
+		The URL of the application including the PATH_INFO. e.g., http://localhost/app/blog
+	req.path:
+		The URL including PATH_INFO without the host or scheme. e.g., /app/blog
+	req.path_qs:
+		The URL including PATH_INFO and the query string. e.g, /app/blog?id=10
+	req.query_string:
+		The query string in the URL, e.g., id=10
+	req.relative_url(url, to_application=False):
+		Gives a URL, relative to the current URL. If to_application is True, then resolves it relative to req.application_url. 
+	
+	Methods on Request / Unicode:
+	Skipped:
+	Check out: http://docs.pylonsproject.org/projects/pyramid/1.0/narr/webob.html
+
+# Response
+
+	pyramid.response.Response
+
+	response.status:
+		The response code plus reason message, like '200 OK'. To set the code without a message, use status_int, i.e.: response.status_int = 200.
+	response.headerlist:
+		A list of all the headers, like [('Content-Type', 'text/html')]. There’s a case-insensitive multidict in response.headers that also allows you to access these same headers.
+	response.app_iter:
+		An iterable (such as a list or generator) that will produce the content of the response. This is also accessible as response.body (a string), response.unicode_body (a unicode object, informed by response.charset), and response.body_file (a file-like object; writing to it appends to app_iter).
+
+	Everything else in the object derives from this underlying state. Here’s the highlights:
+
+	response.content_type
+		The content type not including the charset parameter. Typical use: response.content_type = 'text/html'.
+	response.charset:
+		The charset parameter of the content-type, it also informs encoding in response.unicode_body. response.content_type_params is a dictionary of all the parameters.
+	response.set_cookie(key, value, max_age=None, path='/', ...):
+		Set a cookie. The keyword arguments control the various cookie parameters. The max_age argument is the length for the cookie to live in seconds (you may also use a timedelta object). The Expires key will also be set based on the value of max_age.
+	response.delete_cookie(key, path='/', domain=None):
+		Delete a cookie from the client. This sets max_age to 0 and the cookie value to ''.
+	response.cache_expires(seconds=0):
+		This makes this response cacheable for the given number of seconds, or if seconds is 0 then the response is uncacheable (this also sets the Expires header).
+	response(environ, start_response):
+		The response object is a WSGI application. As an application, it acts according to how you create it. It can do conditional responses if you pass conditional_response=True when instantiating (or set that attribute later). It can also do HEAD and Range requests. 
+
+# Instantiating the Response
+
+	Of course most of the time you just want to make a response. Generally any attribute of the response can be passed in as a keyword argument to the class; e.g.:
+
+	from pyramid.response import Response
+	response = Response(body='hello world!', content_type='text/plain')
+
+# Multidict
+	?pref=red&pref=blue
+	request.GET('pref') => 'blue'
+	request.GET.getall('pref') => 'red', 'blue'
+	request.GET.getone('pref') => exception, this is no issue only when there is one and only one value for 'pref'
+	request.GET.items() => [('pref', 'red'), ('pref', 'blue')]
+	request.GET.keys() => ['pref', 'pref'].
+	Multidict is a view on a list of tuples; all the keys are ordered, and all the values are ordered.
+
+Session
 
 
 
