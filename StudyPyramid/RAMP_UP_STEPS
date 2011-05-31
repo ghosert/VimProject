@@ -852,16 +852,299 @@ Request and Response Objects
 	request.GET.keys() => ['pref', 'pref'].
 	Multidict is a view on a list of tuples; all the keys are ordered, and all the values are ordered.
 
-Session
+
+Sessions
+
+	In order to use sessions, you must set up a session factory during your Pyramid configuration.
+
+	A very basic, insecure sample session factory implementation is provided in the Pyramid core. It uses a cookie to store session information. This implementation has the cookie limitation.
+
+	from pyramid.session import UnencryptedCookieSessionFactoryConfig
+	my_session_factory = UnencryptedCookieSessionFactoryConfig('itsaseekreet')
+
+	from pyramid.config import Configurator
+	config = Configurator(session_factory = my_session_factory)
+
+	Access session objects:
+
+	from pyramid.response import Response
+
+	def myview(request):
+		session = request.session
+		if 'abc' in session:
+			session['fred'] = 'yes'
+		session['abc'] = '123'
+		if 'fred' in session:
+			return Response('Fred was in the session')
+		else:
+			return Response('Fred was not in the session')
+
+	You can use a session much like a Python dictionary. It supports all dictionary methods, along with some extra attributes, and methods.
+
+	Extra attributes:
+
+	created
+		An integer timestamp indicating the time that this session was created.
+	new
+		A boolean. If new is True, this session is new. Otherwise, it has been constituted from data that was already serialized.
+
+	Extra methods:
+
+	changed()
+		Call this when you mutate a mutable value in the session namespace. See the gotchas below for details on when, and why you should call this.
+	invalidate()
+		Call this when you want to invalidate the session (dump all data, and – perhaps – set a clearing cookie).
+
+	Some gotchas:
+
+		* Keys and values of session data must be pickleable. This means, typically, that they are instances of basic types of objects, such as strings, lists, dictionaries, tuples, integers, etc.
+		* If you place a mutable value (for example, a list or a dictionary) in a session object, and you subsequently mutate that value, you must call the changed() method of the session object.
+
+# Using Alternate Session Factories
+
+	Beaker has support for file-based sessions, database based sessions, and encrypted cookie-based sessions. See http://github.com/Pylons/pyramid_beaker for more information about pyramid_beaker.
+
+# Creating Your Own Session Factory
+
+# Flash Messages
+
+	Two main uses:
+	1. To display a status message only once to the user after performing an internal redirect
+	2. To allow generic code to log messages for single-time display without having direct access to an HTML template.
+
+	flash(message, queue='', allow_duplicate=True)
+
+	To add a message to a flash message queue, use a session object’s flash() method:
+
+	request.session.flash('mymessage')
+
+	The flash() method appends a message to a flash queue, creating the queue if necessary.
+
+	You can specify a string as queue name, the default one is empty string.
+
+	request.session.flash(msg, 'myappsqueue')
+
+	The allow_duplicate argument defaults to True. If this is False, and you attempt to add a message value which is already present in the queue, it will not be added.
+
+	Using the session.pop_flash Method: this will return the list of the message added, and empty the queue.
+
+	>>> request.session.flash('info message')
+	>>> request.session.pop_flash()
+	['info message']
+	>>> request.session.pop_flash()
+	[]
+
+	Using the session.peek_flash Method:
+
+	>>> request.session.flash('info message')
+	>>> request.session.peek_flash()
+	['info message']
+	>>> request.session.peek_flash()
+	['info message']
+	>>> request.session.pop_flash()
+	['info message']
+	>>> request.session.peek_flash()
+	[]
+
+# Preventing Cross-Site Request Forgery Attacks
+
+	To get the current CSRF token from the session, use the session.get_csrf_token() method.
+
+	token = request.session.get_csrf_token()
+
+	Set it in the hidden tag in html, and post it back to server side for verification.
+
+	token = request.session.get_csrf_token()
+	if token != request.POST['csrf_token']:
+		raise ValueError('CSRF token did not match')
+
+	Using the session.new_csrf_token Method
+
+	It clears any existing CSRF token, creates a new CSRF token, sets the token into the session, and returns the token.
+
+	token = request.session.new_csrf_token()
 
 
+Security
+
+# Enabling an Authorization Policy
+
+	By default it's disabled.
+
+# Enabling an Authorization Policy Imperatively
+
+	Since authorization, in general, depends upon authentication, you must enable both them.
+
+	1 from pyramid.config import Configurator
+	2 from pyramid.authentication import AuthTktAuthenticationPolicy
+	3 from pyramid.authorization import ACLAuthorizationPolicy
+	4 authentication_policy = AuthTktAuthenticationPolicy('seekrit')
+	5 authorization_policy = ACLAuthorizationPolicy()
+	6 config = Configurator(authentication_policy=authentication_policy,
+	7                       authorization_policy=authorization_policy)
+
+# Protecting Views with Permissions
+
+	1 # config is an instance of pyramid.config.Configurator
+	2
+	3 config.add_view('mypackage.views.blog_entry_add_view',
+	4                 name='add_entry.html',
+	5                 context='mypackage.resources.Blog',
+	6                 permission='add')
+
+	The equivalent view registration including the add permission name may be performed via the @view_config decorator:
+
+	1 from pyramid.view import view_config
+	2 from resources import Blog
+	3
+	4 @view_config(context=Blog, name='add_entry.html', permission='add')
+	5 def blog_entry_add_view(request):
+	6     """ Add blog entry code goes here """
+	7     pass
+
+		As a result of any of these various view configuration statements, the requesting user will need to possess the add permission against the context resource in order to be able to invoke the blog_entry_add_view view. If he does not, the Forbidden view will be invoked.
+
+# Setting a Default Permission
+
+	If a permission is not supplied to a view configuration, the registered view will always be executable by entirely anonymous users: any authorization policy in effect is ignored.
+	In support of making it easier to configure applications which are “secure by default”, Pyramid allows you to configure a default permission.
+
+	These APIs are in support of configuring a default permission for an application:
+    • The default_permission constructor argument to the Configurator constructor.
+	• The pyramid.config.Configurator.set_default_permission() method.
+
+	When a default permission is registered:
+
+    • if a view configuration names an explicit permission, the default permission is ignored for that view registration, and the view-configuration-named permission is used.
+	• if a view configuration names an explicit permission as the string __no_permission_required__, the default permission is ignored, and the view is registered without a permission.
+
+	Warning
+
+	When you register a default permission, all views (even exception view views) are protected by a permission. For all views which are truly meant to be anonymously accessible, you will need to associate the view’s configuration with the __no_permission_required__ permission.
+
+# Assigning ACLs to your Resource Objects
+
+	For example, an ACL might be attached to the resource for a blog via its class:
+
+	1 from pyramid.security import Everyone
+	2 from pyramid.security import Allow
+	3
+	4 class Blog(object):
+	5     __acl__ = [
+	6         (Allow, Everyone, 'view'),
+	7         (Allow, 'group:editors', 'add'),
+	8         (Allow, 'group:editors', 'edit'),
+	9         ]
+
+	Or, if your resources are persistent, an ACL might be specified via the __acl__ attribute of an instance of a resource:
+
+	1 from pyramid.security import Everyone
+	2 from pyramid.security import Allow
+	3
+	4 class Blog(object):
+	5     pass
+	6
+	7 blog = Blog()
+	8
+	9 blog.__acl__ = [
+	10         (Allow, Everyone, 'view'),
+	11         (Allow, 'group:editors', 'add'),
+	12         (Allow, 'group:editors', 'edit'),
+	13         ]
+
+# Elements of an ACL
+
+	1 from pyramid.security import Everyone
+	2 from pyramid.security import Allow
+	3 from pyramid.security import Deny
+	4
+	5 __acl__ = [
+	6     (Allow, Everyone, 'view'),
+	7     (Deny, Everyone, 'view'),
+	8     ]
+
+	The default authorization policy will allow everyone the view permission, even though later in the ACL you have an ACE that denies everyone the view permission.
+
+	1 from pyramid.security import Everyone
+	2 from pyramid.security import Allow
+	3
+	4 __acl__ = [
+	5     (Allow, Everyone, 'view'),
+	6     (Allow, 'group:editors', ('add', 'edit')),
+	7     ]
+
+	The acl can be collapsed as above.
+
+# Special Principal Names
+
+	pyramid.security.Everyone
+
+	See the sample above.
+
+	pyramid.security.Authenticated
+
+	Any user with credentials as determined by the current security policy. You might think of it as any user that is “logged in”.
+
+# Special Permissions
+
+	pyramid.security.ALL_PERMISSIONS
+
+	An object representing, literally, all permissions. Useful in an ACL like so: (Allow, 'fred', ALL_PERMISSIONS). Has the effect of indicating that a given principal “has” any permission asked for by the system.
+
+# Special ACEs
+
+	For example, an ACL which allows only fred the view permission for a particular resource despite what inherited ACLs may say when the default authorization policy is in effect might look like so:
+
+	1 from pyramid.security import Allow
+	2 from pyramid.security import DENY_ALL
+	3
+	4 __acl__ = [ (Allow, 'fred', 'view'), DENY_ALL ]
+
+	“Under the hood”, the pyramid.security.DENY_ALL ACE equals the following:
+
+	1 from pyramid.security import ALL_PERMISSIONS
+	2 __acl__ = [ (Deny, Everyone, ALL_PERMISSIONS) ]
+
+# ACL Inheritance and Location-Awareness
+
+	While the default authorization policy is in place, if a resource object does not have an ACL when it is the context, its parent is consulted for an ACL. If that object does not have an ACL, its parent is consulted for an ACL, ad infinitum, until we’ve reached the root and there are no more parents left.
+
+	In order to allow the security machinery to perform ACL inheritance, resource objects must provide location-awareness. Providing location-awareness means two things: the root object in the resource tree must have a _name__ attribute and a __parent__ attribute.
+
+	1 class Blog(object):
+	2     __name__ = ''
+	3     __parent__ = None
+
+	An object with a __parent__ attribute and a __name__ attribute is said to be location-aware. Location-aware objects define an __parent__ attribute which points at their parent object. The root object’s __parent__ is None.
+
+# Changing the Forbidden View
+
+	http://docs.pylonsproject.org/projects/pyramid/1.0/narr/hooks.html#changing-the-forbidden-view
+
+# Debugging View Authorization Failures
+
+	1 [app:main]
+	2 use = egg:MyProject#app
+	3 debug_authorization = true
+
+	With this debug flag turned on, the response sent to the browser will also contain security debugging information in its body.
+
+# Debugging Imperative Authorization Failures
+
+	The pyramid.security.has_permission() API is used to check security within view functions imperatively. It returns instances of objects that are effectively booleans. But these objects are not raw True or False objects, and have information attached to them about why the permission was allowed or denied. The object will be one of pyramid.security.ACLAllowed, pyramid.security.ACLDenied, pyramid.security.Allowed, or pyramid.security.Denied, as documented in pyramid.security. At the very minimum these objects will have a msg attribute, which is a string indicating why the permission was denied or allowed. Introspecting this information in the debugger or via print statements when a call to has_permission() fails is often useful.
+			
+# Creating Your Own Authentication Policy
+	Skipped.
+
+# Creating Your Own Authorization Policy
+	Skipped.
 
 
+Combining Traversal and URL Dispatch
+	Skipped.
 
 
-
-
-
+Internationalization and Localization
 
 
 
