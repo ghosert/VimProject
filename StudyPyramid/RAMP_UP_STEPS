@@ -1146,6 +1146,644 @@ Combining Traversal and URL Dispatch
 
 Internationalization and Localization
 
+# Creating a Translation String
+
+	1) Using The TranslationString Class
+
+	from pyramid.i18n import TranslationString
+	ts = TranslationString('Add')
+
+	The first argument to TranslationString is the msgid; it is required. It represents the key into the translation mappings provided by a particular localization.
+
+	from pyramid.i18n import TranslationString
+	ts = TranslationString('Add ${number}', mapping={'number':1})
+
+	Within the string above, ${number} is a replacement marker. It will be replaced by whatever is in the mapping for a translation string.
+
+
+	A translation string should also usually carry a domain. The domain represents a translation category to disambiguate it from other translations of the same msgid, in case they conflict.
+
+	from pyramid.i18n import TranslationString
+	ts = TranslationString('Add ${number}', mapping={'number':1}, domain='form')
+
+	In this case, if it were trying to translate our msgid to German, it might try to find a translation from a gettext file within a translation directory like this one:
+
+	locale/de/LC_MESSAGES/form.mo
+
+	In other words, it would want to take translations from the form.mo translation file in the German language.
+
+	from pyramid.i18n import TranslationString
+	ts = TranslationString('add-number', default='Add ${number}', domain='form', mapping={'number':1})
+
+	"default" argument here means, if there is corresponding string for msgid "add-number", it will use default value instead, and "default" may contain replacement either.
+
+	2) Using the TranslationStringFactory Class
+
+	from pyramid.i18n import TranslationStringFactory
+	_ = TranslationStringFactory('pyramid')
+	ts = _('Add ${number}', msgid='add-number', mapping={'number':1})
+
+	Note
+
+	We assigned the translation string factory to the name _. This is a convention which will be supported by translation file generation tools.
+
+	"pyramid" is domain name while 'Add ${number}' is default value, As a result, the previous code example is completely equivalent (except for spelling) to:
+
+	from pyramid.i18n import TranslationString as _
+	ts = _('Add ${number}', msgid='add-number', mapping={'number':1}, domain='pyramid')
+
+	Creating a unique domain for your application via a translation string factory is best practice. Using your own unique translation domain allows another person to reuse your application without needing to merge your translation files with his own. Instead, he can just include your package’s translation directory via the pyramid.config.Configurator.add_translation_dirs() method.
+
+Note
+
+For people familiar with Zope internationalization, a TranslationStringFactory is a lot like a zope.i18nmessageid.MessageFactory object. It is not a subclass, however.
+Working With gettext Translation Files¶
+
+The basis of Pyramid translation services is GNU gettext. Once your application source code files and templates are marked up with translation markers, you can work on translations by creating various kinds of gettext files.
+
+Note
+
+The steps a developer must take to work with gettext message catalog files within a Pyramid application are very similar to the steps a Pylons developer must take to do the same. See the Pylons internationalization documentation for more information.
+
+GNU gettext uses three types of files in the translation framework, .pot files, .po files and .mo files.
+
+.pot (Portable Object Template) files
+
+    A .pot file is created by a program which searches through your project’s source code and which picks out every message identifier passed to one of the ‘_() functions (eg. translation string constructions). The list of all message identifiers is placed into a .pot file, which serves as a template for creating .po files.
+
+.po (Portable Object) files
+
+    The list of messages in a .pot file are translated by a human to a particular language; the result is saved as a .po file.
+
+.mo (Machine Object) files
+
+    A .po file is turned into a machine-readable binary file, which is the .mo file. Compiling the translations to machine code makes the localized program run faster.
+
+The tool for working with gettext translation files related to a Pyramid application is Babel.
+Installing Babel¶
+
+In order for the commands related to working with gettext translation files to work properly, you will need to have Babel installed into the same environment in which Pyramid is installed.
+Installation on UNIX¶
+
+If the virtualenv into which you’ve installed your Pyramid application lives in /my/virtualenv, you can install Babel like so:
+
+$ cd /my/virtualenv
+$ bin/easy_install Babel
+
+Installation on Windows¶
+
+If the virtualenv into which you’ve installed your Pyramid application lives in C:\my\virtualenv, you can install Babel like so:
+
+C> cd \my\virtualenv
+C> bin\easy_install Babel
+
+Changing the setup.py¶
+
+You need to add a few boilerplate lines to your application’s setup.py file in order to properly generate gettext files from your application.
+
+Note
+
+See Creating a Pyramid Project to learn about about the composition of an application’s setup.py file.
+
+In particular, add the Babel distribution to the install_requires list and insert a set of references to Babel message extractors within the call to setuptools.setup() inside your application’s setup.py file:
+
+ 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+
+	
+
+ setup(name="mypackage",
+       # ...
+       install_requires = [
+             # ...
+             'Babel',
+             ],
+       message_extractors = { '.': [
+             ('**.py',   'chameleon_python', None ),
+             ('**.pt',   'chameleon_xml', None ),
+             ]},
+       )
+
+The message_extractors stanza placed into the setup.py file causes the Babel message catalog extraction machinery to also consider **.pt files when doing message id extraction.
+Extracting Messages from Code and Templates¶
+
+Once Babel is installed and your application’s setup.py file has the correct message extractor references, you may extract a message catalog template from the code and Chameleon templates which reside in your Pyramid application. You run a setup.py command to extract the messages:
+
+$ cd /place/where/myapplication/setup.py/lives
+$ mkdir -p myapplication/locale
+$ python setup.py extract_messages
+
+The message catalog .pot template will end up in:
+
+myapplication/locale/myapplication.pot.
+Translation Domains¶
+
+The name myapplication above in the filename myapplication.pot denotes the translation domain of the translations that must be performed to localize your application. By default, the translation domain is the project name of your Pyramid application.
+
+To change the translation domain of the extracted messages in your project, edit the setup.cfg file of your application, The default setup.cfg file of a Paster-generated Pyramid application has stanzas in it that look something like the following:
+
+ 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+
+	
+
+ [compile_catalog]
+ directory = myproject/locale
+ domain = MyProject
+ statistics = true
+
+ [extract_messages]
+ add_comments = TRANSLATORS:
+ output_file = myproject/locale/MyProject.pot
+ width = 80
+
+ [init_catalog]
+ domain = MyProject
+ input_file = myproject/locale/MyProject.pot
+ output_dir = myproject/locale
+
+ [update_catalog]
+ domain = MyProject
+ input_file = myproject/locale/MyProject.pot
+ output_dir = myproject/locale
+ previous = true
+
+In the above example, the project name is MyProject. To indicate that you’d like the domain of your translations to be mydomain instead, change the setup.cfg file stanzas to look like so:
+
+ 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+
+	
+
+ [compile_catalog]
+ directory = myproject/locale
+ domain = mydomain
+ statistics = true
+
+ [extract_messages]
+ add_comments = TRANSLATORS:
+ output_file = myproject/locale/mydomain.pot
+ width = 80
+
+ [init_catalog]
+ domain = mydomain
+ input_file = myproject/locale/mydomain.pot
+ output_dir = myproject/locale
+
+ [update_catalog]
+ domain = mydomain
+ input_file = myproject/locale/mydomain.pot
+ output_dir = myproject/locale
+ previous = true
+
+Initializing a Message Catalog File¶
+
+Once you’ve extracted messages into a .pot file (see Extracting Messages from Code and Templates), to begin localizing the messages present in the .pot file, you need to generate at least one .po file. A .po file represents translations of a particular set of messages to a particular locale. Initialize a .po file for a specific locale from a pre-generated .pot template by using the setup.py init_catalog command:
+
+$ cd /place/where/myapplication/setup.py/lives
+$ python setup.py init_catalog -l es
+
+By default, the message catalog .po file will end up in:
+
+myapplication/locale/es/LC_MESSAGES/myapplication.po.
+
+Once the file is there, it can be worked on by a human translator. One tool which may help with this is Poedit.
+
+Note that Pyramid itself ignores the existence of all .po files. For a running application to have translations available, a .mo file must exist. See Compiling a Message Catalog File.
+Updating a Catalog File¶
+
+If more translation strings are added to your application, or translation strings change, you will need to update existing .po files based on changes to the .pot file, so that the new and changed messages can also be translated or re-translated.
+
+First, regenerate the .pot file as per Extracting Messages from Code and Templates. Then use the setup.py update_catalog command.
+
+$ cd /place/where/myapplication/setup.py/lives
+$ python setup.py update_catalog
+
+Compiling a Message Catalog File¶
+
+Finally, to prepare an application for performing actual runtime translations, compile .po files to .mo files:
+
+$ cd /place/where/myapplication/setup.py/lives
+$ python setup.py compile_catalog
+
+This will create a .mo file for each .po file in your application. As long as the translation directory in which the .mo file ends up in is configured into your application, these translations will be available to Pyramid.
+Using a Localizer¶
+
+A localizer is an object that allows you to perform translation or pluralization “by hand” in an application. You may use the pyramid.i18n.get_localizer() function to obtain a localizer. This function will return either the localizer object implied by the active locale negotiator or a default localizer object if no explicit locale negotiator is registered.
+
+1
+2
+3
+4
+
+	
+
+from pyramid.i18n import get_localizer
+
+def aview(request):
+    locale = get_localizer(request)
+
+Performing a Translation¶
+
+A localizer has a translate method which accepts either a translation string or a Unicode string and which returns a Unicode object representing the translation. So, generating a translation in a view component of an application might look like so:
+
+ 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+
+	
+
+from pyramid.i18n import get_localizer
+from pyramid.i18n import TranslationString
+
+ts = TranslationString('Add ${number}', mapping={'number':1},
+                       domain='pyramid')
+
+def aview(request):
+    localizer = get_localizer(request)
+    translated = localizer.translate(ts) # translation string
+    # ... use translated ...
+
+The get_localizer() function will return a pyramid.i18n.Localizer object bound to the locale name represented by the request. The translation returned from its pyramid.i18n.Localizer.translate() method will depend on the domain attribute of the provided translation string as well as the locale of the localizer.
+
+Note
+
+If you’re using Chameleon templates, you don’t need to pre-translate translation strings this way. See Chameleon Template Support for Translation Strings.
+Performing a Pluralization¶
+
+A localizer has a pluralize method with the following signature:
+
+1
+2
+
+	
+
+def pluralize(singular, plural, n, domain=None, mapping=None):
+    ...
+
+The singular and plural arguments should each be a Unicode value representing a message identifier. n should be an integer. domain should be a translation domain, and mapping should be a dictionary that is used for replacement value interpolation of the translated string. If n is plural for the current locale, pluralize will return a Unicode translation for the message id plural, otherwise it will return a Unicode translation for the message id singular.
+
+The arguments provided as singular and/or plural may also be translation string objects, but the domain and mapping information attached to those objects is ignored.
+
+1
+2
+3
+4
+5
+6
+
+	
+
+from pyramid.i18n import get_localizer
+
+def aview(request):
+    localizer = get_localizer(request)
+    translated = localizer.pluralize('Item', 'Items', 1, 'mydomain')
+    # ... use translated ...
+
+Obtaining the Locale Name for a Request¶
+
+You can obtain the locale name related to a request by using the pyramid.i18n.get_locale_name() function.
+
+1
+2
+3
+4
+
+	
+
+from pyramid.i18n import get_locale_name
+
+def aview(request):
+    locale_name = get_locale_name(request)
+
+This returns the locale name negotiated by the currently active locale negotiator or the default locale name if the locale negotiator returns None. You can change the default locale name by changing the default_locale_name setting; see Default Locale Name.
+
+Once get_locale_name() is first run, the locale name is stored on the request object. Subsequent calls to get_locale_name() will return the stored locale name without invoking the locale negotiator. To avoid this caching, you can use the pyramid.i18n.negotiate_locale_name() function:
+
+1
+2
+3
+4
+
+	
+
+from pyramid.i18n import negotiate_locale_name
+
+def aview(request):
+    locale_name = negotiate_locale_name(request)
+
+You can also obtain the locale name related to a request using the locale_name attribute of a localizer.
+
+1
+2
+3
+4
+5
+
+	
+
+from pyramid.i18n import get_localizer
+
+def aview(request):
+    localizer = get_localizer(request)
+    locale_name = localizer.locale_name
+
+Obtaining the locale name as an attribute of a localizer is equivalent to obtaining a locale name by calling the get_locale_name() function.
+Performing Date Formatting and Currency Formatting¶
+
+Pyramid does not itself perform date and currency formatting for different locales. However, Babel can help you do this via the babel.core.Locale class. The Babel documentation for this class provides minimal information about how to perform date and currency related locale operations. See Installing Babel for information about how to install Babel.
+
+The babel.core.Locale class requires a locale name as an argument to its constructor. You can use Pyramid APIs to obtain the locale name for a request to pass to the babel.core.Locale constructor; see Obtaining the Locale Name for a Request. For example:
+
+1
+2
+3
+4
+5
+6
+
+	
+
+from babel.core import Locale
+from pyramid.i18n import get_locale_name
+
+def aview(request):
+    locale_name = get_locale_name(request)
+    locale = Locale(locale_name)
+
+Chameleon Template Support for Translation Strings¶
+
+When a translation string is used as the subject of textual rendering by a Chameleon template renderer, it will automatically be translated to the requesting user’s language if a suitable translation exists. This is true of both the ZPT and text variants of the Chameleon template renderers.
+
+For example, in a Chameleon ZPT template, the translation string represented by “some_translation_string” in each example below will go through translation before being rendered:
+
+1
+
+	
+
+<span tal:content="some_translation_string"/>
+
+1
+
+	
+
+<span tal:replace="some_translation_string"/>
+
+1
+
+	
+
+<span>${some_translation_string}</span>
+
+1
+
+	
+
+<a tal:attributes="href some_translation_string">Click here</a>
+
+The features represented by attributes of the i18n namespace of Chameleon will also consult the Pyramid translations. See http://chameleon.repoze.org/docs/latest/i18n.html#the-i18n-namespace.
+
+Note
+
+Unlike when Chameleon is used outside of Pyramid, when it is used within Pyramid, it does not support use of the zope.i18n translation framework. Applications which use Pyramid should use the features documented in this chapter rather than zope.i18n.
+
+Third party Pyramid template renderers might not provide this support out of the box and may need special code to do an equivalent. For those, you can always use the more manual translation facility described in Performing a Translation.
+Mako Pyramid I18N Support¶
+
+There exists a recipe within the Pyramid Cookbook named “Mako Internationalization” which explains how to add idiomatic I18N support to Mako templates.
+Localization-Related Deployment Settings¶
+
+A Pyramid application will have a default_locale_name setting. This value represents the default locale name used when the locale negotiator returns None. Pass it to the Configurator constructor at startup time:
+
+1
+2
+
+	
+
+from pyramid.config import Configurator
+config = Configurator(settings={'default_locale_name':'de'})
+
+You may alternately supply a default_locale_name via an application’s Paster .ini file:
+
+1
+2
+3
+4
+5
+6
+
+	
+
+[app:main]
+use = egg:MyProject#app
+reload_templates = true
+debug_authorization = false
+debug_notfound = false
+default_locale_name = de
+
+If this value is not supplied via the Configurator constructor or via a Paste config file, it will default to en.
+
+If this setting is supplied within the Pyramid application .ini file, it will be available as a settings key:
+
+1
+2
+3
+
+	
+
+from pyramid.threadlocal import get_current_registry
+settings = get_current_registry().settings
+default_locale_name = settings['default_locale_name']
+
+“Detecting” Available Languages¶
+
+Other systems provide an API that returns the set of “available languages” as indicated by the union of all languages in all translation directories on disk at the time of the call to the API.
+
+It is by design that Pyramid doesn’t supply such an API. Instead, the application itself is responsible for knowing the “available languages”. The rationale is this: any particular application deployment must always know which languages it should be translatable to anyway, regardless of which translation files are on disk.
+
+Here’s why: it’s not a given that because translations exist in a particular language within the registered set of translation directories that this particular deployment wants to allow translation to that language. For example, some translations may exist but they may be incomplete or incorrect. Or there may be translations to a language but not for all translation domains.
+
+Any nontrivial application deployment will always need to be able to selectively choose to allow only some languages even if that set of languages is smaller than all those detected within registered translation directories. The easiest way to allow for this is to make the application entirely responsible for knowing which languages are allowed to be translated to instead of relying on the framework to divine this information from translation directory file info.
+
+You can set up a system to allow a deployer to select available languages based on convention by using the pyramid.settings mechanism:
+
+Allow a deployer to modify your application’s PasteDeploy .ini file:
+
+1
+2
+3
+4
+
+	
+
+[app:main]
+use = egg:MyProject#app
+# ...
+available_languages = fr de en ru
+
+Then as a part of the code of a custom locale negotiator:
+
+1
+2
+3
+
+	
+
+from pyramid.threadlocal import get_current_registry
+settings = get_current_registry().settings
+languages = settings['available_languages'].split()
+
+This is only a suggestion. You can create your own “available languages” configuration scheme as necessary.
+Activating Translation¶
+
+By default, a Pyramid application performs no translation. To turn translation on, you must:
+
+    * add at least one translation directory to your application.
+    * ensure that your application sets the locale name correctly.
+
+Adding a Translation Directory¶
+
+gettext is the underlying machinery behind the Pyramid translation machinery. A translation directory is a directory organized to be useful to gettext. A translation directory usually includes a listing of language directories, each of which itself includes an LC_MESSAGES directory. Each LC_MESSAGES directory should contain one or more .mo files. Each .mo file represents a message catalog, which is used to provide translations to your application.
+
+Adding a translation directory registers all of its constituent message catalog files within your Pyramid application to be available to use for translation services. This includes all of the .mo files found within all LC_MESSAGES directories within each locale directory in the translation directory.
+
+You can add a translation directory imperatively by using the pyramid.config.Configurator.add_translation_dirs() during application startup. For example:
+
+1
+2
+3
+
+	
+
+from pyramid.config import Configurator
+config.add_translation_dirs('my.application:locale/',
+                            'another.application:locale/')
+
+A message catalog in a translation directory added via add_translation_dirs() will be merged into translations from a message catalog added earlier if both translation directories contain translations for the same locale and translation domain.
+Setting the Locale¶
+
+When the default locale negotiator (see The Default Locale Negotiator) is in use, you can inform Pyramid of the current locale name by doing any of these things before any translations need to be performed:
+
+    * Set the _LOCALE_ attribute of the request to a valid locale name (usually directly within view code). E.g. request._LOCALE_ = 'de'.
+    * Ensure that a valid locale name value is in the request.params dictionary under the key named _LOCALE_. This is usually the result of passing a _LOCALE_ value in the query string or in the body of a form post associated with a request. For example, visiting http://my.application?_LOCALE_=de.
+    * Ensure that a valid locale name value is in the request.cookies dictionary under the key named _LOCALE_. This is usually the result of setting a _LOCALE_ cookie in a prior response, e.g. response.set_cookie('_LOCALE_', 'de').
+
+Note
+
+If this locale negotiation scheme is inappropriate for a particular application, you can configure a custom locale negotiator function into that application as required. See Using a Custom Locale Negotiator.
+Locale Negotiators¶
+
+A locale negotiator informs the operation of a localizer by telling it what locale name is related to a particular request. A locale negotiator is a bit of code which accepts a request and which returns a locale name. It is consulted when pyramid.i18n.Localizer.translate() or pyramid.i18n.Localizer.pluralize() is invoked. It is also consulted when get_locale_name() or negotiate_locale_name() is invoked.
+The Default Locale Negotiator¶
+
+Most applications can make use of the default locale negotiator, which requires no additional coding or configuration.
+
+The default locale negotiator implementation named default_locale_negotiator uses the following set of steps to dermine the locale name.
+
+    * First, the negotiator looks for the _LOCALE_ attribute of the request object (possibly set directly by view code or by a listener for an event).
+    * Then it looks for the request.params['_LOCALE_'] value.
+    * Then it looks for the request.cookies['_LOCALE_'] value.
+    * If no locale can be found via the request, it falls back to using the default locale name (see Localization-Related Deployment Settings).
+    * Finally, if the default locale name is not explicitly set, it uses the locale name en.
+
+Using a Custom Locale Negotiator¶
+
+Locale negotiation is sometimes policy-laden and complex. If the (simple) default locale negotiation scheme described in Activating Translation is inappropriate for your application, you may create and a special locale negotiator. Subsequently you may override the default locale negotiator by adding your newly created locale negotiator to your application’s configuration.
+
+A locale negotiator is simply a callable which accepts a request and returns a single locale name or None if no locale can be determined.
+
+Here’s an implementation of a simple locale negotiator:
+
+1
+2
+3
+
+	
+
+ def my_locale_negotiator(request):
+     locale_name = request.params.get('my_locale')
+     return locale_name
+
+If a locale negotiator returns None, it signifies to Pyramid that the default application locale name should be used.
+
+You may add your newly created locale negotiator to your application’s configuration by passing an object which can act as the negotiator (or a dotted Python name referring to the object) as the locale_negotiator argument of the Configurator instance during application startup. For example:
+
+1
+2
+
+	
+
+from pyramid.config import Configurator
+config = Configurator(locale_negotiator=my_locale_negotiator)
+
+Alternately, use the pyramid.config.Configurator.set_locale_negotiator() method.
+
+For example:
+
+1
+2
+3
+
+	
+
+from pyramid.config import Configurator
+config = Configurator()
+config.set_locale_negotiator(my_locale_negotiator)
+
+
 
 
 
