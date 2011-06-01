@@ -1194,74 +1194,19 @@ Internationalization and Localization
 
 	Creating a unique domain for your application via a translation string factory is best practice. Using your own unique translation domain allows another person to reuse your application without needing to merge your translation files with his own. Instead, he can just include your package’s translation directory via the pyramid.config.Configurator.add_translation_dirs() method.
 
-Note
+# Working With gettext Translation Files
 
-For people familiar with Zope internationalization, a TranslationStringFactory is a lot like a zope.i18nmessageid.MessageFactory object. It is not a subclass, however.
-Working With gettext Translation Files¶
+	The basis of Pyramid translation services is GNU gettext. GNU gettext uses three types of files in the translation framework, .pot files, .po files and .mo files.
+	.pot (Portable Object Template) files -> .po (Portable Object) files -> .mo (Machine Object) files (machine-readable binary file for running faster)
 
-The basis of Pyramid translation services is GNU gettext. Once your application source code files and templates are marked up with translation markers, you can work on translations by creating various kinds of gettext files.
+	The tool for working with gettext translation files related to a Pyramid application is Babel.
 
-Note
+	1) Installing Babel:
+	$ cd /my/virtualenv
+	$ bin/easy_install Babel
 
-The steps a developer must take to work with gettext message catalog files within a Pyramid application are very similar to the steps a Pylons developer must take to do the same. See the Pylons internationalization documentation for more information.
-
-GNU gettext uses three types of files in the translation framework, .pot files, .po files and .mo files.
-
-.pot (Portable Object Template) files
-
-    A .pot file is created by a program which searches through your project’s source code and which picks out every message identifier passed to one of the ‘_() functions (eg. translation string constructions). The list of all message identifiers is placed into a .pot file, which serves as a template for creating .po files.
-
-.po (Portable Object) files
-
-    The list of messages in a .pot file are translated by a human to a particular language; the result is saved as a .po file.
-
-.mo (Machine Object) files
-
-    A .po file is turned into a machine-readable binary file, which is the .mo file. Compiling the translations to machine code makes the localized program run faster.
-
-The tool for working with gettext translation files related to a Pyramid application is Babel.
-Installing Babel¶
-
-In order for the commands related to working with gettext translation files to work properly, you will need to have Babel installed into the same environment in which Pyramid is installed.
-Installation on UNIX¶
-
-If the virtualenv into which you’ve installed your Pyramid application lives in /my/virtualenv, you can install Babel like so:
-
-$ cd /my/virtualenv
-$ bin/easy_install Babel
-
-Installation on Windows¶
-
-If the virtualenv into which you’ve installed your Pyramid application lives in C:\my\virtualenv, you can install Babel like so:
-
-C> cd \my\virtualenv
-C> bin\easy_install Babel
-
-Changing the setup.py¶
-
-You need to add a few boilerplate lines to your application’s setup.py file in order to properly generate gettext files from your application.
-
-Note
-
-See Creating a Pyramid Project to learn about about the composition of an application’s setup.py file.
-
-In particular, add the Babel distribution to the install_requires list and insert a set of references to Babel message extractors within the call to setuptools.setup() inside your application’s setup.py file:
-
- 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-
-	
-
- setup(name="mypackage",
+	2) Changing the setup.py
+	 setup(name="mypackage",
        # ...
        install_requires = [
              # ...
@@ -1272,147 +1217,61 @@ In particular, add the Babel distribution to the install_requires list and inser
              ('**.pt',   'chameleon_xml', None ),
              ]},
        )
+	Consider **.py and **.pt files when doing message id extraction.
 
-The message_extractors stanza placed into the setup.py file causes the Babel message catalog extraction machinery to also consider **.pt files when doing message id extraction.
-Extracting Messages from Code and Templates¶
+	3) Extracting Messages from Code and Templates
+	$ cd /place/where/myapplication/setup.py/lives
+	$ mkdir -p myapplication/locale
+	$ python setup.py extract_messages
+	The message catalog .pot template will end up in: myapplication/locale/myapplication.pot.
 
-Once Babel is installed and your application’s setup.py file has the correct message extractor references, you may extract a message catalog template from the code and Chameleon templates which reside in your Pyramid application. You run a setup.py command to extract the messages:
+	4) Translation Domains
 
-$ cd /place/where/myapplication/setup.py/lives
-$ mkdir -p myapplication/locale
-$ python setup.py extract_messages
+	To change the translation domain of the extracted messages in your project, edit the setup.cfg file of your application, change the domain to 'mydomain' instead.
+	[compile_catalog]
+	directory = myproject/locale
+	domain = mydomain
+	statistics = true
 
-The message catalog .pot template will end up in:
+	[extract_messages]
+	add_comments = TRANSLATORS:
+	output_file = myproject/locale/mydomain.pot
+	width = 80
 
-myapplication/locale/myapplication.pot.
-Translation Domains¶
+	[init_catalog]
+	domain = mydomain
+	input_file = myproject/locale/mydomain.pot
+	output_dir = myproject/locale
 
-The name myapplication above in the filename myapplication.pot denotes the translation domain of the translations that must be performed to localize your application. By default, the translation domain is the project name of your Pyramid application.
+	[update_catalog]
+	domain = mydomain
+	input_file = myproject/locale/mydomain.pot
+	output_dir = myproject/locale
+	previous = true
 
-To change the translation domain of the extracted messages in your project, edit the setup.cfg file of your application, The default setup.cfg file of a Paster-generated Pyramid application has stanzas in it that look something like the following:
+	5) Initializing a Message Catalog File
+	$ cd /place/where/myapplication/setup.py/lives
+	$ python setup.py init_catalog -l es
 
- 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
+	By default, the message catalog .po file will end up in: myapplication/locale/es/LC_MESSAGES/myapplication.po.
 
-	
+	Once the file is there, it can be worked on by a human translator. One tool which may help with this is Poedit.
 
- [compile_catalog]
- directory = myproject/locale
- domain = MyProject
- statistics = true
+	6) Updating a Catalog File
 
- [extract_messages]
- add_comments = TRANSLATORS:
- output_file = myproject/locale/MyProject.pot
- width = 80
+	you will need to update existing .po files based on changes to the .pot file, so that the new and changed messages can also be translated or re-translated.
 
- [init_catalog]
- domain = MyProject
- input_file = myproject/locale/MyProject.pot
- output_dir = myproject/locale
+	$ cd /place/where/myapplication/setup.py/lives
+	$ python setup.py update_catalog
 
- [update_catalog]
- domain = MyProject
- input_file = myproject/locale/MyProject.pot
- output_dir = myproject/locale
- previous = true
+	7) Compiling a Message Catalog File
 
-In the above example, the project name is MyProject. To indicate that you’d like the domain of your translations to be mydomain instead, change the setup.cfg file stanzas to look like so:
+	Finally, to prepare an application for performing actual runtime translations, compile .po files to .mo files:
 
- 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
+	$ cd /place/where/myapplication/setup.py/lives
+	$ python setup.py compile_catalog
 
-	
-
- [compile_catalog]
- directory = myproject/locale
- domain = mydomain
- statistics = true
-
- [extract_messages]
- add_comments = TRANSLATORS:
- output_file = myproject/locale/mydomain.pot
- width = 80
-
- [init_catalog]
- domain = mydomain
- input_file = myproject/locale/mydomain.pot
- output_dir = myproject/locale
-
- [update_catalog]
- domain = mydomain
- input_file = myproject/locale/mydomain.pot
- output_dir = myproject/locale
- previous = true
-
-Initializing a Message Catalog File¶
-
-Once you’ve extracted messages into a .pot file (see Extracting Messages from Code and Templates), to begin localizing the messages present in the .pot file, you need to generate at least one .po file. A .po file represents translations of a particular set of messages to a particular locale. Initialize a .po file for a specific locale from a pre-generated .pot template by using the setup.py init_catalog command:
-
-$ cd /place/where/myapplication/setup.py/lives
-$ python setup.py init_catalog -l es
-
-By default, the message catalog .po file will end up in:
-
-myapplication/locale/es/LC_MESSAGES/myapplication.po.
-
-Once the file is there, it can be worked on by a human translator. One tool which may help with this is Poedit.
-
-Note that Pyramid itself ignores the existence of all .po files. For a running application to have translations available, a .mo file must exist. See Compiling a Message Catalog File.
-Updating a Catalog File¶
-
-If more translation strings are added to your application, or translation strings change, you will need to update existing .po files based on changes to the .pot file, so that the new and changed messages can also be translated or re-translated.
-
-First, regenerate the .pot file as per Extracting Messages from Code and Templates. Then use the setup.py update_catalog command.
-
-$ cd /place/where/myapplication/setup.py/lives
-$ python setup.py update_catalog
-
-Compiling a Message Catalog File¶
-
-Finally, to prepare an application for performing actual runtime translations, compile .po files to .mo files:
-
-$ cd /place/where/myapplication/setup.py/lives
-$ python setup.py compile_catalog
-
-This will create a .mo file for each .po file in your application. As long as the translation directory in which the .mo file ends up in is configured into your application, these translations will be available to Pyramid.
-Using a Localizer¶
+# Using a Localizer
 
 A localizer is an object that allows you to perform translation or pluralization “by hand” in an application. You may use the pyramid.i18n.get_localizer() function to obtain a localizer. This function will return either the localizer object implied by the active locale negotiator or a default localizer object if no explicit locale negotiator is registered.
 
