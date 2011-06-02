@@ -1024,6 +1024,8 @@ Security
 
 # Assigning ACLs to your Resource Objects
 
+	jiawzhang TODO: __acl__ here is resource objects based, which is mainly for "traverse" rather than "url dispatch" way, how do I leverage acl stuffs in "url dispatch", goole the answser maybe.
+
 	For example, an ACL might be attached to the resource for a blog via its class:
 
 	1 from pyramid.security import Everyone
@@ -1492,6 +1494,29 @@ Using Events
 	Each of our subscriber functions accepts an event object and prints an attribute of the event object. This begs the question: how can we know which attributes a particular event has?
 
 	We know that pyramid.events.NewRequest event objects have a request attribute, which is a request object, because the interface defined at pyramid.interfaces.INewRequest says it must.
+
+
+Environment Variables and .ini File Settings
+
+	configuration file settings like "mako.directories" should go in the [app:main] section like:
+
+	[app:main]
+	use = egg:MyProject#app
+	reload_templates = true
+	debug_authorization = true
+
+	You can also use environment variables to accomplish the same purpose for settings documented as such.
+
+	$ PYRAMID_DEBUG_AUTHORIZATION=1 PYRAMID_RELOAD_TEMPLATES=1 bin/paster serve MyProject.ini
+
+	environment variables will overwrite the same key/value in .ini file, which will be useful in development or debug hours.
+
+	If you want to turn all debug settings (every setting that starts with debug_). You can use PYRAMID_DEBUG_ALL=1 as an environment variable setting or you may use debug_all=true in the config file.
+	If you want to turn all reload settings (every setting that starts with reload_). You can use PYRAMID_RELOAD_ALL=1 as an environment variable setting or you may use reload_all=true in the config file.
+
+
+Unit, Integration, and Functional Testing
+
 
 
 
