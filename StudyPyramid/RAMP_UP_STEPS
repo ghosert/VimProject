@@ -1425,7 +1425,73 @@ Internationalization and Localization
 	http://docs.pylonsproject.org/projects/pyramid/1.0/narr/i18n.html#mako-pyramid-i18n-support
 
 
+Virtual Hosting
 
+	Pyramid supports a common form of virtual hosting whereby you can host a Pyramid application as a “subset” of some other site.
+	(e.g. under http://example.com/mypyramidapplication/ as opposed to under http://example.com/).
+
+	Skipped.
+
+	You can figure out this in /usr/local/nginx/conf/nginx.conf "location" entry.
+
+
+Using Events
+
+	An event is an object broadcast by the Pyramid framework at interesting points during the lifetime of an application.
+	For example, subscribing to an event can allow you to run some code as the result of every new request.
+
+	A subscriber is a function that accepts a single argument named event:
+
+	def mysubscriber(event):
+		print event
+
+	The above is a subscriber that simply prints the event to the console when it’s called.
+
+	1) Configuring an Event Listener Imperatively
+
+	from pyramid.events import NewRequest
+	from subscribers import mysubscriber
+
+	# "config" below is assumed to be an instance of a pyramid.config.Configurator object
+
+	config.add_subscriber(mysubscriber, NewRequest)
+
+	2) Configuring an Event Listener Using a Decorator
+
+	from pyramid.events import NewRequest
+	from pyramid.events import subscriber
+
+	@subscriber(NewRequest)
+	def mysubscriber(event):
+			event.request.foo = 1
+
+	When the subscriber() decorator is used a scan must be performed against the package containing the decorated function for the decorator to have any effect.
+
+	Either of the above registration examples implies that every time the Pyramid framework emits an event object that supplies an pyramid.events.NewRequest interface, the mysubscriber function will be called with an event object.
+	The return value of a subscriber function is ignored. Subscribers to the same event type are not guaranteed to be called in any particular order relative to each other.
+
+# An Example
+
+	If you create event listener functions in a subscribers.py file in your application like so:
+
+	def handle_new_request(event):
+		print 'request', event.request
+
+	def handle_new_response(event):
+		print 'response', event.response
+
+	# config is an instance of pyramid.config.Configurator
+
+	config.add_subscriber('myproject.subscribers.handle_new_request',
+						  'pyramid.events.NewRequest')
+	config.add_subscriber('myproject.subscribers.handle_new_response',
+						  'pyramid.events.NewResponse')
+
+	Under this configuration, when the application is run, each time a new request or response is detected, a message will be printed to the console.
+
+	Each of our subscriber functions accepts an event object and prints an attribute of the event object. This begs the question: how can we know which attributes a particular event has?
+
+	We know that pyramid.events.NewRequest event objects have a request attribute, which is a request object, because the interface defined at pyramid.interfaces.INewRequest says it must.
 
 
 
