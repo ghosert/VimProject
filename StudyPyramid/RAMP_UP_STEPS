@@ -1745,208 +1745,104 @@ Using Hooks
 
 # Using a View Mapper
 
-The default calling conventions for view callables are documented in the Views chapter. You can change the way users define view callbles by employing a view mapper.
+	Skipped.
 
-A view mapper is an object that accepts a set of keyword arguments and which returns a callable. The returned callable is called with the view callable object. The returned callable should itself return another callable which can be called with the “internal calling protocol” (context, request).
+# Registering Configuration Decorators
 
-You can use a view mapper in a number of ways:
+	Decorators such as view_config don’t change the behavior of the functions or classes they’re decorating. Instead, when a scan is performed, a modified version of the function or class is registered with Pyramid.
+	You may wish to have your own decorators that offer such behaviour. This is possible by using the Venusian package in the same way that it is used by Pyramid.
 
-    * by setting a __view_mapper__ attribute (which is the view mapper object) on the view callable itself
-    * by passing the mapper object to pyramid.config.Configurator.add_view() (or its declarative/decorator equivalents) as the mapper argument.
-    * by registering a default view mapper.
+	Skipped.
 
-Here’s an example of a view mapper that emulates (somewhat) a Pylons “controller”. The mapper is initialized with some keyword arguments. Its __call__ method accepts the view object (which will be a class). It uses the attr keyword argument it is passed to determine which attribute should be used as an action method. The wrapper method it returns accepts (context, request) and returns the result of calling the action method with keyword arguments implied by the matchdict after popping the action out of it. This somewhat emulates the Pylons style of calling action methods with routing parameters pulled out of the route matching dict as keyword arguments.
 
- 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15
-16
-17
-18
+Advanced Configuration
 
-	
+	Skipped. Although I've read this portion.
 
-# framework
 
-class PylonsControllerViewMapper(object):
-    def __init__(self, **kw):
-        self.kw = kw
+Extending An Existing Pyramid Application
 
-    def __call__(self, view):
-        attr = self.kw['attr']
-        def wrapper(context, request):
-            matchdict = request.matchdict.copy()
-            matchdict.pop('action', None)
-            inst = view()
-            meth = getattr(inst, attr)
-            return meth(**matchdict)
-        return wrapper
+	Skipped.
 
-class BaseController(object):
-    __view_mapper__ = PylonsControllerViewMapper
 
-A user might make use of these framework components like so:
+Request Processing
 
- 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15
-16
-17
+	Skipped. Although I've read this portion.
 
-	
 
-# user application
+Thread Locals
 
-from webob import Response
-from pyramid.config import Configurator
-import pyramid_handlers
-from paste.httpserver import serve
+	When a request is processed, Pyramid makes two thread local variables available to the application: a “registry” and a “request”.
 
-class MyController(BaseController):
-    def index(self, id):
-        return Response(id)
+	Pyramid internals use two API functions to retrieve the request and application registry: get_current_request() and get_current_registry(). The former returns the “current” request; the latter returns the “current” registry. Both get_current_* functions retrieve an object from a thread-local data structure. These API functions are documented in pyramid.threadlocal.
 
-if __name__ == '__main__':
-    config = Configurator()
-    config.include(pyramid_handlers)
-    config.add_handler('one', '/{id}', MyController, action='index')
-    config.add_handler('two', '/{action}/{id}', MyController)
-    serve(config.make_wsgi_app())
+	During normal operations, the thread locals stack is managed by a Router object. At the beginning of a request, the Router pushes the application’s registry and the request on to the stack. At the end of a request, the stack is popped. The topmost request and registry on the stack are considered “current”. Therefore, when the system is operating normally, the very definition of “current” is defined entirely by the behavior of a pyramid Router.
 
-The pyramid.config.Configurator.set_default_mapper() method can be used to set a default view mapper (overriding the superdefault view mapper used by Pyramid itself).
+	However, during unit testing, no Router code is ever invoked, and the definition of “current” is defined by the boundary between calls to the pyramid.config.Configurator.begin() and pyramid.config.Configurator.end() methods (or between calls to the pyramid.testing.setUp() and pyramid.testing.tearDown() functions). These functions push and pop the threadlocal stack when the system is under test. See Test Set Up and Tear Down for the definitions of these functions.
 
-A single view registration can use a view mapper by passing the mapper as the mapper argument to add_view().
-Registering Configuration Decorators¶
+# Why You Shouldn’t Abuse Thread Locals
 
-Decorators such as view_config don’t change the behavior of the functions or classes they’re decorating. Instead, when a scan is performed, a modified version of the function or class is registered with Pyramid.
+	You probably should almost never use the get_current_request() or get_current_registry() functions, except perhaps in tests. In particular, it’s almost always a mistake to use get_current_request or get_current_registry in application code because its usage makes it possible to write code that can be neither easily tested nor scripted.
 
-You may wish to have your own decorators that offer such behaviour. This is possible by using the Venusian package in the same way that it is used by Pyramid.
 
-By way of example, let’s suppose you want to write a decorator that registers the function it wraps with a Zope Component Architecture “utility” within the application registry provided by Pyramid. The application registry and the utility inside the registry is likely only to be available once your application’s configuration is at least partially completed. A normal decorator would fail as it would be executed before the configuration had even begun.
 
-However, using Venusian, the decorator could be written as follows:
 
- 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15
-16
-17
-18
 
-	
+SQLAlchemy + URL Dispatch Wiki Tutorial
 
-import venusian
-from pyramid.threadlocal import get_current_registry
-from mypackage.interfaces import IMyUtility
 
-class registerFunction(object):
 
-    def __init__(self, path):
-        self.path = path
 
-    def register(self, scanner, name, wrapped):
-        registry = scanner.config.registry
-        registry.getUtility(IMyUtility).register(
-            self.path, wrapped
-            )
 
-    def __call__(self, wrapped):
-        venusian.attach(wrapped, self.register)
-        return wrapped
 
-This decorator could then be used to register functions throughout your code:
 
-1
-2
-3
 
-	
 
-@registerFunction('/some/path')
-def my_function():
-   do_stuff()
 
-However, the utility would only be looked up when a scan was performed, enabling you to set up the utility in advance:
 
- 1
- 2
- 3
- 4
- 5
- 6
- 7
- 8
- 9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
 
-	
 
-from paste.httpserver import serve
-from pyramid.config import Configurator
 
-class UtilityImplementation:
 
-    implements(ISomething)
 
-    def __init__(self):
-       self.registrations = {}
 
-    def register(self,path,callable_):
-       self.registrations[path]=callable_
 
-if __name__ == '__main__':
-    config = Configurator()
-    config.registry.registerUtility(UtilityImplementation())
-    config.scan()
-    app = config.make_wsgi_app()
-    serve(app, host='0.0.0.0')
 
-For full details, please read the Venusian documentation.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # For SQLAlchemy:
@@ -1981,7 +1877,3 @@ For full details, please read the Venusian documentation.
 #
 # Put custom middleware to config/middleware.py at comment marker:
 # # CUSTOM MIDDLEWARE HERE (filtered by error hanlding middlewares)
-#
-# StudyPylons is a standard Python package which contains setup.py where defines the package dependencies
-# To re-parse the setup.py line for new dependencies, run "$ python setup.py develop"
-#
