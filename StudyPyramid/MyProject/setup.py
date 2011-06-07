@@ -14,6 +14,9 @@ requires = [
     'repoze.tm2>=1.0b1', # default_commit_veto
     'zope.sqlalchemy',
     'WebError',
+    # jiawzhang: add a new docutils package for our app.
+    # After adding this new dependency, re-run 'python setup.py develop' in MyProject path to download and install the dependency.
+    'docutils',
     ]
 
 if sys.version_info[:3] < (2,5,0):
