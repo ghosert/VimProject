@@ -1,0 +1,1863 @@
+[BEGIN: SQLAlchemy + URL Dispatch Wiki Tutorial]
+
+The content is practised in ~/VimProject/StudyPyramid/MyPorject, the original url is: http://docs.pylonsproject.org/projects/pyramid/1.0/tutorials/wiki2/index.html
+
+You can search "grep jiawzhang * -r" in ~/VimProject/StudyPyramid/MyProject/myproject to see the changes.
+
+[END: SQLAlchemy + URL Dispatch Wiki Tutorial]
+
+
+
+[BEGIN: Narrative documentation]
+
+This document is mainly from official site of pyramid: http://docs.pylonsproject.org/projects/pyramid/1.0/index.html, check it out if you can find answer below.
+
+First Pyramid Application:
+1. start it:
+	~/devenv/bin/python helloworld.py
+	OR
+	source ~/devenv/bin/activate && python helloworld.py
+2. visit it:
+	http://localhost:8080/
+	http://localhost:8080/goodbye
+	http://localhost:8080/hello
+
+Creating a Pyramid Project:
+
+# Before you do anything else, activate virtual python env first:
+	source ~/devenv/bin/activate
+
+# Create new project
+	paster create -t pyramid_routesalchemy MyProject
+
+# Make sure from now on your working directory is your project folder: MyProject
+	cd MyProject
+
+# Install new project for development, this will install a distribution into the python interpreter's library.
+	python setup.py develop
+
+# Run test case, the tests are in MyProject/myproject/tests.py
+	python setup.py test -q
+
+# Exposing Test Coverage Information
+
+	$ ../bin/nosetests --cover-package=tutorial --cover-erase --with-coverage
+
+	This will do the same thing as "python setup.py test -q" but with additional "coverage" information.
+
+# Interactive shell, "MyProject" here is the value of section name "app" in development.ini file, see more about pshell in pyramid docs.
+	paster pshell development.ini MyProject
+
+# Running the project application
+	paster serve development.ini
+	OR for development phase:
+	paster serve development.ini --reload
+	OR for production phase:
+	paster serve production.ini
+
+# tar your application:
+	python setup.py sdist
+	This will tar a .tar.gz file for your application, and make sure all the non-python file types are in your MANIFEST.in file, otherwise, the tar will miss these unspecified file types.
+
+# Modifying Package Structure:
+	You can create a new package for example "blog" under "myproject" folder and "cp views.py blog/views.py", and change the "myproject/__init__.py"
+	from:
+	config.add_view('myproject.views.my_view', renderer='myproject:templates/mytemplate.pt')
+	to:
+	config.add_view('myproject.views.blog.my_view', renderer='myproject:templates/mytemplate.pt')
+
+# myproject/__init__.py:main function:
+	def main(global_config, **settings=settings):
+		config = Configurator(root_factory = Root, settings = settings)
+		// blablabla
+	if you have a "[DEFAULT]" section in development.ini, "global_config" here stores all the key/values pairs in "[DEFAULT]" section.
+	"settings" here stores all the key/values pairs in "[app.MyProject]" section in development except one: "use = egg:MyProject"
+	 you can put anything you want here into "settings" and access it later from "view callable" by invoking request.registry.setting dictionary at application runtime.
+
+
+URL dispatch:
+	1. "config" below is presumed to be an instance of the pyramid.config.Configurator class; "myview" is assumed to be a "view callable" function
+	from myproject.views import myview
+	config.add_route('myroute', '/prefix/{one}/{two}', view=myview)
+	2. "config" below is presumed to be an instance of the pyramid.config.Configurator class; "myview" is assumed to be a "view callable" function
+	config.add_route('myroute', '/prefix/{one}/{two}', view='myproject.views.myview')
+
+# Route pattern syntax:
+
+	pattern: {foo}/bar/baz equals to /{foo}/bar/baz, the slash wil be prepended automatically anyway.
+
+	pattern: foo/{baz}/{bar}
+	url: foo/1/2        -> {'baz':u'1', 'bar':u'2'}
+	url: foo/abc/def    -> {'baz':u'abc', 'bar':u'def'}
+	url: foo/1/2/        -> No match (trailing slash)
+	url: bar/abc/def     -> First segment literal mismatch
+	And the the matched dict will be availabe as "request.matchdic"
+
+	pattern: foo/{name}.html
+	url: /foo/biz.html  -> {'name':u'biz'}
+
+	pattern: foo/{name}.{ext}
+	url: /foo/biz.html  -> {'name':u'biz', 'ext':u'html'}
+
+	regular expession pattern: {foo} is actually: {foo:[^/]+} by default so that a replacement markder don't need to be preceded by a / slash, you can also change it to {foo:\d+}
+
+	regular expression pattern: foo/{bar}
+	foo/La%20Pe%C3%B1a  -> {'bar':u'La Pe\xf1a'}
+	The matchdict will be URL-decoded / UTF-8 decoded.
+
+	If the pattern has a * in it, the name which follows it is considered a “remainder match”. A remainder match must come at the end of the pattern.
+	Unlike segment replacement markers, it does not need to be preceded by a slash. For example:
+	regular expression pattern: foo/{baz}/{bar}*fizzle
+	foo/1/2/           ->	{'baz':u'1', 'bar':u'2', 'fizzle':()}
+	foo/abc/def/a/b/c  ->	{'baz':u'abc', 'bar':u'def', 'fizzle':(u'a', u'b', u'c')}
+
+	regular expression way to the similar things for above:
+	foo/{baz}/{bar}{fizzle:.*}
+	foo/1/2/           -> {'baz':u'1', 'bar':u'2', 'fizzle':()}
+	foo/abc/def/a/b/c  -> {'baz':u'abc', 'bar':u'def', 'fizzle': u'a/b/c')}
+	This occurs because the default regular expression for a marker is [^/]+ which will match everything up to the first /, while {fizzle:.*} will result in a regular expression match of .* capturing the
+remainder into a single value.
+
+# Route Declaration Ordering:
+	memebers/{def}
+	memebers/abc
+	The "memebers/abc" will never be matched, since the ordering will always match the members/{def} first.
+
+# Custom Route Predicates
+
+	info['match'] is useful when predicates need access to the route match. For example:
+
+	def any_of(segment_name, *allowed):
+	    def predicate(info, request):
+	        if info['match'][segment_name] in allowed:
+	            return True
+	    return predicate
+	num_one_two_or_three = any_of('num', 'one', 'two', 'three')
+	config.add_route('num', '/{num}', custom_predicates=(num_one_two_or_three,))
+	
+	This will ensure the "num" segment here is one of the values one, two or three.
+
+	info['route'] is an object has two useful attributes: name and pattern
+	1  def twenty_ten(info, request):
+	2      if info['route'].name in ('ymd', 'ym', 'y'):
+	3          return info['match']['year'] == '2010'
+	4
+	5  config.add_route('y', '/{year}', custom_predicates=(twenty_ten,))
+	6  config.add_route('ym', '/{year}/{month}', custom_predicates=(twenty_ten,))
+	7  config.add_route('ymd', '/{year}/{month}/{day}',
+	8                   custom_predicates=(twenty_ten,))
+	The above predicate, when added to a number of route configurations ensures that the year match argument is ‘2010’ if and only if the route name is ‘ymd’, ‘ym’, or ‘y’.
+
+# The Matched Route
+	The matched route is availabe as "request.matched_route", the useful attribute of this object is the "name" attribute, if no route url pattern matches, request.matched_route is None.
+
+# Route Examples:
+	Example 3:
+	An example of using a route with a factory:
+	config.add_route('idea', 'ideas/{idea}', view='myproject.views.idea_view', factory='myproject.resources.Idea')
+	The above route will manufacture an Idea resource as a context, assuming that mypackage.resources.Idea resolves to a class that accepts a request in its __init__. For example:
+	class Idea(object):
+		def __init__(self, request):
+			pass
+	In a more complicated application, this root factory might be a class representing a SQLAlchemy model.
+	
+	Example 4:
+	config.add_route('idea', 'site/{id}')
+	config.add_view(route_name='idea', view='mypackage.views.site_view')
+	are same to
+	config.add_route('idea', 'site/{id}', view='mypackage.views.site_view')
+
+# Matching the Root URL
+	config.add_route('root', '', view='mypackage.views.root_view')
+	Or provide the literal string / as the pattern:
+	config.add_route('root', '/', view='mypackage.views.root_view')
+
+# Generating Route URLs
+
+	If you’ve configured a route with the name “foo” and the pattern “{a}/{b}/{c}”, you might do this.
+
+	1 from pyramid.url import route_url
+	2 url = route_url('foo', request, a='1', b='2', c='3')
+
+	This would return something like the string http://example.com/1/2/3 (at least if the current protocol and hostname implied http:/example.com).
+
+# Redirecting to Slash-Appended Routes
+	config.add_route('hasslash', 'has_slash/', view='myproject.views.has_slash')
+	config.add_view(context='pyramid.exceptions.NotFound', view='pyramid.view.append_slash_notfound_view')
+
+	This will make sure the url path like "/has_slash" to be redirect to "/has_slash/"
+
+	If still, when it can't redirect to a slash-appended url, it will go to 404 not found page. In this case, if you want to custom not found view when it can't redirect to a slash-appended url, do this:
+
+	from pyramid.exceptions import NotFound
+	from pyramid.view import AppendSlashNotFoundViewFactory
+
+	def notfound_view(context, request):
+		return HTTPNotFound('It aint there, stop trying!')
+
+	custom_append_slash = AppendSlashNotFoundViewFactory(notfound_view)
+	config.add_view(custom_append_slash, context=NotFound)
+
+# Cleaning Up After a Request:
+	
+	In mypackage.__init__ module:
+
+	from mypackage.models import DBSession
+
+	from pyramid.events import subscriber
+	from pyramid.events import NewRequest
+
+	def cleanup_callback(request):
+		DBSession.remove()
+
+	@subscriber(NewRequest)
+	def add_cleanup_callback(event):
+		event.request.add_finished_callback(cleanup_callback)
+
+	And make sure pyramid.config.Configurator.scan() is called since we have @subscriber here.
+
+# Using Pyramid Security With URL Dispatch
+	allow the editor the view permission:
+	class Article(object):
+		def __init__(self, request):
+		   matchdict = request.matchdict
+		   article = matchdict.get('article', None)
+		   if article == '1':
+			   self.__acl__ = [ (Allow, 'editor', 'view') ]
+
+# Debugging Route Matching
+	jiawzhang@home-pc:~$ PYRAMID_DEBUG_ROUTEMATCH=true paster server development.ini
+
+# Displaying All Application Routes
+	jiawzhang@home-pc:~$ paster proutes development.ini MyProject
+
+
+Much Ado About Traversal
+
+	It introduce the concepts on "Traversal", "Resource", "View Lookup" and "Use Cases" for Traversal, read it will be helpful for knowing general concept purpose.
+	Check out: http://docs.pylonsproject.org/projects/pyramid/1.0/narr/muchadoabouttraversal.html
+
+
+Traversal
+
+    Skipped.
+	Check it out: http://docs.pylonsproject.org/projects/pyramid/1.0/narr/traversal.html
+
+
+Views
+
+
+# Defining a View Callable as a Function
+
+	1 from pyramid.response import Response
+	2
+	3 def hello_world(request):
+	4     return Response('Hello world!')
+
+# Defining a View Callable as a Class
+
+	Views defined as classes must have the following traits:
+	• an __init__ method that accepts a request argument.
+	• a __call__ (or other) method that accepts no parameters and which returns a response.
+
+	1 from pyramid.response import Response
+	2
+	3 class MyView(object):
+	4     def __init__(self, request):
+	5         self.request = request
+	6
+	7     def __call__(self):
+	8         return Response('hello')
+
+	If you want to access "context", try "request.context"
+
+# View Callable Responses
+
+	1 from pyramid.response import Response
+	2
+	3 def view(request):
+	4     return Response('OK')
+
+	You don’t need to always use Response to represent a response like HTTPFound in pyramid.httpexceptions can be returned too. A view can actually return any object that has the following attributes.
+
+	status: The HTTP status code (including the name) for the response as a string. E.g. 200 OK or 401 Unauthorized.
+	headerlist: A sequence of tuples representing the list of headers that should be set in the response. E.g. [('Content-Type', 'text/html'), ('Content-Length', '412')]
+	app_iter: An iterable representing the body of the response. This can be a list, e.g. ['<html><head></head><body>Hello world!</body></html>'] or it can be a file-like object, or any other sort of iterable.
+
+# Using a View Callable to Do an HTTP Redirect
+
+	You can issue an HTTP redirect from within a view by returning a particular kind of response.
+
+	1 from pyramid.httpexceptions import HTTPFound
+	2
+	3 def myview(request):
+	4     return HTTPFound(location='http://example.com')
+
+	All exception types from the pyramid.httpexceptions module implement the Response interface; any can be returned as the response from a view.
+	It also includes other response types that imply other HTTP response codes, such as HTTPUnauthorized for 401 Unauthorized.
+					
+# Using Special Exceptions In View Callables
+
+	Usually when a Python exception is raised within a view callable, Except pyramid.exceptions.NotFound and pyramid.exceptions.Forbidden,
+	Pyramid allows all the other exception to propagate all the way out to the WSGI server which invoked the application.
+	The two special exceptions accept a single positional constructor argument: a message.
+	If NotFound is raised within view code, the result of the Not Found View will be returned to the user agent which performed the request.
+	If Forbidden is raised within view code, the result of the Forbidden View will be returned to the user agent which performed the request.
+	In all cases, the message provided to the exception constructor is made available to the view which Pyramid invokes as request.exception.args[0].
+
+# Exception Views
+
+	For example, given the following exception class in a module named helloworld.exceptions:
+
+	1 class ValidationFailure(Exception):
+	2     def __init__(self, msg):
+	3         self.msg = msg
+
+	You can wire a view callable to be called whenever any of your other code raises a hellworld.exceptions.ValidationFailure exception:
+
+	1 from helloworld.exceptions import ValidationFailure
+	2
+	3 @view_config(context=ValidationFailure)
+	4 def failed_validation(exc, request):
+	5     response =  Response('Failed validation: %s' % exc.msg)
+	6     response.status_int = 500
+	7     return response
+
+	This view callable will be invoked whenever a helloworld.exceptions.ValidationError is raised by your application’s view code.
+
+	Other normal view predicates can also be used in combination with an exception view registration:
+
+	1 from pyramid.view import view_config
+	2 from pyramid.exceptions import NotFound
+	3 from pyramid.httpexceptions import HTTPNotFound
+	4
+	5 @view_config(context=NotFound, route_name='home')
+	6 def notfound_view(request):
+	7     return HTTPNotFound()
+
+	The above exception view names the route_name of home, meaning that it will only be called when the route matched has a name of home.
+
+# Handling Form Submissions in View Callables (Unicode and Character Set Issues)
+
+	As an example, let’s assume that the following form page is served up to a browser client, and its action points at some Pyramid view code:
+
+	1 <html xmlns="http://www.w3.org/1999/xhtml">
+	2   <head>
+	3     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	4   </head>
+	5   <form method="POST" action="myview">
+	6     <div>
+	7       <input type="text" name="firstname"/>
+	8     </div>
+	9     <div>
+	10       <input type="text" name="lastname"/>
+	11     </div>
+	12     <input type="submit" value="Submit"/>
+	13   </form>
+	14 </html>
+
+	The values below in the request is converted from UTF-8 to Unicode implicitily.
+
+	1 def myview(request):
+	2     firstname = request.params['firstname']
+	3     lastname = request.params['lastname']
+
+	So make sure "charset=UTF-8" is always set in HTML head meta tag, otherwise this implicitily convertion will be failed.
+	Since this implicitily convertion from UTF-8 to Unicode happens already, don't do this once again like: reqeust.params['firstname'].decode('utf-8')
+	This convertion will happen only in reqeust.params, request.GET, request.POST
+				 
+Renderers
+
+	A view needn’t always return a Response object. If a view happens to return something which does not implement the Pyramid Response interface,
+	Pyramid will attempt to use a renderer to construct a response. For example:
+
+	from pyramid.response import Response
+	from pyramid.view import view_config
+
+	@view_config(renderer='json')
+	def hello_world(request):
+		return {'content':'Hello!'}
+	
+	Means, you should either return a "Reponse" or specify a "renderer" to construct a respose.
+
+# Writing View Callables Which Use a Renderer
+
+	1 config.add_view('myproject.views.my_view', renderer='json')
+
+	Returning "response" will overwrite specifying renderer.
+	For example, if your view callable returns an instance of the pyramid.httpexceptions.HTTPFound class as a response, no renderer will be employed.
+
+	1 from pyramid.httpexceptions import HTTPFound
+	2
+	3 def view(request):
+	4     return HTTPFound(location='http://example.com') # any renderer avoided, a http redirect instead.
+
+# Built-In Renderers
+	1. string:String Render
+
+	@view_config(renderer='string')
+	def hello_world(request):
+		return {'content':'Hello!'}
+
+	2. json:JSON Render
+
+	@view_config(renderer='json')
+	def hello_world(request):
+		return {'content':'Hello!'}
+	
+	OR
+
+	config.add_view('myproject.views.hello_world', name='hello', context='myproject.resources.Hello', renderer='json')
+	
+	@view_config and config.add_view() are actually same thing.
+
+	
+	3. *.pt or *.txt: Chameleon Template Renders
+
+	1) relative path is different from Mako, which means relative to the path which defines the view callable. 
+	config.add_view('myproject.views.hello_world', name='hello', context='myproject.resources.Hello', renderer='templates/foo.pt')
+
+	2) asset specification, same to Mako.
+	config.add_view('myproject.views.hello_world', name='hello', context='myproject.resources.Hello', renderer='myproject:templates/foo.pt')
+	config.add_view('myproject.views.hello_world', name='hello', context='myproject.resources.Hello', renderer='myproject:templates/foo.txt')
+
+	4. *.mak or *.mako: Mako Template Render
+
+	1) relative path(The relative 'foo.mako' below is not relative to the package, but is relative to the directory configured for Mako via the mako.directories configuration file setting.):
+	config.add_view('myproject.views.hello_world', name='hello', context='myproject.resources.Hello', renderer='foo.mako')
+
+	2) asset specification(e.g. apackage:templates/sometemplate.mak):
+	config.add_view('myproject.views.hello_world', name='hello', context='myproject.resources.Hello', renderer='mypackage:templates/foo.mak')
+
+# Varying Attributes of Rendered Responses
+
+	View callables that don’t directly return a response should set these attributes on the request object via setattr during their execution, to influence associated response attributes.
+	If return a response directly, you can set attributes on Response object I think, see later.
+
+	response_content_type: Defines the content-type of the resulting response, e.g. text/xml.
+	response_headerlist: A sequence of tuples describing cookie values that should be set in the response, e.g. [('Set-Cookie', 'abc=123'), ('X-My-Header', 'foo')].
+	response_status: A WSGI-style status code (e.g. 200 OK) describing the status of the response.
+	response_charset: The character set (e.g. UTF-8) of the response.
+	response_cache_for: A value in seconds which will influence Cache-Control and Expires headers in the returned response. The same can also be achieved by returning various values in the response_headerlist, this is purely a convenience. 
+
+	For example:
+
+	from pyramid.view import view_config
+
+	@view_config(name='gone', renderer='templates/gone.pt')
+	def myview(request):
+		request.response_status = '404 Not Found'
+		return {'URL':request.URL}
+
+# Adding and Changing Renderers
+	Check out: http://docs.pylonsproject.org/projects/pyramid/1.0/narr/renderers.html
+
+# Overriding A Renderer At Runtime
+	Check out: http://docs.pylonsproject.org/projects/pyramid/1.0/narr/renderers.html
+
+Templates
+
+# Using Templates Directly
+
+	In this section, it's actually return Response rather than specifying renderer.
+
+	1 from pyramid.renderers import render_to_response
+	2
+	3 def sample_view(request):
+	4     return render_to_response('mypackage:templates/foo.mako',
+	5                               {'foo':1, 'bar':2},
+	6                               request=request)
+
+	render_to_response() here is an extension api for the native template api offered by a giving template engine like Chameleon or Mako.
+
+	Or, you can generate string first, then construct the response like below, it's same to above.
+
+	1 from pyramid.renderers import render
+	2 from pyramid.response import Response
+	3
+	4 def sample_view(request):
+	5     result = render('mypackage:templates/foo.pt',
+	6                     {'foo':1, 'bar':2},
+	7                     request=request)
+	8     response = Response(result)
+	9     return response
+
+	It's also doable to invoke your own 3rd party template Apis in view callable, since you can construct Response like above.
+	See more: http://docs.pylonsproject.org/projects/pyramid/1.0/narr/templates.html
+
+	If you want to control more about response, do something like below:
+	7     response.content_type = 'text/plain'
+	8     response.status_int = 204
+
+# System Values Used During Rendering
+	context
+	    The current Pyramid context if request was provided as a keyword argument, or None.
+	request
+		The request provided as a keyword argument.
+	renderer_name
+		The renderer name used to perform the rendering, e.g. mypackage:templates/foo.pt.
+	renderer_info
+		An object implementing the pyramid.interfaces.IRendererInfo interface. Basically, an object with the following attributes: name, package and type.
+	These variables are made as top-level template variables, you can access them in template by something like ${request}, ${render_info.name}
+
+# Templates Used as Renderers via Configuration
+
+	1 from pyramid.view import view_config
+	2
+	3 @view_config(renderer='templates/foo.pt')
+	4 def my_view(request):
+	5     return {'foo':1, 'bar':2}
+
+	This is a better way compared with "# Using Template Directly"
+	if you want to do the same thing in "# Using Template Directly" to control more about response, you should set request rather than response, see: "# Varying Attributes of Rendered Responses"
+
+# Templating With Mako Templates
+
+	from pyramid.view import view_config
+
+	@view_config(renderer='foo.mak')
+	def my_view(request):
+		return {'project':'my project'}
+
+	For the above view callable to work, the following setting needs to be present in the application stanza of your configuration’s ini file:
+	mako.directories = mypackage:templates
+	And make sure you will have "foo.mak" in your "mypackage:templates" folder, "foo.mak" here is relative to "mypackage:templates" we defined.
+
+# A Sample Mako Template
+	 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+	 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:tal="http://xml.zope.org/namespaces/tal">
+	 <head>
+		 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		 <title>${project} Application</title>
+	 </head>
+	   <body>
+		  <h1 class="title">Welcome to <code>${project}</code>, an
+		   application generated by the <a href="http://docs.pylonsproject.org/projects/pyramid/dev/">pyramid</a> web application framework.</h1>
+	   </body>
+	 </html>
+
+# Automatically Reloading Templates
+	[app:main]
+	use = egg:MyProject#app
+	reload_templates = true
+
+
+View Configuration
+
+# View configuration parameters:
+	1) non predicate arguments 2) predicate arguments
+	Check out: http://docs.pylonsproject.org/projects/pyramid/1.0/narr/viewconfig.html
+
+# View Configuration Using the @view_config Decorator
+	It's a better way compared with imperative configuration for the same purpose.
+
+	An example of the view_config decorator might reside in a Pyramid application module views.py:
+
+	1 from resources import MyResource
+	2 from pyramid.view import view_config
+	3 from pyramid.response import Response
+	4
+	5 @view_config(name='my_view', request_method='POST', context=MyResource,
+	6              permission='read')
+	7 def my_view(request):
+	8     return Response('OK')
+
+	Using this decorator as above replaces the need to add this imperative configuration stanza:
+
+	1 config.add_view('.views.my_view', name='my_view', request_method='POST',
+	2                 context=MyResource, permission='read')
+
+	All arguments to view_config may be omitted. For example:
+
+	1 from pyramid.response import Response
+	2 from pyramid.view import view_config
+	3
+	4 @view_config()
+	5 def my_view(request):
+	6     """ My view """
+	7     return Response()
+
+	To make Pyramid process your view_config declarations, you must do use the scan method of a Configurator:
+
+	1 # config is assumed to be an instance of the
+	2 # pyramid.config.Configurator class
+	3 config.scan()
+
+@view_config Placement
+
+	A view_config decorator can be placed in various points in your application.
+
+	If your view callable is a function, it may be used as a function decorator:
+
+	1 from pyramid.view import view_config
+	2 from pyramid.response import Response
+	3
+	4 @view_config(name='edit')
+	5 def edit(request):
+	6     return Response('edited!')
+
+	If your view callable is a class, the decorator can also be used as a class decorator in Python 2.6 and better (Python 2.5 and below do not support class decorators).
+
+	1 from pyramid.response import Response
+	2 from pyramid.view import view_config
+    3
+	4 @view_config()
+	5 class MyView(object):
+    6     def __init__(self, request):
+    7         self.request = request
+	8
+	9     def __call__(self):
+	10         return Response('hello')
+
+	More than one view_config decorator can be stacked on top of any number of others. Each decorator creates a separate view registration. For example:
+
+	from pyramid.view import view_config
+	from pyramid.response import Response
+
+	@view_config(name='edit')
+	@view_config(name='change')
+	def edit(request):
+		    return Response('edited!')
+
+	This registers the same view under two different names.
+
+	The decorator can also be used against class methods:
+
+	 from pyramid.response import Response
+	 from pyramid.view import view_config
+
+	 class MyView(object):
+		 def __init__(self, request):
+			 self.request = request
+
+		 @view_config(name='hello')
+		 def amethod(self):
+			 return Response('hello')
+
+	The code above is equivalent/same to below, means by default it will invoke __call__ method in class, but add a non-predicate paramter "attr" can specify a method you want to be called,
+	when the view callable is invoked.
+
+	from pyramid.response import Response
+	from pyramid.view import view_config
+
+	@view_config(attr='amethod', name='hello')
+	class MyView(object):
+	    def __init__(self, request):
+            self.request = request
+
+	    def amethod(self):
+	        return Response('hello')
+
+# View Registration Using add_view()
+
+	1 from pyramid.response import Response
+	2
+	3 def hello_world(request):
+	4     return Response('hello!')
+	5
+	6 # config is assumed to be an instance of the
+	7 # pyramid.config.Configurator class
+	8 config.add_view(hello_world, name='hello.html')
+
+
+# Using Resource Interfaces in View Configuration
+	I've skipped this portion, since it's traverse/resource/zope related.
+	Check it out later: http://docs.pylonsproject.org/projects/pyramid/1.0/narr/viewconfig.html
+
+# Configuring View Security
+
+	1 # config is an instance of pyramid.config.Configurator
+	2
+	3 config.add_view('myproject.views.add_entry', name='add.html',
+	4                 context='myproject.resources.IBlog', permission='add')
+
+	When an authorization policy is enabled, this view will be protected with the add permission.
+	The view will not be called if the user does not possess the add permission relative to the current context.
+	Instead the forbidden view result will be returned to the client as per Protecting Views with Permissions.
+	Question: In Router based pyramid, the context here is always "root" ?
+
+# NotFound Errors:
+
+	Set debug_notfound = True in configuration .ini file will tell you why a view was not found from stderr, and browser representation of the error will include the same information.
+
+
+Resources
+	Skipped.
+	Check it out if necessary at http://docs.pylonsproject.org/projects/pyramid/1.0/narr/resources.html#resources-which-implement-interfaces
+
+
+Static Assets
+
+# Serving Static Assets
+	1) absolute path:
+	1 # config is an instance of pyramid.config.Configurator
+	2 config.add_static_view(name='static', path='/var/www/static')
+
+	In the example above, name is static, and path is /var/www/static.
+	In English, this means that you wish to serve the files that live in /var/www/static as sub-URLs of the /static URL prefix. Therefore, the file /var/www/static/foo.css will be
+	returned when the user visits your application’s URL /static/foo.css.
+
+	2) asset specification
+	1 # config is an instance of pyramid.config.Configurator
+	2 config.add_static_view(name='static', path='some_package:a/b/c/static')
+
+	3) "name" argument is a external URL:
+	1 # config is an instance of pyramid.config.Configurator
+	2 config.add_static_view(name='http://example.com/images',
+	3                        path='mypackage:images')
+	In this mode, the name is used as the URL prefix when generating a URL using pyramid.url.static_url(). Static assets can be served from external web server.
+
+# Generating Static Asset URLs
+	1) URL Prefix way:
+	For example, let’s assume you create a set of static declarations like so:
+
+	1 config.add_static_view(name='static1', path='mypackage:assets/1')
+	2 config.add_static_view(name='static2', path='mypackage:assets/2')
+
+	You needn’t generate the URLs to static assets “by hand” in such a configuration. Instead, use the static_url() API to generate them for you. For example:
+
+	1 from pyramid.url import static_url
+	2 from pyramid.chameleon_zpt import render_template_to_response
+	3
+	4 def my_view(request):
+	5     css_url = static_url('mypackage:assets/1/foo.css', request)
+	6     js_url = static_url('mypackage:assets/2/foo.js', request)
+	7     return render_template_to_response('templates/my_template.pt',
+	8                                        css_url = css_url,
+	9                                        js_url = js_url)
+
+	If the request “application URL” of the running system is http://example.com, the css_url generated above would be: http://example.com/static1/foo.css.
+	The js_url generated above would be http://example.com/static2/foo.js.
+
+	One benefit of using the static_url() function rather than constructing static URLs “by hand” is that if you need to change the name of a static URL declaration, the generated URLs will continue to resolve properly after the rename.
+
+	2) URL way:
+	URLs may also be generated by static_url() to static assets that live outside the Pyramid application(like in apache/nginx side):
+	1 config.add_static_view(name='http://example.com/images',
+	2                        path='mypackage:images')
+
+	Under such a configuration, the URL generated by static_url for assets which begin with mypackage:images will be prefixed with http://example.com/images:
+
+	1 static_url('mypackage:images/logo.png', request)
+	2 # -> http://example.com/images/logo.png
+
+	You can use URL Prefix way in development while URL way in production, set a URL Prefix in development.ini while set a URL in production.ini
+	We suggest using the pyramid.registry.Registry.settings API in conjunction with a setting in the application .ini file named like for example "media_location" as the key.
+
+# Advanced: Serving Static Assets Using a View Callable
+
+	Note that you cannot use the static_url() API to generate URLs against assets made accessible by registering a custom static view (for both two cases below).
+
+	1) If you’re using URL dispatch, you may want static assets to only be available as a fallback if no previous route matches.
+
+	Create an instance of the static class inside a static.py file in your application root as below.
+
+	1 from pyramid.view import static
+	2 static_view = static('mypackage:static')
+
+	Subsequently, you may wire the files that are served by this view up to be accessible as /<filename> using a configuration method in your application’s startup code.
+
+	1 # .. every other add_route declaration should come
+	2 # before this one, as it will, by default, catch all requests
+	3
+	4 config.add_route('catchall_static', '/*subpath', 'myapp.static.static_view')
+
+	The special name *subpath (see *fizzle for more explanation) above is used by the static view callable to signify the path of the file relative to the directory you’re serving.
+
+    2) Registering A View Callable to Serve a “Static” Asset, for protecting static assets with a permission or can be configured to respond under different circumstances using view predicate arguments.
+
+	1 import os
+	2 from webob import Response
+	3
+	4 def favicon_view(request):
+	5     here = os.path.dirname(__file__)
+	6     icon = open(os.path.join(here, 'static', 'favicon.ico'))
+	7     return Response(content_type='image/x-icon', app_iter=icon)
+
+	You might register such a view via configuration as a view callable that should be called as the result of a traversal:
+
+	1 config.add_view('myapp.views.favicon_view', name='favicon.ico')
+
+	Or you might register it to be the view callable for a particular route:
+
+	1 config.add_route('favicon', '/favicon.ico',
+	2                  view='myapp.views.favicon_view')
+
+# Overriding Assets:
+	Skipped.
+	This feature is something like changing the skin of the site.
+	Asset overrides can actually override assets other than templates and static files. 
+	Check it out: http://docs.pylonsproject.org/projects/pyramid/1.0/narr/assets.html
+
+
+Request and Response Objects
+
+# Request
+
+	pyramid.request.Request
+
+	req.method:
+		The request method, e.g., 'GET', 'POST'
+	req.GET:
+		A multidict with all the variables in the query string.
+	req.POST:
+		A multidict with all the variables in the request body. This only has variables if the request was a POST and it is a form submission.
+	req.params:
+		A multidict with a combination of everything in req.GET and req.POST.
+	req.body:
+		The contents of the body of the request. This contains the entire request body as a string. This is useful when the request is a POST that is not a form submission, or a request like a PUT. You can also get req.body_file for a file-like object.
+	req.cookies:
+		A simple dictionary of all the cookies.
+	req.headers:
+		A dictionary of all the headers. This dictionary is case-insensitive.
+	req.urlvars and req.urlargs:
+		req.urlvars are the keyword parameters associated with the request URL. req.urlargs are the positional parameters. These are set by products like Routes and Selector.
+
+	Also, for standard HTTP request headers there are usually attributes, for instance: req.accept_language, req.content_length, req.user_agent, as an example. These properties expose the parsed form of each header, for whatever parsing makes sense. For instance, req.if_modified_since returns a datetime object (or None if the header is was not provided).
+
+	In addition to these attributes, there are several ways to get the URL of the request. I’ll show various values for an example URL http://localhost/app/blog?id=10, where the application is mounted at http://localhost/app.
+
+	req.url:
+		The full request URL, with query string, e.g., http://localhost/app/blog?id=10
+	req.host:
+		The host information in the URL, e.g., localhost
+	req.host_url:
+		The URL with the host, e.g., http://localhost
+	req.application_url:
+		The URL of the application (just the SCRIPT_NAME portion of the path, not PATH_INFO). E.g., http://localhost/app
+	req.path_url:
+		The URL of the application including the PATH_INFO. e.g., http://localhost/app/blog
+	req.path:
+		The URL including PATH_INFO without the host or scheme. e.g., /app/blog
+	req.path_qs:
+		The URL including PATH_INFO and the query string. e.g, /app/blog?id=10
+	req.query_string:
+		The query string in the URL, e.g., id=10
+	req.relative_url(url, to_application=False):
+		Gives a URL, relative to the current URL. If to_application is True, then resolves it relative to req.application_url. 
+	
+	Methods on Request / Unicode:
+	Skipped:
+	Check out: http://docs.pylonsproject.org/projects/pyramid/1.0/narr/webob.html
+
+# Response
+
+	pyramid.response.Response
+
+	response.status:
+		The response code plus reason message, like '200 OK'. To set the code without a message, use status_int, i.e.: response.status_int = 200.
+	response.headerlist:
+		A list of all the headers, like [('Content-Type', 'text/html')]. There’s a case-insensitive multidict in response.headers that also allows you to access these same headers.
+	response.app_iter:
+		An iterable (such as a list or generator) that will produce the content of the response. This is also accessible as response.body (a string), response.unicode_body (a unicode object, informed by response.charset), and response.body_file (a file-like object; writing to it appends to app_iter).
+
+	Everything else in the object derives from this underlying state. Here’s the highlights:
+
+	response.content_type
+		The content type not including the charset parameter. Typical use: response.content_type = 'text/html'.
+	response.charset:
+		The charset parameter of the content-type, it also informs encoding in response.unicode_body. response.content_type_params is a dictionary of all the parameters.
+	response.set_cookie(key, value, max_age=None, path='/', ...):
+		Set a cookie. The keyword arguments control the various cookie parameters. The max_age argument is the length for the cookie to live in seconds (you may also use a timedelta object). The Expires key will also be set based on the value of max_age.
+	response.delete_cookie(key, path='/', domain=None):
+		Delete a cookie from the client. This sets max_age to 0 and the cookie value to ''.
+	response.cache_expires(seconds=0):
+		This makes this response cacheable for the given number of seconds, or if seconds is 0 then the response is uncacheable (this also sets the Expires header).
+	response(environ, start_response):
+		The response object is a WSGI application. As an application, it acts according to how you create it. It can do conditional responses if you pass conditional_response=True when instantiating (or set that attribute later). It can also do HEAD and Range requests. 
+
+# Instantiating the Response
+
+	Of course most of the time you just want to make a response. Generally any attribute of the response can be passed in as a keyword argument to the class; e.g.:
+
+	from pyramid.response import Response
+	response = Response(body='hello world!', content_type='text/plain')
+
+# Multidict
+	?pref=red&pref=blue
+	request.GET('pref') => 'blue'
+	request.GET.getall('pref') => 'red', 'blue'
+	request.GET.getone('pref') => exception, this is no issue only when there is one and only one value for 'pref'
+	request.GET.items() => [('pref', 'red'), ('pref', 'blue')]
+	request.GET.keys() => ['pref', 'pref'].
+	Multidict is a view on a list of tuples; all the keys are ordered, and all the values are ordered.
+
+
+Sessions
+
+	In order to use sessions, you must set up a session factory during your Pyramid configuration.
+
+	A very basic, insecure sample session factory implementation is provided in the Pyramid core. It uses a cookie to store session information. This implementation has the cookie limitation.
+
+	from pyramid.session import UnencryptedCookieSessionFactoryConfig
+	my_session_factory = UnencryptedCookieSessionFactoryConfig('itsaseekreet')
+
+	from pyramid.config import Configurator
+	config = Configurator(session_factory = my_session_factory)
+
+	Access session objects:
+
+	from pyramid.response import Response
+
+	def myview(request):
+		session = request.session
+		if 'abc' in session:
+			session['fred'] = 'yes'
+		session['abc'] = '123'
+		if 'fred' in session:
+			return Response('Fred was in the session')
+		else:
+			return Response('Fred was not in the session')
+
+	You can use a session much like a Python dictionary. It supports all dictionary methods, along with some extra attributes, and methods.
+
+	Extra attributes:
+
+	created
+		An integer timestamp indicating the time that this session was created.
+	new
+		A boolean. If new is True, this session is new. Otherwise, it has been constituted from data that was already serialized.
+
+	Extra methods:
+
+	changed()
+		Call this when you mutate a mutable value in the session namespace. See the gotchas below for details on when, and why you should call this.
+	invalidate()
+		Call this when you want to invalidate the session (dump all data, and – perhaps – set a clearing cookie).
+
+	Some gotchas:
+
+		* Keys and values of session data must be pickleable. This means, typically, that they are instances of basic types of objects, such as strings, lists, dictionaries, tuples, integers, etc.
+		* If you place a mutable value (for example, a list or a dictionary) in a session object, and you subsequently mutate that value, you must call the changed() method of the session object.
+
+# Using Alternate Session Factories
+
+	Beaker has support for file-based sessions, database based sessions, and encrypted cookie-based sessions. See http://github.com/Pylons/pyramid_beaker for more information about pyramid_beaker.
+
+# Creating Your Own Session Factory
+
+# Flash Messages
+
+	Two main uses:
+	1. To display a status message only once to the user after performing an internal redirect
+	2. To allow generic code to log messages for single-time display without having direct access to an HTML template.
+
+	flash(message, queue='', allow_duplicate=True)
+
+	To add a message to a flash message queue, use a session object’s flash() method:
+
+	request.session.flash('mymessage')
+
+	The flash() method appends a message to a flash queue, creating the queue if necessary.
+
+	You can specify a string as queue name, the default one is empty string.
+
+	request.session.flash(msg, 'myappsqueue')
+
+	The allow_duplicate argument defaults to True. If this is False, and you attempt to add a message value which is already present in the queue, it will not be added.
+
+	Using the session.pop_flash Method: this will return the list of the message added, and empty the queue.
+
+	>>> request.session.flash('info message')
+	>>> request.session.pop_flash()
+	['info message']
+	>>> request.session.pop_flash()
+	[]
+
+	Using the session.peek_flash Method:
+
+	>>> request.session.flash('info message')
+	>>> request.session.peek_flash()
+	['info message']
+	>>> request.session.peek_flash()
+	['info message']
+	>>> request.session.pop_flash()
+	['info message']
+	>>> request.session.peek_flash()
+	[]
+
+# Preventing Cross-Site Request Forgery Attacks
+
+	To get the current CSRF token from the session, use the session.get_csrf_token() method.
+
+	token = request.session.get_csrf_token()
+
+	Set it in the hidden tag in html, and post it back to server side for verification.
+
+	token = request.session.get_csrf_token()
+	if token != request.POST['csrf_token']:
+		raise ValueError('CSRF token did not match')
+
+	Using the session.new_csrf_token Method
+
+	It clears any existing CSRF token, creates a new CSRF token, sets the token into the session, and returns the token.
+
+	token = request.session.new_csrf_token()
+
+
+Security
+
+# Enabling an Authorization Policy
+
+	By default it's disabled.
+
+# Enabling an Authorization Policy Imperatively
+
+	Since authorization, in general, depends upon authentication, you must enable both them.
+
+	1 from pyramid.config import Configurator
+	2 from pyramid.authentication import AuthTktAuthenticationPolicy
+	3 from pyramid.authorization import ACLAuthorizationPolicy
+	4 authentication_policy = AuthTktAuthenticationPolicy('seekrit')
+	5 authorization_policy = ACLAuthorizationPolicy()
+	6 config = Configurator(authentication_policy=authentication_policy,
+	7                       authorization_policy=authorization_policy)
+
+# Protecting Views with Permissions
+
+	1 # config is an instance of pyramid.config.Configurator
+	2
+	3 config.add_view('mypackage.views.blog_entry_add_view',
+	4                 name='add_entry.html',
+	5                 context='mypackage.resources.Blog',
+	6                 permission='add')
+
+	The equivalent view registration including the add permission name may be performed via the @view_config decorator:
+
+	1 from pyramid.view import view_config
+	2 from resources import Blog
+	3
+	4 @view_config(context=Blog, name='add_entry.html', permission='add')
+	5 def blog_entry_add_view(request):
+	6     """ Add blog entry code goes here """
+	7     pass
+
+		As a result of any of these various view configuration statements, the requesting user will need to possess the add permission against the context resource in order to be able to invoke the blog_entry_add_view view. If he does not, the Forbidden view will be invoked.
+
+# Setting a Default Permission
+
+	If a permission is not supplied to a view configuration, the registered view will always be executable by entirely anonymous users: any authorization policy in effect is ignored.
+	In support of making it easier to configure applications which are “secure by default”, Pyramid allows you to configure a default permission.
+
+	These APIs are in support of configuring a default permission for an application:
+    • The default_permission constructor argument to the Configurator constructor.
+	• The pyramid.config.Configurator.set_default_permission() method.
+
+	When a default permission is registered:
+
+    • if a view configuration names an explicit permission, the default permission is ignored for that view registration, and the view-configuration-named permission is used.
+	• if a view configuration names an explicit permission as the string __no_permission_required__, the default permission is ignored, and the view is registered without a permission.
+
+	Warning
+
+	When you register a default permission, all views (even exception view views) are protected by a permission. For all views which are truly meant to be anonymously accessible, you will need to associate the view’s configuration with the __no_permission_required__ permission.
+
+# Assigning ACLs to your Resource Objects
+
+	jiawzhang TODO: __acl__ here is resource objects based, which is mainly for "traverse" rather than "url dispatch" way, how do I leverage acl stuffs in "url dispatch", goole the answser maybe.
+
+	For example, an ACL might be attached to the resource for a blog via its class:
+
+	1 from pyramid.security import Everyone
+	2 from pyramid.security import Allow
+	3
+	4 class Blog(object):
+	5     __acl__ = [
+	6         (Allow, Everyone, 'view'),
+	7         (Allow, 'group:editors', 'add'),
+	8         (Allow, 'group:editors', 'edit'),
+	9         ]
+
+	Or, if your resources are persistent, an ACL might be specified via the __acl__ attribute of an instance of a resource:
+
+	1 from pyramid.security import Everyone
+	2 from pyramid.security import Allow
+	3
+	4 class Blog(object):
+	5     pass
+	6
+	7 blog = Blog()
+	8
+	9 blog.__acl__ = [
+	10         (Allow, Everyone, 'view'),
+	11         (Allow, 'group:editors', 'add'),
+	12         (Allow, 'group:editors', 'edit'),
+	13         ]
+
+# Elements of an ACL
+
+	1 from pyramid.security import Everyone
+	2 from pyramid.security import Allow
+	3 from pyramid.security import Deny
+	4
+	5 __acl__ = [
+	6     (Allow, Everyone, 'view'),
+	7     (Deny, Everyone, 'view'),
+	8     ]
+
+	The default authorization policy will allow everyone the view permission, even though later in the ACL you have an ACE that denies everyone the view permission.
+
+	1 from pyramid.security import Everyone
+	2 from pyramid.security import Allow
+	3
+	4 __acl__ = [
+	5     (Allow, Everyone, 'view'),
+	6     (Allow, 'group:editors', ('add', 'edit')),
+	7     ]
+
+	The acl can be collapsed as above.
+
+# Special Principal Names
+
+	pyramid.security.Everyone
+
+	See the sample above.
+
+	pyramid.security.Authenticated
+
+	Any user with credentials as determined by the current security policy. You might think of it as any user that is “logged in”.
+
+# Special Permissions
+
+	pyramid.security.ALL_PERMISSIONS
+
+	An object representing, literally, all permissions. Useful in an ACL like so: (Allow, 'fred', ALL_PERMISSIONS). Has the effect of indicating that a given principal “has” any permission asked for by the system.
+
+# Special ACEs
+
+	For example, an ACL which allows only fred the view permission for a particular resource despite what inherited ACLs may say when the default authorization policy is in effect might look like so:
+
+	1 from pyramid.security import Allow
+	2 from pyramid.security import DENY_ALL
+	3
+	4 __acl__ = [ (Allow, 'fred', 'view'), DENY_ALL ]
+
+	“Under the hood”, the pyramid.security.DENY_ALL ACE equals the following:
+
+	1 from pyramid.security import ALL_PERMISSIONS
+	2 __acl__ = [ (Deny, Everyone, ALL_PERMISSIONS) ]
+
+# ACL Inheritance and Location-Awareness
+
+	While the default authorization policy is in place, if a resource object does not have an ACL when it is the context, its parent is consulted for an ACL. If that object does not have an ACL, its parent is consulted for an ACL, ad infinitum, until we’ve reached the root and there are no more parents left.
+
+	In order to allow the security machinery to perform ACL inheritance, resource objects must provide location-awareness. Providing location-awareness means two things: the root object in the resource tree must have a _name__ attribute and a __parent__ attribute.
+
+	1 class Blog(object):
+	2     __name__ = ''
+	3     __parent__ = None
+
+	An object with a __parent__ attribute and a __name__ attribute is said to be location-aware. Location-aware objects define an __parent__ attribute which points at their parent object. The root object’s __parent__ is None.
+
+# Changing the Forbidden View
+
+	http://docs.pylonsproject.org/projects/pyramid/1.0/narr/hooks.html#changing-the-forbidden-view
+
+# Debugging View Authorization Failures
+
+	1 [app:main]
+	2 use = egg:MyProject#app
+	3 debug_authorization = true
+
+	With this debug flag turned on, the response sent to the browser will also contain security debugging information in its body.
+
+# Debugging Imperative Authorization Failures
+
+	The pyramid.security.has_permission() API is used to check security within view functions imperatively. It returns instances of objects that are effectively booleans. But these objects are not raw True or False objects, and have information attached to them about why the permission was allowed or denied. The object will be one of pyramid.security.ACLAllowed, pyramid.security.ACLDenied, pyramid.security.Allowed, or pyramid.security.Denied, as documented in pyramid.security. At the very minimum these objects will have a msg attribute, which is a string indicating why the permission was denied or allowed. Introspecting this information in the debugger or via print statements when a call to has_permission() fails is often useful.
+			
+# Creating Your Own Authentication Policy
+	Skipped.
+
+# Creating Your Own Authorization Policy
+	Skipped.
+
+
+Combining Traversal and URL Dispatch
+	Skipped.
+
+
+Internationalization and Localization
+
+# Creating a Translation String
+
+	1) Using The TranslationString Class
+
+	from pyramid.i18n import TranslationString
+	ts = TranslationString('Add')
+
+	The first argument to TranslationString is the msgid; it is required. It represents the key into the translation mappings provided by a particular localization.
+
+	from pyramid.i18n import TranslationString
+	ts = TranslationString('Add ${number}', mapping={'number':1})
+
+	Within the string above, ${number} is a replacement marker. It will be replaced by whatever is in the mapping for a translation string.
+
+
+	A translation string should also usually carry a domain. The domain represents a translation category to disambiguate it from other translations of the same msgid, in case they conflict.
+
+	from pyramid.i18n import TranslationString
+	ts = TranslationString('Add ${number}', mapping={'number':1}, domain='form')
+
+	In this case, if it were trying to translate our msgid to German, it might try to find a translation from a gettext file within a translation directory like this one:
+
+	locale/de/LC_MESSAGES/form.mo
+
+	In other words, it would want to take translations from the form.mo translation file in the German language.
+
+	from pyramid.i18n import TranslationString
+	ts = TranslationString('add-number', default='Add ${number}', domain='form', mapping={'number':1})
+
+	"default" argument here means, if there is corresponding string for msgid "add-number", it will use default value instead, and "default" may contain replacement either.
+
+	2) Using the TranslationStringFactory Class
+
+	from pyramid.i18n import TranslationStringFactory
+	_ = TranslationStringFactory('pyramid')
+	ts = _('Add ${number}', msgid='add-number', mapping={'number':1})
+
+	Note
+
+	We assigned the translation string factory to the name _. This is a convention which will be supported by translation file generation tools.
+
+	"pyramid" is domain name while 'Add ${number}' is default value, As a result, the previous code example is completely equivalent (except for spelling) to:
+
+	from pyramid.i18n import TranslationString as _
+	ts = _('Add ${number}', msgid='add-number', mapping={'number':1}, domain='pyramid')
+
+	Creating a unique domain for your application via a translation string factory is best practice. Using your own unique translation domain allows another person to reuse your application without needing to merge your translation files with his own. Instead, he can just include your package’s translation directory via the pyramid.config.Configurator.add_translation_dirs() method.
+
+# Working With gettext Translation Files
+
+	The basis of Pyramid translation services is GNU gettext. GNU gettext uses three types of files in the translation framework, .pot files, .po files and .mo files.
+	.pot (Portable Object Template) files -> .po (Portable Object) files -> .mo (Machine Object) files (machine-readable binary file for running faster)
+
+	The tool for working with gettext translation files related to a Pyramid application is Babel.
+
+	1) Installing Babel:
+	$ cd /my/virtualenv
+	$ bin/easy_install Babel
+
+	2) Changing the setup.py
+	 setup(name="mypackage",
+       # ...
+       install_requires = [
+             # ...
+             'Babel',
+             ],
+       message_extractors = { '.': [
+             ('**.py',   'chameleon_python', None ),
+             ('**.pt',   'chameleon_xml', None ),
+             ]},
+       )
+	Consider **.py and **.pt files when doing message id extraction.
+
+	3) Extracting Messages from Code and Templates
+	$ cd /place/where/myapplication/setup.py/lives
+	$ mkdir -p myapplication/locale
+	$ python setup.py extract_messages
+	The message catalog .pot template will end up in: myapplication/locale/myapplication.pot.
+
+	4) Translation Domains
+
+	To change the translation domain of the extracted messages in your project, edit the setup.cfg file of your application, change the domain to 'mydomain' instead.
+	[compile_catalog]
+	directory = myproject/locale
+	domain = mydomain
+	statistics = true
+
+	[extract_messages]
+	add_comments = TRANSLATORS:
+	output_file = myproject/locale/mydomain.pot
+	width = 80
+
+	[init_catalog]
+	domain = mydomain
+	input_file = myproject/locale/mydomain.pot
+	output_dir = myproject/locale
+
+	[update_catalog]
+	domain = mydomain
+	input_file = myproject/locale/mydomain.pot
+	output_dir = myproject/locale
+	previous = true
+
+	5) Initializing a Message Catalog File
+	$ cd /place/where/myapplication/setup.py/lives
+	$ python setup.py init_catalog -l es
+
+	By default, the message catalog .po file will end up in: myapplication/locale/es/LC_MESSAGES/myapplication.po.
+
+	Once the file is there, it can be worked on by a human translator. One tool which may help with this is Poedit.
+
+	6) Updating a Catalog File
+
+	you will need to update existing .po files based on changes to the .pot file, so that the new and changed messages can also be translated or re-translated.
+
+	$ cd /place/where/myapplication/setup.py/lives
+	$ python setup.py update_catalog
+
+	7) Compiling a Message Catalog File
+
+	Finally, to prepare an application for performing actual runtime translations, compile .po files to .mo files:
+
+	$ cd /place/where/myapplication/setup.py/lives
+	$ python setup.py compile_catalog
+
+# Using a Localizer
+
+	pyramid.i18n.get_localizer() will return either the localizer object implied by the active locale negotiator or a default localizer object if no explicit locale negotiator is registered.
+
+	from pyramid.i18n import get_localizer
+
+	def aview(request):
+		locale = get_localizer(request)
+
+# Performing a Translation
+
+	from pyramid.i18n import get_localizer
+	from pyramid.i18n import TranslationString
+
+	ts = TranslationString('Add ${number}', mapping={'number':1}, domain='pyramid')
+
+	def aview(request):
+		localizer = get_localizer(request)
+		translated = localizer.translate(ts) # translation string
+		# ... use translated ...
+
+# Performing a Pluralization
+
+	API: def pluralize(singular, plural, n, domain=None, mapping=None):
+	if n is singular use the first "singular" argument as message id, otherwise use "plural" argument as message id.
+
+	from pyramid.i18n import get_localizer
+
+	def aview(request):
+		localizer = get_localizer(request)
+		translated = localizer.pluralize('Item', 'Items', 1, 'mydomain')
+		# ... use translated ...
+
+# Obtaining the Locale Name for a Request
+
+	from pyramid.i18n import get_locale_name
+
+	def aview(request):
+		locale_name = get_locale_name(request)
+
+	This returns the locale name negotiated by the currently active locale negotiator or the default locale name if the locale negotiator returns None.
+
+	Once get_locale_name() is first run, the locale name is stored on the request object. Subsequent calls to get_locale_name() will return the stored locale name without invoking the locale negotiator.
+	To avoid this caching, you can use the pyramid.i18n.negotiate_locale_name() function:
+
+	from pyramid.i18n import negotiate_locale_name
+
+	def aview(request):
+		locale_name = negotiate_locale_name(request)
+
+	You can also obtain the locale name related to a request using the locale_name attribute of a localizer.
+
+	from pyramid.i18n import get_localizer
+
+	def aview(request):
+		localizer = get_localizer(request)
+		locale_name = localizer.locale_name
+
+# Performing Date Formatting and Currency Formatting
+
+	Pyramid does not itself perform date and currency formatting for different locales. However, Babel can help you do this via the babel.core.Locale class.
+
+	from babel.core import Locale
+	from pyramid.i18n import get_locale_name
+
+	def aview(request):
+		locale_name = get_locale_name(request)
+		locale = Locale(locale_name)
+
+# Chameleon Template Support for Translation Strings
+	Skipped.
+
+# Mako Pyramid I18N Support
+
+	http://docs.pylonsproject.org/projects/pyramid_cookbook/dev/i18n.html
+
+# Localization-Related Deployment Settings
+
+	A Pyramid application will have a default_locale_name setting. This value represents the default locale name used when the locale negotiator returns None.
+
+	from pyramid.config import Configurator
+	config = Configurator(settings={'default_locale_name':'de'})
+
+	You may alternately supply a default_locale_name via an application’s Paster .ini file:
+
+	[app:main]
+	use = egg:MyProject#app
+	reload_templates = true
+	debug_authorization = false
+	debug_notfound = false
+	default_locale_name = de
+
+	If this value is not supplied via the Configurator constructor or via a Paste config file, it will default to en.
+
+	If this setting is supplied within the Pyramid application .ini file, it will be available as a settings key:
+
+	from pyramid.threadlocal import get_current_registry
+	settings = get_current_registry().settings
+	default_locale_name = settings['default_locale_name']
+
+# “Detecting” Available Languages
+
+	You can set up a system to allow a deployer to select available languages based on convention by using the pyramid.settings mechanism:
+
+	Allow a deployer to modify your application’s PasteDeploy .ini file:
+
+	[app:main]
+	use = egg:MyProject#app
+	# ...
+	available_languages = fr de en ru
+
+	Then as a part of the code of a custom locale negotiator:
+
+	from pyramid.threadlocal import get_current_registry
+	settings = get_current_registry().settings
+	languages = settings['available_languages'].split()
+
+	This is only a suggestion. You can create your own “available languages” configuration scheme as necessary.
+
+# Adding a Translation Directory
+
+	Adding a translation directory registers all of its constituent message catalog files within your Pyramid application to be available to use for translation services.
+	This includes all of the .mo files found within all LC_MESSAGES directories within each locale directory in the translation directory.
+
+	from pyramid.config import Configurator
+	config.add_translation_dirs('my.application:locale/', 'another.application:locale/')
+
+	A message catalog in a translation directory added via add_translation_dirs() will be merged into translations from a message catalog added earlier if both translation directories contain translations for the same locale and translation domain.
+
+# Setting the Locale
+
+	When the default locale negotiator (see The Default Locale Negotiator) is in use, you can inform Pyramid of the current locale name by doing any of these things before any translations need to be performed:
+
+    * Set the _LOCALE_ attribute of the request to a valid locale name (usually directly within view code). E.g. request._LOCALE_ = 'de'.
+    * Ensure that a valid locale name value is in the request.params dictionary under the key named _LOCALE_. This is usually the result of passing a _LOCALE_ value in the query string or in the body of a form post associated with a request. For example, visiting http://my.application?_LOCALE_=de.
+    * Ensure that a valid locale name value is in the request.cookies dictionary under the key named _LOCALE_. This is usually the result of setting a _LOCALE_ cookie in a prior response, e.g. response.set_cookie('_LOCALE_', 'de').
+
+# The Default Locale Negotiator
+
+	Most applications can make use of the default locale negotiator, which requires no additional coding or configuration.
+
+	The default locale negotiator implementation named default_locale_negotiator uses the following set of steps to dermine the locale name.
+
+    * First, the negotiator looks for the _LOCALE_ attribute of the request object (possibly set directly by view code or by a listener for an event).
+    * Then it looks for the request.params['_LOCALE_'] value.
+    * Then it looks for the request.cookies['_LOCALE_'] value.
+    * If no locale can be found via the request, it falls back to using the default locale name (see Localization-Related Deployment Settings).
+    * Finally, if the default locale name is not explicitly set, it uses the locale name en.
+
+# Using a Custom Locale Negotiator
+	Skipped.
+	http://docs.pylonsproject.org/projects/pyramid/1.0/narr/i18n.html#mako-pyramid-i18n-support
+
+
+Virtual Hosting
+
+	Pyramid supports a common form of virtual hosting whereby you can host a Pyramid application as a “subset” of some other site.
+	(e.g. under http://example.com/mypyramidapplication/ as opposed to under http://example.com/).
+
+	Skipped.
+
+	You can figure out this in /usr/local/nginx/conf/nginx.conf "location" entry.
+
+
+Using Events
+
+	An event is an object broadcast by the Pyramid framework at interesting points during the lifetime of an application.
+	For example, subscribing to an event can allow you to run some code as the result of every new request.
+
+	A subscriber is a function that accepts a single argument named event:
+
+	def mysubscriber(event):
+		print event
+
+	The above is a subscriber that simply prints the event to the console when it’s called.
+
+	1) Configuring an Event Listener Imperatively
+
+	from pyramid.events import NewRequest
+	from subscribers import mysubscriber
+
+	# "config" below is assumed to be an instance of a pyramid.config.Configurator object
+
+	config.add_subscriber(mysubscriber, NewRequest)
+
+	2) Configuring an Event Listener Using a Decorator
+
+	from pyramid.events import NewRequest
+	from pyramid.events import subscriber
+
+	@subscriber(NewRequest)
+	def mysubscriber(event):
+			event.request.foo = 1
+
+	When the subscriber() decorator is used a scan must be performed against the package containing the decorated function for the decorator to have any effect.
+
+	Either of the above registration examples implies that every time the Pyramid framework emits an event object that supplies an pyramid.events.NewRequest interface, the mysubscriber function will be called with an event object.
+	The return value of a subscriber function is ignored. Subscribers to the same event type are not guaranteed to be called in any particular order relative to each other.
+
+# An Example
+
+	If you create event listener functions in a subscribers.py file in your application like so:
+
+	def handle_new_request(event):
+		print 'request', event.request
+
+	def handle_new_response(event):
+		print 'response', event.response
+
+	# config is an instance of pyramid.config.Configurator
+
+	config.add_subscriber('myproject.subscribers.handle_new_request',
+						  'pyramid.events.NewRequest')
+	config.add_subscriber('myproject.subscribers.handle_new_response',
+						  'pyramid.events.NewResponse')
+
+	Under this configuration, when the application is run, each time a new request or response is detected, a message will be printed to the console.
+
+	Each of our subscriber functions accepts an event object and prints an attribute of the event object. This begs the question: how can we know which attributes a particular event has?
+
+	We know that pyramid.events.NewRequest event objects have a request attribute, which is a request object, because the interface defined at pyramid.interfaces.INewRequest says it must.
+
+
+Environment Variables and .ini File Settings
+
+	configuration file settings like "mako.directories" should go in the [app:main] section like:
+
+	[app:main]
+	use = egg:MyProject#app
+	reload_templates = true
+	debug_authorization = true
+
+	You can also use environment variables to accomplish the same purpose for settings documented as such.
+
+	$ PYRAMID_DEBUG_AUTHORIZATION=1 PYRAMID_RELOAD_TEMPLATES=1 bin/paster serve MyProject.ini
+
+	environment variables will overwrite the same key/value in .ini file, which will be useful in development or debug hours.
+
+	If you want to turn all debug settings (every setting that starts with debug_). You can use PYRAMID_DEBUG_ALL=1 as an environment variable setting or you may use debug_all=true in the config file.
+	If you want to turn all reload settings (every setting that starts with reload_). You can use PYRAMID_RELOAD_ALL=1 as an environment variable setting or you may use reload_all=true in the config file.
+
+
+Unit, Integration, and Functional Testing
+
+# Test Set Up and Tear Down
+
+	The use of the setUp() and tearDown() functions allows you to supply each unit test method in a test case with an environment that has an isolated registry and an isolated request for the duration of a single test. Here’s an example of using this feature:
+
+	import unittest
+	from pyramid import testing
+
+	class MyTest(unittest.TestCase):
+		def setUp(self):
+			self.config = testing.setUp()
+
+		def tearDown(self):
+			testing.tearDown()
+
+	The above will make sure that get_current_registry() called within a test case method of MyTest will return the application registry associated with the config Configurator instance. Each test case method attached to MyTest will use an isolated registry.
+
+	import unittest
+	from pyramid import testing
+
+	class MyTest(unittest.TestCase):
+		def setUp(self):
+			request = testing.DummyRequest()
+			self.config = testing.setUp(request=request)
+
+		def tearDown(self):
+			testing.tearDown()
+
+	If you pass a request object into pyramid.testing.setUp() within your test case’s setUp, any test method attached to the MyTest test case that directly or indirectly calls get_current_request() will receive the request object. Otherwise, during testing, get_current_request() will return None. We use a “dummy” request implementation supplied by pyramid.testing.DummyRequest because it’s easier to construct than a “real” Pyramid request object.
+
+# Using the Configurator and pyramid.testing APIs in Unit Tests
+
+	The Configurator API and the pyramid.testing module provide a number of functions which can be used during unit testing.
+
+	For example, let’s imagine you want to unit test a Pyramid view function.
+
+	from pyramid.security import has_permission
+	from pyramid.exceptions import Forbidden
+
+	def view_fn(request):
+		if not has_permission('edit', request.context, request):
+			raise Forbidden
+		return {'greeting':'hello'}
+
+	Without doing anything special during a unit test, the call to has_permission() in this view function will always return a True value.
+	So how do you test the branch of the code in this view function that raises Forbidden?
+
+	The testing API provided by Pyramid allows you to simulate various application registry registrations for use under a unit testing framework without needing to invoke the actual application configuration implied by its main function.
+
+	import unittest
+	from pyramid import testing
+
+	class MyTest(unittest.TestCase):
+		def setUp(self):
+			self.config = testing.setUp()
+
+		def tearDown(self):
+			testing.tearDown()
+
+		def test_view_fn_forbidden(self):
+			from pyramid.exceptions import Forbidden
+			from my.package import view_fn
+			self.config.testing_securitypolicy(userid='hank',
+											   permissive=False)
+			request = testing.DummyRequest()
+			request.context = testing.DummyResource()
+			self.assertRaises(Forbidden, view_fn, request)
+
+		def test_view_fn_allowed(self):
+			from pyramid.exceptions import Forbidden
+			from my.package import view_fn
+			self.config.testing_securitypolicy(userid='hank',
+											   permissive=True)
+			request = testing.DummyRequest()
+			request.context = testing.DummyResource()
+			response = view_fn(request)
+			self.assertEqual(response, {'greeting':'hello'})
+
+	See the pyramid.testing chapter for the entire Pyramid -specific testing API.
+	This chapter describes APIs for registering a security policy, registering resources at paths, registering event listeners, registering views and view permissions, and classes representing “dummy” implementations of a request and a resource.
+
+	See also the various methods of the Configurator documented in pyramid.config that begin with the testing_ prefix.
+
+# Creating Integration Tests
+	Skipped.
+
+
+# Creating Functional Tests
+	Skipped.
+
+
+Using Hooks
+
+“Hooks” can be used to influence the behavior of the Pyramid framework in various ways.
+
+# Changing the Not Found View
+
+	from pyramid.exceptions import NotFound
+	from helloworld.views import notfound_view
+	config.add_view(notfound_view, context=NotFound)
+
+	Replace helloworld.views.notfound_view with a reference to the view callable you want to use to represent the Not Found view.
+
+	Here’s some sample code that implements a minimal NotFound view callable:
+
+	from pyramid.httpexceptions import HTTPNotFound
+
+	def notfound_view(request):
+		return HTTPNotFound()
+
+# Changing the Forbidden View
+
+	from helloworld.views import forbidden_view
+	from pyramid.exceptions import Forbidden
+	config.add_view(forbidden_view, context=Forbidden)
+
+	Here’s some sample code that implements a minimal forbidden view:
+
+	from pyramid.views import view_config
+	from pyramid.response import Response
+
+	def forbidden_view(request):
+		return Response('forbidden')
+
+# Changing the Request Factory
+
+	from pyramid.request import Request
+
+	class MyRequest(Request):
+		pass
+
+	config = Configurator(request_factory=MyRequest)
+
+	OR, you can do he following for the same purpose.
+
+	from pyramid.config import Configurator
+	from pyramid.request import Request
+
+	class MyRequest(Request):
+		pass
+
+	config = Configurator()
+	config.set_request_factory(MyRequest)
+
+# Adding Renderer Globals
+
+	Whenever Pyramid handles a request to perform a rendering, renderer globals can be injected into the system values sent to the renderer.
+	By default, no renderer globals are injected, and the “bare” system values (such as request, context, and renderer_name) are the only values present in the system dictionary passed to every renderer.
+
+	def renderer_globals_factory(system):
+		return {'a':1}
+
+	config = Configurator(
+			 renderer_globals_factory=renderer_globals_factory)
+
+	It must return a dictionary of values that will be merged into the system dictionary. See "# System Values Used During Rendering" portion
+
+	You can also the following stuffs for the same purpose.
+
+	from pyramid.config import Configurator
+
+	def renderer_globals_factory(system):
+		return {'a':1}
+
+	config = Configurator()
+	config.set_renderer_globals_factory(renderer_globals_factory)
+
+# Using The Before Render Event
+
+	This is another way to add render global values.
+
+	from pyramid.events import subscriber
+	from pyramid.events import BeforeRender
+
+	@subscriber(BeforeRender)
+	def add_global(event):
+		event['mykey'] = 'foo'
+
+	An object of this type is sent as an event just before a renderer is invoked (but after the application-level renderer globals factory added via set_renderer_globals_factory, if any, has injected its own keys into the renderer globals dictionary).
+
+	If a subscriber attempts to add a key that already exist in the renderer globals dictionary, a KeyError is raised. This limitation is enforced because event subscribers do not possess any relative ordering. The set of keys added to the renderer globals dictionary by all pyramid.events.BeforeRender subscribers and renderer globals factories must be unique.
+
+# Using Response Callbacks
+
+	Adding a response callback allows an application to register an action to be performed against a response object once it is created, usually in order to mutate it.
+
+	def cache_callback(request, response):
+		"""Set the cache_control max_age for the response"""
+		if request.exception is not None:
+			response.cache_control.max_age = 360
+	request.add_response_callback(cache_callback)
+
+	Response callbacks are, however, invoked when a exception view is rendered successfully: in such a case, the request.exception attribute of the request when it enters a response callback will be an exception object instead of its default value of None.
+
+	Response callbacks are called in the order they’re added (first-to-most-recently-added). All response callbacks are called after the NewResponse event is sent. Errors raised by response callbacks are not handled specially. They will be propagated to the caller of the Pyramid router application.
+
+	A response callback has a lifetime of a single request. If you want a response callback to happen as the result of every request, you must re-register the callback into every new request (perhaps within a subscriber of a NewRequest event).
+
+# Using Finished Callbacks
+
+	A finished callback is a function that will be called unconditionally by the Pyramid router at the very end of request processing. A finished callback can be used to perform an action at the end of a request unconditionally.
+
+	import transaction
+
+	def commit_callback(request):
+		'''commit or abort the transaction associated with request'''
+		if request.exception is not None:
+			transaction.abort()
+		else:
+			transaction.commit()
+	request.add_finished_callback(commit_callback)
+
+	Finished callbacks are called in the order they’re added (first-to-most-recently-added). Finished callbacks (unlike a response callback) are always called, even if an exception happens in application code that prevents a response from being generated.
+	As a result, mutations performed to the request provided to a finished callback will have no meaningful effect, because response processing will have already occurred, and the request’s scope will expire almost immediately after all finished callbacks have been processed.
+
+	It is often necessary to tell whether an exception occurred within view callable code from within a finished callback: in such a case, the request.exception attribute of the request when it enters a response callback will be an exception object instead of its default value of None.
+
+	Errors raised by finished callbacks are not handled specially. They will be propagated to the caller of the Pyramid router application.
+
+	A finished callback has a lifetime of a single request. If you want a finished callback to happen as the result of every request, you must re-register the callback into every new request (perhaps within a subscriber of a NewRequest event).
+
+# Changing the Traverser
+	Skipped.
+
+# Changing How pyramid.url.resource_url Generates a URL
+	Skipped.
+
+# Using a View Mapper
+
+	Skipped.
+
+# Registering Configuration Decorators
+
+	Decorators such as view_config don’t change the behavior of the functions or classes they’re decorating. Instead, when a scan is performed, a modified version of the function or class is registered with Pyramid.
+	You may wish to have your own decorators that offer such behaviour. This is possible by using the Venusian package in the same way that it is used by Pyramid.
+
+	Skipped.
+
+
+Advanced Configuration
+
+	Skipped. Although I've read this portion.
+
+
+Extending An Existing Pyramid Application
+
+	Skipped.
+
+
+Request Processing
+
+	Skipped. Although I've read this portion.
+
+
+Thread Locals
+
+	When a request is processed, Pyramid makes two thread local variables available to the application: a “registry” and a “request”.
+
+	Pyramid internals use two API functions to retrieve the request and application registry: get_current_request() and get_current_registry(). The former returns the “current” request; the latter returns the “current” registry. Both get_current_* functions retrieve an object from a thread-local data structure. These API functions are documented in pyramid.threadlocal.
+
+	During normal operations, the thread locals stack is managed by a Router object. At the beginning of a request, the Router pushes the application’s registry and the request on to the stack. At the end of a request, the stack is popped. The topmost request and registry on the stack are considered “current”. Therefore, when the system is operating normally, the very definition of “current” is defined entirely by the behavior of a pyramid Router.
+
+	However, during unit testing, no Router code is ever invoked, and the definition of “current” is defined by the boundary between calls to the pyramid.config.Configurator.begin() and pyramid.config.Configurator.end() methods (or between calls to the pyramid.testing.setUp() and pyramid.testing.tearDown() functions). These functions push and pop the threadlocal stack when the system is under test. See Test Set Up and Tear Down for the definitions of these functions.
+
+# Why You Shouldn’t Abuse Thread Locals
+
+	You probably should almost never use the get_current_request() or get_current_registry() functions, except perhaps in tests. In particular, it’s almost always a mistake to use get_current_request or get_current_registry in application code because its usage makes it possible to write code that can be neither easily tested nor scripted.
+
+
+[END: Narrative documentation]
+
+
+
+
+
+
+
+
+
+
+
+
+
+# For SQLAlchemy:
+#     0. "service mysql status" to make sure mysql is running.
+#     1. Make sure you log into mysql console and run "CREATE DATABASE studypylons DEFAULT CHARACTER SET utf8;" first, and if it's a mysql on amazon ec2, 3306 port on ec2 should be exposed for outsider.
+#     2. vi development.ini to add mysql db url.
+#     3. Put model classes like person.py, address.py into studypylons/model/
+#     4. Run "paster setup-app development.ini" to create the tables in the database, this command will call studypylons/websetup.py
+#     5. Run "paster serve --reload development.ini"
+# Visiting http://127.0.0.1:5000/person/index to see a sample for SQLAlchemy
+#
+# Using the model standalone:
+# % python
+# Python 2.5.1 (r251:54863, Oct 5 2007, 13:36:32)
+# [GCC 4.1.3 20070929 (prerelease) (Ubuntu 4.1.2-16ubuntu2)] on linux2
+# Type "help", "copyright", "credits" or "license" for more information.
+# >>> import sqlalchemy as sa
+# >>> engine = sa.create_engine("sqlite:///test.sqlite")
+# >>> from studypylons.model import init_model, Person
+# >>> from studypylons.model.meta import Session, Base
+# >>> init_model(engine)
+# >>> a = Person()
+# >>> a.name = "Aaa"
+# >>> a.email = "aaa@example.com"
+# >>> Session.add(a)
+# >>> Session.commit()
+#
+# For Generating the Production Configuration
+# paster make-config studypylons production.ini
+#
+# Put set-up once objects for the entire application to config/environment.py or lib/app_globals __init__() method.
+#
+# Put custom middleware to config/middleware.py at comment marker:
+# # CUSTOM MIDDLEWARE HERE (filtered by error hanlding middlewares)
