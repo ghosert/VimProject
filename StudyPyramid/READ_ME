@@ -1,8 +1,15 @@
 [BEGIN: SQLAlchemy + URL Dispatch Wiki Tutorial]
 
-The content is practised in ~/VimProject/StudyPyramid/MyPorject, the original url is: http://docs.pylonsproject.org/projects/pyramid/1.0/tutorials/wiki2/index.html
+The content is practised in ~/VimProject/StudyPyramid/MyProject, the original url is: http://docs.pylonsproject.org/projects/pyramid/1.0/tutorials/wiki2/index.html
 
 You can search "grep jiawzhang * -r" in ~/VimProject/StudyPyramid/MyProject/myproject to see the changes.
+
+Try on the live site for tutorial:
+1. source ~/devenv/bin/activate
+2. cd ~/VimProject/StudyPyramid/MyProject
+3. paster serve development.ini --reload
+4. http://localhost:6543/
+5. Edit the page to add some words like "\b([A-Z]\w+[A-Z]+\w+)", for example: "SomePage".
 
 [END: SQLAlchemy + URL Dispatch Wiki Tutorial]
 

@@ -2,7 +2,7 @@ import transaction
 
 from sqlalchemy import Column
 from sqlalchemy import Integer
-from sqlalchemy import Unicode
+from sqlalchemy import Text
 
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.declarative import declarative_base
@@ -12,7 +12,7 @@ from sqlalchemy.orm import sessionmaker
 
 from zope.sqlalchemy import ZopeTransactionExtension
 
-# jiawzhang: We specify that we’d like to use the “ZopeTransactionExtension”.
+# jiawzhang: We specify that we'd like to use the "ZopeTransactionExtension".
 # jiawzhang: This extension is an extension which allows us to use a transaction manager instead of controlling commits and aborts to database operations by hand.
 DBSession = scoped_session(sessionmaker(extension=ZopeTransactionExtension()))
 
@@ -46,5 +46,5 @@ def initialize_sql(engine):
     try:
         populate()
     except IntegrityError:
-        # already created
+        print 'already created'
         pass
