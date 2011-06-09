@@ -15,7 +15,7 @@ requires = [
     'zope.sqlalchemy',
     'WebError',
     # jiawzhang: add a new docutils package for our app.
-    # After adding this new dependency, re-run 'python setup.py develop' in MyProject path to download and install the dependency.
+    # After adding this new dependency, enter virtual env, re-run 'python setup.py develop' in MyProject path to download and install the dependency.
     'docutils',
     ]
 

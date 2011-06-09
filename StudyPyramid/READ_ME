@@ -10,6 +10,7 @@ Try on the live site for tutorial:
 3. paster serve development.ini --reload
 4. http://localhost:6543/
 5. Edit the page to add some words like "\b([A-Z]\w+[A-Z]+\w+)", for example: "SomePage".
+6. "python setup.py test -q" OR "nosetests --cover-package=myproject --cover-erase --with-coverage" to run test case.
 
 [END: SQLAlchemy + URL Dispatch Wiki Tutorial]
 
@@ -48,7 +49,7 @@ Creating a Pyramid Project:
 
 # Exposing Test Coverage Information
 
-	$ ../bin/nosetests --cover-package=tutorial --cover-erase --with-coverage
+	$ ../bin/nosetests --cover-package=myproject --cover-erase --with-coverage
 
 	This will do the same thing as "python setup.py test -q" but with additional "coverage" information.
 

@@ -26,4 +26,6 @@ myproject/static/pylons.css
 myproject/static/pyramid-small.png
 myproject/static/pyramid.png
 myproject/static/transparent.gif
+myproject/templates/edit.pt
 myproject/templates/mytemplate.pt
+myproject/templates/view.pt
