@@ -10,7 +10,7 @@ Try on the live site for tutorial:
 3. paster serve development.ini --reload
 4. http://localhost:6543/
 5. Edit the page to add some words like "\b([A-Z]\w+[A-Z]+\w+)", for example: "SomePage".
-6. "python setup.py test -q" OR "nosetests --cover-package=myproject --cover-erase --with-coverage" to run test case.
+6. "python setup.py test -q" OR "nosetests --cover-package=myproject --cover-erase --with-coverage" to run test case in ~/xxx/MyProject folder.
 
 [END: SQLAlchemy + URL Dispatch Wiki Tutorial]
 
