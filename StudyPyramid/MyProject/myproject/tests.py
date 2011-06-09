@@ -3,8 +3,8 @@ import unittest
 from pyramid import testing
 
 def _initTestingDB():
-    from tutorial.models import DBSession
-    from tutorial.models import Base
+    from myproject.models import DBSession
+    from myproject.models import Base
     from sqlalchemy import create_engine
     engine = create_engine('sqlite://')
     DBSession.configure(bind=engine)
@@ -25,7 +25,7 @@ class ViewWikiTests(unittest.TestCase):
         testing.tearDown()
         
     def test_it(self):
-        from tutorial.views import view_wiki
+        from myproject.views import view_wiki
         self.config.add_route('view_page', '{pagename}')
         request = testing.DummyRequest()
         response = view_wiki(request)
@@ -41,11 +41,11 @@ class ViewPageTests(unittest.TestCase):
         testing.tearDown()
         
     def _callFUT(self, request):
-        from tutorial.views import view_page
+        from myproject.views import view_page
         return view_page(request)
 
     def test_it(self):
-        from tutorial.models import Page
+        from myproject.models import Page
         request = testing.DummyRequest()
         request.matchdict['pagename'] = 'IDoExist'
         page = Page('IDoExist', 'Hello CruelWorld IDoExist')
@@ -76,7 +76,7 @@ class AddPageTests(unittest.TestCase):
         testing.tearDown()
 
     def _callFUT(self, request):
-        from tutorial.views import add_page
+        from myproject.views import add_page
         return add_page(request)
 
     def test_it_notsubmitted(self):
@@ -89,7 +89,7 @@ class AddPageTests(unittest.TestCase):
                          'http://example.com/add_page/AnotherPage')
         
     def test_it_submitted(self):
-        from tutorial.models import Page
+        from myproject.models import Page
         _registerRoutes(self.config)
         request = testing.DummyRequest({'form.submitted':True,
                                         'body':'Hello yo!'})
@@ -108,11 +108,11 @@ class EditPageTests(unittest.TestCase):
         testing.tearDown()
 
     def _callFUT(self, request):
-        from tutorial.views import edit_page
+        from myproject.views import edit_page
         return edit_page(request)
 
     def test_it_notsubmitted(self):
-        from tutorial.models import Page
+        from myproject.models import Page
         _registerRoutes(self.config)
         request = testing.DummyRequest()
         request.matchdict = {'pagename':'abc'}
@@ -124,7 +124,7 @@ class EditPageTests(unittest.TestCase):
                          'http://example.com/abc/edit_page')
         
     def test_it_submitted(self):
-        from tutorial.models import Page
+        from myproject.models import Page
         _registerRoutes(self.config)
         request = testing.DummyRequest({'form.submitted':True,
                                         'body':'Hello yo!'})
