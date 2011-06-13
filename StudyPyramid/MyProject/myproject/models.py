@@ -48,3 +48,15 @@ def initialize_sql(engine):
     except IntegrityError:
         print 'already created'
         pass
+
+# This is dedicated for the url dispatch based app.
+
+from pyramid.security import Allow
+from pyramid.security import Everyone
+
+class RootFactory(object):
+    __acl__ = [ (Allow, Everyone, 'view'),
+                (Allow, 'group:editors', 'edit') ]
+    def __init__(self, request):
+        pass
+

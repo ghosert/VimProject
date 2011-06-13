@@ -3,6 +3,7 @@ import re
 from docutils.core import publish_parts
 
 from pyramid.httpexceptions import HTTPFound
+from pyramid.security import authenticated_userid
 from pyramid.url import route_url
 
 from myproject.models import DBSession
@@ -35,13 +36,16 @@ def view_page(request):
             return '<a href="%s">%s</a>' % (add_url, word)
 
     content = publish_parts(page.data, writer_name='html')['html_body']
+    # jiawzhang:
     # check function will be invoked the same times as the content is matched. e.g. if content is 'ZHANG JIAWEI', it will be invoked twice.
     # first time, word = match.group(1) above is 'ZHANG', the second time, word = match.group(1) above is 'JIAWEI'.
     # Hence, the content will be '<a href="/add_page/ZHANG">ZHANG</a> <a href="/add_page/JIAWEI">JIAWEI</a>' (suppose, "exists" above is False)
     content = wikiwords.sub(check, content)
     # the edit_url for current page.
     edit_url = route_url('edit_page', request, pagename=matchdict['pagename'])
-    return dict(page=page, content=content, edit_url=edit_url)
+    # logged_in is available if you've invoking "headers = remember(request, login)" in login.py
+    logged_in = authenticated_userid(request)
+    return dict(page=page, content=content, edit_url=edit_url, logged_in=logged_in)
 
 
 def add_page(request):
@@ -55,7 +59,9 @@ def add_page(request):
                                               pagename=name))
     save_url = route_url('add_page', request, pagename=name)
     page = Page('', '')
-    return dict(page=page, save_url=save_url)
+    # logged_in is available if you've invoking "headers = remember(request, login)" in login.py
+    logged_in = authenticated_userid(request)
+    return dict(page=page, save_url=save_url, logged_in=logged_in)
     
 def edit_page(request):
     name = request.matchdict['pagename']
@@ -66,8 +72,11 @@ def edit_page(request):
         session.add(page)
         return HTTPFound(location = route_url('view_page', request,
                                               pagename=name))
+    # logged_in is available if you've invoking "headers = remember(request, login)" in login.py
+    logged_in = authenticated_userid(request)
     return dict(
         page=page,
         save_url = route_url('edit_page', request, pagename=name),
+        logged_in=logged_in
         )
 

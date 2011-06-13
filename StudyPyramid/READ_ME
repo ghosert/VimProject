@@ -4,13 +4,23 @@ The content is practised in ~/VimProject/StudyPyramid/MyProject, the original ur
 
 You can search "grep jiawzhang * -r" in ~/VimProject/StudyPyramid/MyProject/myproject to see the changes.
 
-Try on the live site for tutorial:
+Try on the live site for tutorial when developing:
 1. source ~/devenv/bin/activate
 2. cd ~/VimProject/StudyPyramid/MyProject
 3. paster serve development.ini --reload
-4. http://localhost:6543/
+4. visit http://localhost:6543/
 5. Edit the page to add some words like "\b([A-Z]\w+[A-Z]+\w+)", for example: "SomePage".
-6. "python setup.py test -q" OR "nosetests --cover-package=myproject --cover-erase --with-coverage" to run test case in ~/xxx/MyProject folder.
+6. Input "viewer"/"viewer" or "editor"/"editor" as username/password if it ask login. "editor" is granted "edit" permission.
+7. "python setup.py test -q" OR "nosetests --cover-package=myproject --cover-erase --with-coverage" to run test case in ~/xxx/MyProject folder.
+8. Distributing your application: "python setup.py sdist" this will generate a tarball which can be installed by pointing the "easy_install" command directly at it.
+
+Try on the live site for tutorial on PRODUCTION:
+1. sudo nginx
+   To work nginx together with uwsgi. Check out "/usr/local/nginx/conf/nginx.conf" or "~/ProductProject/env-conf/nginx.conf"
+2. sudo uwsgi -x ~/VimProject/StudyPyramid/MyProject/myproject_uwsgi.xml [or you can append -d /var/log/uwsgi.log]
+   To work pyramid app together with uwsgi. Check out "myproject_uwsgi.xml" and "myproject_uwsgi.py" to see details.
+3. visit http://localhost/python
+   This support the "Virtual Hosting"(search below) "/python" feature.
 
 [END: SQLAlchemy + URL Dispatch Wiki Tutorial]
 
@@ -553,8 +563,28 @@ Templates
 View Configuration
 
 # View configuration parameters:
-	1) non predicate arguments 2) predicate arguments
-	Check out: http://docs.pylonsproject.org/projects/pyramid/1.0/narr/viewconfig.html
+	1) non predicate arguments
+		1. permission
+		2. attr
+		3. renderer
+		4. wrapper
+		5. decorator
+		6. mapper
+	2) predicate arguments
+		1. name
+		2. context
+		3. route_name
+		4. request_type
+		5. request_method
+		6. request_param
+		7. containment
+		8. xhr (True if request issued from javascript.)
+		9. accept
+		10. header
+		11. path_info
+		12. custom_predicates
+
+	Check out details: http://docs.pylonsproject.org/projects/pyramid/1.0/narr/viewconfig.html
 
 # View Configuration Using the @view_config Decorator
 	It's a better way compared with imperative configuration for the same purpose.
@@ -1062,7 +1092,8 @@ Security
 
 # Assigning ACLs to your Resource Objects
 
-	jiawzhang TODO: __acl__ here is resource objects based, which is mainly for "traverse" rather than "url dispatch" way, how do I leverage acl stuffs in "url dispatch", goole the answser maybe.
+	jiawzhang XXX: __acl__ here is resource objects based, which is mainly for "traverse" rather than "url dispatch" way, how do I leverage acl stuffs in "url dispatch", goole the answser maybe.
+	Check out the "SQLAlchemy + URL Dispatch Wiki Tutorial" above, in that case, it explains how to do the same thing in url dispatch based app.
 
 	For example, an ACL might be attached to the resource for a blog via its class:
 
@@ -1159,7 +1190,7 @@ Security
 
 # Changing the Forbidden View
 
-	http://docs.pylonsproject.org/projects/pyramid/1.0/narr/hooks.html#changing-the-forbidden-view
+	Check out "Using Hooks" -> '# Changing the Forbidden View'
 
 # Debugging View Authorization Failures
 
@@ -1470,9 +1501,31 @@ Virtual Hosting
 	Pyramid supports a common form of virtual hosting whereby you can host a Pyramid application as a “subset” of some other site.
 	(e.g. under http://example.com/mypyramidapplication/ as opposed to under http://example.com/).
 
-	Skipped.
+	Skipped some.
+
+	1. In "pure Python" env, maybe when app started by "paste server development.ini --reload" try this [NOT VERIFIED SO FAR]:
+
+		[app:mypyramidapp]
+		use = egg:mypyramidapp#app
+
+		[composite:main]
+		use = egg:Paste#urlmap
+		/pyramidapp = mypyramidapp
+
+
+	2. In Nginx + uWsgi:
 
 	You can figure out this in /usr/local/nginx/conf/nginx.conf "location" entry.
+
+	location /python {
+		uwsgi_pass 127.0.0.1:3031;
+		include uwsgi_params;
+		# The two line below  will make sure application_url will be http://xxx/python
+		# uwsgi_modifier1 30; will rewrite PATH_INFO value removing the SCRIPT_NAME from it.
+		# In this way we will have correct application_url and url dispatch mapping.
+		uwsgi_param SCRIPT_NAME /python;
+		uwsgi_modifier1 30;
+	}
 
 
 Using Events

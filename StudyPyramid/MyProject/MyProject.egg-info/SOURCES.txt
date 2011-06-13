@@ -14,7 +14,9 @@ MyProject.egg-info/paster_plugins.txt
 MyProject.egg-info/requires.txt
 MyProject.egg-info/top_level.txt
 myproject/__init__.py
+myproject/login.py
 myproject/models.py
+myproject/security.py
 myproject/tests.py
 myproject/views.py
 myproject/static/favicon.ico
@@ -27,5 +29,6 @@ myproject/static/pyramid-small.png
 myproject/static/pyramid.png
 myproject/static/transparent.gif
 myproject/templates/edit.pt
+myproject/templates/login.pt
 myproject/templates/mytemplate.pt
 myproject/templates/view.pt

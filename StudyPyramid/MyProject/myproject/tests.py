@@ -6,6 +6,7 @@ def _initTestingDB():
     from myproject.models import DBSession
     from myproject.models import Base
     from sqlalchemy import create_engine
+    # jiawzhang: 'sqlite://' means specify the db persistence as memory.
     engine = create_engine('sqlite://')
     DBSession.configure(bind=engine)
     Base.metadata.bind = engine
@@ -69,7 +70,6 @@ class AddPageTests(unittest.TestCase):
     def setUp(self):
         self.session = _initTestingDB()
         self.config = testing.setUp()
-        self.config.begin()
 
     def tearDown(self):
         self.session.remove()
