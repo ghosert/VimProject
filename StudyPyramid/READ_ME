@@ -1503,7 +1503,8 @@ Virtual Hosting
 
 	Skipped some.
 
-	1. In "pure Python" env, maybe when app started by "paste server development.ini --reload" try this [NOT VERIFIED SO FAR]:
+	1. In "pure Python" env, maybe when app started by "paste server development.ini --reload" try this:
+		[NOT VERIFIED SO FAR, SINCE I CAN IGNORE THIS FEATURE ON DEVELOPMENT PHASE]:
 
 		[app:mypyramidapp]
 		use = egg:mypyramidapp#app
