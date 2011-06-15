@@ -26,6 +26,20 @@ Try on the live site for tutorial on PRODUCTION:
 
 
 
+
+[BEGIN: Pyramid Documentation]
+
+http://docs.pylonsproject.org/docs/pyramid.html
+
+Including: Getting Started, Main Documentation (like Narrative documentation), Pyramid Add-On Documentation (like pyramid_beaker for Beaker session, pyramid_rpc for remote procedure call)
+
+Check out the url above if necessary.
+
+[END: Pyramid Documentation]
+
+
+
+
 [BEGIN: Narrative documentation]
 
 This document is mainly from official site of pyramid: http://docs.pylonsproject.org/projects/pyramid/1.0/index.html, check it out if you can find answer below.
