@@ -22,6 +22,7 @@ Try on the live site for tutorial on PRODUCTION:
 3. visit http://localhost/python
    This support the "Virtual Hosting"(search below) "/python" feature.
 
+log file is defined in production.ini development.ini and it's located in /var/log/pyramid/server.log
 [END: SQLAlchemy + URL Dispatch Wiki Tutorial]
 
 
