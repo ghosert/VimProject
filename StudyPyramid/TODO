@@ -1,1 +1,3 @@
-how to set log file for pyramid ?
+I set /var/log/pyramid/server.log in development.ini and production.ini
+
+For production.ini, it starts from uwsgi, never produce any log file.

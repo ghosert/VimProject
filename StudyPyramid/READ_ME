@@ -29,11 +29,15 @@ Try on the live site for tutorial on PRODUCTION:
 
 [BEGIN: Pyramid Documentation]
 
+1. Main
+
 http://docs.pylonsproject.org/docs/pyramid.html
 
 Including: Getting Started, Main Documentation (like Narrative documentation), Pyramid Add-On Documentation (like pyramid_beaker for Beaker session, pyramid_rpc for remote procedure call)
 
-Check out the url above if necessary.
+2. For logging portion
+
+http://pylonsbook.com/en/1.1/logging.html
 
 [END: Pyramid Documentation]
 
@@ -1897,6 +1901,7 @@ Thread Locals
 
 
 
+[BEGIN: SQLAlchemy]
 
 
 
