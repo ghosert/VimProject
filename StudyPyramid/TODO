@@ -3,3 +3,9 @@
 Try context=Exception and define the custom view to invoking log.error to make sure the error log will go to server.log rather than uwsgi.log.
 
 And see whether this change will impact 'paster serve development.ini --realod'
+
+
+2. Study Elixir
+
+
+3. Study Mako
