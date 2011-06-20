@@ -387,3 +387,177 @@ Common Filter Operators
 	The contents of the match parameter are database backend specific.
 
 
+Returning Lists and Scalars
+
+	The all(), one(), and first() methods of Query immediately issue SQL and return a non-iterator value. all() returns a list:
+
+	1. 
+	>>> query = session.query(User).filter(User.name.like('%ed')).order_by(User.id)
+	sql>>> query.all()
+	SELECT users.id AS users_id, users.name AS users_name, users.fullname AS users_fu
+	FROM users
+	WHERE users.name LIKE ? ORDER BY users.id
+	('%ed',)
+	[<User('ed','Ed Jones', 'f8s7ccs')>, <User('fred','Fred Flinstone', 'blah')>]
+
+	2. 
+	first() applies a limit of one and returns the first result as a scalar:
+
+	sql>>> query.first()
+	SELECT users.id AS users_id, users.name AS users_name, users.fullname AS users_fu
+	FROM users
+	WHERE users.name LIKE ? ORDER BY users.id
+	LIMIT 1 OFFSET 0
+	('%ed',)
+	<User('ed','Ed Jones', 'f8s7ccs')>
+
+	3.
+	one(), fully fetches all rows, and if not exactly one object identity or composite row is present in the result, raises an error:
+
+	sql>>> from sqlalchemy.orm.exc import MultipleResultsFound
+	>>> try:
+	...     user = query.one()
+	... except MultipleResultsFound, e:
+	...     print e
+	SELECT users.id AS users_id, users.name AS users_name, users.fullname AS users_fu
+	FROM users
+	WHERE users.name LIKE ? ORDER BY users.id
+	('%ed',)
+	Multiple rows were found for one()
+
+	sql>>> from sqlalchemy.orm.exc import NoResultFound
+	>>> try:
+	...     user = query.filter(User.id == 99).one()
+	... except NoResultFound, e:
+	...     print e
+	SELECT users.id AS users_id, users.name AS users_name, users.fullname AS user
+	FROM users
+	WHERE users.name LIKE ? AND users.id = ? ORDER BY users.id
+	('%ed', 99)
+	No row was found for one()
+
+
+Using Literal SQL
+
+	1.  Most methods accept strings in addition to SQLAlchemy clause constructs. For example, filter() and order_by():
+
+	sql>>> for user in session.query(User).filter("id<224").order_by("id").all():
+	...     print user.name
+	SELECT users.id AS users_id, users.name AS users_name, users.fullname AS users_fullname, users.password AS users_password
+	FROM users
+	WHERE id<224 ORDER BY id
+	()
+	ed
+	wendy
+	mary
+	fred
+
+	2. Bind parameters can be specified with string-based SQL, using a colon. To specify the values, use the params() method:
+
+	sql>>> session.query(User).filter("id<:value and name=:name").\
+	...     params(value=224, name='fred').order_by(User.id).one()
+	SELECT users.id AS users_id, users.name AS users_name, users.fullname AS users_fullname, users.password AS users_password
+	FROM users
+	WHERE id<User('fred','Fred Flinstone', 'blah')>
+
+	3. To use an entirely string-based statement:
+
+	sql>>> session.query(User).from_statement(
+	...                     "SELECT * FROM users where name=:name").\
+	...                     params(name='ed').all()
+	SELECT * FROM users where name=?
+	('ed',)
+	[<User('ed','Ed Jones', 'f8s7ccs')>]
+
+	4. You can use from_statement() to go completely “raw”, using string names to identify desired columns:
+
+	sql>>> session.query("id", "name", "thenumber12").\
+	...         from_statement("SELECT id, name, 12 as "
+	...                 "thenumber12 FROM users where name=:name").\
+	...                 params(name='ed').all()
+	SELECT id, name, 12 as thenumber12 FROM users where name=?
+	('ed',)
+	[(1, u'ed', 12)]
+
+
+Counting
+
+	1. For simple count: Query includes a convenience method for counting called count():
+
+	sql>>> session.query(User).filter(User.name.like('%ed')).count()
+	SELECT count(1) AS count_1
+	FROM users
+	WHERE users.name LIKE ?
+	('%ed',)
+	2
+
+	2. For more complicated count:
+
+	Use the func.count() function as a column expression:
+
+	>>> from sqlalchemy import func
+	sql>>> session.query(func.count(User.name), User.name).group_by(User.name).all()
+	SELECT count(users.name) AS count_1, users.name AS users_name
+	FROM users GROUP BY users.name
+	()
+	[(1, u'ed'), (1, u'fred'), (1, u'mary'), (1, u'wendy')]
+
+
+Building a Relationship
+
+	Using declarative, we define this table along with its mapped class, Address:
+
+	>>> from sqlalchemy import ForeignKey
+	>>> from sqlalchemy.orm import relationship, backref
+	>>> class Address(Base):
+	...
+	...     __tablename__ = 'addresses'
+	...
+	...     id = Column(Integer, primary_key=True)
+	...     email_address = Column(String, nullable=False)
+	...     user_id = Column(Integer, ForeignKey('users.id'))
+	...
+	...     user = relationship(User, backref=backref('addresses', order_by=id))
+	...
+	...     def __init__(self, email_address):
+	...         self.email_address = email_address
+	...
+	...     def __repr__(self):
+	...         return "<Address('%s')>" % self.email_address
+
+	The relationship between the User and Address classes is defined separately using the relationship() function, which defines an attribute user to be placed on the Address class, as well as an addresses collection to be placed on the User class. SQLAlchemy is automatically aware of many-to-one/one-to-many based on foreign keys.
+
+	class User(Base):
+	# ....
+	addresses = relationship(Address, order_by=Address.id, backref="user")
+
+	[We are also free to not define a backref, and to define the relationship() only on one class and not the other.](means if you don't have to set backref in class Address, you don't have to have "addresses" defined in class User) It is also possible to define two separate relationship() constructs for either direction, which is generally safe for many-to-one and one-to-many relationships, but not for many-to-many relationships.
+
+	When using the declarative extension, relationship() gives us the option to use strings for most arguments that concern the target class, in the case that the target class has not yet been defined. This only works in conjunction with declarative:
+
+	class User(Base):
+	....
+	addresses = relationship("Address", order_by="Address.id", backref="user")
+
+	When declarative is not in use, you typically define your mapper() well after the target classes and Table objects have been defined, so string expressions
+	are not needed.
+
+	We’ll need to create the addresses table in the database, so we will issue another CREATE from our metadata, which will skip over tables which have already
+	been created:
+
+	sql>>> metadata.create_all(engine)
+	PRAGMA table_info("users")
+	()
+	PRAGMA table_info("addresses")
+	()
+	CREATE TABLE addresses (
+	id INTEGER NOT NULL,
+	email_address VARCHAR NOT NULL,
+	user_id INTEGER,
+	PRIMARY KEY (id),
+	FOREIGN KEY(user_id) REFERENCES users (id)
+	)
+	()
+	COMMIT
+
+
