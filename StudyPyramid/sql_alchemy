@@ -539,9 +539,6 @@ Building a Relationship
 	....
 	addresses = relationship("Address", order_by="Address.id", backref="user")
 
-	When declarative is not in use, you typically define your mapper() well after the target classes and Table objects have been defined, so string expressions
-	are not needed.
-
 	We’ll need to create the addresses table in the database, so we will issue another CREATE from our metadata, which will skip over tables which have already
 	been created:
 
@@ -560,4 +557,120 @@ Building a Relationship
 	()
 	COMMIT
 
+
+Working with Related Objects
+
+	>>> jack = User('jack', 'Jack Bean', 'gjffdd')
+	>>> jack.addresses
+	[]
+
+	>>> jack.addresses = [Address(email_address='jack@google.com'), Address(email_address='j25@yahoo.com')]
+
+	When using a bidirectional relationship, elements added in one direction automatically become visible in the other direction. This is the basic behavior of the backref keyword, which maintains the relationship purely in memory, without using any SQL:
+
+	>>> jack.addresses[1]
+	<Address('j25@yahoo.com')>
+
+	>>> jack.addresses[1].user
+	<User('jack','Jack Bean', 'gjffdd')>
+
+	>>> session.add(jack)
+	sql>>> session.commit()
+	INSERT INTO users (name, fullname, password) VALUES (?, ?, ?)
+	('jack', 'Jack Bean', 'gjffdd')
+	INSERT INTO addresses (email_address, user_id) VALUES (?, ?)
+	('jack@google.com', 5)
+	INSERT INTO addresses (email_address, user_id) VALUES (?, ?)
+	('j25@yahoo.com', 5)
+	COMMIT
+
+	Querying for Jack, we get just Jack back. No SQL is yet issued for Jack’s addresses:
+
+	sql>>> jack = session.query(User).filter_by(name='jack').one()
+	BEGIN (implicit)
+	SELECT users.id AS users_id, users.name AS users_name, users.fullname AS users_fullname, users.password AS users_password
+	FROM users
+	WHERE users.name = ?
+	('jack',)
+	>>> jack
+	<User('jack','Jack Bean', 'gjffdd')>
+
+	sql>>> jack.addresses
+	SELECT addresses.id AS addresses_id, addresses.email_address AS addresses_email_address, addresses.user_id AS addresses_user_id
+	FROM addresses
+	WHERE ? = addresses.user_id ORDER BY addresses.id
+	(5,)
+	[<Address('jack@google.com')>, <Address('j25@yahoo.com')>]
+
+	This is an example of a lazy loading relationship.
+
+	To reduce the number of queries, apply an eager load to the query operation, using the joinedload() function.
+	SQLAlchemy then constructs an outer join between the users and addresses tables, and loads them at once, populating the addresses collection on each User object if it’s not already populated:
+
+	>>> from sqlalchemy.orm import joinedload
+
+	sql>>> jack = session.query(User).\
+	...                        options(joinedload('addresses')).\
+	...                        filter_by(name='jack').one()
+	SELECT users.id AS users_id, users.name AS users_name, users.fullname AS users_fullname,
+	users.password AS users_password, addresses_1.id AS addresses_1_id, addresses_1.email_address
+	AS addresses_1_email_address, addresses_1.user_id AS addresses_1_user_id
+	FROM users LEFT OUTER JOIN addresses AS addresses_1 ON users.id = addresses_1.user_id
+	WHERE users.name = ? ORDER BY addresses_1.id
+	('jack',)
+	>>> jack
+	<User('jack','Jack Bean', 'gjffdd')>
+
+	>>> jack.addresses
+	[<Address('jack@google.com')>, <Address('j25@yahoo.com')>]
+
+	Check out joinedload() and subqueryload() in documentation.
+
+
+Querying with Joins
+
+	While joinedload() created a JOIN specifically to populate a collection, we can also work explicitly with joins in many ways.
+
+	sql>>> for u, a in session.query(User, Address).filter(User.id==Address.user_id).\
+	...         filter(Address.email_address=='jack@google.com').all():
+	...     print u, a
+	SELECT users.id AS users_id, users.name AS users_name, users.fullname AS users_fullname,
+	users.password AS users_password, addresses.id AS addresses_id,
+	addresses.email_address AS addresses_email_address, addresses.user_id AS addresses_user_id
+	FROM users, addresses
+	WHERE users.id = addresses.user_id AND addresses.email_address = ?
+	('jack@google.com',)
+	<User('jack','Jack Bean', 'gjffdd')> <Address('jack@google.com')>
+
+	Or we can make a real JOIN construct; the most common way is to use join():
+
+	sql>>> session.query(User).join(Address).\
+	...         filter(Address.email_address=='jack@google.com').all()
+	SELECT users.id AS users_id, users.name AS users_name, users.fullname AS users_fullname, users.password AS users_password
+	FROM users JOIN addresses ON users.id = addresses.user_id
+	WHERE addresses.email_address = ?
+	('jack@google.com',)
+	[<User('jack','Jack Bean', 'gjffdd')>]
+
+	join() knows how to join between User and Address because there’s only one foreign key between them.
+	If there were no foreign keys, or several, join() works better when one of the following forms are used:
+
+	query.join((Address, User.id==Address.user_id))  # explicit condition (note the tuple)
+	query.join(User.addresses)                       # specify relationship from left to right
+	query.join((Address, User.addresses))            # same, with explicit target
+	query.join('addresses')                          # same, using a string
+
+	Note that when join() is called with an explicit target as well as an ON clause, we use a tuple as the argument. This is so that multiple joins can be chained together, as in:
+
+	session.query(Foo).join(
+	Foo.bars,
+	(Bat, bar.bats),
+	(Widget, Bat.widget_id==Widget.id)
+	)
+
+	The above would produce SQL something like foo JOIN bars ON <onclause> JOIN bats ON <onclause> JOIN widgets ON <onclause>.
+
+	The general functionality of join() is also available as a standalone function join(), which is an ORM-enabled version of the same function present in the
+	SQL expression language. This function accepts two or three arguments (left side, right side, optional ON clause) and can be used in conjunction with the
+	select_from() method to set an explicit FROM clause:
 
