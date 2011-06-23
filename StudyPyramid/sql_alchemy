@@ -660,7 +660,7 @@ Querying with Joins
 	query.join((Address, User.addresses))            # same, with explicit target
 	query.join('addresses')                          # same, using a string
 
-	Note that when join() is called with an explicit target as well as an ON clause, we use a tuple as the argument. This is so that multiple joins can be chained together, as in:
+	This is so that multiple joins can be chained together, as in:
 
 	session.query(Foo).join(
 	Foo.bars,
@@ -670,7 +670,230 @@ Querying with Joins
 
 	The above would produce SQL something like foo JOIN bars ON <onclause> JOIN bats ON <onclause> JOIN widgets ON <onclause>.
 
-	The general functionality of join() is also available as a standalone function join(), which is an ORM-enabled version of the same function present in the
-	SQL expression language. This function accepts two or three arguments (left side, right side, optional ON clause) and can be used in conjunction with the
-	select_from() method to set an explicit FROM clause:
+	The general functionality of join() is also available as a standalone function join(), which is an ORM-enabled version of the same function present in the SQL expression language.
 
+	>>> from sqlalchemy.orm import join
+	sql>>> session.query(User).\
+	...                select_from(join(User, Address, User.addresses)).\
+	...                filter(Address.email_address=='jack@google.com').all()
+	SELECT users.id AS users_id, users.name AS users_name, users.fullname AS users_fullname, users.password AS users_password
+	FROM users JOIN addresses ON users.id = addresses.user_id
+	WHERE addresses.email_address = ?
+	('jack@google.com',)
+	[<User('jack','Jack Bean', 'gjffdd')>]
+
+
+Using join() to Eagerly Load Collections/Attributes
+
+	join() or an equivalent + contains_eager() option = joinedload()
+
+	means join tables first, then loading related entity onto the resulting resutls in one step instead of addtional queries and 'automatic' join embedded by the joinedload() function:
+
+	>>> from sqlalchemy.orm import contains_eager
+	sql>>> for address in session.query(Address).\
+	...                join(Address.user).\
+	...                filter(User.name=='jack').\
+	...                options(contains_eager(Address.user)):
+	...         print address, address.user
+	SELECT users.id AS users_id, users.name AS users_name, users.fullname AS users_fullname,
+	users.password AS users_password, addresses.id AS addresses_id,
+	addresses.email_address AS addresses_email_address, addresses.user_id AS addresses_user_id
+	FROM addresses JOIN users ON users.id = addresses.user_id
+	WHERE users.name = ?
+	('jack',)
+	<Address('jack@google.com')> <User('jack','Jack Bean', 'gjffdd')>
+	<Address('j25@yahoo.com')> <User('jack','Jack Bean', 'gjffdd')>
+
+
+Using Aliases
+
+	Below we join to the Address entity twice, to locate a user who has two distinct email addresses at the same time:
+	>>> from sqlalchemy.orm import aliased
+	>>> adalias1 = aliased(Address)
+	>>> adalias2 = aliased(Address)
+	sql>>> for username, email1, email2 in \
+	...     session.query(User.name, adalias1.email_address, adalias2.email_address).\
+	...     join((adalias1, User.addresses), (adalias2, User.addresses)).\
+	...     filter(adalias1.email_address=='jack@google.com').\
+	...     filter(adalias2.email_address=='j25@yahoo.com'):
+	...     print username, email1, email2
+	SELECT users.name AS users_name, addresses_1.email_address AS addresses_1_email_address,
+	addresses_2.email_address AS addresses_2_email_address
+	FROM users JOIN addresses AS addresses_1 ON users.id = addresses_1.user_id
+	JOIN addresses AS addresses_2 ON users.id = addresses_2.user_id
+	WHERE addresses_1.email_address = ? AND addresses_2.email_address = ?
+	('jack@google.com', 'j25@yahoo.com')
+	jack jack@google.com j25@yahoo.com
+
+
+Using Subqueries
+
+	Suppose we wanted to load User objects along with a count of how many Address records each user has.
+
+	SELECT users.*, adr_count.address_count FROM users LEFT OUTER JOIN
+	(SELECT user_id, count(*) AS address_count FROM addresses GROUP BY user_id) AS adr_count
+	ON users.id=adr_count.user_id
+
+	>>> from sqlalchemy.sql import func
+	>>> stmt = session.query(Address.user_id, func.count('*').label('address_count')).group_by(Address.user_id).subquery()
+
+	The func keyword generates SQL functions, and the subquery() method on Query produces a SQL expression construct representing a SELECT statement embedded within an alias (it’s actually shorthand for
+	query.statement.alias()).
+
+	Once we have our statement, it behaves like a Table construct. The columns on the statement are accessible through an attribute called c:
+
+	sql>>> for u, count in session.query(User, stmt.c.address_count).\
+	...     outerjoin((stmt, User.id==stmt.c.user_id)).order_by(User.id):
+	...     print u, count
+	SELECT users.id AS users_id, users.name AS users_name,
+	users.fullname AS users_fullname, users.password AS users_password,
+	anon_1.address_count AS anon_1_address_count
+	FROM users LEFT OUTER JOIN (SELECT addresses.user_id AS user_id, count(?) AS address_count
+	FROM addresses GROUP BY addresses.user_id) AS anon_1 ON users.id = anon_1.user_id
+	ORDER BY users.id
+	('*',)
+	<User('ed','Ed Jones', 'f8s7ccs')> None
+	<User('wendy','Wendy Williams', 'foobar')> None
+	<User('mary','Mary Contrary', 'xxg527')> None
+	<User('fred','Fred Flinstone', 'blah')> None
+	<User('jack','Jack Bean', 'gjffdd')> 2
+
+
+Selecting Entities from Subqueries
+
+	Above, we just selected a result that included a column from a subquery. What if we wanted our subquery to map to an entity ? For this we use aliased() to associate an “alias” of a mapped class to a
+	subquery:
+
+	sql>>> stmt = session.query(Address).filter(Address.email_address != 'j25@yahoo.com').subquery()
+	>>> adalias = aliased(Address, stmt)
+	>>> for user, address in session.query(User, adalias).join((adalias, User.addresses)): # just like "for user, address in session.query(User, Address).join((Address, User.addresses)):"
+	...     print user, address
+	SELECT users.id AS users_id, users.name AS users_name, users.fullname AS users_fullname,
+	users.password AS users_password, anon_1.id AS anon_1_id,
+	anon_1.email_address AS anon_1_email_address, anon_1.user_id AS anon_1_user_id
+	FROM users JOIN (SELECT addresses.id AS id, addresses.email_address AS email_address, addresses.user_id AS user_id
+	FROM addresses
+	WHERE addresses.email_address != ?) AS anon_1 ON users.id = anon_1.user_id
+	('j25@yahoo.com',)
+	<User('jack','Jack Bean', 'gjffdd')> <Address('jack@google.com')>
+
+
+Using EXISTS
+
+	The EXISTS keyword in SQL is a boolean operator which returns True if the given expression contains any rows.(But it seems EXISTS can be replaced by JOIN and FILTER)
+
+	>>> from sqlalchemy.sql import exists
+	>>> stmt = exists().where(Address.user_id==User.id)
+	sql>>> for name, in session.query(User.name).filter(stmt):
+	...     print name
+	SELECT users.name AS users_name
+	FROM users
+	WHERE EXISTS (SELECT *
+	FROM addresses
+	WHERE addresses.user_id = users.id)
+	()
+	jack
+
+	The Query features several operators which make usage of EXISTS automatically. Above, the statement can be expressed along the User.addresses relationship using any():
+
+	sql>>> for name, in session.query(User.name).filter(User.addresses.any()):
+	...     print name
+	SELECT users.name AS users_name
+	FROM users
+	WHERE EXISTS (SELECT 1
+	FROM addresses
+	WHERE users.id = addresses.user_id)
+	()
+	jack
+
+	any() takes criterion as well, to limit the rows matched:
+	sql>>> for name, in session.query(User.name).\
+	...     filter(User.addresses.any(Address.email_address.like('%google%'))):
+	...     print name
+	SELECT users.name AS users_name
+	FROM users
+	WHERE EXISTS (SELECT 1
+	FROM addresses
+	WHERE users.id = addresses.user_id AND addresses.email_address LIKE ?)
+	('%google%',)
+	jack
+
+	has() is the same operator as any() for many-to-one relationships (note the ~ operator here too, which means “NOT”):
+
+	sql>>> session.query(Address).filter(~Address.user.has(User.name=='jack')).all()
+	SELECT addresses.id AS addresses_id, addresses.email_address AS addresses_email_address,
+	addresses.user_id AS addresses_user_id
+	FROM addresses
+	WHERE NOT (EXISTS (SELECT 1
+	FROM users
+	WHERE users.id = addresses.user_id AND users.name = ?))
+	('jack',)
+	[]
+
+
+Common Relationship Operators
+
+	Here’s all the operators which build on relationships:
+
+	• equals (used for many-to-one):
+
+		query.filter(Address.user == someuser)
+
+	• not equals (used for many-to-one):
+
+		query.filter(Address.user != someuser)
+
+	• IS NULL (used for many-to-one):
+
+		query.filter(Address.user == None)
+
+	• contains (used for one-to-many and many-to-many collections):
+
+		query.filter(User.addresses.contains(someaddress))
+
+	• any (used for one-to-many and many-to-many collections):
+
+		query.filter(User.addresses.any(Address.email_address == 'bar'))
+
+		# also takes keyword arguments:
+		query.filter(User.addresses.any(email_address='bar'))
+
+	• has (used for many-to-one):
+
+		query.filter(Address.user.has(name='ed'))
+
+	• with_parent (used for any relationship):
+
+		session.query(Address).with_parent(someuser, 'addresses')
+
+
+Deleting
+
+	Let’s try to delete jack and see how that goes. We’ll mark as deleted in the session, then we’ll issue a count query to see that no rows remain:
+
+	>>> session.delete(jack)
+	sql>>> session.query(User).filter_by(name='jack').count()
+	UPDATE addresses SET user_id=? WHERE addresses.id = ?
+	(None, 1)
+	UPDATE addresses SET user_id=? WHERE addresses.id = ?
+	(None, 2)
+	DELETE FROM users WHERE users.id = ?
+	(5,)
+	SELECT count(1) AS count_1
+	FROM users
+	WHERE users.name = ?
+	('jack',)
+	0
+
+	So far, so good. How about Jack’s Address objects ?
+
+	sql>>> session.query(Address).filter(
+	...     Address.email_address.in_(['jack@google.com', 'j25@yahoo.com'])
+	...  ).count()
+	SELECT count(1) AS count_1
+	FROM addresses
+	WHERE addresses.email_address IN (?, ?)
+	('jack@google.com', 'j25@yahoo.com')
+	2
+
+	Uh oh, they’re still there ! Analyzing the flush SQL, we can see that the user_id column of each address was set to NULL, but the rows weren’t deleted. SQLAlchemy doesn’t assume that deletes cascade, you have to tell it to do so.  
