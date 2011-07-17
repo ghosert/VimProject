@@ -972,6 +972,150 @@ Configuring delete/delete-orphan Cascade
 	0
 
 
+Building a Many To Many Relationship
 
+	We’ll make our application a blog application, where users can write BlogPost items, which have Keyword items associated with them.
 
+	The declarative setup is as follows:
+
+	>>> from sqlalchemy import Text
+
+	>>> # association table
+	>>> post_keywords = Table('post_keywords', metadata,
+	...     Column('post_id', Integer, ForeignKey('posts.id')),
+	...     Column('keyword_id', Integer, ForeignKey('keywords.id'))
+	... )
+
+	>>> class BlogPost(Base):
+	...     __tablename__ = 'posts'
+	...
+	...     id = Column(Integer, primary_key=True)
+	...     user_id = Column(Integer, ForeignKey('users.id'))
+	...     headline = Column(String(255), nullable=False)
+	...     body = Column(Text)
+	...
+	...     # many to many BlogPost<->Keyword
+	...     keywords = relationship('Keyword', secondary=post_keywords, backref='posts')
+	...
+	...     def __init__(self, headline, body, author):
+	...         self.author = author
+	...         self.headline = headline
+	...         self.body = body
+	...
+	...     def __repr__(self):
+	...         return "BlogPost(%r, %r, %r)" % (self.headline, self.body, self.author)
+
+	>>> class Keyword(Base):
+	...     __tablename__ = 'keywords'
+	...
+	...     id = Column(Integer, primary_key=True)
+	...     keyword = Column(String(50), nullable=False, unique=True)
+	...
+	...     def __init__(self, keyword):
+	...         self.keyword = keyword
+
+	Above, the many-to-many relationship is BlogPost.keywords. The defining feature of a many-to-many relationship is the secondary keyword argument which references a Table object representing the association table. This table only contains columns which reference the two sides of the relationship; if it has any other columns, such as its own primary key, or foreign keys to other tables, SQLAlchemy requires a different usage pattern called the “association object”, described at Association Object.
+
+	We would also like our BlogPost class to have an author field. We will add this as another bidirectional relationship, except one issue we’ll have is that a single user might have lots of blog posts. When we access User.posts, we’d like to be able to filter results further so as not to load the entire collection. For this we use a setting accepted by relationship() called lazy='dynamic', which configures an alternate loader strategy on the attribute. To use it on the “reverse” side of a relationship(), we use the backref() function:
+
+	>>> from sqlalchemy.orm import backref
+	>>> # "dynamic" loading relationship to User
+	>>> BlogPost.author = relationship(User, backref=backref('posts', lazy='dynamic'))
+
+	Create new tables:
+
+	sql>>> metadata.create_all(engine)
+	PRAGMA table_info("users")
+	()
+	PRAGMA table_info("addresses")
+	()
+	PRAGMA table_info("posts")
+	()
+	PRAGMA table_info("keywords")
+	()
+	PRAGMA table_info("post_keywords")
+	()
+	CREATE TABLE posts (
+	id INTEGER NOT NULL,
+	user_id INTEGER,
+	headline VARCHAR(255) NOT NULL,
+	body TEXT,
+	PRIMARY KEY (id),
+	FOREIGN KEY(user_id) REFERENCES users (id)
+	)
+	()
+	COMMIT
+	CREATE TABLE keywords (
+	id INTEGER NOT NULL,
+	keyword VARCHAR(50) NOT NULL,
+	PRIMARY KEY (id),
+	UNIQUE (keyword)
+	)
+	()
+	COMMIT
+	CREATE TABLE post_keywords (
+	post_id INTEGER,
+	keyword_id INTEGER,
+	FOREIGN KEY(post_id) REFERENCES posts (id),
+	FOREIGN KEY(keyword_id) REFERENCES keywords (id)
+	)
+	()
+	COMMIT
+
+	Usage is not too different from what we’ve been doing. Let’s give Wendy some blog posts:
+
+	sql>>> wendy = session.query(User).filter_by(name='wendy').one()
+	SELECT users.id AS users_id, users.name AS users_name, users.fullname AS users_fullname, users.password AS users_password
+	FROM users
+	WHERE users.name = ?
+	('wendy',)
+	>>> post = BlogPost("Wendy's Blog Post", "This is a test", wendy)
+	>>> session.add(post)
+
+	We’re storing keywords uniquely in the database, but we know that we don’t have any yet, so we can just create them:
+
+	>>> post.keywords.append(Keyword('wendy'))
+	>>> post.keywords.append(Keyword('firstpost'))
+
+	We can now look up all blog posts with the keyword ‘firstpost’. We’ll use the any operator to locate “blog posts where any of its keywords has the keyword string ‘firstpost’”:
+
+	sql>>> session.query(BlogPost).filter(BlogPost.keywords.any(keyword='firstpost')).all()
+	INSERT INTO keywords (keyword) VALUES (?)
+	('wendy',)
+	INSERT INTO keywords (keyword) VALUES (?)
+	('firstpost',)
+	INSERT INTO posts (user_id, headline, body) VALUES (?, ?, ?)
+	(2, "Wendy's Blog Post", 'This is a test')
+	INSERT INTO post_keywords (post_id, keyword_id) VALUES (?, ?)
+	((1, 1), (1, 2))
+	SELECT posts.id AS posts_id, posts.user_id AS posts_user_id, posts.headline AS posts_headline, posts.body AS posts_body
+	FROM posts
+	WHERE EXISTS (SELECT 1
+	FROM post_keywords, keywords
+	WHERE posts.id = post_keywords.post_id AND keywords.id = post_keywords.keyword_id AND keywords.keyword = ?)
+	('firstpost',)
+	[BlogPost("Wendy's Blog Post", 'This is a test', <User('wendy','Wendy Williams', 'foobar')>)]
+
+	If we want to look up just Wendy’s posts, we can tell the query to narrow down to her as a parent:
+
+	sql>>> session.query(BlogPost).filter(BlogPost.author==wendy).\
+	... filter(BlogPost.keywords.any(keyword='firstpost')).all()
+	SELECT posts.id AS posts_id, posts.user_id AS posts_user_id, posts.headline AS posts_headline, posts.body AS posts_body
+	FROM posts
+	WHERE ? = posts.user_id AND (EXISTS (SELECT 1
+	FROM post_keywords, keywords
+	WHERE posts.id = post_keywords.post_id AND keywords.id = post_keywords.keyword_id AND keywords.keyword = ?))
+	(2, 'firstpost')
+	[BlogPost("Wendy's Blog Post", 'This is a test', <User('wendy','Wendy Williams', 'foobar')>)]
+
+	Or we can use Wendy’s own posts relationship, which is a “dynamic” relationship, to query straight from there:
+
+	sql>>> wendy.posts.filter(BlogPost.keywords.any(keyword='firstpost')).all()
+	SELECT posts.id AS posts_id, posts.user_id AS posts_user_id, posts.headline AS posts_headline, posts.body AS posts_body
+	FROM posts
+	WHERE ? = posts.user_id AND (EXISTS (SELECT 1
+	FROM post_keywords, keywords
+	WHERE posts.id = post_keywords.post_id AND keywords.id = post_keywords.keyword_id AND keywords.keyword = ?))
+	(2, 'firstpost')
+	[BlogPost("Wendy's Blog Post", 'This is a test', <User('wendy','Wendy Williams', 'foobar')>)]
 

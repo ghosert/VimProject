@@ -21,6 +21,7 @@ class User(Base):
     def __repr__(self):
        return "<User('%s','%s', '%s')>" % (self.name, self.fullname, self.password)
 
+# users_table = User.__table__
 metadata = Base.metadata
 metadata.create_all(engine)
 
