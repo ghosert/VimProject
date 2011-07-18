@@ -112,6 +112,8 @@ Creating Table, Class and Mapper All at Once Declaratively
 
 	>>> metadata = Base.metadata
 
+	Like the way before this section, running "metadata.create_all(engine)" will create tables.
+
 
 Creating a Session
 
