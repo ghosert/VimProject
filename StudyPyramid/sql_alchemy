@@ -533,7 +533,7 @@ Building a Relationship
 	# ....
 	addresses = relationship(Address, order_by=Address.id, backref="user")
 
-	[We are also free to not define a backref, and to define the relationship() only on one class and not the other.](means if you don't have to set backref in class Address, you don't have to have "addresses" defined in class User) It is also possible to define two separate relationship() constructs for either direction, which is generally safe for many-to-one and one-to-many relationships, but not for many-to-many relationships.
+	[We are also free to not define a backref, and to define the relationship() only on one class and not the other.](means you don't have to have "addresses" defined in class User) It is also possible to define two separate relationship() constructs for either direction, which is generally safe for many-to-one and one-to-many relationships, but not for many-to-many relationships.
 
 	When using the declarative extension, relationship() gives us the option to use strings for most arguments that concern the target class, in the case that the target class has not yet been defined. This only works in conjunction with declarative:
 
