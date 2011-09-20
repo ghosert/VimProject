@@ -84,7 +84,18 @@ post = BlogPost("Wendy's Blog Post", "This is a test", wendy)
 session.add(post)
 post.keywords.append(Keyword('wendy'))
 post.keywords.append(Keyword('firstpost'))
-session.query(BlogPost).filter(BlogPost.keywords.any(keyword='firstpost')).all()
+session.commit()
+
+print '============================Two SQLs produced without contains_eager============================================='
+from sqlalchemy.orm import contains_eager
+blogpost = session.query(BlogPost).filter(BlogPost.keywords.any(keyword='firstpost')).all()
+print blogpost[0].keywords[1].keyword
+session.commit()
+print '============================One SQL produced wit contains_eager, it means contains_eager works for both JOIN and EXISTS sql=================================================='
+blogpost = session.query(BlogPost).filter(BlogPost.keywords.any(keyword='firstpost')).options(contains_eager(BlogPost.keywords)).all()
+print blogpost[0].keywords[1].keyword
+print '================================================================================================================='
+
 blog = session.query(BlogPost).filter(BlogPost.author==wendy).filter(BlogPost.keywords.any(keyword='firstpost')).all() 
 print blog[0].keywords[0].posts
 
