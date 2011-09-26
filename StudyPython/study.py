@@ -88,13 +88,15 @@ if __name__ == "__main__":
     print u"Hello\\u0020World"
 
     # Testing below need convert this file to UTF-8 format, but ms console fail to change righ code page by using "chcp" dos command, try it later.
+
     # convert utf-8 to unicode, str.decode('codepage') equals to unicode(str, 'codepage')
     decoded_str1 = "中国".decode("utf-8")
-    print decoded_str1
+    # print decoded_str1
     decoded_str2 = unicode("中国", "utf-8")
-    print decoded_str2
+    # print decoded_str2
     decoded_str3 = u"中国"
-    print decoded_str3
+    #print decoded_str3
+
     # convert unicode to utf-8, str.encode('codepage')
     print '中国'
     print decoded_str1.encode('utf-8')
