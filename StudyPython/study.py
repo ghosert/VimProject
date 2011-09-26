@@ -1,4 +1,6 @@
-﻿""" This is a python study module to practise the python."""
+﻿# coding: utf-8
+
+""" This is a python study module to practise the python."""
 
 class Study:
     " This is a python study class to practise the python."
