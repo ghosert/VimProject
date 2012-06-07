@@ -118,9 +118,9 @@ if __name__ == "__main__":
     print a
     a[0:2] = [] # should be [123, 1234]
     print a
-    a[1:1] = ['bletch', 'xyzzy'] # insert some items in the position 1, and only take 1 space. should be 123, 'bletch', 'xyzzy', 1234
+    a[1:1] = ['bletch', 'xyzzy'] # 1:1 here means inserting some items in the position 1. should be 123, 'bletch', 'xyzzy', 1234 and not to remove any existing items.
     print a
-    a[:0] = a
+    a[:0] = a # => a[0:0] = a, 0:0 here means inserting itself in the position 0 and not to remove any existing items.
     print a
     print "len(a): " + str(len(a))
     a[:] = [] # clear all
@@ -144,6 +144,9 @@ if __name__ == "__main__":
     # print "You have already inputted:", i
 
     # for and range()
+
+    print
+
     for i in range(10):
         print i,
     
