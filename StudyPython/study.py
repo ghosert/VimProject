@@ -244,11 +244,11 @@ if __name__ == "__main__":
     print "zip(*vector3): {0}".format(zip(*vec2))
     # del statement
     print "ready to delete list: {0}".format(a)
-    del a[0]
+    del a[0] # => a[0:1] = []
     print "del a[0]: {0}".format(a)
-    del a[1:3]
+    del a[1:3] # => a[1:3] = []
     print "del a[1:3]: {0}".format(a)
-    del a[:]
+    del a[:] # => a[:] = []
     print "del a[:]: {0}".format(a)
     del a
     print '"del a" means a will not point to any memory block'
