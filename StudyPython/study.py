@@ -318,7 +318,7 @@ if __name__ == "__main__":
     print [i for i in reversed(range(1, 10, 2))]
     print [i for i in reversed("abcde")]
     # loop a sequence in with set and sorted
-    # Notice: sorted(sequence) is different from sequence.sort(): sort sequence itself
+    # Notice: sorted(sequence) is different from sequence.sort(): sequence.sort() will sort sequence itself and return None.
     basket = ['apple', 'orange', 'apple', 'pear', 'orange', 'banana']
     for f in sorted(set(basket)):
         print f,
@@ -415,6 +415,7 @@ if __name__ == "__main__":
         # sound.effects.echo (RIGHT)
         # from sound.effects import echo
         # echo (RIGHT)
+        #
         # (total forms of import/from ... import ...)
         # import package (fun/class in package __init__.py can be accessable by package.fun/class, package.module can not be accessable)
         # import package.module
@@ -629,7 +630,7 @@ if __name__ == "__main__":
             return self.subclass_invoked_method()  # In the same class: You have to always use "self" as prefix to invoke any method in the same class. e.g. "self.subclass_invoked_method()"
         def subclass_invoked_method(self):
             print self.iInstanceVariable          # iInstanceVariable is overwritten.
-            print self.__class__.iClassVariable   # iClassVariable can be overwritten but isn't here since iClassVariable = 222222 has been overwritten there.
+            print self.__class__.iClassVariable   # iClassVariable can be overwritten but isn't here since iClassVariable = 222222 has been commented there.
             return 'I am sub class own method'
 
     subclass = SubMyClass()
