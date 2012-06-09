@@ -53,7 +53,7 @@ if __name__ == "__main__":
         if 'style=height:60px' in line:
             print line
 
-    # comment the codes below since it needs a mailserver running on localhost
+    # comment the codes below since it needs a mailserver running on localhost, 'sudo apt-get install sendmail' if you want to run a mail server locally.
     # import smtplib
     # server = smtplib.SMTP('localhost')
     # server.sendmail(...)
