@@ -83,12 +83,40 @@ if __name__ == '__main__':
     phonePattern = re.compile(r'(\d{3})\D*(\d{3})\D*(\d{4})\D*(\d*)$') # to avoid the None result above, get rid of '^\D*'
     print phonePattern.search('work 1-(800) 555.1212 #1234').groups()
 
+
+
+    # Match any string
+    str = 'jiaSweiFzhangFjing'
+    # I want to know all the words between 'S' and 'F'
+    print re.search(r'S(.*)F', str).groups()[0]
+    print re.search(r'S(.*)F', str).group()
+    # Wait! I just want to get the words between 'S' and FIRST 'F'
+    print re.search(r'S(.*?)F', str).groups()[0]
+    print re.search(r'S(.*?)F', str).group()
+    # CONCULUTION: .* HERE MEANS ANY WORDS WHILE ? MEANS LAZY SEARCHING.
+
+    str = 'jiaSw\neiFzhangFjing'
+    matcher = re.search(r'S(.*?)F', str)
+    if not matcher:
+        print 'Can not find matches with the way before if contains "\\n"'
+        print re.search(r'S([\w\W]*?)F', str).groups()[0]
+
+    
+
     # You should now be familiar with the following techniques:
     # ^ matches the beginning of a string.
     # $ matches the end of a string.
+    # [...] Any one character between the brackets.
+    # [^...] Any one character not between the brackets.
+    # .* Any character except newline or another Unicode line terminator.
+    # .*? Same above, but ? means lazy searching, match the first one the pattern finds.
     # \b matches a word boundary.
     # \d matches any numeric digit.
     # \D matches any non?numeric character.
+    # \w Any ASCII word character. Equivalent to [a-zA-Z0-9_].
+    # \W Any character that is not an ASCII word character. Equivalent to [^a-zA-Z0-9_].
+    # \s Any Unicode whitespace character.
+    # \S Any character that is not Unicode whitespace. Note that \w and \S are not the same thing.
     # x? matches an optional x character (in other words, it matches an x zero or one times).
     # x* matches x zero or more times.
     # x+ matches x one or more times.
@@ -98,13 +126,3 @@ if __name__ == '__main__':
     # method of the object returned by re.search.
     
     
-    
-    
-    
-    
-    
-    
-
-
-
-
