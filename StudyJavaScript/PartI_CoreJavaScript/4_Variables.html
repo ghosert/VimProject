@@ -25,15 +25,15 @@
 
 		// Variable Scope
 		var scope = "global"; // Declare a global variable
-		function checkscope() {
+		function checkscope_1() {
 			var scope = "local"; // Declare a local variable with the same name, without 'var' here means: use global 'scope' variable above.
 			println(scope); // Use the local variable, not the global one
 		}
-		checkscope(); // Prints "local"
+		checkscope_1(); // Prints "local"
 
 		// function can be nested so that local variable can be nested as well.
 		var scope = "global scope"; // A global variable
-		function checkscope( ) {
+		function checkscope_2( ) {
 			var scope = "local scope"; // A local variable
 			function nested( ) {
 				var scope = "nested scope"; // A nested scope of local variables
@@ -41,7 +41,7 @@
 			}
 			nested( );
 		}
-		checkscope( );
+		checkscope_2( );
 
 		// No Block Scope
 		// All variables declared in a function, no matter where they are declared, are defined throughout the function.
@@ -54,7 +54,7 @@
 				}
 				println(k); // k is still defined: prints 10
 			}
-			println(j); // j is defined, but may not be initialized: if o is not object, j exists like 'var j;' which will print 'undefined'
+			println(j); // j is declared, but may not be initialized: if o is not object, j exists like 'var j;' which will print 'undefined'
 		}
 		println('Test No Block Scope1: ');
 		test(1);
