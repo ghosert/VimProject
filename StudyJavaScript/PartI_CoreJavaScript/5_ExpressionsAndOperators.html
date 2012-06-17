@@ -57,6 +57,7 @@
 		println(o1 >= 1); // if an object can be converted to number, it converts first then comparison.
 		println(o1 >= o2); // if an object can be converted to number, it converts first then comparison.
 		println("A".toLowerCase() > "b".toUpperCase()); // return true
+        println("NaN == NaN: " + (NaN == NaN));
 		// any opertors with operand NaN will get false always.
 
 		// Final Conclusion: +, -, *, /, >, >=, <, <= can be performed only on numbers and strings. Operands are not numbers or strings like 
@@ -66,7 +67,7 @@
 		// == use same rule above(object to primitive if necessary) except object-object will compare the reference.
 		// === is more rigorous, see the sample above.
 
-		// The in Operator: left-side operand is or can be converted to string, right-side operand is object(array),
+		// The in Operator: left-side operand is or can be converted to string, right-side operand is an object or an array,
 		// it evaluates to true if left-side value is the name of a property of the right-side object.
 		var point = { x:1, y:1 }; // Define an object
 		var has_x_coord = "x" in point; // Evaluates to true
@@ -142,12 +143,15 @@
 
 		// The void Operator
 		// it discards its operand value and return undefined
-		// the most common use for void is in 'javascript:void', see <a> tag below.
-		println(void 1) // undefined
+		// the most common use for void is in 'javascript:void', see <a> tags below.
+		println(void 1); // undefined
 
 	</script>
 	</head>
 	<body>
-		<a href="javascript:void window.open();">Open New Window</a>
+        <!--window.open() will return null, so that href="null" here leads to refresh page, that's why we need javascript:void to avoid refresh page: execute the javascript but without value returned.-->
+        <a href="javascript:window.open();">Open New Window without javascript:void</a>
+        <br>
+		<a href="javascript:void window.open();">Open New Window with javascript:void</a>
 	</body>
 </html>

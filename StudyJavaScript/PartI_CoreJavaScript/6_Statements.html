@@ -58,6 +58,8 @@
 		var i = 0;
 		for(a[i++] in o) /* empty loop body */;
 
+        println(a); // a is now assigned 'x', 'y', 'z'
+
 		// print array index rather than array elements, not like python.
 		for (var i in a) println(i);
 		
@@ -90,9 +92,9 @@
 			alert(ex);
 		}
 
-		// with
+		// "with" keyword
 		// used to temporarily modify the scope chain.
-		// in practice, you can use with statement to save yourself a lot of typing.
+		// in practice, you can use "with" statement to save yourself a lot of typing.
 		// eg. you don't have to add 'document.forms[0]' to prefix every form property name.
 		with (document.forms[0]) {
 			println(name.value)

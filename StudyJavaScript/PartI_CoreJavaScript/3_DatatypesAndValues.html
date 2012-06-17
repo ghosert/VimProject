@@ -210,7 +210,7 @@
 		// object-object or object-primitive(change object to number/string first, then begin to compare, details in 5_ExpressionsAndOperators.html.)
 		// Object will always try on invoking valueOf() method first(==/=== on object-object is not the case, only identical objects will be equal),
 		// if there is no valueOf() method in object or the return value doesn't make sense, then try on toString() method.
-		// try to comment the line o.valueOf above or chnange "return 1;" to "return this;" and see the result.
+		// try to comment the line o.valueOf above or change "return 1;" to "return this;" and see the result.
 		// Note: most object either don't have valueOf() methods or don't have valueOf() methods that return userful results, so it will use toString()
 		// But if you define a custom valueOf() method, this method will be used rather than toString() method.
 		// The only exception is Date() class it is using toString() on + operator and valueOf() on comparation operator.
@@ -261,7 +261,7 @@
 		/* Conclustion:
 		For copy & pass string, you can assume it is by reference, and because string is immutable,
 		there is no way to modify the contents of a string (although it is by reference). This is just like Java.
-		For comparing string, js is using == by value. unlike Java which is better to use equals method for string comparison.
+		For comparing string, js is using == by value. unlike Java which is better to use equals method for string comparison. (if you do need reference comparison for string, use ===)
 		
 		Except string, for other primitive date types and objects, the rule is just same to Java, but js has no equals method but == for comparison.
 		*/

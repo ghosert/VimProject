@@ -86,7 +86,7 @@
 		}
 
 		// The callee Property
-		// use arguments.callee property to refer to the function itself, it can be used to allow unnamed functions to invoke themselves recursively
+		// use arguments.callee property to refer to THE FUNCTION ITSELF, it can be used to allow unnamed functions to invoke themselves recursively
 		var test = function (x) {
 			if (x <= 1) return 1;
 			return x * arguments.callee(x - 1);
@@ -175,7 +175,7 @@
 		};
 		calculator.compute(); // What is 1+1?
 		println(calculator.result); // Display the result
-		// Conclusion: When a function is invoked as a function rather that as a method, the this keyword refers to the global object.
+		// Conclusion: When a function is invoked as a function rather than as a method, the this keyword refers to the global object.
 
 		// Function Properties and Methods
 		function check(args) {
