@@ -33,7 +33,7 @@
 		// 2. parse an XML document from a string
 		// 3. obtain an XML document from an XML data island.
 
-		// Creating a New Document
+		// 1. Creating a New Document
 		/**
 		* Create a new Document object. If no arguments are specified,
 		* the document will be empty. If a root tag is specified, the document
@@ -99,7 +99,7 @@
 			xmldoc.load(url); // Load and parse, for example: "http://www.xxx.com/sample.xml" or local file "addresses.xml"
 			return xmldoc; // Return the document
 		};
-		// onload() above is different from XMLHttpRequest in several ways:
+		// xmldoc.load(url) above is different from XMLHttpRequest in several ways:
 		/*
 			First, it works only with XML documents; XMLHttpRequest can be used to download any kind of text document.
 
@@ -132,10 +132,10 @@
 			xmldoc.load(url); // Don't set xmldoc.async will cause xmldoc.async = true; by default which means async call by default.
 		};
 
-		// Parsing XML Text
-		// Sometimes, instead of parsing an XML document loaded from the network, you simply want to parse an XML document from a JavaScript string.
-		// Example 21-4. Parsing an XML document
-		/**
+		// 2. Parsing XML Text
+        /**
+        * Sometimes, instead of parsing an XML document loaded from the network, you simply want to parse an XML document from a JavaScript string.
+		* Example 21-4. Parsing an XML document
 		* Parse the XML document contained in the string argument and return
 		* a Document object that represents it.
 		*/
@@ -162,7 +162,7 @@
 			}
 		};
 
-		// XML Documents from Data Islands
+		// 3. XML Documents from Data Islands
 		// This is a IE feature, ignore here for now, if you are interested in this, see pdf page 598.
 
 
@@ -203,7 +203,7 @@
 
 		// 21.5 Serializing XML
 		// Two reasons to serialize XML document.
-		// 1. converting it to string to send an XML document as the body of an HTTP POST request generated with the XMLHttpRequest object.
+		// 1. converting it(XML Document Object) to string to send an XML document as the body of an HTTP POST request generated with the XMLHttpRequest object.
 		// 2. serialize XML documents and elements is for use in debugging messages.
 
 		// Example 21-11. Serializing XML

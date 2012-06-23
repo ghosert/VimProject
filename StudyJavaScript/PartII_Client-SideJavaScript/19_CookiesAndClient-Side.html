@@ -38,7 +38,7 @@
 
 		// An Overview of Cookies
 
-		// expires & max-age cookie attribute
+		// 1. EXPIRES & MAX-AGE COOKIE ATTRIBUTE
 		// Cookies are transient by default; the values they store last for the duration of the webbrowser session
 		// but are lost when the user exits the browser. If you want a cookie to last beyond a single browsing session,
 		// you must tell the browser how long you would like it to retain the cookie.
@@ -46,7 +46,7 @@
 		// Setting either of these attributes causes the browser to save the cookie in a local file.
 		// Once the expiration date has passed / the max-age lifetime has been exceeded, the browser automatically deletes the cookie from cookie file.
 
-		// path cookie attribute
+		// 2. PATH COOKIE ATTRIBUTE
 		// PATH cookie attribute specifies the web pages with which a cookie is associated.
 		// If the web page http://www.example.com/catalog/index.html creates a cookie, for example, that cookie is also visible to
 		// http://www.example.com/catalog/order.html and http://www.example.com/catalog/widgets/index.html, but it is not visible to
@@ -56,19 +56,19 @@
 		// set to "/catalog", that cookie is also visible to http://www.example.com/catalog/order.html. Or, if the path
 		// is set to "/", the cookie is visible to any page on the www.example.com web server.
 
-		// domain cookie attribute
+		// 3. DOMAIN COOKIE ATTRIBUTE
 		/*
 			By default, cookies are accessible only to pages on the same web server from which they were set. Large
 			web sites may want cookies to be shared across multiple web servers, however. For example, the server
 			at order.example.com may need to read cookie values set from catalog.example.com. This is where the
-			next cookie attribute, domain, comes in. If a cookie created by a page on catalog.example.com sets its
-			path attribute to "/" and its domain attribute to ".example.com", that cookie is available to all web pages
-			on catalog.example.com, orders.example.com, and any other server in the example.com domain. If the
+			next cookie attribute, domain, comes in. IF A COOKIE CREATED BY A PAGE ON CATALOG.EXAMPLE.COM SETS ITS
+			PATH ATTRIBUTE TO "/" AND ITS DOMAIN ATTRIBUTE TO ".EXAMPLE.COM", THAT COOKIE IS AVAILABLE TO ALL WEB PAGEs
+			ON CATALOG.EXAMPLE.COM, ORDERS.EXAMPLE.COM, AND ANY OTHER SERVER IN THE EXAMPLE.COM DOMAIN. If the
 			domain attribute is not set for a cookie, the default is the hostname of the web server that serves the
 			page. Note that you cannot set the domain of a cookie to a domain other than the domain of your server.
 		*/
 
-		// secure cookie attribute
+		// 4. SECURE COOKIE ATTRIBUTE
 		/*
 			The final cookie attribute is a boolean attribute named secure that specifies how cookie values are
 			transmitted over the network. By default, cookies are insecure, which means that they are transmitted

@@ -131,5 +131,5 @@ XML.Transformer.prototype.transform = function(node, element) {
 XML.transform = function(xmldoc, stylesheet, element) {
 	var transformer = new XML.Transformer(stylesheet);
 	transformer.transform(xmldoc, element);
-}
+};
 
