@@ -46,9 +46,9 @@
 	input {color: green;}
 	input#sex {color: red;}
 
-	/* For instance, if you were to give the body element a text color of black, all the descendants of the body element would
-	also have black text. The same would be true of font sizes.
-	Compared with p, div, h1, h2, h3, ul, ol, dl, li {color: black;}, you can just write down the clause below:
+	/* For instance, if you were to give the body element a text color of red, all the descendants of the body element would
+	also have red text. The same would be true of font sizes.
+	Compared with p, div, h1, h2, h3, ul, ol, dl, li {color: red;}, you can just write down the clause below:
 	*/
 	body {color: #CC0000;}
 
