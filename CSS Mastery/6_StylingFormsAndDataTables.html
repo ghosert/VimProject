@@ -62,7 +62,7 @@ Otherwise, css will fail to work. Means, only 0 value can ignore the unit.
 				font-weight: bold;
 			}
 			label { /* Set display: block; to make sure the input element will vertically beneath the label. */
-				display: block;
+				display: block; /* jiawzhang: KEY POINT to make sure inline elements behaviour like block elements. */
 			}
 			input {
 				width: 200px;
@@ -75,7 +75,7 @@ Otherwise, css will fail to work. Means, only 0 value can ignore the unit.
 				width: auto;
 			}
 			input.radio { /* Make sure the radio element on the same level as their labels. */
-				float: left;
+				float: left; /* jiawzhang: KEY POINT to make sure two block element on the same level. */
 				margin-right: 1em;
 			}
 			input:focus, textarea:focus {
@@ -93,7 +93,7 @@ Otherwise, css will fail to work. Means, only 0 value can ignore the unit.
 			}
 			.horizontalLabel {
 				/* Use this technology rather than display block; above to horizontal elements nicely to save space. */
-				float: left;
+				float: left; /* jiawzhang: KEY POINT to make sure two block element on the same level. */
 				width: 10em;
 			}
 			#monthOfBirthLabel, #yearOfBirthLabel {
@@ -114,7 +114,7 @@ Otherwise, css will fail to work. Means, only 0 value can ignore the unit.
 			#favoriteColor label {
 				width: 3em;
 				float: none;
-				display: inline;
+				display: inline; /* jiawzhang: KEY POINT to make sure two block elements on the same level. */
 			}
 			fieldset#favoriteColor {
 				margin: 0;
@@ -130,7 +130,7 @@ Otherwise, css will fail to work. Means, only 0 value can ignore the unit.
 			}
 			#favoriteColor div {
 				width: 8em;
-				float: left;
+				float: left; /* jiawzhang: KEY POINT to make sure two block element on the same level. */
 			}
 			.clear {
 				clear: both;
