@@ -35,7 +35,7 @@ Otherwise, css will fail to work. Means, only 0 value can ignore the unit.
 				background: #94B8E9 url(images/pixy-rollover.gif) no-repeat left bottom;
 				text-indent: 50px; /* 50-pixel indent so that it is not sitting directly over the arrow in the background image.*/
 			}
-			ul#style2 li.first a {
+			ul#style2 li.first a { /* Make sure the height of the first li is 40px, which will take the both top and bottom line of the backgroud image, and other li(s) are 39px, left bottom background, which will take the bottom line of the background image only. */
 				height: 40px;
 				line-height: 40px;
 			}
