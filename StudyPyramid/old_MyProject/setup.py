@@ -1,4 +1,5 @@
 import os
+import sys
 
 from setuptools import setup, find_packages
 
@@ -10,11 +11,16 @@ requires = [
     'pyramid',
     'SQLAlchemy',
     'transaction',
-    'pyramid_tm',
-    'pyramid_debugtoolbar',
+    'repoze.tm2>=1.0b1', # default_commit_veto
     'zope.sqlalchemy',
-    'waitress',
+    'WebError',
+    # jiawzhang: add a new docutils package for our app.
+    # After adding this new dependency, enter virtual env, re-run 'python setup.py develop' in MyProject path to download and install the dependency.
+    'docutils',
     ]
+
+if sys.version_info[:3] < (2,5,0):
+    requires.append('pysqlite')
 
 setup(name='MyProject',
       version='0.0',
@@ -34,12 +40,11 @@ setup(name='MyProject',
       include_package_data=True,
       zip_safe=False,
       test_suite='myproject',
-      install_requires=requires,
-      entry_points="""\
+      install_requires = requires,
+      entry_points = """\
       [paste.app_factory]
       main = myproject:main
-      [console_scripts]
-      initialize_MyProject_db = myproject.scripts.initializedb:main
       """,
+      paster_plugins=['pyramid'],
       )
 

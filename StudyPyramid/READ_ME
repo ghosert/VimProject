@@ -7,7 +7,7 @@ You can search "grep jiawzhang * -r" in ~/VimProject/StudyPyramid/MyProject/mypr
 Try on the live site for tutorial when developing:
 1. source ~/devenv/bin/activate
 2. cd ~/VimProject/StudyPyramid/MyProject
-3. paster serve development.ini --reload
+3. pserve development.ini --reload
 4. visit http://localhost:6543/
 5. Edit the page to add some words like "\b([A-Z]\w+[A-Z]+\w+)", for example: "SomePage".
 6. Input "viewer"/"viewer" or "editor"/"editor" as username/password if it ask login. "editor" is granted "edit" permission.
@@ -22,7 +22,7 @@ Try on the live site for tutorial on PRODUCTION:
 3. visit http://localhost/python
    This support the "Virtual Hosting"(search below) "/python" feature.
 
-log file is defined in production.ini development.ini and it's located in /var/log/pyramid/server.log [But this seems working for 'paster serve development.ini --reload' only ?]
+log file is defined in production.ini development.ini and it's located in /var/log/pyramid/server.log [jiawzhang TODO: But this seems working for 'pserve development.ini --reload' only ?]
 [END: SQLAlchemy + URL Dispatch Wiki Tutorial]
 
 
@@ -36,7 +36,7 @@ http://docs.pylonsproject.org/docs/pyramid.html
 
 Including: Getting Started, Main Documentation (like Narrative documentation), Pyramid Add-On Documentation (like pyramid_beaker for Beaker session, pyramid_rpc for remote procedure call)
 
-2. For logging portion
+2. For logging portion [jiawzhang TODO: remove this portion.]
 
 http://pylonsbook.com/en/1.1/logging.html
 
@@ -47,7 +47,7 @@ http://pylonsbook.com/en/1.1/logging.html
 
 [BEGIN: Narrative documentation]
 
-This document is mainly from official site of pyramid: http://docs.pylonsproject.org/projects/pyramid/1.0/index.html, check it out if you can find answer below.
+This document is mainly from official site of pyramid: http://docs.pylonsproject.org/projects/pyramid/en/1.3-branch/, check it out if you can find answer below.
 
 First Pyramid Application:
 1. start it:
@@ -56,8 +56,8 @@ First Pyramid Application:
 	source ~/devenv/bin/activate && python helloworld.py
 2. visit it:
 	http://localhost:8080/
-	http://localhost:8080/goodbye
-	http://localhost:8080/hello
+	http://localhost:8080/goodbye/
+	http://localhost:8080/hello/
 
 Creating a Pyramid Project:
 
@@ -65,7 +65,9 @@ Creating a Pyramid Project:
 	source ~/devenv/bin/activate
 
 # Create new project
-	paster create -t pyramid_routesalchemy MyProject
+	'pcreate -s starter MyProject' (URL dispatch without persistence mechanism)
+	Or
+	'pcreate -s alchemy MyProject' (URL dispatch with persistence via SQLAlchemy)
 
 # Make sure from now on your working directory is your project folder: MyProject
 	cd MyProject
@@ -82,15 +84,19 @@ Creating a Pyramid Project:
 
 	This will do the same thing as "python setup.py test -q" but with additional "coverage" information.
 
+# Initializing the Database
+
+	$ ../bin/initialize_MyProject_db development.ini
+
 # Interactive shell, "MyProject" here is the value of section name "app" in development.ini file, see more about pshell in pyramid docs.
-	paster pshell development.ini MyProject
+	pshell development.ini MyProject
 
 # Running the project application
-	paster serve development.ini
+	pserve development.ini
 	OR for development phase:
-	paster serve development.ini --reload
+	pserve development.ini --reload
 	OR for production phase:
-	paster serve production.ini
+	pserve production.ini
 
 # tar your application:
 	python setup.py sdist

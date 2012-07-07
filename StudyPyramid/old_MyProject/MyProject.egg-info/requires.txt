@@ -1,7 +1,7 @@
 pyramid
 SQLAlchemy
 transaction
-pyramid_tm
-pyramid_debugtoolbar
+repoze.tm2>=1.0b1
 zope.sqlalchemy
-waitress
+WebError
+docutils
