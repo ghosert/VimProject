@@ -1,6 +1,6 @@
 [BEGIN: SQLAlchemy + URL Dispatch Wiki Tutorial]
 
-The content is practised in ~/VimProject/StudyPyramid/MyProject, the original url is: http://docs.pylonsproject.org/projects/pyramid/1.0/tutorials/wiki2/index.html
+The content is practised in ~/VimProject/StudyPyramid/MyProject, the original url is: http://docs.pylonsproject.org/projects/pyramid/en/1.3-branch/tutorials/wiki2/index.html
 
 You can search "grep jiawzhang * -r" in ~/VimProject/StudyPyramid/MyProject/myproject to see the changes.
 
@@ -14,7 +14,7 @@ Try on the live site for tutorial when developing:
 7. "python setup.py test -q" OR "nosetests --cover-package=myproject --cover-erase --with-coverage" to run test case in ~/xxx/MyProject folder.
 8. Distributing your application: "python setup.py sdist" this will generate a tarball which can be installed by pointing the "easy_install" command directly at it.
 
-Try on the live site for tutorial on PRODUCTION:
+Try on the live site for tutorial on PRODUCTION: [jiawzhang TODO: try this step later.]
 1. sudo nginx
    To work nginx together with uwsgi. Check out "/usr/local/nginx/conf/nginx.conf" or "~/ProductProject/env-conf/nginx.conf"
 2. sudo uwsgi -x ~/VimProject/StudyPyramid/MyProject/myproject_uwsgi.xml [or you can append -d /var/log/uwsgi.log]
@@ -103,18 +103,14 @@ Creating a Pyramid Project:
 	This will tar a .tar.gz file for your application, and make sure all the non-python file types are in your MANIFEST.in file, otherwise, the tar will miss these unspecified file types.
 
 # Modifying Package Structure:
-	You can create a new package for example "blog" under "myproject" folder and "cp views.py blog/views.py", and change the "myproject/__init__.py"
-	from:
-	config.add_view('myproject.views.my_view', renderer='myproject:templates/mytemplate.pt')
-	to:
-	config.add_view('myproject.views.blog.my_view', renderer='myproject:templates/mytemplate.pt')
+	You can create a new package for example "views" under "myproject" folder and "mv views.py views/blog.py", and create "myproject/views/__init__.py"
 
 # myproject/__init__.py:main function:
 	def main(global_config, **settings=settings):
-		config = Configurator(root_factory = Root, settings = settings)
+		config = Configurator(settings = settings)
 		// blablabla
 	if you have a "[DEFAULT]" section in development.ini, "global_config" here stores all the key/values pairs in "[DEFAULT]" section.
-	"settings" here stores all the key/values pairs in "[app.MyProject]" section in development except one: "use = egg:MyProject"
+	"settings" here stores all the key/values pairs in "[app.main]" section in development except one: "use = egg:MyProject"
 	 you can put anything you want here into "settings" and access it later from "view callable" by invoking request.registry.setting dictionary at application runtime.
 
 
