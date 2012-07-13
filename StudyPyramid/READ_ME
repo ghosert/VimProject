@@ -154,8 +154,7 @@ URL dispatch:
 	foo/{baz}/{bar}{fizzle:.*}
 	foo/1/2/           -> {'baz':u'1', 'bar':u'2', 'fizzle':u''}
 	foo/abc/def/a/b/c  -> {'baz':u'abc', 'bar':u'def', 'fizzle': u'a/b/c')}
-	This occurs because the default regular expression for a marker is [^/]+ which will match everything up to the first /, while {fizzle:.*} will result in a regular expression match of .* capturing the
-remainder into a single value.
+	This occurs because the default regular expression for a marker is [^/]+ which will match everything up to the first /, while {fizzle:.*} will result in a regular expression match of .* capturing the remainder into a single value.
 
 # Route Declaration Ordering:
 	memebers/{def}
@@ -213,29 +212,77 @@ remainder into a single value.
 
 # Generating Route URLs
 
-	If you’ve configured a route with the name “foo” and the pattern “{a}/{b}/{c}”, you might do this.
+	If you’ve configured a route with the name “foo” and the pattern “{a}/{b}/{c}”, you might do this, for example: config.add_route('foo', '{a}/{b}/{c}')
 
-	1 from pyramid.url import route_url
-	2 url = route_url('foo', request, a='1', b='2', c='3')
+	1 pyramid.request.Request.route_url()
+	  url = request.route_url('foo', a='1', b='2', c='3')
+	  This would return the string http://example.com/1/2/3 (at least if the current protocol and hostname implied http:/example.com).
+	2 pyramid.request.Request.route_path()
+	  url = request.route_path('foo', a='1', b='2', c='3')
+	  This would return the string /1/2/3 rather than a full URL.
+	3 More examples
+	  config.add_route('abc', 'a/b/c/*foo')
+	  url = request.route_path('abc', foo=u'Québec/biz')
+	  or
+	  url = request.route_path('abc', foo=(u'Québec', u'biz'))
+	  will both return '/a/b/c/Qu%C3%A9bec/biz'
 
-	This would return something like the string http://example.com/1/2/3 (at least if the current protocol and hostname implied http:/example.com).
+	4 Static Routes
+	config = Configurator()
+	config.add_route('page', '/page/{action}', static=True)
+	With the static=True, the route 'page' will be used to the purpose on generating URL only, not for matching.
 
 # Redirecting to Slash-Appended Routes
-	config.add_route('hasslash', 'has_slash/', view='myproject.views.has_slash')
-	config.add_view(context='pyramid.exceptions.NotFound', view='pyramid.view.append_slash_notfound_view')
 
-	This will make sure the url path like "/has_slash" to be redirect to "/has_slash/"
+	##############################################################
+	from pyramid.httpexceptions import HTTPNotFound
+	from pyramid.view import notfound_view_config, view_config
 
-	If still, when it can't redirect to a slash-appended url, it will go to 404 not found page. In this case, if you want to custom not found view when it can't redirect to a slash-appended url, do this:
+	@notfound_view_config(append_slash=True)
+	def notfound(request):
+		return HTTPNotFound('Not found, bro.')
 
-	from pyramid.exceptions import NotFound
-	from pyramid.view import AppendSlashNotFoundViewFactory
+	@view_config(route_name='noslash')
+	def no_slash(request):
+		return Response('No slash')
 
-	def notfound_view(context, request):
-		return HTTPNotFound('It aint there, stop trying!')
+	@view_config(route_name='hasslash')
+	def has_slash(request):
+		return Response('Has slash')
 
-	custom_append_slash = AppendSlashNotFoundViewFactory(notfound_view)
-	config.add_view(custom_append_slash, context=NotFound)
+	def main(g, **settings):
+		config = Configurator()
+		config.add_route('noslash', 'no_slash')
+		config.add_route('hasslash', 'has_slash/')
+		config.scan()
+	##############################################################
+
+	This will make sure the url path like "/has_slash" to be redirect to "/has_slash/", however "/noslash/" will still go to "Not found, bro." page. And it is same to below code snippet:
+
+	##############################################################
+	from pyramid.httpexceptions import HTTPNotFound
+
+	def notfound(request):
+		return HTTPNotFound('Not found, bro.')
+
+	def no_slash(request):
+		return Response('No slash')
+
+	def has_slash(request):
+		return Response('Has slash')
+
+	def main(g, **settings):
+		config = Configurator()
+		config.add_route('noslash', 'no_slash')
+		config.add_route('hasslash', 'has_slash/')
+		config.add_view(no_slash, route_name='noslash')
+		config.add_view(has_slash, route_name='hasslash')
+		config.add_notfound_view(notfound, append_slash=True)
+	##############################################################
+
+# Using a Route Prefix to Compose Applications
+
+	jiawzhang TODO here.
 
 # Cleaning Up After a Request:
 	
