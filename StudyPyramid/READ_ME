@@ -282,7 +282,36 @@ URL dispatch:
 
 # Using a Route Prefix to Compose Applications
 
-	jiawzhang TODO here.
+	##############################################################
+	from pyramid.config import Configurator
+
+	def users_include(config):
+		config.add_route('show_users', '/show')
+
+	def main(global_config, **settings):
+		config = Configurator()
+		config.include(users_include, route_prefix='/users')
+	##############################################################
+	
+	In the above configuration, the show_users route will have an effective route pattern of /users/show, instead of /show because the route_prefix argument will be prepended to the pattern.
+
+	Route prefixes are recursive, so if a callable executed via an include itself turns around and includes another callable, the second-level route prefix will be prepended with the first:
+	##############################################################
+	from pyramid.config import Configurator
+
+	def timing_include(config):
+		config.add_route('show_times', /times')
+
+	def users_include(config):
+		config.add_route('show_users', '/show')
+		config.include(timing_include, route_prefix='/timing')
+
+	def main(global_config, **settings):
+		config = Configurator()
+		config.include(users_include, route_prefix='/users')
+	##############################################################
+
+	In the above configuration, the show_users route will still have an effective route pattern of /users/show. The show_times route however, will have an effective pattern of /users/timing/times.
 
 # Cleaning Up After a Request:
 	
