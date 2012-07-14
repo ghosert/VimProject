@@ -161,30 +161,9 @@ URL dispatch:
 	memebers/abc
 	The "memebers/abc" will never be matched, since the ordering will always match the members/{def} first.
 
-# Custom Route Predicates
-
-	info['match'] is useful when predicates need access to the route match. For example:
-
-	def any_of(segment_name, *allowed):
-	    def predicate(info, request):
-	        if info['match'][segment_name] in allowed:
-	            return True
-	    return predicate
-	num_one_two_or_three = any_of('num', 'one', 'two', 'three')
-	config.add_route('num', '/{num}', custom_predicates=(num_one_two_or_three,))
-	
-	This will ensure the "num" segment here is one of the values one, two or three.
-
-	info['route'] is an object has two useful attributes: name and pattern
-	1  def twenty_ten(info, request):
-	2      if info['route'].name in ('ymd', 'ym', 'y'):
-	3          return info['match']['year'] == '2010'
-	4
-	5  config.add_route('y', '/{year}', custom_predicates=(twenty_ten,))
-	6  config.add_route('ym', '/{year}/{month}', custom_predicates=(twenty_ten,))
-	7  config.add_route('ymd', '/{year}/{month}/{day}',
-	8                   custom_predicates=(twenty_ten,))
-	The above predicate, when added to a number of route configurations ensures that the year match argument is ‘2010’ if and only if the route name is ‘ymd’, ‘ym’, or ‘y’.
+# The Matchdict
+	request.matchdict will contain the values that match replacement patterns in the pattern element. The keys in a matchdict will be strings. The values will be Unicode objects.
+	If no route URL pattern matches, the matchdict object attached to the request will be None.
 
 # The Matched Route
 	The matched route is availabe as "request.matched_route", the useful attribute of this object is the "name" attribute, if no route url pattern matches, request.matched_route is None.
@@ -227,7 +206,7 @@ URL dispatch:
 	  url = request.route_path('abc', foo=(u'Québec', u'biz'))
 	  will both return '/a/b/c/Qu%C3%A9bec/biz'
 
-	4 Static Routes
+# Static Routes
 	config = Configurator()
 	config.add_route('page', '/page/{action}', static=True)
 	With the static=True, the route 'page' will be used to the purpose on generating URL only, not for matching.
@@ -280,6 +259,9 @@ URL dispatch:
 		config.add_notfound_view(notfound, append_slash=True)
 	##############################################################
 
+# Debugging Route Matching
+	jiawzhang@home-pc:~$ PYRAMID_DEBUG_ROUTEMATCH=true bin/pserve development.ini
+
 # Using a Route Prefix to Compose Applications
 
 	##############################################################
@@ -313,23 +295,30 @@ URL dispatch:
 
 	In the above configuration, the show_users route will still have an effective route pattern of /users/show. The show_times route however, will have an effective pattern of /users/timing/times.
 
-# Cleaning Up After a Request:
+# Custom Route Predicates
+
+	info['match'] is useful when predicates need access to the route match. For example:
+
+	def any_of(segment_name, *allowed):
+	    def predicate(info, request):
+	        if info['match'][segment_name] in allowed:
+	            return True
+	    return predicate
+	num_one_two_or_three = any_of('num', 'one', 'two', 'three')
+	config.add_route('num', '/{num}', custom_predicates=(num_one_two_or_three,))
 	
-	In mypackage.__init__ module:
+	This will ensure the "num" segment here is one of the values one, two or three.
 
-	from mypackage.models import DBSession
-
-	from pyramid.events import subscriber
-	from pyramid.events import NewRequest
-
-	def cleanup_callback(request):
-		DBSession.remove()
-
-	@subscriber(NewRequest)
-	def add_cleanup_callback(event):
-		event.request.add_finished_callback(cleanup_callback)
-
-	And make sure pyramid.config.Configurator.scan() is called since we have @subscriber here.
+	info['route'] is an object has two useful attributes: name and pattern
+	1  def twenty_ten(info, request):
+	2      if info['route'].name in ('ymd', 'ym', 'y'):
+	3          return info['match']['year'] == '2010'
+	4
+	5  config.add_route('y', '/{year}', custom_predicates=(twenty_ten,))
+	6  config.add_route('ym', '/{year}/{month}', custom_predicates=(twenty_ten,))
+	7  config.add_route('ymd', '/{year}/{month}/{day}',
+	8                   custom_predicates=(twenty_ten,))
+	The above predicate, when added to a number of route configurations ensures that the year match argument is ‘2010’ if and only if the route name is ‘ymd’, ‘ym’, or ‘y’.
 
 # Using Pyramid Security With URL Dispatch
 	allow the editor the view permission:
@@ -339,24 +328,6 @@ URL dispatch:
 		   article = matchdict.get('article', None)
 		   if article == '1':
 			   self.__acl__ = [ (Allow, 'editor', 'view') ]
-
-# Debugging Route Matching
-	jiawzhang@home-pc:~$ PYRAMID_DEBUG_ROUTEMATCH=true paster server development.ini
-
-# Displaying All Application Routes
-	jiawzhang@home-pc:~$ paster proutes development.ini MyProject
-
-
-Much Ado About Traversal
-
-	It introduce the concepts on "Traversal", "Resource", "View Lookup" and "Use Cases" for Traversal, read it will be helpful for knowing general concept purpose.
-	Check out: http://docs.pylonsproject.org/projects/pyramid/1.0/narr/muchadoabouttraversal.html
-
-
-Traversal
-
-    Skipped.
-	Check it out: http://docs.pylonsproject.org/projects/pyramid/1.0/narr/traversal.html
 
 
 Views
@@ -399,28 +370,41 @@ Views
 	headerlist: A sequence of tuples representing the list of headers that should be set in the response. E.g. [('Content-Type', 'text/html'), ('Content-Length', '412')]
 	app_iter: An iterable representing the body of the response. This can be a list, e.g. ['<html><head></head><body>Hello world!</body></html>'] or it can be a file-like object, or any other sort of iterable.
 
-# Using a View Callable to Do an HTTP Redirect
-
-	You can issue an HTTP redirect from within a view by returning a particular kind of response.
-
-	1 from pyramid.httpexceptions import HTTPFound
-	2
-	3 def myview(request):
-	4     return HTTPFound(location='http://example.com')
-
-	All exception types from the pyramid.httpexceptions module implement the Response interface; any can be returned as the response from a view.
-	It also includes other response types that imply other HTTP response codes, such as HTTPUnauthorized for 401 Unauthorized.
-					
 # Using Special Exceptions In View Callables
 
-	Usually when a Python exception is raised within a view callable, Except pyramid.exceptions.NotFound and pyramid.exceptions.Forbidden,
-	Pyramid allows all the other exception to propagate all the way out to the WSGI server which invoked the application.
-	The two special exceptions accept a single positional constructor argument: a message.
-	If NotFound is raised within view code, the result of the Not Found View will be returned to the user agent which performed the request.
-	If Forbidden is raised within view code, the result of the Forbidden View will be returned to the user agent which performed the request.
-	In all cases, the message provided to the exception constructor is made available to the view which Pyramid invokes as request.exception.args[0].
+	HTTP Exceptions
 
-# Exception Views
+		The pyramid.httpexceptions.HTTPUnauthorized exception can be raised. This will cause a response to be generated with a 401 Unauthorized status:
+
+		1 from pyramid.httpexceptions import HTTPUnauthorized
+		2
+		3 def aview(request):
+		4	 raise HTTPUnauthorized()
+
+		An HTTP exception, instead of being raised, can alternately be returned (HTTP exceptions are also valid response objects):
+
+		1 from pyramid.httpexceptions import HTTPUnauthorized
+		2
+		3 def aview(request):
+		4	return HTTPUnauthorized()
+		
+		Instead of importing and constructing a HTTPUnauthorized response object, you can use the exception_response() function to construct and return the same object.
+
+		1 from pyramid.httpexceptions import exception_response
+		2 
+		3 def aview(request):
+		4	raise exception_response(401)
+
+	How Pyramid Uses HTTP Exceptions
+
+		Usually when a Python exception is raised within a view callable, Except pyramid.exceptions.NotFound and pyramid.exceptions.Forbidden,
+		Pyramid allows all the other exception to propagate all the way out to the WSGI server which invoked the application.
+		The two special exceptions accept a single positional constructor argument: a message.
+		If NotFound is raised within view code, the result of the Not Found View will be returned to the user agent which performed the request.
+		If Forbidden is raised within view code, the result of the Forbidden View will be returned to the user agent which performed the request.
+		In all cases, the message provided to the exception constructor is made available to the view which Pyramid invokes as request.exception.args[0].
+
+# Custom Exception Views
 
 	For example, given the following exception class in a module named helloworld.exceptions:
 
@@ -443,6 +427,19 @@ Views
 	Other normal view predicates can also be used in combination with an exception view registration:
 
 	1 from pyramid.view import view_config
+	2 from helloworld.exceptions import ValidationFailure
+	3
+	4 @view_config(context=ValidationFailure, route_name='home')
+	5 def failed_validation(exc, request):
+	6	response =  Response('Failed validation: %s' % exc.msg)
+	7	response.status_int = 500
+	8	return response
+
+	The above exception view names the route_name of home, meaning that it will only be called when the route matched has a name of home.
+	
+	Normal (i.e., non-exception) views registered against a context resource type which inherits from Exception will work normally. 
+
+	1 from pyramid.view import view_config
 	2 from pyramid.exceptions import NotFound
 	3 from pyramid.httpexceptions import HTTPNotFound
 	4
@@ -450,8 +447,19 @@ Views
 	6 def notfound_view(request):
 	7     return HTTPNotFound()
 
-	The above exception view names the route_name of home, meaning that it will only be called when the route matched has a name of home.
+# Using a View Callable to Do an HTTP Redirect
 
+	You can issue an HTTP redirect from within a view by returning a particular kind of response.
+
+	1 from pyramid.httpexceptions import HTTPFound
+	2
+	3 def myview(request):
+	4     return HTTPFound(location='http://example.com')
+	4	  raise HTTPFound(location='http://example.com') # this is correct either.
+
+	All exception types from the pyramid.httpexceptions module implement the Response interface; any can be returned as the response from a view.
+	It also includes other response types that imply other HTTP response codes, such as HTTPUnauthorized for 401 Unauthorized.
+					
 # Handling Form Submissions in View Callables (Unicode and Character Set Issues)
 
 	As an example, let’s assume that the following form page is served up to a browser client, and its action points at some Pyramid view code:
@@ -499,35 +507,76 @@ Renderers
 
 	1 config.add_view('myproject.views.my_view', renderer='json')
 
-	Returning "response" will overwrite specifying renderer.
+	Returning Response object directly will overwrite specifying renderer.
 	For example, if your view callable returns an instance of the pyramid.httpexceptions.HTTPFound class as a response, no renderer will be employed.
 
+	1 from pyramid.response import Response
+	2 from pyramid.view import view_config
+	3
+	4 @view_config(renderer='json')
+	5 def view(request):
+	6     return Response('OK') # json renderer avoided, because Reponse is returned here.
+
+	Likewise for an HTTP exception response:
+
 	1 from pyramid.httpexceptions import HTTPFound
-	2
-	3 def view(request):
-	4     return HTTPFound(location='http://example.com') # any renderer avoided, a http redirect instead.
+	2 from pyramid.view import view_config
+	3
+	4 @view_config(renderer='json')
+	5 def view(request):
+	6     return HTTPFound(location='http://example.com') # json renderer avoided
+
+	You can of course also return the request.response attribute instead to avoid rendering:
+
+	6     request.response.body = 'OK'
+    7     return request.response # json renderer avoided
+
 
 # Built-In Renderers
 	1. string:String Render
 
-	@view_config(renderer='string')
-	def hello_world(request):
-		return {'content':'Hello!'}
+		@view_config(renderer='string')
+		def hello_world(request):
+			return {'content':'Hello!'}
 
 	2. json:JSON Render
 
-	@view_config(renderer='json')
-	def hello_world(request):
-		return {'content':'Hello!'}
-	
-	OR
+		@view_config(renderer='json')
+		def hello_world(request):
+			return {'content':'Hello!'}
+		
+		OR use the JSON renderer by using config.add_view():
 
-	config.add_view('myproject.views.hello_world', name='hello', context='myproject.resources.Hello', renderer='json')
-	
-	@view_config and config.add_view() are actually same thing.
+		config.add_view('myproject.views.hello_world', name='hello', context='myproject.resources.Hello', renderer='json')
+		
+		@view_config and config.add_view() are actually same thing.
 
-	
-	3. *.pt or *.txt: Chameleon Template Renders
+	3. JSONP Render
+
+		1 from pyramid.config import Configurator
+		2
+		3 config = Configurator()
+		4 config.add_renderer('jsonp', JSONP(param_name='callback'))
+
+		1 from pyramid.view import view_config
+		2
+		3 @view_config(renderer='jsonp')
+		4 def myview(request):
+		5     return {'greeting':'Hello world'}
+
+		When a view is called that uses a JSONP renderer:
+		If there is a parameter in the request’s HTTP query string (aka request.GET) that matches the param_name of the registered JSONP renderer (by default, callback), the renderer will return a JSONP response.
+		If there is no callback parameter in the request’s query string, the renderer will return a ‘plain’ JSON response.
+
+		For example (Javascript):
+		var api_url = 'http://api.geonames.org/timezoneJSON' +
+					  '?lat=38.301733840000004' +
+					  '&lng=-77.45869621' +
+					  '&username=fred' +
+					  '&callback=?';
+		jqhxr = $.getJSON(api_url);
+
+	4. *.pt or *.txt: Chameleon Template Renders
 
 	1) relative path is different from Mako, which means relative to the path which defines the view callable. 
 	config.add_view('myproject.views.hello_world', name='hello', context='myproject.resources.Hello', renderer='templates/foo.pt')
@@ -536,9 +585,11 @@ Renderers
 	config.add_view('myproject.views.hello_world', name='hello', context='myproject.resources.Hello', renderer='myproject:templates/foo.pt')
 	config.add_view('myproject.views.hello_world', name='hello', context='myproject.resources.Hello', renderer='myproject:templates/foo.txt')
 
-	4. *.mak or *.mako: Mako Template Render
+	5. *.mak or *.mako: Mako Template Render
+	
+	The Mako template renderer renders views using a Mako template. When used, the view must return a Response object or a Python dictionary. 
 
-	1) relative path(The relative 'foo.mako' below is not relative to the package, but is relative to the directory configured for Mako via the mako.directories configuration file setting.):
+	1) relative path(The relative 'foo.mako' below is not relative to the package, but is relative to the directory configured for Mako via the mako.directories configuration file setting, for example, mako.directories = mypackage:templates):
 	config.add_view('myproject.views.hello_world', name='hello', context='myproject.resources.Hello', renderer='foo.mako')
 
 	2) asset specification(e.g. apackage:templates/sometemplate.mak):
@@ -549,20 +600,29 @@ Renderers
 	View callables that don’t directly return a response should set these attributes on the request object via setattr during their execution, to influence associated response attributes.
 	If return a response directly, you can set attributes on Response object I think, see later.
 
-	response_content_type: Defines the content-type of the resulting response, e.g. text/xml.
-	response_headerlist: A sequence of tuples describing cookie values that should be set in the response, e.g. [('Set-Cookie', 'abc=123'), ('X-My-Header', 'foo')].
-	response_status: A WSGI-style status code (e.g. 200 OK) describing the status of the response.
-	response_charset: The character set (e.g. UTF-8) of the response.
-	response_cache_for: A value in seconds which will influence Cache-Control and Expires headers in the returned response. The same can also be achieved by returning various values in the response_headerlist, this is purely a convenience. 
-
 	For example:
 
 	from pyramid.view import view_config
 
 	@view_config(name='gone', renderer='templates/gone.pt')
 	def myview(request):
-		request.response_status = '404 Not Found'
+		request.response.status = '404 Not Found'
 		return {'URL':request.URL}
+	
+	The following example calls request.response.set_cookie, but this call will have no effect, because a different Response object is returned.
+
+	1 from pyramid.response import Response
+	2
+	3 def view(request):
+	4     request.response.set_cookie('abc', '123') # this has no effect
+	5     return Response('OK') # because we're returning a different response
+
+	If you mutate request.response and you’d like the mutations to have an effect, you must return request.response:
+
+	1 def view(request):
+	2     request.response.set_cookie('abc', '123')
+	3     return request.response
+
 
 # Adding and Changing Renderers
 	Check out: http://docs.pylonsproject.org/projects/pyramid/1.0/narr/renderers.html
@@ -598,7 +658,7 @@ Templates
 	9     return response
 
 	It's also doable to invoke your own 3rd party template Apis in view callable, since you can construct Response like above.
-	See more: http://docs.pylonsproject.org/projects/pyramid/1.0/narr/templates.html
+	See more: http://docs.pylonsproject.org/projects/pyramid/en/1.3-branch/narr/templates.html#templates-used-as-renderers-via-configuration
 
 	If you want to control more about response, do something like below:
 	7     response.content_type = 'text/plain'
@@ -652,8 +712,10 @@ Templates
 	 </html>
 
 # Automatically Reloading Templates
+	$ PYRAMID_RELOAD_TEMPLATES=1 bin/pserve myproject.ini
+	OR
 	[app:main]
-	use = egg:MyProject#app
+	use = egg:MyProject
 	reload_templates = true
 
 
@@ -819,6 +881,18 @@ View Configuration
 Resources
 	Skipped.
 	Check it out if necessary at http://docs.pylonsproject.org/projects/pyramid/1.0/narr/resources.html#resources-which-implement-interfaces
+
+
+Much Ado About Traversal
+
+	It introduce the concepts on "Traversal", "Resource", "View Lookup" and "Use Cases" for Traversal, read it will be helpful for knowing general concept purpose.
+	Check out: http://docs.pylonsproject.org/projects/pyramid/1.0/narr/muchadoabouttraversal.html
+
+
+Traversal
+
+    Skipped.
+	Check it out: http://docs.pylonsproject.org/projects/pyramid/1.0/narr/traversal.html
 
 
 Static Assets
