@@ -756,15 +756,14 @@ View Configuration
 	2 from pyramid.view import view_config
 	3 from pyramid.response import Response
 	4
-	5 @view_config(name='my_view', request_method='POST', context=MyResource,
-	6              permission='read')
-	7 def my_view(request):
-	8     return Response('OK')
+	5 @view_config(route_name='ok', request_method='POST', permission='read')
+	6 def my_view(request):
+	7     return Response('OK')
 
 	Using this decorator as above replaces the need to add this imperative configuration stanza:
 
-	1 config.add_view('.views.my_view', name='my_view', request_method='POST',
-	2                 context=MyResource, permission='read')
+	1 config.add_view('mypackage.views.my_view', route_name='ok',
+	2                 request_method='POST', permission='read')
 
 	All arguments to view_config may be omitted. For example:
 
@@ -791,7 +790,7 @@ View Configuration
 	1 from pyramid.view import view_config
 	2 from pyramid.response import Response
 	3
-	4 @view_config(name='edit')
+	4 @view_config(route_name='edit')
 	5 def edit(request):
 	6     return Response('edited!')
 
@@ -800,7 +799,7 @@ View Configuration
 	1 from pyramid.response import Response
 	2 from pyramid.view import view_config
     3
-	4 @view_config()
+	4 @view_config(route_name='hello')
 	5 class MyView(object):
     6     def __init__(self, request):
     7         self.request = request
@@ -813,8 +812,8 @@ View Configuration
 	from pyramid.view import view_config
 	from pyramid.response import Response
 
-	@view_config(name='edit')
-	@view_config(name='change')
+	@view_config(route_name='edit')
+	@view_config(route_name='change')
 	def edit(request):
 		    return Response('edited!')
 
@@ -829,7 +828,7 @@ View Configuration
 		 def __init__(self, request):
 			 self.request = request
 
-		 @view_config(name='hello')
+		 @view_config(route_name='hello')
 		 def amethod(self):
 			 return Response('hello')
 
@@ -839,7 +838,7 @@ View Configuration
 	from pyramid.response import Response
 	from pyramid.view import view_config
 
-	@view_config(attr='amethod', name='hello')
+	@view_config(attr='amethod', route_name='hello')
 	class MyView(object):
 	    def __init__(self, request):
             self.request = request
@@ -858,6 +857,129 @@ View Configuration
 	7 # pyramid.config.Configurator class
 	8 config.add_view(hello_world, route_name='hello')
 
+# @view_defaults Class Decorator
+
+	1) Instead of this:
+
+	from pyramid.view import view_config
+	from pyramid.response import Response
+
+	class RESTView(object):
+		def __init__(self, request):
+			self.request = request
+
+		@view_config(route_name='rest', request_method='GET')
+		def get(self):
+			return Response('get')
+
+		@view_config(route_name='rest', request_method='POST')
+		def post(self):
+			return Response('post')
+
+		@view_config(route_name='rest', request_method='DELETE')
+		def delete(self):
+			return Response('delete')
+
+	You can do this:
+
+	from pyramid.view import view_defaults
+	from pyramid.view import view_config
+	from pyramid.response import Response
+
+	@view_defaults(route_name='rest')
+	class RESTView(object):
+		def __init__(self, request):
+			self.request = request
+
+		@view_config(request_method='GET')
+		def get(self):
+			return Response('get')
+
+		@view_config(request_method='POST')
+		def post(self):
+			return Response('post')
+
+		@view_config(request_method='DELETE')
+		def delete(self):
+			return Response('delete')
+
+	2) Instead of this:
+
+	from pyramid.response import Response
+	from pyramid.config import Configurator
+
+	class RESTView(object):
+		def __init__(self, request):
+			self.request = request
+
+		def get(self):
+			return Response('get')
+
+		def post(self):
+			return Response('post')
+
+		def delete(self):
+			return Response('delete')
+
+	if __name__ == '__main__':
+		config = Configurator()
+		config.add_route('rest', '/rest')
+		config.add_view(
+			RESTView, route_name='rest', attr='get', request_method='GET')
+		config.add_view(
+			RESTView, route_name='rest', attr='post', request_method='POST')
+		config.add_view(
+			RESTView, route_name='rest', attr='delete', request_method='DELETE')
+
+	To reduce the amount of repetion in the config.add_view statements,
+	we can move the route_name='rest' argument to a @view_default class decorator on the RESTView class:
+
+	from pyramid.view import view_config
+	from pyramid.response import Response
+	from pyramid.config import Configurator
+
+	@view_defaults(route_name='rest')
+	class RESTView(object):
+		def __init__(self, request):
+			self.request = request
+
+		def get(self):
+			return Response('get')
+
+		def post(self):
+			return Response('post')
+
+		def delete(self):
+			return Response('delete')
+
+	if __name__ == '__main__':
+		config = Configurator()
+		config.add_route('rest', '/rest')
+		config.add_view(RESTView, attr='get', request_method='GET')
+		config.add_view(RESTView, attr='post', request_method='POST')
+		config.add_view(RESTView, attr='delete', request_method='DELETE')
+
+	Normal Python inheritance rules apply to defaults added via view_defaults. For example:
+
+	@view_defaults(route_name='rest')
+	class Foo(object):
+		pass
+
+	class Bar(Foo):
+		pass
+
+	The Bar class above will inherit its view defaults from the arguments passed to the view_defaults decorator of the Foo class.
+	To prevent this from happening, use a view_defaults decorator without any arguments on the subclass:
+
+	@view_defaults(route_name='rest')
+	class Foo(object):
+		pass
+
+	@view_defaults()
+	class Bar(Foo):
+		pass
+
+	The view_defaults decorator only works as a class decorator; using it against a function or a method will produce nonsensical results.
 
 # Using Resource Interfaces in View Configuration
 	I've skipped this portion, since it's traverse/resource/zope related.
@@ -867,8 +989,9 @@ View Configuration
 
 	1 # config is an instance of pyramid.config.Configurator
 	2
-	3 config.add_view('myproject.views.add_entry', name='add.html',
-	4                 context='myproject.resources.IBlog', permission='add')
+	3 config.add_route('add', '/add.html', factory='mypackage.Blog')
+	4 config.add_view('myproject.views.add_entry', route_name='add',
+					  permission='add')
 
 	When an authorization policy is enabled, this view will be protected with the add permission.
 	The view will not be called if the user does not possess the add permission relative to the current context.
@@ -877,24 +1000,25 @@ View Configuration
 
 # NotFound Errors:
 
-	Set debug_notfound = True in configuration .ini file will tell you why a view was not found from stderr, and browser representation of the error will include the same information.
+	Set use PYRAMID_DEBUG_NOTFOUND environment variable or debug_notfound = True in configuration .ini file will tell you why a view was not found from stderr, and browser representation of the error will include the same information.
 
+# Influencing HTTP Caching
 
-Resources
-	Skipped.
-	Check it out if necessary at http://docs.pylonsproject.org/projects/pyramid/1.0/narr/resources.html#resources-which-implement-interfaces
+	Pyramid will set Expires and Cache-Control response headers in the resulting response,
+	causing browsers to cache the response data from some time by using Non-Predicate argument: set http_cache as below
+	In some case, there is an alternate branch(if/else) you don't hope to cache response even if you set http_cache, you can use prevent_auto as below
 
+	from pyramid.view import view_config
 
-Much Ado About Traversal
-
-	It introduce the concepts on "Traversal", "Resource", "View Lookup" and "Use Cases" for Traversal, read it will be helpful for knowing general concept purpose.
-	Check out: http://docs.pylonsproject.org/projects/pyramid/1.0/narr/muchadoabouttraversal.html
-
-
-Traversal
-
-    Skipped.
-	Check it out: http://docs.pylonsproject.org/projects/pyramid/1.0/narr/traversal.html
+	@view_config(http_cache=3600)
+	def view(request):
+		response = Response()
+		if not 'should_cache' in request.params:
+			response.cache_control.prevent_auto = True
+		return response
+	
+	Turn off http_cache entirely for the duration of a Pyramid application lifetime:
+	To do so, set the PYRAMID_PREVENT_HTTP_CACHE environment variable or the pyramid.prevent_http_cache configuration value setting to a true value. 
 
 
 Static Assets
@@ -927,15 +1051,14 @@ Static Assets
 
 	You needn’t generate the URLs to static assets “by hand” in such a configuration. Instead, use the static_url() API to generate them for you. For example:
 
-	1 from pyramid.url import static_url
-	2 from pyramid.chameleon_zpt import render_template_to_response
-	3
-	4 def my_view(request):
-	5     css_url = static_url('mypackage:assets/1/foo.css', request)
-	6     js_url = static_url('mypackage:assets/2/foo.js', request)
-	7     return render_template_to_response('templates/my_template.pt',
-	8                                        css_url = css_url,
-	9                                        js_url = js_url)
+	1 from pyramid.chameleon_zpt import render_template_to_response
+	2
+	3 def my_view(request):
+	4     css_url = request.static_url('mypackage:assets/1/foo.css')
+	5     js_url = request.static_url('mypackage:assets/2/foo.js')
+	6     return render_template_to_response('templates/my_template.pt',
+	7                                        css_url = css_url,
+	8                                        js_url = js_url)
 
 	If the request “application URL” of the running system is http://example.com, the css_url generated above would be: http://example.com/static1/foo.css.
 	The js_url generated above would be http://example.com/static2/foo.js.
@@ -949,7 +1072,7 @@ Static Assets
 
 	Under such a configuration, the URL generated by static_url for assets which begin with mypackage:images will be prefixed with http://example.com/images:
 
-	1 static_url('mypackage:images/logo.png', request)
+	1 request.static_url('mypackage:images/logo.png')
 	2 # -> http://example.com/images/logo.png
 
 	You can use URL Prefix way in development while URL way in production, set a URL Prefix in development.ini while set a URL in production.ini
@@ -957,14 +1080,18 @@ Static Assets
 
 # Advanced: Serving Static Assets Using a View Callable
 
+	There are two cases below you need View Callable to serve static assets:
+	1) If you’re using URL dispatch, you may want static assets to only be available as a fallback if no previous route matches.
+	2) For protecting static assets with a permission, authentication or can be configured to respond under different circumstances using view predicate arguments.
 	Note that you cannot use the static_url() API to generate URLs against assets made accessible by registering a custom static view (for both two cases below).
 
-	1) If you’re using URL dispatch, you may want static assets to only be available as a fallback if no previous route matches.
+	[1] Root-Relative Custom Static View (URL Dispatch Only)
 
 	Create an instance of the static class inside a static.py file in your application root as below.
 
-	1 from pyramid.view import static
-	2 static_view = static('mypackage:static')
+	1 from pyramid.view import static_view
+	2 static_view = static_view('mypackage:static', use_subpath=True)
+	2 static_view = static_view('/path/to/static/dir', use_subpath=True)
 
 	Subsequently, you may wire the files that are served by this view up to be accessible as /<filename> using a configuration method in your application’s startup code.
 
@@ -975,15 +1102,15 @@ Static Assets
 
 	The special name *subpath (see *fizzle for more explanation) above is used by the static view callable to signify the path of the file relative to the directory you’re serving.
 
-    2) Registering A View Callable to Serve a “Static” Asset, for protecting static assets with a permission or can be configured to respond under different circumstances using view predicate arguments.
+    [2] Registering A View Callable to Serve a “Static” Asset
 
 	1 import os
-	2 from webob import Response
+	2 from pyramid.response import FileResponse
 	3
 	4 def favicon_view(request):
 	5     here = os.path.dirname(__file__)
 	6     icon = open(os.path.join(here, 'static', 'favicon.ico'))
-	7     return Response(content_type='image/x-icon', app_iter=icon)
+	7     return FileResponse(icon, request=request)
 
 	You might register such a view via configuration as a view callable that should be called as the result of a traversal:
 
@@ -998,7 +1125,7 @@ Static Assets
 	Skipped.
 	This feature is something like changing the skin of the site.
 	Asset overrides can actually override assets other than templates and static files. 
-	Check it out: http://docs.pylonsproject.org/projects/pyramid/1.0/narr/assets.html
+	Check it out: http://docs.pylonsproject.org/projects/pyramid/en/1.3-branch/narr/assets.html
 
 
 Request and Response Objects
@@ -1017,6 +1144,8 @@ Request and Response Objects
 		A multidict with a combination of everything in req.GET and req.POST.
 	req.body:
 		The contents of the body of the request. This contains the entire request body as a string. This is useful when the request is a POST that is not a form submission, or a request like a PUT. You can also get req.body_file for a file-like object.
+	req.json_body:
+		The JSON-decoded contents of the body of the request. See Dealing With A JSON-Encoded Request Body.
 	req.cookies:
 		A simple dictionary of all the cookies.
 	req.headers:
@@ -1047,9 +1176,13 @@ Request and Response Objects
 	req.relative_url(url, to_application=False):
 		Gives a URL, relative to the current URL. If to_application is True, then resolves it relative to req.application_url. 
 	
-	Methods on Request / Unicode:
+# Methods on Request / Unicode / Multidict:
 	Skipped:
-	Check out: http://docs.pylonsproject.org/projects/pyramid/1.0/narr/webob.html
+	Check out: http://docs.pylonsproject.org/projects/pyramid/en/1.3-branch/narr/webob.html
+
+# Dealing With A JSON-Encoded Request Body
+
+	jiawzhang TODO: complete here.
 
 # Response
 
@@ -1870,6 +2003,23 @@ Unit, Integration, and Functional Testing
 
 # Creating Functional Tests
 	Skipped.
+
+
+Resources
+	Skipped.
+	Check it out if necessary at http://docs.pylonsproject.org/projects/pyramid/1.0/narr/resources.html#resources-which-implement-interfaces
+
+
+Much Ado About Traversal
+
+	It introduce the concepts on "Traversal", "Resource", "View Lookup" and "Use Cases" for Traversal, read it will be helpful for knowing general concept purpose.
+	Check out: http://docs.pylonsproject.org/projects/pyramid/1.0/narr/muchadoabouttraversal.html
+
+
+Traversal
+
+    Skipped.
+	Check it out: http://docs.pylonsproject.org/projects/pyramid/1.0/narr/traversal.html
 
 
 Using Hooks
