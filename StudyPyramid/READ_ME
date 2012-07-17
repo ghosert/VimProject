@@ -1375,11 +1375,132 @@ Sessions
 	if token != request.POST['csrf_token']:
 		raise ValueError('CSRF token did not match')
 
+	In this way, we are sure the user is posting user data on our own site not others.
+
 	Using the session.new_csrf_token Method
 
 	It clears any existing CSRF token, creates a new CSRF token, sets the token into the session, and returns the token.
 
 	token = request.session.new_csrf_token()
+
+
+Using Events
+
+	An event is an object broadcast by the Pyramid framework at interesting points during the lifetime of an application.
+	For example, subscribing to an event can allow you to run some code as the result of every new request.
+
+	A subscriber is a function that accepts a single argument named event:
+
+	def mysubscriber(event):
+		print event
+
+	The above is a subscriber that simply prints the event to the console when it’s called.
+
+	1) Configuring an Event Listener Imperatively
+
+	from pyramid.events import NewRequest
+	from subscribers import mysubscriber
+
+	# "config" below is assumed to be an instance of a pyramid.config.Configurator object
+
+	config.add_subscriber(mysubscriber, NewRequest)
+
+	2) Configuring an Event Listener Using a Decorator
+
+	from pyramid.events import NewRequest
+	from pyramid.events import subscriber
+
+	@subscriber(NewRequest)
+	def mysubscriber(event):
+			event.request.foo = 1
+
+	When the subscriber() decorator is used a scan must be performed against the package containing the decorated function for the decorator to have any effect.
+
+	Either of the above registration examples implies that every time the Pyramid framework emits an event object that supplies an pyramid.events.NewRequest interface, the mysubscriber function will be called with an event object.
+	The return value of a subscriber function is ignored. Subscribers to the same event type are not guaranteed to be called in any particular order relative to each other.
+
+# An Example
+
+	If you create event listener functions in a subscribers.py file in your application like so:
+
+	def handle_new_request(event):
+		print 'request', event.request
+
+	def handle_new_response(event):
+		print 'response', event.response
+
+	# config is an instance of pyramid.config.Configurator
+
+	config.add_subscriber('myproject.subscribers.handle_new_request',
+						  'pyramid.events.NewRequest')
+	config.add_subscriber('myproject.subscribers.handle_new_response',
+						  'pyramid.events.NewResponse')
+
+	Under this configuration, when the application is run, each time a new request or response is detected, a message will be printed to the console.
+
+	Each of our subscriber functions accepts an event object and prints an attribute of the event object. This begs the question: how can we know which attributes a particular event has?
+
+	We know that pyramid.events.NewRequest event objects have a request attribute, which is a request object, because the interface defined at pyramid.interfaces.INewRequest says it must.
+
+
+Environment Variables and .ini File Settings
+
+	configuration file settings like "mako.directories" should go in the [app:main] section like:
+
+	[app:main]
+	use = egg:MyProject#app
+	reload_templates = true
+	debug_authorization = true
+
+	You can also use environment variables to accomplish the same purpose for settings documented as such.
+
+	$ PYRAMID_DEBUG_AUTHORIZATION=1 PYRAMID_RELOAD_TEMPLATES=1 bin/pserve MyProject.ini
+
+	environment variables will overwrite the same key/value in .ini file, which will be useful in development or debug hours.
+
+	If you want to turn all debug settings (every setting that starts with debug_). You can use PYRAMID_DEBUG_ALL=1 as an environment variable setting or you may use debug_all=true in the config file.
+	If you want to turn all reload settings (every setting that starts with reload_). You can use PYRAMID_RELOAD_ALL=1 as an environment variable setting or you may use reload_all=true in the config file.
+
+# Adding A Custom Setting
+
+	[app:main]
+    # .. other settings
+    debug_frobnosticator = True
+
+	If you’ve done any type conversion of your custom value, reset the converted values into the settings dictionary before you pass the dictionary as settings to the Configurator. For example:
+
+	def main(global_config, **settings):
+		# ...
+		from pyramid.settings import asbool
+		debug_frobnosticator = asbool(settings.get(
+				   'debug_frobnosticator', 'false'))
+		settings['debug_frobnosticator'] = debug_frobnosticator
+		config = Configurator(settings=settings)
+
+	1) Way 1 to access settings
+
+	def includeme(config):
+    settings = config.registry.settings
+    debug_frobnosticator = settings['debug_frobnosticator']
+
+	2) Way 2 to access settings
+
+	settings = request.registry.settings
+	debug_frobnosticator = settings['debug_frobnosticator']
+
+	3) Way 3 to access settings
+
+	registry = pyramid.threadlocal.get_current_registry()
+	settings = registry.settings
+	debug_frobnosticator = settings['debug_frobnosticator']
+
+# Detailed key/value for .ini file:
+	Check out more details: http://docs.pylonsproject.org/projects/pyramid/en/1.3-branch/narr/environment.html
+
+
+Logging
+
+	jiawzhang TODO: complete here.
 
 
 Security
@@ -1876,84 +1997,6 @@ Virtual Hosting
 		uwsgi_param SCRIPT_NAME /python;
 		uwsgi_modifier1 30;
 	}
-
-
-Using Events
-
-	An event is an object broadcast by the Pyramid framework at interesting points during the lifetime of an application.
-	For example, subscribing to an event can allow you to run some code as the result of every new request.
-
-	A subscriber is a function that accepts a single argument named event:
-
-	def mysubscriber(event):
-		print event
-
-	The above is a subscriber that simply prints the event to the console when it’s called.
-
-	1) Configuring an Event Listener Imperatively
-
-	from pyramid.events import NewRequest
-	from subscribers import mysubscriber
-
-	# "config" below is assumed to be an instance of a pyramid.config.Configurator object
-
-	config.add_subscriber(mysubscriber, NewRequest)
-
-	2) Configuring an Event Listener Using a Decorator
-
-	from pyramid.events import NewRequest
-	from pyramid.events import subscriber
-
-	@subscriber(NewRequest)
-	def mysubscriber(event):
-			event.request.foo = 1
-
-	When the subscriber() decorator is used a scan must be performed against the package containing the decorated function for the decorator to have any effect.
-
-	Either of the above registration examples implies that every time the Pyramid framework emits an event object that supplies an pyramid.events.NewRequest interface, the mysubscriber function will be called with an event object.
-	The return value of a subscriber function is ignored. Subscribers to the same event type are not guaranteed to be called in any particular order relative to each other.
-
-# An Example
-
-	If you create event listener functions in a subscribers.py file in your application like so:
-
-	def handle_new_request(event):
-		print 'request', event.request
-
-	def handle_new_response(event):
-		print 'response', event.response
-
-	# config is an instance of pyramid.config.Configurator
-
-	config.add_subscriber('myproject.subscribers.handle_new_request',
-						  'pyramid.events.NewRequest')
-	config.add_subscriber('myproject.subscribers.handle_new_response',
-						  'pyramid.events.NewResponse')
-
-	Under this configuration, when the application is run, each time a new request or response is detected, a message will be printed to the console.
-
-	Each of our subscriber functions accepts an event object and prints an attribute of the event object. This begs the question: how can we know which attributes a particular event has?
-
-	We know that pyramid.events.NewRequest event objects have a request attribute, which is a request object, because the interface defined at pyramid.interfaces.INewRequest says it must.
-
-
-Environment Variables and .ini File Settings
-
-	configuration file settings like "mako.directories" should go in the [app:main] section like:
-
-	[app:main]
-	use = egg:MyProject#app
-	reload_templates = true
-	debug_authorization = true
-
-	You can also use environment variables to accomplish the same purpose for settings documented as such.
-
-	$ PYRAMID_DEBUG_AUTHORIZATION=1 PYRAMID_RELOAD_TEMPLATES=1 bin/paster serve MyProject.ini
-
-	environment variables will overwrite the same key/value in .ini file, which will be useful in development or debug hours.
-
-	If you want to turn all debug settings (every setting that starts with debug_). You can use PYRAMID_DEBUG_ALL=1 as an environment variable setting or you may use debug_all=true in the config file.
-	If you want to turn all reload settings (every setting that starts with reload_). You can use PYRAMID_RELOAD_ALL=1 as an environment variable setting or you may use reload_all=true in the config file.
 
 
 Unit, Integration, and Functional Testing
