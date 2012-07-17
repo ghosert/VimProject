@@ -1176,13 +1176,54 @@ Request and Response Objects
 	req.relative_url(url, to_application=False):
 		Gives a URL, relative to the current URL. If to_application is True, then resolves it relative to req.application_url. 
 	
-# Methods on Request / Unicode / Multidict:
+# Methods on Request / Unicode:
 	Skipped:
 	Check out: http://docs.pylonsproject.org/projects/pyramid/en/1.3-branch/narr/webob.html
 
+# Multidict
+	?pref=red&pref=blue
+	request.GET('pref') => 'blue'
+	request.GET.getall('pref') => 'red', 'blue'
+	request.GET.getone('pref') => exception, this is no issue only when there is one and only one value for 'pref'
+	request.GET.items() => [('pref', 'red'), ('pref', 'blue')]
+	request.GET.keys() => ['pref', 'pref'].
+	Multidict is a view on a list of tuples; all the keys are ordered, and all the values are ordered.
+
 # Dealing With A JSON-Encoded Request Body
 
-	jiawzhang TODO: complete here.
+	Here’s how to construct an AJAX request in Javascript using jQuery that allows you to use the request.json_body attribute when the request is sent to a Pyramid application:
+
+	jQuery.ajax({type:'POST',
+				 url: 'http://localhost:6543/', // the pyramid server
+				 data: JSON.stringify({'a':1}),
+				 contentType: 'application/json; charset=utf-8'});
+
+	When such a request reaches a view in your application, the request.json_body attribute will be available in the view callable body.
+
+	@view_config(renderer='string')
+	def aview(request):
+		print request.json_body
+		return 'OK'
+
+	For the above view, printed to the console will be:
+
+	{u'a': 1}
+
+# Cleaning Up After a Request
+
+	from mypackage.models import DBSession
+
+	from pyramid.events import subscriber
+	from pyramid.events import NewRequest
+
+	def cleanup_callback(request):
+		DBSession.remove()
+
+	@subscriber(NewRequest)
+	def add_cleanup_callback(event):
+		event.request.add_finished_callback(cleanup_callback)
+	
+	Note: this is only an example, we don't need DBSession.remove() like this in reality.
 
 # Response
 
@@ -1217,14 +1258,16 @@ Request and Response Objects
 	from pyramid.response import Response
 	response = Response(body='hello world!', content_type='text/plain')
 
-# Multidict
-	?pref=red&pref=blue
-	request.GET('pref') => 'blue'
-	request.GET.getall('pref') => 'red', 'blue'
-	request.GET.getone('pref') => exception, this is no issue only when there is one and only one value for 'pref'
-	request.GET.items() => [('pref', 'red'), ('pref', 'blue')]
-	request.GET.keys() => ['pref', 'pref'].
-	Multidict is a view on a list of tuples; all the keys are ordered, and all the values are ordered.
+# Exception Responses
+
+	For instance, pyramid.httpexceptions.HTTPNotFound subclasses pyramid.Response, so you can manipulate the instances in the same way. A typical example is:
+
+	from pyramid.httpexceptions import HTTPNotFound
+	from pyramid.httpexceptions import HTTPMovedPermanently
+
+	response = HTTPNotFound('There is no such resource')
+# or:
+	response = HTTPMovedPermanently(location=new_url)
 
 
 Sessions
