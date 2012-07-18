@@ -1500,7 +1500,36 @@ Environment Variables and .ini File Settings
 
 Logging
 
-	jiawzhang TODO: complete here.
+# Logging Configuration
+
+	Check out ./MyProject/development.ini
+
+# Sending Logging Messages
+
+	To log messages to the package-specific logger configured in your .ini file, simply create a logger object using the __name__ builtin and call methods on it.
+
+ import logging
+ log = logging.getLogger(__name__)
+
+ def myview(request):
+     content_type = 'text/plain'
+     content = 'Hello World!'
+     log.debug('Returning: %s (content-type: %s)', content, content_type)
+     request.response.content_type = content_type
+     return request.response
+
+This will result in the following printed to the console, on stderr:
+
+16:20:20,440 DEBUG [myapp.views] Returning: Hello World!
+                   (content-type: text/plain)
+
+# Filtering log messages
+
+	Check out ./MyProject/development.ini
+
+# Advanced Configuration
+
+
 
 
 Security
