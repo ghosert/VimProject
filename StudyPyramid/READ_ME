@@ -4,6 +4,13 @@ The content is practised in ~/VimProject/StudyPyramid/MyProject, the original ur
 
 You can search "grep jiawzhang * -r" in ~/VimProject/StudyPyramid/MyProject/myproject to see the changes.
 
+Prerequisite(Do this once, optionally):
+1. Check out ~/Dropbox/ubuntu_install_guide.sh to install virtualenv and pyramid.
+2. cd ~/VimProject/StudyPyramid/MyProject
+   source ~/devenv/bin/activate
+   python setup.py develop
+The two steps above will make sure all the python libs you need is preinstalled. If you modified ../MyProject/setup.py and add new libs, run 'python setup.py develop' once again, so that new libs will be installed.
+
 Try on the live site for tutorial when developing:
 1. source ~/devenv/bin/activate
 2. cd ~/VimProject/StudyPyramid/MyProject
@@ -72,7 +79,7 @@ Creating a Pyramid Project:
 # Make sure from now on your working directory is your project folder: MyProject
 	cd MyProject
 
-# Install new project for development, this will install a distribution into the python interpreter's library.
+# Install new project for development, this will install a distribution into the python interpreter's library set, such as pserve, pshell, proutes and pviews.
 	python setup.py develop
 
 # Run test case, the tests are in MyProject/myproject/tests.py
@@ -1500,6 +1507,8 @@ Environment Variables and .ini File Settings
 
 Logging
 
+	Pyramid make use of the Python standard library logging module.
+
 # Logging Configuration
 
 	Check out ./MyProject/development.ini
@@ -1529,8 +1538,9 @@ This will result in the following printed to the console, on stderr:
 
 # Advanced Configuration
 
+	To capture log output to a separate file use a FileHandler (or a RotatingFileHandler)
 
-
+	Check out ./MyProject/development.ini
 
 Security
 
