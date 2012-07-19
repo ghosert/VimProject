@@ -24,12 +24,13 @@ Try on the live site for tutorial when developing:
 Try on the live site for tutorial on PRODUCTION:
 1. sudo nginx
    To work nginx together with uwsgi. Check out "/usr/local/nginx/conf/nginx.conf" or "~/ProductProject/env-conf/nginx.conf"
-2. sudo uwsgi -x ~/VimProject/StudyPyramid/MyProject/myproject_uwsgi.xml [or you can append -d /var/log/uwsgi.log]
-   To work pyramid app together with uwsgi. Check out "myproject_uwsgi.xml" and "myproject_uwsgi.py" to see details.
+2. uwsgi --ini-paste-logged ~/VimProject/StudyPyramid/MyProject/production.ini
+   To work pyramid app together with uwsgi. Check out "[uwsgi]" section in "development.ini" and "production.ini" to see details.
 3. visit http://localhost/python
    This support the "Virtual Hosting"(search below) "/python" feature.
+4. reload and stop an daemon uwsgi, "kill -9 pid" or uwsgi --reload/stop /var/log/pyramid/pid_5000.pid
 
-log file is defined in production.ini development.ini and it's located in /var/log/pyramid/server.log [jiawzhang TODO: But this seems working for 'pserve development.ini --reload' only ?]
+log file is defined in production.ini development.ini and it's located in /var/log/pyramid/server.log and /var/log/pyramid/uwsgi.log
 [END: SQLAlchemy + URL Dispatch Wiki Tutorial]
 
 
@@ -37,15 +38,9 @@ log file is defined in production.ini development.ini and it's located in /var/l
 
 [BEGIN: Pyramid Documentation]
 
-1. Main
-
 http://docs.pylonsproject.org/docs/pyramid.html
 
 Including: Getting Started, Main Documentation (like Narrative documentation), Pyramid Add-On Documentation (like pyramid_beaker for Beaker session, pyramid_rpc for remote procedure call)
-
-2. For logging portion [jiawzhang TODO: remove this portion.]
-
-http://pylonsbook.com/en/1.1/logging.html
 
 [END: Pyramid Documentation]
 
