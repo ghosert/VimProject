@@ -1,12 +1,3 @@
-1. When exception raised from codes, the error log will not be output into the logfile specified in production.ini file(say server.log), but it's logged in uwsgi's logging file(say uwsgi.log).
-
-Try context=Exception and define the custom view to invoking log.error to make sure the error log will go to server.log rather than uwsgi.log.
-
-And see whether this change will impact 'paster serve development.ini --realod'
-
-Check out whether pyramid_exclog is a solution.
-
-
 2. Study Elixir
 
 

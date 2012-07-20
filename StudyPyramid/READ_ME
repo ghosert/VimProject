@@ -21,6 +21,8 @@ Try on the live site for tutorial when developing:
 7. "python setup.py test -q" OR "nosetests --cover-package=myproject --cover-erase --with-coverage" to run test case in ~/xxx/MyProject folder.
 8. Distributing your application: "python setup.py sdist" this will generate a tarball which can be installed by pointing the "easy_install" command directly at it.
 
+9. log file is defined in development.ini and it's located in /var/log/pyramid/server.log
+
 Try on the live site for tutorial on PRODUCTION:
 1. sudo nginx
    To work nginx together with uwsgi. Check out "/usr/local/nginx/conf/nginx.conf" or "~/ProductProject/env-conf/nginx.conf"
@@ -30,7 +32,7 @@ Try on the live site for tutorial on PRODUCTION:
    This support the "Virtual Hosting"(search below) "/python" feature.
 4. reload and stop an daemon uwsgi, "kill -9 pid" or uwsgi --reload/stop /var/log/pyramid/pid_5000.pid
 
-log file is defined in production.ini development.ini and it's located in /var/log/pyramid/server.log and /var/log/pyramid/uwsgi.log
+5. log file is defined in production.ini and it's located in /var/log/pyramid/server.log and /var/log/pyramid/uwsgi.log
 [END: SQLAlchemy + URL Dispatch Wiki Tutorial]
 
 
@@ -1536,6 +1538,10 @@ This will result in the following printed to the console, on stderr:
 	To capture log output to a separate file use a FileHandler (or a RotatingFileHandler)
 
 	Check out ./MyProject/development.ini
+
+# Logging Exceptions
+
+
 
 Security
 
