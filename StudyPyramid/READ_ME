@@ -1782,7 +1782,7 @@ Internationalization and Localization
 
 # Mako Pyramid I18N Support
 
-	http://docs.pylonsproject.org/projects/pyramid_cookbook/dev/i18n.html
+	http://docs.pylonsproject.org/projects/pyramid_cookbook/en/latest/templates/mako_i18n.html
 
 # Localization-Related Deployment Settings
 
