@@ -1612,13 +1612,13 @@ Internationalization and Localization
 	from pyramid.i18n import TranslationString
 	ts = TranslationString('add-number', default='Add ${number}', domain='form', mapping={'number':1})
 
-	"default" argument here means, if there is corresponding string for msgid "add-number", it will use default value instead, and "default" may contain replacement either.
+	The message identifier like 'add-number' here is mainly used to match translation in translation file, but if it fail to find one, this message identifier will be used as the default text value to be presented. In some case, this is not ideal to take message identifier for dual purpose above, so that's why we need "default" argument here. If we offer "default" argument here, this argument will be used as the default text value if no translation found in translation file.
 
 	2) Using the TranslationStringFactory Class
 
 	from pyramid.i18n import TranslationStringFactory
 	_ = TranslationStringFactory('pyramid')
-	ts = _('Add ${number}', msgid='add-number', mapping={'number':1})
+	ts = _('add-number', default='Add ${number}', mapping={'number':1})
 
 	Note
 
@@ -1627,7 +1627,7 @@ Internationalization and Localization
 	"pyramid" is domain name while 'Add ${number}' is default value, As a result, the previous code example is completely equivalent (except for spelling) to:
 
 	from pyramid.i18n import TranslationString as _
-	ts = _('Add ${number}', msgid='add-number', mapping={'number':1}, domain='pyramid')
+	ts = _('add-number', default='Add ${number}', mapping={'number':1}, domain='pyramid')
 
 	Creating a unique domain for your application via a translation string factory is best practice. Using your own unique translation domain allows another person to reuse your application without needing to merge your translation files with his own. Instead, he can just include your package’s translation directory via the pyramid.config.Configurator.add_translation_dirs() method.
 
@@ -1636,11 +1636,11 @@ Internationalization and Localization
 	The basis of Pyramid translation services is GNU gettext. GNU gettext uses three types of files in the translation framework, .pot files, .po files and .mo files.
 	.pot (Portable Object Template) files -> .po (Portable Object) files -> .mo (Machine Object) files (machine-readable binary file for running faster)
 
-	The tool for working with gettext translation files related to a Pyramid application is Babel.
+	The tool for working with gettext translation files related to a Pyramid application are Babel and Lingua.
 
-	1) Installing Babel:
+	1) Installing Babel and Lingua:
 	$ cd /my/virtualenv
-	$ bin/easy_install Babel
+	$ bin/easy_install Babel lingua
 
 	2) Changing the setup.py
 	 setup(name="mypackage",
@@ -1648,10 +1648,11 @@ Internationalization and Localization
        install_requires = [
              # ...
              'Babel',
+			 'lingua',
              ],
        message_extractors = { '.': [
-             ('**.py',   'chameleon_python', None ),
-             ('**.pt',   'chameleon_xml', None ),
+             ('**.py',   'lingua_python', None ),
+             ('**.pt',   'lingua_xml', None ),
              ]},
        )
 	Consider **.py and **.pt files when doing message id extraction.
@@ -1696,7 +1697,7 @@ Internationalization and Localization
 
 	6) Updating a Catalog File
 
-	you will need to update existing .po files based on changes to the .pot file, so that the new and changed messages can also be translated or re-translated.
+	You will need to update existing .po files based on changes to the .pot file, so that the new and changed messages can also be translated or re-translated. First, regenerate the .pot file as per 'EXtracting Messages from Code and Templates' above (step 3). Then use the setup.py update_catalog command below:
 
 	$ cd /place/where/myapplication/setup.py/lives
 	$ python setup.py update_catalog
@@ -1768,7 +1769,7 @@ Internationalization and Localization
 
 # Performing Date Formatting and Currency Formatting
 
-	Pyramid does not itself perform date and currency formatting for different locales. However, Babel can help you do this via the babel.core.Locale class.
+	Pyramid does not itself perform date and currency formatting for different locales. However, Babel can help you do this via the babel.core.Locale class. See details in http://babel.edgewall.org/wiki/ApiDocs/babel.core#babel.core:Locale
 
 	from babel.core import Locale
 	from pyramid.i18n import get_locale_name
@@ -1782,7 +1783,85 @@ Internationalization and Localization
 
 # Mako Pyramid I18N Support
 
-	http://docs.pylonsproject.org/projects/pyramid_cookbook/en/latest/templates/mako_i18n.html
+	This section comes from the link: http://docs.pylonsproject.org/projects/pyramid_cookbook/en/latest/templates/mako_i18n.html
+
+	First, add subscribers within your Pyramid project’s __init__.py:
+
+	def main(...):
+		...
+		config.add_subscriber('YOURPROJECT.subscribers.add_renderer_globals',
+							  'pyramid.events.BeforeRender')
+		config.add_subscriber('YOURPROJECT.subscribers.add_localizer',
+							  'pyramid.events.NewRequest')
+
+	Then add, a subscribers.py module to your project’s package directory:
+
+	# subscribers.py
+
+	from pyramid.i18n import get_localizer, TranslationStringFactory
+
+	def add_renderer_globals(event):
+		...
+		request = event['request']
+		event['_'] = request.translate
+		event['localizer'] = request.localizer
+
+	tsf = TranslationStringFactory('YOUR_GETTEXT_DOMAIN')
+
+	def add_localizer(event):
+		request = event.request
+		localizer = get_localizer(request)
+		def auto_translate(*args, **kwargs):
+			return localizer.translate(tsf(*args, **kwargs))
+		request.localizer = localizer
+		request.translate = auto_translate
+
+	After this has been done, the next time you start your application, in your Mako template, you’ll be able to use the simple ${_(u"Translate this string please")} without having to use get_localizer explicitly, as its functionality will be enclosed in the _ function, which will be exposed as a top-level template name. localizer will also be available for plural forms and fancy stuff.
+
+	This will also allow you to use translation in your view code, using something like:
+
+	def my_view(request):
+		_ = request.translate
+		request.session.flash(_("Welcome home"))
+
+	For all that to work, you’ll need to:
+
+	(env)$ easy_install Babel
+
+	And you’ll also need to run these commands in your project’s directory:
+
+	(env)$ python setup.py extract_messages
+	(env)$ python setup.py init_catalog -l en
+	(env)$ python setup.py init_catalog -l fr
+	(env)$ python setup.py init_catalog -l es
+	(env)$ python setup.py init_catalog -l it
+	(env)$ python setup.py update_catalog
+	(env)$ python setup.py compile_catalog
+
+	Repeat the init_catalog step for each of the langauges you need.
+
+	At this point you’ll also need to add your local directory to your project’s configuration:
+
+	def main(...):
+		...
+		config.add_translation_dirs('YOURPROJECT:locale')
+
+	Lastly, you’ll want to have your Mako files extracted when you run extract_messages, so add these to your setup.py (yes, you read me right, in setup.py so that Babel can use it when invoking it’s commands):
+
+	setup(
+		...
+		install_requires=[
+			...
+			Babel,
+			...
+			],
+		message_extractors = {'yourpackage': [
+				('**.py', 'python', None),
+				('templates/**.html', 'mako', None),
+				('templates/**.mako', 'mako', None),
+				('static/**', 'ignore', None)]},
+		...
+		)
 
 # Localization-Related Deployment Settings
 
@@ -1794,7 +1873,7 @@ Internationalization and Localization
 	You may alternately supply a default_locale_name via an application’s Paster .ini file:
 
 	[app:main]
-	use = egg:MyProject#app
+	use = egg:MyProject
 	reload_templates = true
 	debug_authorization = false
 	debug_notfound = false
@@ -1827,39 +1906,47 @@ Internationalization and Localization
 
 	This is only a suggestion. You can create your own “available languages” configuration scheme as necessary.
 
-# Adding a Translation Directory
+# Activating Translation
 
-	Adding a translation directory registers all of its constituent message catalog files within your Pyramid application to be available to use for translation services.
-	This includes all of the .mo files found within all LC_MESSAGES directories within each locale directory in the translation directory.
+	By default, a Pyramid application performs no translation, To turn translation on, you must:
+		add at least one translation directory to your application.
+		ensure that your application sets the locale name correctly.
 
-	from pyramid.config import Configurator
-	config.add_translation_dirs('my.application:locale/', 'another.application:locale/')
+	1) Adding a Translation Directory (jiawzhang TODO: Is this step required ?)
 
-	A message catalog in a translation directory added via add_translation_dirs() will be merged into translations from a message catalog added earlier if both translation directories contain translations for the same locale and translation domain.
+		Adding a translation directory registers all of its constituent message catalog files within your Pyramid application to be available to use for translation services.
+		This includes all of the .mo files found within all LC_MESSAGES directories within each locale directory in the translation directory.
 
-# Setting the Locale
+		from pyramid.config import Configurator
+		config.add_translation_dirs('my.application:locale/', 'another.application:locale/')
 
-	When the default locale negotiator (see The Default Locale Negotiator) is in use, you can inform Pyramid of the current locale name by doing any of these things before any translations need to be performed:
+		A message catalog in a translation directory added via add_translation_dirs() will be merged into translations from a message catalog added earlier if both translation directories contain translations for the same locale and translation domain.
 
-    * Set the _LOCALE_ attribute of the request to a valid locale name (usually directly within view code). E.g. request._LOCALE_ = 'de'.
-    * Ensure that a valid locale name value is in the request.params dictionary under the key named _LOCALE_. This is usually the result of passing a _LOCALE_ value in the query string or in the body of a form post associated with a request. For example, visiting http://my.application?_LOCALE_=de.
-    * Ensure that a valid locale name value is in the request.cookies dictionary under the key named _LOCALE_. This is usually the result of setting a _LOCALE_ cookie in a prior response, e.g. response.set_cookie('_LOCALE_', 'de').
+	2) Setting the Locale
 
-# The Default Locale Negotiator
+		When the default locale negotiator (see The Default Locale Negotiator) is in use, you can inform Pyramid of the current locale name by doing any of these things before any translations need to be performed:
 
-	Most applications can make use of the default locale negotiator, which requires no additional coding or configuration.
+		* Set the _LOCALE_ attribute of the request to a valid locale name (usually directly within view code). E.g. request._LOCALE_ = 'de'.
+		* Ensure that a valid locale name value is in the request.params dictionary under the key named _LOCALE_. This is usually the result of passing a _LOCALE_ value in the query string or in the body of a form post associated with a request. For example, visiting http://my.application?_LOCALE_=de.
+		* Ensure that a valid locale name value is in the request.cookies dictionary under the key named _LOCALE_. This is usually the result of setting a _LOCALE_ cookie in a prior response, e.g. response.set_cookie('_LOCALE_', 'de').
 
-	The default locale negotiator implementation named default_locale_negotiator uses the following set of steps to dermine the locale name.
+# Locale Negotiators
 
-    * First, the negotiator looks for the _LOCALE_ attribute of the request object (possibly set directly by view code or by a listener for an event).
-    * Then it looks for the request.params['_LOCALE_'] value.
-    * Then it looks for the request.cookies['_LOCALE_'] value.
-    * If no locale can be found via the request, it falls back to using the default locale name (see Localization-Related Deployment Settings).
-    * Finally, if the default locale name is not explicitly set, it uses the locale name en.
+	1) The Default Locale Negotiator
 
-# Using a Custom Locale Negotiator
-	Skipped.
-	http://docs.pylonsproject.org/projects/pyramid/1.0/narr/i18n.html#mako-pyramid-i18n-support
+		Most applications can make use of the default locale negotiator, which requires no additional coding or configuration.
+
+		The default locale negotiator implementation named default_locale_negotiator uses the following set of steps to dermine the locale name.
+
+		* First, the negotiator looks for the _LOCALE_ attribute of the request object (possibly set directly by view code or by a listener for an event).
+		* Then it looks for the request.params['_LOCALE_'] value.
+		* Then it looks for the request.cookies['_LOCALE_'] value.
+		* If no locale can be found via the request, it falls back to using the default locale name (see Localization-Related Deployment Settings).
+		* Finally, if the default locale name is not explicitly set, it uses the locale name en.
+
+	2) Using a Custom Locale Negotiator
+		Skipped.
+		http://docs.pylonsproject.org/projects/pyramid/en/1.3-branch/narr/i18n.html#creating-a-translation-string
 
 
 Virtual Hosting
@@ -1897,6 +1984,12 @@ Virtual Hosting
 
 Unit, Integration, and Functional Testing
 
+	1) Unit testing is, not surprisingly, the act of testing a “unit” in your application. In this context, a “unit” is often a function or a method of a class instance. The unit is also referred to as a “unit under test”.
+
+	2) An integration test, on the other hand, is a different form of testing in which the interaction between two or more “units” is explicitly tested. Integration tests verify that the components of your application work together. You might make sure that an email was actually sent in an integration test.
+
+	3) A functional test is a form of integration test in which the application is run “literally”. You would have to make sure that an email was actually sent in a functional test, because it tests your code end to end.
+
 # Test Set Up and Tear Down
 
 	The use of the setUp() and tearDown() functions allows you to supply each unit test method in a test case with an environment that has an isolated registry and an isolated request for the duration of a single test. Here’s an example of using this feature:
@@ -1933,11 +2026,11 @@ Unit, Integration, and Functional Testing
 	For example, let’s imagine you want to unit test a Pyramid view function.
 
 	from pyramid.security import has_permission
-	from pyramid.exceptions import Forbidden
+	from pyramid.httpexceptions import HTTPForbidden
 
 	def view_fn(request):
 		if not has_permission('edit', request.context, request):
-			raise Forbidden
+			raise HTTPForbidden
 		return {'greeting':'hello'}
 
 	Without doing anything special during a unit test, the call to has_permission() in this view function will always return a True value.
@@ -1956,16 +2049,15 @@ Unit, Integration, and Functional Testing
 			testing.tearDown()
 
 		def test_view_fn_forbidden(self):
-			from pyramid.exceptions import Forbidden
+			from pyramid.httpexceptions import HTTPForbidden
 			from my.package import view_fn
 			self.config.testing_securitypolicy(userid='hank',
 											   permissive=False)
 			request = testing.DummyRequest()
 			request.context = testing.DummyResource()
-			self.assertRaises(Forbidden, view_fn, request)
+			self.assertRaises(HTTPForbidden, view_fn, request)
 
 		def test_view_fn_allowed(self):
-			from pyramid.exceptions import Forbidden
 			from my.package import view_fn
 			self.config.testing_securitypolicy(userid='hank',
 											   permissive=True)
@@ -1974,34 +2066,88 @@ Unit, Integration, and Functional Testing
 			response = view_fn(request)
 			self.assertEqual(response, {'greeting':'hello'})
 
-	See the pyramid.testing chapter for the entire Pyramid -specific testing API.
+	See the pyramid.testing(http://docs.pylonsproject.org/projects/pyramid/en/1.3-branch/api/testing.html#testing-module) chapter for the entire Pyramid -specific testing API.
 	This chapter describes APIs for registering a security policy, registering resources at paths, registering event listeners, registering views and view permissions, and classes representing “dummy” implementations of a request and a resource.
 
-	See also the various methods of the Configurator documented in pyramid.config that begin with the testing_ prefix.
+	See also the various methods of the Configurator documented in pyramid.config(http://docs.pylonsproject.org/projects/pyramid/en/1.3-branch/api/config.html#configuration-module) that begin with the testing_ prefix.
 
-# Creating Integration Tests
-	Skipped.
+# Creating Integration Tests(Optional Tests)
 
+	Let’s demonstrate this by showing an integration test for a view. The below test assumes that your application’s package name is myapp, and that there is a views module in the app with a function with the name my_view in it that returns the response ‘Welcome to this application’ after accessing some values that require a fully set up environment.
+
+	import unittest
+
+	from pyramid import testing
+
+	class ViewIntegrationTests(unittest.TestCase):
+		def setUp(self):
+			""" This sets up the application registry with the
+			registrations your application declares in its ``includeme``
+			function.
+			"""
+			import myapp
+			self.config = testing.setUp()
+			self.config.include('myapp')
+
+		def tearDown(self):
+			""" Clear out the application registry """
+			testing.tearDown()
+
+		def test_my_view(self):
+			from myapp.views import my_view
+			request = testing.DummyRequest()
+			result = my_view(request)
+			self.assertEqual(result.status, '200 OK')
+			body = result.app_iter[0]
+			self.failUnless('Welcome to' in body)
+			self.assertEqual(len(result.headerlist), 2)
+			self.assertEqual(result.headerlist[0],
+							 ('Content-Type', 'text/html; charset=UTF-8'))
+			self.assertEqual(result.headerlist[1], ('Content-Length',
+													str(len(body))))
+
+	Unless you cannot avoid it, you should prefer writing unit tests that use the Configurator API to set up the right “mock” registrations rather than creating an integration test. Unit tests will run faster (because they do less for each test) and the result of a unit test is usually easier to make assertions about.
 
 # Creating Functional Tests
-	Skipped.
+
+	The below test assumes that your application’s package name is myapp, and that there is a view that returns an HTML body when the root URL is invoked. It further assumes that you’ve added a tests_require dependency on the WebTest package within your setup.py file. WebTest is a functional testing package written by Ian Bicking.
+
+	import unittest
+
+	class FunctionalTests(unittest.TestCase):
+		def setUp(self):
+			from myapp import main
+			app = main({})
+			from webtest import TestApp
+			self.testapp = TestApp(app)
+
+		def test_root(self):
+			res = self.testapp.get('/', status=200)
+			self.failUnless('Pyramid' in res.body)
+
+	See the WebTest documentation(http://webtest.pythonpaste.org/en/latest/index.html) for further information about the methods available to a webtest.TestApp instance.
 
 
 Resources
 	Skipped.
-	Check it out if necessary at http://docs.pylonsproject.org/projects/pyramid/1.0/narr/resources.html#resources-which-implement-interfaces
+	Check it out if necessary at http://docs.pylonsproject.org/projects/pyramid/en/1.3-branch/narr/resources.html
+
+
+Hello Traversal World
+	Skipped.
+	Check it out if necessary at http://docs.pylonsproject.org/projects/pyramid/en/1.3-branch/narr/hellotraversal.html
 
 
 Much Ado About Traversal
 
 	It introduce the concepts on "Traversal", "Resource", "View Lookup" and "Use Cases" for Traversal, read it will be helpful for knowing general concept purpose.
-	Check out: http://docs.pylonsproject.org/projects/pyramid/1.0/narr/muchadoabouttraversal.html
+	Check out: http://docs.pylonsproject.org/projects/pyramid/en/1.3-branch/narr/muchadoabouttraversal.html
 
 
 Traversal
 
     Skipped.
-	Check it out: http://docs.pylonsproject.org/projects/pyramid/1.0/narr/traversal.html
+	Check it out: http://docs.pylonsproject.org/projects/pyramid/en/1.3-branch/narr/traversal.html
 
 
 Security
