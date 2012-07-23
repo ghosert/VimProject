@@ -2165,8 +2165,9 @@ Security
 	3 from pyramid.authorization import ACLAuthorizationPolicy
 	4 authentication_policy = AuthTktAuthenticationPolicy('seekrit')
 	5 authorization_policy = ACLAuthorizationPolicy()
-	6 config = Configurator(authentication_policy=authentication_policy,
-	7                       authorization_policy=authorization_policy)
+	6 config = Configurator()
+	7 config.set_authentication_policy(authentication_policy)
+	8 config.set_authorization_policy(authorization_policy)
 
 # Protecting Views with Permissions
 
@@ -2194,18 +2195,16 @@ Security
 	If a permission is not supplied to a view configuration, the registered view will always be executable by entirely anonymous users: any authorization policy in effect is ignored.
 	In support of making it easier to configure applications which are “secure by default”, Pyramid allows you to configure a default permission.
 
-	These APIs are in support of configuring a default permission for an application:
-    • The default_permission constructor argument to the Configurator constructor.
-	• The pyramid.config.Configurator.set_default_permission() method.
+	The pyramid.config.Configurator.set_default_permission() method supports configuring a default permission for an application.
 
 	When a default permission is registered:
 
     • if a view configuration names an explicit permission, the default permission is ignored for that view registration, and the view-configuration-named permission is used.
-	• if a view configuration names an explicit permission as the string __no_permission_required__, the default permission is ignored, and the view is registered without a permission.
+	• if a view configuration names the permission pyramid.security.NO_PERMISSION_REQUIRED, the default permission is ignored, and the view is registered without a permission(making it available to all callers regardless of their credentials).
 
 	Warning
 
-	When you register a default permission, all views (even exception view views) are protected by a permission. For all views which are truly meant to be anonymously accessible, you will need to associate the view’s configuration with the __no_permission_required__ permission.
+	When you register a default permission, all views (even exception view views) are protected by a permission. For all views which are truly meant to be anonymously accessible, you will need to associate the view’s configuration with the pyramid.security.NO_PERMISSION_REQUIRED permission.
 
 # Assigning ACLs to your Resource Objects
 
@@ -2281,7 +2280,7 @@ Security
 
 # Special ACEs
 
-	For example, an ACL which allows only fred the view permission for a particular resource despite what inherited ACLs may say when the default authorization policy is in effect might look like so:
+	A convenience ACE is defined representing a deny to everyone of all permissions in pyramid.security.DENY_ALL. This ACE is often used as the last ACE of an ACL to explicitly cause inheriting authorization policies to “stop looking up the traversal tree” (effectively breaking any inheritance). For example, an ACL which allows only fred the view permission for a particular resource despite what inherited ACLs may say when the default authorization policy is in effect might look like so:
 
 	1 from pyramid.security import Allow
 	2 from pyramid.security import DENY_ALL
@@ -2312,7 +2311,7 @@ Security
 # Debugging View Authorization Failures
 
 	1 [app:main]
-	2 use = egg:MyProject#app
+	2 use = egg:MyProject
 	3 debug_authorization = true
 
 	With this debug flag turned on, the response sent to the browser will also contain security debugging information in its body.
