@@ -2337,24 +2337,75 @@ Using Hooks
 
 # Changing the Not Found View
 
-	from pyramid.exceptions import NotFound
-	from helloworld.views import notfound_view
-	config.add_view(notfound_view, context=NotFound)
+	1) Imperative configuration
 
-	Replace helloworld.views.notfound_view with a reference to the view callable you want to use to represent the Not Found view.
+		from helloworld.views import notfound
+		config.add_notfound_view(notfound)
+
+	   Replace helloworld.views.notfound_view with a reference to the view callable you want to use to represent the Not Found view.
+
+	2) Decorator which is equivalent to 1) above
+
+		from pyramid.view import notfound_view_config
+
+		@notfound_view_config()
+		def notfound(request):
+			return Response('Not Found, dude', status='404 Not Found')
+
+		def main(globals, **settings):
+		   config = Configurator()
+		   config.scan()
+
+	3) Multiple not found views
+	Both pyramid.config.Configurator.add_notfound_view() and pyramid.view.notfound_view_config take most of the same arguments as pyramid.config.Configurator.add_view and pyramid.view.view_config, respectively. This means that not found views can carry predicates limiting their applicability:
+
+		from pyramid.view import notfound_view_config
+
+		@notfound_view_config(request_method='GET')
+		def notfound_get(request):
+			return Response('Not Found during GET, dude', status='404 Not Found')
+
+		@notfound_view_config(request_method='POST')
+		def notfound_post(request):
+			return Response('Not Found during POST, dude', status='404 Not Found')
+
+		def main(globals, **settings):
+		   config = Configurator()
+		   config.scan()
+
+	Like any other view, the notfound view must accept at least a request parameter, or both context and request. The request is the current request representing the denied action. The context (if used in the call signature) will be the instance of the HTTPNotFound exception that caused the view to be called.
 
 	Here’s some sample code that implements a minimal NotFound view callable:
 
 	from pyramid.httpexceptions import HTTPNotFound
 
-	def notfound_view(request):
+	def notfound(request):
 		return HTTPNotFound()
+
+	In the NotFound view callable cases above, the request.exception will be an instance of the HTTPNotFound exception caused the view to be called.
+	The request.exception.message will be a value explaining why the not found error was raised.
+	This message will be different when the pyramid.debug_notfound environment setting is true than it is when it is false.
+	While request.context will be the instance of the HTTPNotFound exception that caused the view to be called.
 
 # Changing the Forbidden View
 
+	1) Imperative configuration
+
 	from helloworld.views import forbidden_view
-	from pyramid.exceptions import Forbidden
-	config.add_view(forbidden_view, context=Forbidden)
+	from pyramid.httpexceptions import HTTPForbidden
+	config.add_forbidden_view(forbidden_view)
+
+	2) Decorator which is equivalent to 1) above
+
+	from pyramid.view import forbidden_view_config
+
+	forbidden_view_config()
+	def forbidden(request):
+		return Response('forbidden')
+
+	def main(globals, **settings):
+	   config = Configurator()
+	   config.scan()
 
 	Here’s some sample code that implements a minimal forbidden view:
 
@@ -2363,6 +2414,12 @@ Using Hooks
 
 	def forbidden_view(request):
 		return Response('forbidden')
+
+	In the Forbidden view callable cases above, the request.exception will be an instance of the HTTPForbidden exception caused the view to be called.
+	The request.exception.message will be a value explaining why the forbidden was raised.
+	request.exception.result will be extended information about the forbidden exception.
+	These messages will be different when the pyramid.debug_authorization environment setting is true than it is when it is false.
+	While request.context is the context found by the router when the view invocation was denied.
 
 # Changing the Request Factory
 
@@ -2383,29 +2440,6 @@ Using Hooks
 
 	config = Configurator()
 	config.set_request_factory(MyRequest)
-
-# Adding Renderer Globals
-
-	Whenever Pyramid handles a request to perform a rendering, renderer globals can be injected into the system values sent to the renderer.
-	By default, no renderer globals are injected, and the “bare” system values (such as request, context, and renderer_name) are the only values present in the system dictionary passed to every renderer.
-
-	def renderer_globals_factory(system):
-		return {'a':1}
-
-	config = Configurator(
-			 renderer_globals_factory=renderer_globals_factory)
-
-	It must return a dictionary of values that will be merged into the system dictionary. See "# System Values Used During Rendering" portion
-
-	You can also the following stuffs for the same purpose.
-
-	from pyramid.config import Configurator
-
-	def renderer_globals_factory(system):
-		return {'a':1}
-
-	config = Configurator()
-	config.set_renderer_globals_factory(renderer_globals_factory)
 
 # Using The Before Render Event
 
@@ -2467,6 +2501,61 @@ Using Hooks
 # Changing How pyramid.url.resource_url Generates a URL
 	Skipped.
 
+# Changing How Pyramid Treats View Responses
+
+	Like what we are told before, view callables can only return pyramid.response.Response object or an non-Response object but with a renderer accompanies, otherwise, the router will raise an error.
+	If you’d like to allow view callables to return bare string objects (without requiring a a renderer to convert a string to a response object), you can register an adapter which converts the string to a Response:
+
+	from pyramid.response import Response
+
+	def string_response_adapter(s):
+		response = Response(s)
+		return response
+
+	# config is an instance of pyramid.config.Configurator
+
+	config.add_response_adapter(string_response_adapter, str)
+
+	Likewise, if you want to be able to return a simplified kind of response object from view callables, you can use the IResponse hook to register an adapter to the more complex IResponse interface:
+
+	from pyramid.response import Response
+
+	class SimpleResponse(object):
+		def __init__(self, body):
+			self.body = body
+
+	def simple_response_adapter(simple_response):
+		response = Response(simple_response.body)
+		return response
+
+	# config is an instance of pyramid.config.Configurator
+
+	config.add_response_adapter(simple_response_adapter, SimpleResponse)
+
+	Instead of using pyramid.config.Configurator.add_response_adapter(), you can use the pyramid.response.response_adapter decorator:
+
+	from pyramid.response import Response
+	from pyramid.response import response_adapter
+
+	@response_adapter(str)
+	def string_response_adapter(s):
+		response = Response(s)
+		return response
+	
+	The response_adapter decorator will have no effect until activated by a scan.
+
+	If you want to implement your own Response object instead of using the pyramid.response.Response object in any capacity at all, you’ll have to make sure the object implements every attribute and method outlined in pyramid.interfaces.IResponse and you’ll have to ensure that it uses zope.interface.implementer(IResponse) as a class decoratoror.
+
+	from pyramid.interfaces import IResponse
+	from zope.interface import implementer
+
+	@implementer(IResponse)
+	class MyResponse(object):
+		# ... an implementation of every method and attribute
+		# documented in IResponse should follow ...
+
+	When an alternate response object implementation is returned by a view callable, if that object asserts that it implements IResponse (via zope.interface.implementer(IResponse)) , an adapter needn’t be registered for the object; Pyramid will use it directly.
+
 # Using a View Mapper
 
 	Skipped.
@@ -2477,6 +2566,10 @@ Using Hooks
 	You may wish to have your own decorators that offer such behaviour. This is possible by using the Venusian package in the same way that it is used by Pyramid.
 
 	Skipped.
+
+# Registering "Tweens"
+
+	Skipped for now.
 
 
 Advanced Configuration
