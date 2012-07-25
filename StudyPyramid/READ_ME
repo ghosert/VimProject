@@ -2572,12 +2572,152 @@ Using Hooks
 	Skipped for now.
 
 
+Pyramid Configuration Introspection
+
+# Using the Introspector
+
+	Here’s an example of using Pyramid’s introspector from within a view callable:
+
+	 from pyramid.view import view_config
+	 from pyramid.response import Response
+
+	 @view_config(route_name='bar')
+	 def route_accepts(request):
+		 introspector = request.registry.introspector
+		 route_name = request.matched_route.name
+		 route_intr = introspector.get('routes', route_name)
+		 return Response(str(route_intr['pattern']))
+
+	This view will return a response that contains the “pattern” argument provided to the add_route method of the route which matched when the view was called. It uses the pyramid.interfaces.IIntrospector.get() method to return an introspectable in the category routes with a discriminator equal to the matched route name. It then uses the returned introspectable to obtain a “pattern” value.
+
+	The introspectable returned by the query methods of the introspector has methods and attributes described by pyramid.interfaces.IIntrospectable. In particular, the get(), get_category(), categories(), categorized(), and related() methods of an introspector can be used to query for introspectables.
+
+# Introspectable Objects
+	'route_intr' above is the introspectable object which implements the attributes and methods documented at pyramid.interfaces.IIntrospectable
+
+	The important attributes shared by all introspectables are the following:
+	title, category_name, discriminator, discriminator_hash, type_name, action_info
+
+	check details at: http://docs.pylonsproject.org/projects/pyramid/en/1.3-branch/narr/introspector.html
+
+	Besides having the attributes described above, an introspectable is a dictionary-like object. An introspectable can be queried for data values via its __getitem__, get, keys, values, or items methods. For example:
+
+	route_intr = introspector.get('routes', 'edit_user')
+	pattern = route_intr['pattern']
+
+# Pyramid Introspection Categories
+
+	The 'routes' above is one of the category with the 'pattern' data. So besides 'routes' category with 'pattern' data, we have the following category:
+	
+	subscribers
+		subscriber
+		interfaces
+	response adapters
+		adapter
+		type
+	root factories
+		factory
+		route_name
+	session factory
+		factory
+	request factory
+		factory
+	locale negotiator
+		negotiator
+	renderer factories
+		name
+		factory
+	renderer globals factory
+		factory
+	routes
+		name
+		pattern
+		factory
+		xhr
+		request_method
+		request_methods
+		path_info
+		request_param
+		header
+		accept
+		traverse
+		custom_predicates
+		pregenerator
+		static
+		use_global_views
+		object
+	authentication policy
+		policy
+	authorization policy
+		policy
+	default permission
+		value
+	views
+		name
+		context
+		containment
+		request_param
+		request_methods
+		route_name
+		attr
+		xhr
+		accept
+		header
+		path_info
+		match_param
+		callable
+		derived_callable
+		mapper
+		decorator
+	permissions
+		value
+	templates
+		name
+		type
+		renderer
+	view mapper
+		mapper
+	asset overrides
+		to_override
+		override_with
+	translation directories
+		directory
+		spec
+	tweens
+		name
+		factory
+		type
+		under
+		over
+	static views
+		name
+		spec
+	traversers
+		iface
+		adapter
+	resource url adapters
+		adapter
+		resource_iface
+		request_iface
+
+	Check out details at: http://docs.pylonsproject.org/projects/pyramid/en/1.3-branch/narr/introspector.html
+
+# Introspection in the Toolbar
+
+	You can see all registered introspectables and their relationships in the Pyramid debug toolbar.
+
+
+Extending An Existing Pyramid Application
+
+	Skipped.
+
+
 Advanced Configuration
 
 	Skipped. Although I've read this portion.
 
 
-Extending An Existing Pyramid Application
+Extending Pyramid Configuration
 
 	Skipped.
 
