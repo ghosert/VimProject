@@ -118,7 +118,12 @@ Creating a Pyramid Project:
 	 you can put anything you want here into "settings" and access it later from "view callable" by invoking request.registry.setting dictionary at application runtime.
 
 
-URL dispatch:
+Request Processing
+
+	Skipped. Although I've read this portion.
+
+
+URL Dispatch:
 	1. "config" below is presumed to be an instance of the pyramid.config.Configurator class; "myview" is assumed to be a "view callable" function
 	from myproject.views import myview
 	config.add_route('myroute', '/prefix/{one}/{two}', view=myview)
@@ -2714,17 +2719,73 @@ Extending An Existing Pyramid Application
 
 Advanced Configuration
 
-	Skipped. Although I've read this portion.
+	It's basically talking about how to handle the conflict detection like below:
+
+	################################################
+	from wsgiref.simple_server import make_server
+	from pyramid.config import Configurator
+	from pyramid.response import Response
+
+	def hello_world(request):
+		return Response('Hello world!')
+
+	def goodbye_world(request):
+		return Response('Goodbye world!')
+
+	if __name__ == '__main__':
+		config = Configurator()
+
+		config.add_view(hello_world, name='hello')
+
+		# conflicting view configuration
+		config.add_view(goodbye_world, name='hello')
+
+		app = config.make_wsgi_app()
+		server = make_server('0.0.0.0', 8080, app)
+		server.serve_forever()
+	################################################
+
+	This will cause the error like below:
+
+	pyramid.exceptions.ConfigurationConflictError:
+			Conflicting configuration actions
+	  For: ('view', None, '', None, <InterfaceClass pyramid.interfaces.IView>,
+			None, None, None, None, None, False, None, None, None)
+	  Line 14 of file app.py in <module>: 'config.add_view(hello_world)'
+	  Line 17 of file app.py in <module>: 'config.add_view(goodbye_world)'
+
+	Skip the rest of this chapter, take a look if necessary.
 
 
 Extending Pyramid Configuration
 
-	Skipped.
+# Adding Methods to the Configurator via add_directive
+	The add_directive() method accepts two positional arguments: a method name and a callable object. The callable object is usually a function that takes the configurator instance as its first argument and accepts other arbitrary positional and keyword arguments. For example:
+
+	from pyramid.events import NewRequest
+	from pyramid.config import Configurator
+
+	def add_newrequest_subscriber(config, subscriber):
+		config.add_subscriber(subscriber, NewRequest)
+
+	if __name__ == '__main__':
+		config = Configurator()
+		config.add_directive('add_newrequest_subscriber',
+							 add_newrequest_subscriber)
+
+	Once add_directive() is called, a user can then call the added directive by its given name as if it were a built-in method of the Configurator:
+
+	def mysubscriber(event):
+		print event.request
+
+	config.add_newrequest_subscriber(mysubscriber)
+
+	Skip the rest of this chapter, take a look if necessary.
 
 
-Request Processing
+Creating Pyramid Scaffolds
 
-	Skipped. Although I've read this portion.
+	Skip for now.
 
 
 Thread Locals
@@ -2741,6 +2802,12 @@ Thread Locals
 
 	You probably should almost never use the get_current_request() or get_current_registry() functions, except perhaps in tests. In particular, it’s almost always a mistake to use get_current_request or get_current_registry in application code because its usage makes it possible to write code that can be neither easily tested nor scripted.
 
+
+Using the Zope Component Architecture in Pyramid
+
+	Accordingly, Pyramid tends to hide the presence of the ZCA from application developers. You needn’t understand the ZCA to create a Pyramid application; its use is effectively only a framework implementation detail.
+
+	Thus, Skip this chapter.
 
 [END: Narrative documentation]
 
