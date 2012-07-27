@@ -634,10 +634,10 @@ Renderers
 
 
 # Adding and Changing Renderers
-	Check out: http://docs.pylonsproject.org/projects/pyramid/1.0/narr/renderers.html
+	Check out: http://docs.pylonsproject.org/projects/pyramid/en/1.3-branch/narr/renderers.html#adding-and-changing-renderers
 
 # Overriding A Renderer At Runtime
-	Check out: http://docs.pylonsproject.org/projects/pyramid/1.0/narr/renderers.html
+	Check out: http://docs.pylonsproject.org/projects/pyramid/en/1.3-branch/narr/renderers.html#overriding-a-renderer-at-runtime
 
 Templates
 
@@ -989,10 +989,6 @@ View Configuration
 		pass
 
 	The view_defaults decorator only works as a class decorator; using it against a function or a method will produce nonsensical results.
-
-# Using Resource Interfaces in View Configuration
-	I've skipped this portion, since it's traverse/resource/zope related.
-	Check it out later: http://docs.pylonsproject.org/projects/pyramid/1.0/narr/viewconfig.html
 
 # Configuring View Security
 
