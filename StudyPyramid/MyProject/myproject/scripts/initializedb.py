@@ -2,6 +2,8 @@ import os
 import sys
 import transaction
 
+# jiawzhang: Code in this file is executed whenever we run the "../bin/initialize_MyProject_db development.ini" command.
+
 from sqlalchemy import engine_from_config
 
 from pyramid.paster import (
@@ -11,7 +13,7 @@ from pyramid.paster import (
 
 from ..models import (
     DBSession,
-    MyModel,
+    Page,
     Base,
     )
 
@@ -31,5 +33,5 @@ def main(argv=sys.argv):
     DBSession.configure(bind=engine)
     Base.metadata.create_all(engine)
     with transaction.manager:
-        model = MyModel(name='one', value=1)
+        model = Page('FrontPage', 'This is the front page')
         DBSession.add(model)

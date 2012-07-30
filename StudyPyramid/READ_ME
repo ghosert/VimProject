@@ -92,6 +92,8 @@ Creating a Pyramid Project:
 
 	$ ../bin/initialize_MyProject_db development.ini
 
+	This will execute the file located in MyProject/myproject/script/initializedb.py
+
 # Interactive shell, "MyProject" here is the value of section name "app" in development.ini file, see more about pshell in pyramid docs.
 	pshell development.ini MyProject
 
