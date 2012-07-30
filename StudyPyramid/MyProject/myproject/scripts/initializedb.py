@@ -3,6 +3,8 @@ import sys
 import transaction
 
 # jiawzhang: Code in this file is executed whenever we run the "../bin/initialize_MyProject_db development.ini" command.
+# In this file, you can add new ORM here like Page class below and populate the data like "DBSession.add(model)" below.
+# After changing this file please make sure reinitializing the database with the command above.
 
 from sqlalchemy import engine_from_config
 

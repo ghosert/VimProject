@@ -84,6 +84,13 @@ if __name__ == '__main__':
     print phonePattern.search('work 1-(800) 555.1212 #1234').groups()
 
 
+    # Regarding group function:
+
+        # match.group() the entire matched string.
+        # match.group(0) the entire matched string.
+        # match.group(1) the first matched string.
+        # match.groups() the matched list.
+
 
     # Match any string
     str = 'jiaSweiFzhangFjing'

@@ -14,6 +14,9 @@ requires = [
     'pyramid_debugtoolbar',
     'zope.sqlalchemy',
     'waitress',
+    # jiawzhang: add a new docutils package for MyProject app.
+    # After adding this new dependency, enter virtual env, re-run 'python setup.py develop' in MyProject path to download and install the dependency.
+    'docutils',
     ]
 
 setup(name='MyProject',
