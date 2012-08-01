@@ -17,6 +17,7 @@ requires = [
     # jiawzhang: add a new docutils package for MyProject app.
     # After adding this new dependency, enter virtual env, re-run 'python setup.py develop' in MyProject path to download and install the dependency.
     'docutils',
+    'WebTest', # jiawzhang: add for running unit test.
     ]
 
 setup(name='MyProject',

@@ -5,12 +5,24 @@ from pyramid.httpexceptions import (
     HTTPFound,
     HTTPNotFound,
     )
-from pyramid.view import view_config
+
+from pyramid.view import (
+    view_config,
+    forbidden_view_config,
+    )
+
+from pyramid.security import (
+    remember,
+    forget,
+    authenticated_userid,
+    )
 
 from .models import (
     DBSession,
     Page,
     )
+
+from .security import USERS
 
 # regular expression used to find WikiWords
 wikiwords = re.compile(r"\b([A-Z]\w+[A-Z]+\w+)")
@@ -50,9 +62,9 @@ def view_page(request):
     # the edit_url for current page.
     edit_url = request.route_url('edit_page', pagename=pagename)
     # logged_in is available if you've invoking "headers = remember(request, login)" in login.py
-    return dict(page=page, content=content, edit_url=edit_url)
+    return dict(page=page, content=content, edit_url=edit_url, logged_in=authenticated_userid(request))
 
-@view_config(route_name='add_page', renderer='templates/edit.pt')
+@view_config(route_name='add_page', renderer='templates/edit.pt', permission='edit')
 def add_page(request):
     name = request.matchdict['pagename']
     if 'form.submitted' in request.params:
@@ -64,9 +76,9 @@ def add_page(request):
     save_url = request.route_url('add_page', pagename=name)
     page = Page('', '')
     # logged_in is available if you've invoking "headers = remember(request, login)" in login.py
-    return dict(page=page, save_url=save_url)
+    return dict(page=page, save_url=save_url, logged_in=authenticated_userid(request))
 
-@view_config(route_name='edit_page', renderer='templates/edit.pt')
+@view_config(route_name='edit_page', renderer='templates/edit.pt', permission='edit')
 def edit_page(request):
     name = request.matchdict['pagename']
     page = DBSession.query(Page).filter_by(name=name).one()
@@ -79,6 +91,7 @@ def edit_page(request):
     return dict(
         page=page,
         save_url = request.route_url('edit_page', pagename=name),
+        logged_in=authenticated_userid(request)
         )
 
 @view_config(route_name='login', renderer='templates/login.pt')
@@ -114,3 +127,4 @@ def logout(request):
     headers = forget(request)
     return HTTPFound(location = request.route_url('view_wiki'),
                      headers = headers)
+

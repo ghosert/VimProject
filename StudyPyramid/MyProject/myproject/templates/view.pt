@@ -30,14 +30,19 @@
       </div>
     </div>
     <div id="middle">
-      <div class="middle align-right">
+		<div class="middle align-right">
         <div id="left" class="app-welcome align-left">
           Viewing <b><span tal:replace="page.name">Page Name
               Goes Here</span></b><br/>
           You can return to the
-          <a href="${request.application_url}">FrontPage</a>.<br/>
+		  <a href="${request.application_url}">FrontPage</a>.<br/>
+		  <b>normal user/passwd: viewer/viewer, super user/passwd: editor/editor</b>
         </div>
-        <div id="right" class="app-welcome align-right"></div>
+		<div id="right" class="app-welcome align-right">
+			<span tal:condition="logged_in">
+			   <a href="${request.application_url}/logout">Logout</a>
+			</span>
+		</div>
       </div>
     </div>
     <div id="bottom">

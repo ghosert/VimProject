@@ -6,3 +6,4 @@ pyramid_debugtoolbar
 zope.sqlalchemy
 waitress
 docutils
+WebTest
