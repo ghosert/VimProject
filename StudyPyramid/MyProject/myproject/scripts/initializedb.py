@@ -15,6 +15,7 @@ from pyramid.paster import (
 
 from ..models import (
     DBSession,
+    # jiawzhang: add new model.
     Page,
     Base,
     )
@@ -35,5 +36,6 @@ def main(argv=sys.argv):
     DBSession.configure(bind=engine)
     Base.metadata.create_all(engine)
     with transaction.manager:
+        # jiawzhang: add new model.
         model = Page('FrontPage', 'This is the front page')
         DBSession.add(model)

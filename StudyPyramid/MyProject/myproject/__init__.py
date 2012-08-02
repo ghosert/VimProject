@@ -11,12 +11,17 @@ from .models import DBSession
 def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.
     """
+    # jiawzhang: Create a SQLAlchemy database engine from the sqlalchemy. prefixed settings in the development.ini file's [app:myproject] section. This will be a URI (something like sqlite://).
     engine = engine_from_config(settings, 'sqlalchemy.')
     DBSession.configure(bind=engine)
 
     authn_policy = AuthTktAuthenticationPolicy(
         'sosecret', callback=groupfinder)
     authz_policy = ACLAuthorizationPolicy()
+
+
+    # jiawzhang: settings contains deployment-related values such as reload_templates, db_string, etc.
+    # The root_factory, authentication_policy and authorization_policy is optional if you don't care authentication and authorization.
     config = Configurator(settings=settings,
                           root_factory='myproject.models.RootFactory')
     config.set_authentication_policy(authn_policy)

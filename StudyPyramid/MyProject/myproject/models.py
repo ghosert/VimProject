@@ -13,9 +13,15 @@ from sqlalchemy.orm import (
 
 from zope.sqlalchemy import ZopeTransactionExtension
 
+# jiawzhang: We specify that we'd like to use the "ZopeTransactionExtension".
+# jiawzhang: This extension is an extension which allows us to use a transaction manager instead of controlling commits and aborts to database operations by hand.
 DBSession = scoped_session(sessionmaker(extension=ZopeTransactionExtension()))
+
+# jiawzhang: We create a declarative Base object to use as a base class for our model.
 Base = declarative_base()
 
+# jiawzhang: Page class, It has an __init__ that takes a three arguments (id, name, and data).
+# jiawzhang: The Page class also has a __tablename__ attribute. This informs SQLAlchemy which table to use to store the data representing instances of this class.
 class Page(Base):
     """ The SQLAlchemy declarative model class for a Page object. """
     __tablename__ = 'pages'
@@ -26,6 +32,8 @@ class Page(Base):
     def __init__(self, name, data):
         self.name = name
         self.data = data
+
+# This is dedicated for the url dispatch based app.
 
 from pyramid.security import (
     Allow,

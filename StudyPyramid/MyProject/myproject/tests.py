@@ -9,6 +9,7 @@ def _initTestingDB():
         Page,
         Base
         )
+    # jiawzhang: 'sqlite://' means specify the db persistence as memory.
     engine = create_engine('sqlite://')
     Base.metadata.create_all(engine)
     DBSession.configure(bind=engine)

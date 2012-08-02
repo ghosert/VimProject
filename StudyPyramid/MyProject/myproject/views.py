@@ -64,6 +64,7 @@ def view_page(request):
     # logged_in is available if you've invoking "headers = remember(request, login)" in login.py
     return dict(page=page, content=content, edit_url=edit_url, logged_in=authenticated_userid(request))
 
+# add 'edit' permission on add_page.
 @view_config(route_name='add_page', renderer='templates/edit.pt', permission='edit')
 def add_page(request):
     name = request.matchdict['pagename']
@@ -78,6 +79,7 @@ def add_page(request):
     # logged_in is available if you've invoking "headers = remember(request, login)" in login.py
     return dict(page=page, save_url=save_url, logged_in=authenticated_userid(request))
 
+# add 'edit' permission on edit_page.
 @view_config(route_name='edit_page', renderer='templates/edit.pt', permission='edit')
 def edit_page(request):
     name = request.matchdict['pagename']
@@ -94,6 +96,7 @@ def edit_page(request):
         logged_in=authenticated_userid(request)
         )
 
+# @forbidden_view_config here means when the permission is not enough, forbidden exception will be raised, and the view above with forbidden predication will make redirecting to login page happen.
 @view_config(route_name='login', renderer='templates/login.pt')
 @forbidden_view_config(renderer='templates/login.pt')
 def login(request):
@@ -109,6 +112,7 @@ def login(request):
         login = request.params['login']
         password = request.params['password']
         if USERS.get(login) == password:
+            # jiawzhang: remember, check out http://docs.pylonsproject.org/projects/pyramid/en/1.3-branch/api/security.html
             headers = remember(request, login)
             return HTTPFound(location = came_from,
                              headers = headers)
@@ -124,6 +128,7 @@ def login(request):
 
 @view_config(route_name='logout')
 def logout(request):
+    # jiawzhang: forget, check out http://docs.pylonsproject.org/projects/pyramid/en/1.3-branch/api/security.html
     headers = forget(request)
     return HTTPFound(location = request.route_url('view_wiki'),
                      headers = headers)
