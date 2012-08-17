@@ -786,7 +786,7 @@ Selecting Entities from Subqueries
 
 Using EXISTS
 
-	The EXISTS keyword in SQL is a boolean operator which returns True if the given expression contains any rows.(But it seems EXISTS can be replaced by JOIN in SQL)
+	The EXISTS keyword in SQL is a boolean operator which returns True if the given expression contains any rows.(But it seems EXISTS can be replaced by JOIN in SQL? NO! It doesn't!)
 
 	>>> from sqlalchemy.sql import exists
 	>>> stmt = exists().where(Address.user_id==User.id)
