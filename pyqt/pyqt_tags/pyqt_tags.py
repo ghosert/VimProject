@@ -197,8 +197,12 @@ class PyQtTags:
 
 if __name__ == '__main__':
 
-    PYTHONPATH = os.sep.join(sys.executable.split(os.sep)[0:-1])
-    doc_location = PYTHONPATH + '\Lib\site-packages\PyQt4\doc\html'
+    # The two lines below are dedicated for Windows env.
+    # PYTHONPATH = os.sep.join(sys.executable.split(os.sep)[0:-1])
+    # doc_location = PYTHONPATH + '\Lib\site-packages\PyQt4\doc\html'
+    # The line below is dedicated for Ubuntu env.
+    doc_location = '/usr/share/doc/python-qt4-doc/html'
+
     result_location = 'classInfoMap.qt'
 
     if not os.path.isdir(doc_location):

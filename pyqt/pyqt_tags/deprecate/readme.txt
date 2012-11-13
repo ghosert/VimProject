@@ -1,1 +1,0 @@
-importsTipper.py comes from PySrc folder in org.python.pydev_*
