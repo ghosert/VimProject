@@ -1,0 +1,1898 @@
+<!DOCTYPE html>
+<html><head>
+    <!--
+    <link rel="stylesheet/less" type="text/css" href="http://lesscss.org/less/main.less">
+    -->
+    <link rel="shortcut icon" href="http://lesscss.org/favicon.ico">
+    <script src="less-language_files/widgets.js" id="twitter-wjs"></script><script src="less-language_files/less.js" type="text/javascript"></script><style id="less:less-main" media="screen" type="text/css">html {
+  margin: 0;
+}
+body {
+  background-color: #262626;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+  font-size: 100%;
+  overflow-x: hidden;
+}
+nav,
+header,
+footer,
+section,
+article {
+  display: block;
+}
+a {
+  color: #b83000;
+}
+h1 a {
+  color: black;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  font-weight: normal;
+}
+ul, li {
+  list-style-type: none;
+}
+code {
+  font-family: 'Bitstream Vera Sans Mono', 'DejaVu Sans Mono', 'Monaco', Courier, monospace !important;
+}
+code .string, code .regexp {
+  color: #3d575c;
+}
+code .comment {
+  color: rgba(0, 0, 0, 0.5);
+}
+code .number {
+  color: #143352;
+}
+code .class, code .special {
+  color: rgba(0, 50, 100, 0.8);
+}
+pre {
+  padding: 0 30px;
+  text-wrap: wrap;
+  white-space: pre-wrap;
+  /* css-3 */
+
+  white-space: -moz-pre-wrap;
+  /* Mozilla, since 1999 */
+
+  white-space: -pre-wrap;
+  /* Opera 4-6 */
+
+  white-space: -o-pre-wrap;
+  /* Opera 7 */
+
+  word-wrap: break-word;
+  /* Internet Explorer 5.5+ */
+
+}
+blockquote {
+  font-style: italic;
+}
+body > footer {
+  text-align: left;
+  margin-left: 10px;
+  font-style: italic;
+  font-size: 18px;
+  color: #888;
+}
+#logo {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  display: block;
+  width: 199px;
+  height: 81px;
+  background: url(/images/logo.png) no-repeat;
+}
+nav {
+  margin-left: 15px;
+}
+nav a, #dropdown li {
+  display: inline-block;
+  color: white;
+  line-height: 42px;
+  margin: 0;
+  padding: 0px 15px;
+  text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.5);
+  text-decoration: none;
+  border: 2px solid transparent;
+  border-width: 0 2px;
+}
+nav a:hover, #dropdown li:hover {
+  border: 2px solid #140805;
+  border-left-color: #3d170f;
+  border-right-color: #3d170f;
+  border-bottom: 0;
+  border-top: 0;
+  background-color: #521f14;
+  text-decoration: none;
+}
+.twitter-follow-button {
+  position: absolute;
+  right: 0;
+  top: 11px;
+}
+.dark-red {
+  border: 2px solid #140805;
+  border-left-color: #3d170f;
+  border-right-color: #3d170f;
+  border-bottom: 0;
+  border-top: 0;
+  background-color: #521f14;
+}
+.content {
+  margin: 0 auto;
+  width: 980px;
+}
+#menu {
+  position: absolute;
+  width: 100%;
+  z-index: 3;
+  clear: both;
+  display: block;
+  background-color: #143352;
+  height: 42px;
+  border-top: 2px solid rgba(92, 153, 214, 0.5);
+  border-bottom: 2px solid rgba(15, 38, 61, 0.5);
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
+  -webkit-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: 0 0 0 #000;
+}
+#menu .content {
+  position: relative;
+}
+#menu.docked {
+  background-color: rgba(41, 102, 163, 0.4);
+}
+#menu:hover {
+  background-color: #143352;
+}
+#menu #dropdown {
+  margin: 0 0 0 117px;
+  padding: 0;
+  padding-top: 5px;
+  display: none;
+  width: 190px;
+  border-top: 2px solid #7a2e1f;
+  color: #eaf2d9;
+  border: 2px solid #140805;
+  border-left-color: #3d170f;
+  border-right-color: #3d170f;
+  border-top-width: 0;
+  background-color: #521f14;
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+  -moz-border-top-right-radius: 0;
+  -moz-border-top-left-radius: 0;
+  -webkit-border-top-left-radius: 0;
+  -webkit-border-top-right-radius: 0;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0 6px 8px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 0 6px 8px rgba(0, 0, 0, 0.5);
+}
+#menu #dropdown ul {
+  padding: 0px;
+}
+#menu #dropdown li {
+  font-size: 14px;
+  display: block;
+  text-align: left;
+  padding: 0;
+  border: 0;
+}
+#menu #dropdown li a {
+  display: block;
+  padding: 0px 15px;
+  text-decoration: none;
+  color: white;
+}
+#menu #dropdown li a:hover {
+  background-color: #3d170f;
+  text-decoration: none;
+}
+#main {
+  margin: 0 auto;
+  width: 100%;
+  background-color: #79c3d2;
+  border-top: 8px solid #66bbcc;
+}
+#main #intro {
+  background-color: #d9eef2;
+  float: left;
+  margin-top: -8px;
+  margin-right: 5px;
+  height: 400px;
+  position: relative;
+  z-index: 2;
+  font-family: 'Droid Serif', 'Georgia';
+  width: 395px;
+  padding: 45px 20px 23px 30px;
+  border: 2px dashed #53b2c6;
+  box-shadow: 1px 0px 6px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 1px 0px 6px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 1px 0px 6px rgba(0, 0, 0, 0.5);
+  border-bottom: 0;
+  border-top: 0;
+}
+#main #intro #download {
+  color: transparent;
+  border: 0;
+  float: left;
+  display: inline-block;
+  margin: 15px 0 15px -5px;
+}
+#main #intro #download img {
+  display: inline-block;
+}
+#main #intro #download-info {
+  color: #476685;
+  display: inline;
+  float: left;
+  margin: 36px 0 0 15px;
+}
+#main #intro #download-info code {
+  font-size: 13px;
+}
+#main h2 {
+  color: #143352;
+  margin: 20px 0;
+  font-size: 24px;
+  line-height: 1.2em;
+}
+#main h2 span {
+  color: #7a2e1f;
+}
+#main h3 {
+  color: #143352;
+  line-height: 1.4em;
+  margin: 30px 0 15px 0;
+  font-size: 1em;
+  text-shadow: 0px 0px 0px #e6ebe0;
+}
+#main h3 span {
+  color: #7a2e1f;
+}
+#main #example {
+  float: right;
+  font-size: 12px;
+  margin: 0;
+  padding: 0;
+  width: 500px;
+}
+#main #example p {
+  font-size: 18px;
+  color: #143352;
+  font-weight: bold;
+  text-shadow: 0px 1px 1px #e6ebe0;
+}
+#main #example pre {
+  margin: 0;
+  text-shadow: 0 -1px 1px #262626;
+  margin-top: 20px;
+  background-color: #262626;
+  border: 0;
+  width: 450px;
+  color: #ebefe7;
+  background-repeat: repeat;
+  padding: 15px;
+  border: 1px dashed #e6ebe0;
+  line-height: 15px;
+  box-shadow: 0 0px 15px rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0 0px 15px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 0 0px 15px rgba(0, 0, 0, 0.5);
+  font-family: 'Bitstream Vera Sans Mono', 'DejaVu Sans Mono', 'Monaco', Courier, monospace !important;
+  border-radius: 2px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+}
+#main #example pre code .attribute, #main #example pre code .keyword {
+  color: #d9bf8c;
+}
+#main #example pre code .variable {
+  color: #738c73;
+}
+#main #example pre code .element {
+  color: #669991;
+}
+#main #example pre code .string, #main #example pre .regexp {
+  color: #bcd279;
+}
+#main #example pre code .class {
+  color: #c2a770;
+  font-weight: normal;
+}
+#main #example pre code .id {
+  color: #c2b470;
+  font-weight: normal;
+}
+#main #example pre code .comment {
+  color: rgba(255, 255, 255, 0.2);
+}
+#main #example pre code .number, #main #example pre .color {
+  color: #b35e4d;
+}
+#main #example pre code .class, #main #example pre code .mixin, #main #example pre .special {
+  color: #669199;
+}
+#main #example pre #time {
+  color: #aaaaaa;
+}
+.page {
+  margin: 0 auto;
+  font-family: 'Georgia', serif;
+  font-size: 18px;
+  line-height: 26px;
+  padding: 0 60px;
+}
+.page .content {
+  width: 870px;
+  padding: 45px;
+}
+.page code {
+  font-size: 16px;
+}
+.page pre {
+  border-width: 1px;
+  border-style: dashed;
+  padding: 15px;
+  margin: 15px 0;
+}
+.page h1 {
+  text-align: left;
+  font-size: 40px;
+  margin-top: 15px;
+  margin-bottom: 35px;
+}
+.page p + h1 {
+  margin-top: 60px;
+}
+.page h2, .page h3 {
+  margin: 30px 0 15px 0;
+}
+.page p + h2, .page pre + h2, .page code + h2 {
+  border-top: 6px solid rgba(255, 255, 255, 0.1);
+  padding-top: 30px;
+}
+.page h3 {
+  margin: 15px 0;
+}
+#docs {
+  border-top: 2px solid #9fd5df;
+  color: #143352;
+  background-color: #79c3d2;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+}
+#docs ul li {
+  list-style-type: circle;
+}
+#docs h1 {
+  font-family: 'Droid Serif', 'Georgia', serif;
+  padding-top: 30px;
+  padding-left: 45px;
+  font-size: 44px;
+  text-align: left;
+  margin: 30px 0 !important;
+  text-shadow: 0px 1px 1px #e6ebe0;
+  font-weight: bold;
+}
+#docs .content {
+  clear: both;
+  border-color: transparent;
+  background-color: #d9eef2;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 0 5px 5px rgba(0, 0, 0, 0.4);
+  -webkit-box-shadow: 0 5px 5px rgba(0, 0, 0, 0.4);
+}
+#docs pre {
+  color: #1f4c7a;
+  background-color: #ffffff;
+  border-color: #d9eef2;
+  border-width: 2px;
+}
+#docs pre code .attribute {
+  color: #735926;
+}
+#docs pre code .variable {
+  color: #455445;
+}
+#docs pre code .element {
+  color: #3d5c57;
+}
+#docs pre code .string, #docs pre .regexp {
+  color: #70862d;
+}
+#docs pre code .class {
+  color: #6b572e;
+  font-weight: normal;
+}
+#docs pre code .id {
+  color: #6b612e;
+  font-weight: normal;
+}
+#docs pre code .comment {
+  color: rgba(0, 0, 0, 0.4);
+}
+#docs pre code .number, #docs pre .color {
+  color: #6b382e;
+}
+#docs pre code .class, #docs pre code .mixin, #docs pre .special {
+  color: #3d575c;
+}
+#docs pre code {
+  font-size: 15px;
+}
+#docs p + h2, #docs pre + h2, #docs code + h2 {
+  border-top-color: rgba(0, 0, 0, 0.1);
+}
+td {
+  padding-right: 30px;
+}
+#synopsis {
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+}
+#synopsis h2, #about h2, #translations h2 {
+  font-size: 30px;
+  padding: 10px 0;
+}
+#synopsis h1 + h2, #about h1 + h2, #translations h1 + h2 {
+  margin-top: 15px;
+}
+#synopsis h3, #about h3, #translations h3 {
+  font-size: 22px;
+}
+#synopsis .code-example, #about .code-example, #translations .code-example {
+  border-spacing: 0;
+  border-width: 1px;
+  border-style: dashed;
+  padding: 0;
+}
+#synopsis .code-example pre, #about .code-example pre, #translations .code-example pre {
+  border: 0;
+  margin: 0;
+}
+#synopsis .code-example td, #about .code-example td, #translations .code-example td {
+  border: 0;
+  margin: 0;
+  background-color: #191919;
+  vertical-align: top;
+  padding: 0;
+}
+#synopsis .code-example tr, #about .code-example tr, #translations .code-example tr {
+  padding: 0;
+}
+#synopsis .css-output td, #about .css-output td, #translations .css-output td {
+  border-left: 0;
+}
+#synopsis .css-output,
+#about .css-output,
+#translations .css-output,
+#synopsis .less-example,
+#about .less-example,
+#translations .less-example {
+  width: 390px;
+}
+#synopsis pre, #about pre, #translations pre {
+  padding: 20px;
+  line-height: 20px;
+  font-size: 14px;
+}
+#about,
+#synopsis,
+#usage,
+#translations {
+  text-shadow: 0 -1px 1px #262626;
+  color: #eaf2d9;
+  background-color: #191919;
+}
+#about a,
+#synopsis a,
+#usage a,
+#translations a {
+  text-decoration: none;
+  color: #fbfbcb;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
+}
+#about a:hover,
+#synopsis a:hover,
+#usage a:hover,
+#translations a:hover {
+  text-decoration: none;
+  border-bottom: 1px dashed #fbfbcb;
+}
+#about .content,
+#synopsis .content,
+#usage .content,
+#translations .content {
+  background-color: #262626;
+  clear: both;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 0 5px 5px rgba(0, 0, 0, 0.4);
+  -webkit-box-shadow: 0 5px 5px rgba(0, 0, 0, 0.4);
+}
+#about h1,
+#synopsis h1,
+#usage h1,
+#translations h1,
+#about h2,
+#synopsis h2,
+#usage h2,
+#translations h2,
+#about h3,
+#synopsis h3,
+#usage h3,
+#translations h3 {
+  color: #e2e2b1;
+}
+#about pre,
+#synopsis pre,
+#usage pre,
+#translations pre {
+  background-color: #191919;
+  border-color: #f9f9b3;
+}
+#about pre code .attribute,
+#synopsis pre code .attribute,
+#usage pre code .attribute,
+#translations pre code .attribute {
+  color: #d9bf8c;
+}
+#about pre code .variable,
+#synopsis pre code .variable,
+#usage pre code .variable,
+#translations pre code .variable {
+  color: #738c73;
+}
+#about pre code .element,
+#synopsis pre code .element,
+#usage pre code .element,
+#translations pre code .element {
+  color: #669991;
+}
+#about pre code .string,
+#synopsis pre code .string,
+#usage pre code .string,
+#translations pre code .string,
+#about pre .regexp,
+#synopsis pre .regexp,
+#usage pre .regexp,
+#translations pre .regexp {
+  color: #bcd279;
+}
+#about pre code .class,
+#synopsis pre code .class,
+#usage pre code .class,
+#translations pre code .class {
+  color: #c2a770;
+  font-weight: normal;
+}
+#about pre code .id,
+#synopsis pre code .id,
+#usage pre code .id,
+#translations pre code .id {
+  color: #c2b470;
+  font-weight: normal;
+}
+#about pre code .comment,
+#synopsis pre code .comment,
+#usage pre code .comment,
+#translations pre code .comment {
+  color: rgba(255, 255, 255, 0.2);
+}
+#about pre code .number,
+#synopsis pre code .number,
+#usage pre code .number,
+#translations pre code .number,
+#about pre .color,
+#synopsis pre .color,
+#usage pre .color,
+#translations pre .color {
+  color: #b35e4d;
+}
+#about pre code .class,
+#synopsis pre code .class,
+#usage pre code .class,
+#translations pre code .class,
+#about pre code .mixin,
+#synopsis pre code .mixin,
+#usage pre code .mixin,
+#translations pre code .mixin,
+#about pre .special,
+#synopsis pre .special,
+#usage pre .special,
+#translations pre .special {
+  color: #669199;
+}
+#about code,
+#synopsis code,
+#usage code,
+#translations code {
+  color: #dcdc9e;
+}
+#about code .string,
+#synopsis code .string,
+#usage code .string,
+#translations code .string,
+#about code .regexp,
+#synopsis code .regexp,
+#usage code .regexp,
+#translations code .regexp {
+  color: #87bbc5;
+}
+#about code .keyword,
+#synopsis code .keyword,
+#usage code .keyword,
+#translations code .keyword {
+  color: #735926;
+  font-weight: normal;
+}
+#about code .comment,
+#synopsis code .comment,
+#usage code .comment,
+#translations code .comment {
+  color: rgba(255, 255, 255, 0.2);
+}
+#about code .number,
+#synopsis code .number,
+#usage code .number,
+#translations code .number {
+  color: #1f4c7a;
+}
+#about code .class,
+#synopsis code .class,
+#usage code .class,
+#translations code .class,
+#about code .special,
+#synopsis code .special,
+#usage code .special,
+#translations code .special {
+  color: #669199;
+}
+#usage {
+  background-color: #262626;
+}
+#usage .content {
+  background-color: transparent;
+}
+#about, #translations {
+  background-color: #262626 !important;
+}
+#about .content, #translations .content {
+  background-color: #2e2e2e;
+}
+#synopsis {
+  background-color: #2e2e2e !important;
+}
+#synopsis .content {
+  background-color: #2e2e2e;
+}
+#synopsis .content, #usage .content {
+  box-shadow: 0 0px 0px rgba(0, 0, 0, 0);
+  -moz-box-shadow: 0 0px 0px rgba(0, 0, 0, 0);
+  -webkit-box-shadow: 0 0px 0px rgba(0, 0, 0, 0);
+}
+#about footer {
+  margin-top: 30px;
+  padding-top: 30px;
+  border-top: 6px solid rgba(0, 0, 0, 0.1);
+  text-align: center;
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.35);
+  text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.02);
+}
+#about footer #copy {
+  font-size: 12px;
+}
+</style>
+    <link href="less-language_files/css.css" rel="stylesheet" type="text/css">
+    <link rel="alternate" type="application/atom+xml" title="app - feed" href="http://lesscss.org/index.xml">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>LESS « The Dynamic Stylesheet language</title>
+    <script type="text/javascript">
+      (function () {
+        if (/Microsoft/.test(navigator.appName)) { return }
+
+        window.onload = function () {
+          var headers = document.querySelectorAll('#docs h2, #guide h1');
+          var menu = document.getElementById('menu');
+          var init = menu.offsetTop;
+          var docked;
+
+          for (var i = 0; i < headers.length; i++) {
+            headers[i].id = '-' + headers[i].innerHTML.toLowerCase().replace(/ /g, '-');
+          }
+
+          window.onscroll = function () {
+            if (!docked && (menu.offsetTop - scrollTop() < 0)) {
+              menu.style.top = 0;
+              menu.style.position = 'fixed';
+              menu.className = 'docked';
+              docked = true;
+            } else if (docked && scrollTop() <= init) {
+              menu.style.position = 'absolute';
+              menu.style.top = init + 'px';
+              menu.className = menu.className.replace('docked', '');
+              docked = false;
+            }
+          };
+
+
+          (function () {
+            var link     = document.getElementById('guide-link'),
+                menu     = document.getElementById('menu'),
+                dropdown = document.getElementById('dropdown');
+
+            link.onmouseover = function () {
+              link.className = 'dark-red';
+              dropdown.style.display = 'block';
+            };
+            link.onmouseout = function (e) {
+              if (e.relatedTarget === dropdown) { return }
+              link.className = link.className.replace('dark-red', '');
+              hide ();
+            };
+            dropdown.onmouseout = function (e) {
+              var t = e.relatedTarget;
+
+              if (e.target == link) { return }
+
+              while (t !== document.body) {
+                if (t == dropdown) { return }
+                else               { t = t.parentNode }
+              } 
+              link.className = link.className.replace('dark-red', '');
+              hide ();
+            };
+
+            function hide() { dropdown.style.display = 'none' }
+          })();
+        };
+
+        function scrollTop() {
+          return document.body.scrollTop || document.documentElement.scrollTop;
+        }
+      })();
+    </script>
+  
+<link rel="stylesheet" id="scrapbook-sticky-css" type="text/css" href="less-language_files/annotation.css" media="all">
+</head>
+  <body data-twttr-rendered="true">
+    <section>
+      <header id="main">
+  <div class="content">
+    <section id="intro">
+      <div id="logo"></div>
+      <h2>The <span>dynamic</span> stylesheet <span>language</span>.</h2>
+      <h3>
+        LESS extends CSS with dynamic behavior such as <span>variables</span>, <span>mixins</span>,
+        <span>operations</span> and <span>functions</span>. LESS runs on both the <span>client-side</span> (Chrome, Safari, Firefox) and
+        server-side, with <span>Node.js</span> and <span>Rhino</span>.
+      </h3>
+      <a id="download" href="http://cloud.github.com/downloads/cloudhead/less.js/less-1.3.1.min.js">
+        <img src="less-language_files/download-button.png"></a><div id="download-info">version <code><span class="number">1.3</span><span class="number">.1</span></code></div>
+    </section>
+
+    <section id="example">
+    <p>Write some LESS:</p>
+
+<pre><code><span class="variable">@base</span>: <span class="color">#f938ab</span>;
+
+<span class="class">.box-shadow</span>(<span class="variable">@style</span>, <span class="variable">@c</span>) <span class="keyword">when</span> (iscolor(<span class="variable">@c</span>)) {
+  <span class="attribute">box-shadow</span>:         <span class="variable">@style </span><span class="variable">@c</span>;
+  <span class="attribute">-webkit-box-shadow</span>: <span class="variable">@style </span><span class="variable">@c</span>;
+  <span class="attribute">-moz-box-shadow</span>:    <span class="variable">@style </span><span class="variable">@c</span>;
+}
+<span class="class">.box-shadow</span>(<span class="variable">@style</span>, <span class="variable">@alpha</span>: <span class="number">50%</span>) <span class="keyword">when</span> (isnumber(<span class="variable">@alpha</span>)) {
+  <span class="mixin">.box-shadow</span>(<span class="variable">@style</span>, rgba(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="variable">@alpha</span>));
+}
+<span class="class">.box</span> { 
+  <span class="attribute">color</span>: saturate(<span class="variable">@base</span>, <span class="number">5%</span>);
+  <span class="attribute">border-color</span>: lighten(<span class="variable">@base</span>, <span class="number">30%</span>);
+  <span class="element">div</span> { <span class="mixin">.box-shadow</span>(<span class="number">0</span> <span class="number">0</span> <span class="number">5px</span>, <span class="number">30%</span>) }
+}
+</code></pre>
+
+<p>Include <code>less.js</code> with your styles:</p>
+
+<pre><code>&lt;link rel=<span class="string">"stylesheet/less"</span> type=<span class="string">"text/css"</span> href=<span class="string">"styles.less"</span>&gt;
+&lt;script src=<span class="string">"less.js"</span> type=<span class="string">"text/javascript"</span>&gt;&lt;/script&gt;
+</code></pre>
+
+    </section>
+  </div>
+  <div style="clear: both"></div>
+</header>
+
+<section class="docked" style="top: 0px; position: fixed;" id="menu">
+  <div class="content">
+    <nav>
+      <a href="#synopsis">overview</a>
+      <a href="#usage">usage</a>
+      <a href="#docs" id="guide-link">language</a>
+      <a href="http://github.com/cloudhead/less.js">source</a>
+      <a href="#about">about</a>
+    </nav>
+    <iframe data-twttr-rendered="true" title="Twitter Follow Button" style="width: 80px; height: 20px;" class="twitter-follow-button" src="less-language_files/follow_button.html" allowtransparency="true" frameborder="0" scrolling="no"></iframe>
+    <div id="dropdown">
+      <ul>
+        <li><a href="#-variables">Variables</a></li>
+        <li><a href="#-mixins">Mixins</a></li>
+        <li><a href="#-parametric-mixins">Parametric Mixins</a></li>
+        <li><a href="#-pattern-matching-and-guard-expressions">Pattern-matching</a></li>
+        <li><a href="#-nested-rules">Nested Rules</a></li>
+        <li><a href="#-operations">Operations</a></li>
+        <li><a href="#-color-functions">Color functions</a></li>
+        <li><a href="#-namespaces">Namespaces</a></li>
+        <li><a href="#-scope">Scope</a></li>
+        <li><a href="#-comments">Comments</a></li>
+        <li><a href="#-importing">Importing</a></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="synopsis" class="page">
+  <div class="content">
+    <h2>Variables</h2>
+
+<p>Variables allow you to specify widely used values in a single place, and then re-use them throughout the style sheet,
+making global changes as easy as changing one line of code.</p>
+
+<table class="code-example" cellpadding="0">
+  <tbody><tr><td>
+  <pre class="less-example">  <code><span class="comment">// LESS</span>
+
+<span class="variable">@color</span>: <span class="color">#4D926F</span>;
+
+<span class="id">#header</span> {
+  <span class="attribute">color</span>: <span class="variable">@color</span>;
+}
+<span class="element">h2</span> {
+  <span class="attribute">color</span>: <span class="variable">@color</span>;
+}</code></pre>
+  </td><td>
+  <pre class="css-output"><code><span class="comment">/* Compiled CSS */</span>
+
+<span class="id">#header</span> {
+  <span class="attribute">color</span>: <span class="color">#4D926F</span>;
+}
+<span class="element">h2</span> {
+  <span class="attribute">color</span>: <span class="color">#4D926F</span>;
+}</code></pre></td>
+  </tr>
+</tbody></table>
+
+
+<h2>Mixins</h2>
+
+<p>Mixins allow you to embed all the properties of a class into another class by
+simply including the class name as one of its properties. It’s just like variables,
+but for whole classes. Mixins can also behave like functions, and take arguments,
+as seen in the example below.</p>
+
+<table class="code-example" cellpadding="0">
+  <tbody><tr><td>
+  <pre class="less-example"><code><span class="comment">// LESS</span>
+
+<span class="class">.rounded-corners</span> (<span class="variable">@radius</span>: <span class="number">5px</span>) {
+  <span class="attribute">-webkit-border-radius</span>: <span class="variable">@radius</span>;
+  <span class="attribute">-moz-border-radius</span>: <span class="variable">@radius</span>;
+  <span class="attribute">-ms-border-radius</span>: <span class="variable">@radius</span>;
+  <span class="attribute">-o-border-radius</span>: <span class="variable">@radius</span>;
+  <span class="attribute">border-radius</span>: <span class="variable">@radius</span>;
+}
+
+<span class="id">#header</span> {
+  <span class="mixin">.rounded-corners</span>;
+}
+<span class="id">#footer</span> {
+  <span class="mixin">.rounded-corners</span>(<span class="number">10px</span>);
+}</code></pre></td>
+
+<td>
+  <pre class="css-output"><code><span class="comment">/* Compiled CSS */</span>
+
+<span class="id">#header</span> {
+  <span class="attribute">-webkit-border-radius</span>: <span class="number">5px</span>;
+  <span class="attribute">-moz-border-radius</span>: <span class="number">5px</span>;
+  <span class="attribute">-ms-border-radius</span>: <span class="number">5px</span>;
+  <span class="attribute">-o-border-radius</span>: <span class="number">5px</span>;
+  <span class="attribute">border-radius</span>: <span class="number">5px</span>;
+}
+<span class="id">#footer</span> {
+  <span class="attribute">-webkit-border-radius</span>: <span class="number">10px</span>;
+  <span class="attribute">-moz-border-radius</span>: <span class="number">10px</span>;
+  <span class="attribute">-ms-border-radius</span>: <span class="number">10px</span>;
+  <span class="attribute">-o-border-radius</span>: <span class="number">10px</span>;
+  <span class="attribute">border-radius</span>: <span class="number">10px</span>;
+}</code></pre>
+  </td></tr>
+</tbody></table>
+
+
+<h2>Nested Rules</h2>
+
+<p>Rather than constructing long selector names to specify inheritance,
+in Less you can simply nest selectors inside other selectors.
+This makes inheritance clear and style sheets shorter.</p>
+
+<table class="code-example" cellpadding="0">
+  <tbody><tr><td>
+  <pre class="less-example"><code><span class="comment">// LESS</span>
+
+<span class="id">#header</span> {
+  <span class="element">h1</span> {
+    <span class="attribute">font-size</span>: <span class="number">26px</span>;
+    <span class="attribute">font-weight</span>: bold;
+  }
+  <span class="element">p</span> { <span class="attribute">font-size</span>: <span class="number">12px</span>;
+    <span class="element">a</span> { <span class="attribute">text-decoration</span>: none;
+      &amp;<span class="class">:hover</span> { <span class="attribute">border-width</span>: <span class="number">1px</span> }
+    }
+  }
+}
+
+</code></pre></td>
+
+<td>
+  <pre class="css-output"><code><span class="comment">/* Compiled CSS */</span>
+
+<span class="id">#header</span> <span class="element">h1</span> {
+  <span class="attribute">font-size</span>: <span class="number">26px</span>;
+  <span class="attribute">font-weight</span>: bold;
+}
+<span class="id">#header</span> <span class="element">p</span> {
+  <span class="attribute">font-size</span>: <span class="number">12px</span>;
+}
+<span class="id">#header</span> <span class="element">p</span> <span class="element">a</span> {
+  <span class="attribute">text-decoration</span>: none;
+}
+<span class="id">#header</span> <span class="element">p</span> <span class="element">a</span><span class="class">:hover</span> {
+  <span class="attribute">border-width</span>: <span class="number">1px</span>;
+}
+
+</code></pre>
+  </td></tr>
+</tbody></table>
+
+
+<h2>Functions &amp; Operations</h2>
+
+<p>Are some elements in your style sheet proportional to other elements?
+Operations let you add, subtract, divide and multiply property values and colors,
+giving you the power to create complex relationships between properties. Operations
+should only be performed within parentheses in order to ensure compatibility with CSS.
+Functions map one-to-one with JavaScript code, allowing you to manipulate values however
+you want.</p>
+
+<table class="code-example" cellpadding="0">
+  <tbody><tr><td>
+  <pre class="less-example"><code><span class="comment">// LESS</span>
+
+<span class="variable">@the-border</span>: <span class="number">1px</span>;
+<span class="variable">@base-color</span>: <span class="color">#111</span>;
+<span class="variable">@red</span>:        <span class="color">#842210</span>;
+
+<span class="id">#header</span> {
+  <span class="attribute">color</span>: (<span class="variable">@base-color </span>* <span class="number">3</span>);
+  <span class="attribute">border-left</span>: <span class="variable">@the-border</span>;
+  <span class="attribute">border-right</span>: (<span class="variable">@the-border </span>* <span class="number">2</span>);
+}
+<span class="id">#footer</span> {
+  <span class="attribute">color</span>: (<span class="variable">@base-color </span>+ <span class="color">#003300</span>);
+  <span class="attribute">border-color</span>: desaturate(<span class="variable">@red</span>, <span class="number">10%</span>);
+}
+
+</code></pre></td>
+
+<td>
+  <pre class="css-output"><code><span class="comment">/* Compiled CSS */</span>
+
+<span class="id">#header</span> {
+  <span class="attribute">color</span>: <span class="color">#333</span>;
+  <span class="attribute">border-left</span>: <span class="number">1px</span>;
+  <span class="attribute">border-right</span>: <span class="number">2px</span>;
+}
+<span class="id">#footer</span> {
+  <span class="attribute">color</span>: <span class="color">#114411</span>;
+  <span class="attribute">border-color</span>: <span class="color">#7d2717</span>;
+}
+
+</code></pre>
+  </td></tr>
+</tbody></table>
+
+
+  </div>
+</section>
+
+<section id="usage" class="page">
+  <div class="content">
+    <h1>Client-side usage</h1>
+
+<p>Client-side is the easiest way to get started and good for developing your less. For production and especially
+if performance is important, we recommend pre-compiling using node or one of the many third party tools.</p>
+
+<p>Link your <code>.less</code> stylesheets with the <code>rel</code> set to “<code>stylesheet/less</code>”:</p>
+
+<pre><code>&lt;link rel=<span class="string">"stylesheet/less"</span> type=<span class="string">"text/css"</span> href=<span class="string">"styles.less"</span> /&gt;
+</code></pre>
+
+<p>Then download <code>less.js</code> from the top of the page, and include it in the <code>&lt;head&gt;</code> element of your page, like so:</p>
+
+<pre><code>&lt;script src=<span class="string">"less.js"</span> type=<span class="string">"text/javascript"</span>&gt;&lt;/script&gt;
+</code></pre>
+
+<p>Make sure you include your stylesheets <em>before</em> the script.</p>
+
+<h2>Watch mode</h2>
+
+<p><em>Watch mode</em> is a client-side feature which enables your styles to refresh automatically as they are changed.</p>
+
+<p>To enable it, append ‘<code>#!watch</code>’ to the browser URL, then refresh the page. Alternatively, you can
+run <code>less.watch()</code> from the console.</p>
+
+<h1>Server-side usage</h1>
+
+<h2>Installation</h2>
+
+<p>The easiest way to install LESS on the server, is via <a href="http://github.com/isaacs/npm">npm</a>, the node package manager, as so:</p>
+
+<pre><code>$ npm install -g less
+</code></pre>
+
+<h2>Command-line usage</h2>
+
+<p>Once installed, you can invoke the compiler from the command-line, as such:</p>
+
+<pre><code>$ lessc styles.less
+</code></pre>
+
+<p>This will output the compiled CSS to <code>stdout</code>, you may then redirect it to a file of your choice:</p>
+
+<pre><code>$ lessc styles.less &gt; styles.css
+</code></pre>
+
+<p>To output minified CSS, simply pass the <code>-x</code> option. If you would like more involved minification,
+the <a href="http://developer.yahoo.com/yui/compressor/css.html">YUI CSS Compressor</a> is also available with
+the <code>--yui-compress</code> option.</p>
+
+<p>To see all the command line options run lessc without parameters.</p>
+
+<h2>Usage in Code</h2>
+
+<p>You can invoke the compiler from node, as such:</p>
+
+<pre><code>var less = require('less');
+
+less.render('.class { width: (1 + 1) }', function (e, css) {
+    console.log(css);
+});
+</code></pre>
+
+<p>which will output</p>
+
+<pre><code><span class="class">.class</span> {
+  <span class="attribute">width</span>: <span class="number">2</span>;
+}
+</code></pre>
+
+<p>you may also manually invoke the parser and compiler:</p>
+
+<pre><code>var parser = new(less.Parser);
+
+parser.parse('.class { width: (1 + 1) }', function (err, tree) {
+    if (err) { return console.error(err) }
+    console.log(tree.toCSS());
+});
+</code></pre>
+
+<h2>Configuration</h2>
+
+<p>You may pass some options to the compiler:</p>
+
+<pre><code>var parser = new(less.Parser)({
+    paths: ['.', './lib'], // Specify search paths for @import directives
+    filename: 'style.less' // Specify a filename, for better error messages
+});
+
+parser.parse('.class { width: (1 + 1) }', function (e, tree) {
+    tree.toCSS({ compress: true }); // Minify CSS output
+});
+</code></pre>
+
+<h1>Third Party Tools</h1>
+
+<p>There are a selection of tools available and these are documented in the github wiki.</p>
+
+<p><a href="https://github.com/cloudhead/less.js/wiki/Command-Line-use-of-LESS">Command Line Tools</a></p>
+
+<p><a href="https://github.com/cloudhead/less.js/wiki/GUI-compilers-that-use-LESS.js">GUI Tools</a></p>
+
+  </div>
+</section>
+
+<section id="docs" class="page">
+  <h1>The Language</h1>
+  <div class="content">
+      <p>As an extension to CSS, LESS is not only backwards compatible with CSS, but the extra features it adds use <em>existing</em> CSS syntax. This makes learning LESS a <em>breeze</em>, and if in doubt, lets you fall back to CSS.</p>
+
+<h2 id="-variables">Variables</h2>
+
+<p>These are pretty self-explanatory:</p>
+
+<pre><code><span class="variable">@nice-blue</span>: <span class="color">#5B83AD</span>;
+<span class="variable"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">@light-blue</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">: (</span><span class="variable"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">@nice-blue </span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">+ </span><span class="color"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">#111</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">);</span>
+
+<span class="id">#header</span> { <span class="attribute">color</span>: <span class="variable">@light-blue</span>; }
+</code></pre>
+
+<p>Outputs:</p>
+
+<pre><code><span class="id">#header</span> { <span class="attribute">color</span>: <span class="color">#6c94be</span>; }
+</code></pre>
+
+<p>It is also possible to define variables with a variable name:</p>
+
+<pre><code><span class="variable">@fnord</span>: <span class="string">"I am fnord."</span>;
+<span class="variable">@var</span>: <span class="string">'fnord'</span>;
+<span class="attribute">content</span>: <span class="variable">@@var</span>;
+</code></pre>
+
+<p>Which compiles to:</p>
+
+<pre><code><span class="attribute">content</span>: <span class="string">"I am fnord."</span>;
+</code></pre>
+
+<p>Note that variables in LESS are actually ‘constants’ in that they can only be defined once.</p>
+
+<h2 id="-mixins">Mixins</h2>
+
+<p>In LESS, it is possible to include a bunch of properties from one 
+ruleset into another ruleset. So say we have the following class:</p>
+
+<pre><code><span class="class"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">.bordered</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line"> {</span>
+  <span class="attribute">border-top</span>: dotted <span class="number">1px</span> black;
+  <span class="attribute">border-bottom</span>: solid <span class="number">2px</span> black;
+}
+</code></pre>
+
+<p>And we want to use these properties inside other rulesets. Well, we just have to drop in the name of
+the class in any ruleset we want to include its properties, like so:</p>
+
+<pre><code><span class="id">#menu</span> <span class="element">a</span> {
+  <span class="attribute">color</span>: <span class="color">#111</span>;
+  <span class="mixin"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">.bordered</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">;</span>
+}
+<span class="class">.post</span> <span class="element">a</span> {
+  <span class="attribute">color</span>: red;
+  <span class="mixin">.bordered</span>;
+}
+</code></pre>
+
+<p>The properties of the <code>.bordered</code> class will now appear in both <code>#menu a</code> and <code>.post a</code>:</p>
+
+<pre><code><span class="id">#menu</span> <span class="element">a</span> {
+  <span class="attribute">color</span>: <span class="color">#111</span>;
+<span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">  </span><span class="attribute"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">border-top</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">: dotted </span><span class="number"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">1px</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line"> black;
+  </span><span class="attribute"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">border-bottom</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">: solid </span><span class="number"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">2px</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line"> black;</span>
+}
+<span class="class">.post</span> <span class="element">a</span> {
+  <span class="attribute">color</span>: red;
+  <span class="attribute">border-top</span>: dotted <span class="number">1px</span> black;
+  <span class="attribute">border-bottom</span>: solid <span class="number">2px</span> black;
+}
+</code></pre>
+
+<p>Any CSS <em>class</em> or <em>id</em> ruleset can be mixed-in that way.</p>
+
+<h2 id="-parametric-mixins">Parametric Mixins</h2>
+
+<p>LESS has a special type of ruleset which can be mixed in like classes, but accepts parameters. Here’s the canonical example:</p>
+
+<pre><code><span class="class"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">.border-radius</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line"> (</span><span class="variable"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">@radius</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">) {</span>
+  <span class="attribute">border-radius</span>: <span class="variable">@radius</span>;
+  <span class="attribute">-moz-border-radius</span>: <span class="variable">@radius</span>;
+  <span class="attribute">-webkit-border-radius</span>: <span class="variable">@radius</span>;
+}
+</code></pre>
+
+<p>And here’s how we can mix it into various rulesets:</p>
+
+<pre><code><span class="id">#header</span> {
+<span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">  </span><span class="mixin"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">.border-radius</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">(</span><span class="number"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">4px</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">);</span>
+}
+<span class="class">.button</span> {
+  <span class="mixin">.border-radius</span>(<span class="number">6px</span>);
+}
+</code></pre>
+
+<p>Parametric mixins can also have default values for their parameters:</p>
+
+<pre><code><span class="class"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">.border-radius</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line"> (</span><span class="variable"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">@radius</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">: </span><span class="number"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">5px</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">) {</span>
+  <span class="attribute">border-radius</span>: <span class="variable">@radius</span>;
+  <span class="attribute">-moz-border-radius</span>: <span class="variable">@radius</span>;
+  <span class="attribute">-webkit-border-radius</span>: <span class="variable">@radius</span>;
+}
+</code></pre>
+
+<p>We can invoke it like this now:</p>
+
+<pre><code><span class="id">#header</span> {
+<span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">  </span><span class="mixin"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">.border-radius</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">;</span>
+}
+</code></pre>
+
+<p>And it will include a 5px border-radius.</p>
+
+<p>You can also use parametric mixins which don’t take parameters. This 
+is useful if you want to hide the ruleset from the CSS output,
+but want to include its properties in other rulesets:</p>
+
+<pre><code><span class="class"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">.wrap</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line"> () {</span>
+  <span class="attribute">text-wrap</span>: wrap;
+  <span class="attribute">white-space</span>: pre-wrap;
+  <span class="attribute">white-space</span>: -moz-pre-wrap;
+  <span class="attribute">word-wrap</span>: break-word;
+}
+
+<span class="element"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">pre</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line"> { </span><span class="mixin"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">.wrap</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line"> }</span>
+</code></pre>
+
+<p>Which would output:</p>
+
+<pre><code><span class="element">pre</span> {
+  <span class="attribute">text-wrap</span>: wrap;
+  <span class="attribute">white-space</span>: pre-wrap;
+  <span class="attribute">white-space</span>: -moz-pre-wrap;
+  <span class="attribute">word-wrap</span>: break-word;
+}
+</code></pre>
+
+<h3>The <code><span class="variable">@arguments</span></code> variable</h3>
+
+<p><code><span class="variable">@arguments</span></code> has a special meaning inside mixins, it contains all the arguments passed, when the mixin was called. This is useful
+if you don’t want to deal with individual parameters:</p>
+
+<pre><code><span class="class">.box-shadow</span> (<span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line"></span><span class="variable"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">@x</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">: </span><span class="number"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">0</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">, </span><span class="variable"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">@y</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">: </span><span class="number"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">0</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">, </span><span class="variable"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">@blur</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">: </span><span class="number"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">1px</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">, </span><span class="variable"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">@color</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">: #</span><span class="number"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">000</span></span>) {
+  <span class="attribute">box-shadow</span>: <span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line"></span><span class="variable"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">@arguments</span></span>;
+  <span class="attribute">-moz-box-shadow</span>: <span class="variable">@arguments</span>;
+  <span class="attribute">-webkit-box-shadow</span>: <span class="variable">@arguments</span>;
+}
+<span class="mixin">.box-shadow</span>(<span class="number">2px</span>, <span class="number">5px</span>);
+</code></pre>
+
+<p>Which results in:</p>
+
+<pre><code>  <span class="attribute">box-shadow</span>: <span class="number">2px</span> <span class="number">5px</span> <span class="number">1px</span> <span class="color">#000</span>;
+  <span class="attribute">-moz-box-shadow</span>: <span class="number">2px</span> <span class="number">5px</span> <span class="number">1px</span> <span class="color">#000</span>;
+  <span class="attribute">-webkit-box-shadow</span>: <span class="number">2px</span> <span class="number">5px</span> <span class="number">1px</span> <span class="color">#000</span>;
+</code></pre>
+
+<h3>Advanced arguments and the <code><span class="variable">@rest</span></code> variable</h3>
+
+<p>You can use <code>...</code> if you want your mixin to take a 
+variable number of arguments. Using this after a variable name will 
+assign those arguments to the variable.</p>
+
+<pre><code><span class="class"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">.mixin</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line"> (...) {        </span><span class="comment"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">// matches 0-N arguments</span></span>
+<span class="class">.mixin</span> () {           <span class="comment">// matches exactly 0 arguments</span>
+<span class="class">.mixin</span> (<span class="variable">@a</span>: <span class="number">1</span>) {      <span class="comment">// matches 0-1 arguments</span>
+<span class="class"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">.mixin</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line"> (</span><span class="variable"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">@a</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">: </span><span class="number"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">1</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">, ...) { </span><span class="comment"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">// matches 0-N arguments</span></span>
+<span class="class">.mixin</span> (<span class="variable">@a</span>, ...) {    <span class="comment">// matches 1-N arguments</span>
+</code></pre>
+
+<p>Furthermore:</p>
+
+<pre><code><span class="class">.mixin</span> (<span class="variable">@a</span>, <span class="variable">@rest</span>...) {
+<span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">   </span><span class="comment"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">// @rest is bound to arguments after @a</span></span>
+   <span class="comment"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">// @arguments is bound to all arguments</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">
+</span>}
+</code></pre>
+
+<h2 id="-pattern-matching-and-guard-expressions">Pattern-matching and Guard expressions</h2>
+
+<p>Sometimes, you may want to change the behaviour of a mixin,
+based on the parameters you pass to it. Let’s start with something
+basic:</p>
+
+<pre><code><span class="class">.mixin</span> (<span class="variable">@s</span>, <span class="variable">@color</span>) { ... }
+
+<span class="class">.class</span> {
+  <span class="mixin">.mixin</span>(<span class="variable">@switch</span>, <span class="color">#888</span>);
+}
+</code></pre>
+
+<p>Now let’s say we want <code>.mixin</code> to behave differently, based on the value of <code><span class="variable">@switch</span></code>,
+we could define <code>.mixin</code> as such:</p>
+
+<pre><code><span class="class">.mixin</span> (dark, <span class="variable">@color</span>) {
+  <span class="attribute">color</span>: darken(<span class="variable">@color</span>, <span class="number">10%</span>);
+}
+<span class="class"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">.mixin</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line"> (light, </span><span class="variable"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">@color</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">) {</span>
+  <span class="attribute">color</span>: lighten(<span class="variable">@color</span>, <span class="number">10%</span>);
+}
+<span class="class"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">.mixin</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line"> (</span><span class="variable"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">@_</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">, </span><span class="variable"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">@color</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">) {</span>
+  <span class="attribute">display</span>: block;
+}
+</code></pre>
+
+<p>Now, if we run:</p>
+
+<pre><code><span class="variable"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">@switch</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">: light;</span>
+
+<span class="class">.class</span> {
+  <span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line"></span><span class="mixin"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">.mixin</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">(</span><span class="variable"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">@switch</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">, </span><span class="color"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">#888</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">);</span>
+}
+</code></pre>
+
+<p>We will get the following CSS:</p>
+
+<pre><code><span class="class">.class</span> {
+<span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">  </span><span class="attribute"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">color</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">: </span><span class="color"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">#a2a2a2</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">;
+  </span><span class="attribute"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">display</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">: block;</span>
+}
+</code></pre>
+
+<p>Where the color passed to <code>.mixin</code> was lightened. If the value of <code><span class="variable">@switch</span></code> was <code>dark</code>,
+the result would be a darker color.</p>
+
+<p>Here’s what happened:</p>
+
+<ul>
+<li>The first mixin definition didn’t match because it expected <code>dark</code> as the first argument.</li>
+<li>The second mixin definition matched, because it expected <code>light</code>.</li>
+<li>The third mixin definition matched because it expected any value.</li>
+</ul>
+
+
+<p>Only mixin definitions which matched were used. Variables match and bind to any value.
+Anything other than a variable matches only with a value equal to itself.</p>
+
+<p>We can also match on arity, here’s an example:</p>
+
+<pre><code><span class="class"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">.mixin</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line"> (</span><span class="variable"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">@a</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">) {</span>
+  <span class="attribute">color</span>: <span class="variable">@a</span>;
+}
+<span class="class"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">.mixin</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line"> (</span><span class="variable"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">@a</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">, </span><span class="variable"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">@b</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">) {</span>
+  <span class="attribute">color</span>: fade(<span class="variable">@a</span>, <span class="variable">@b</span>);
+}
+</code></pre>
+
+<p>Now if we call <code>.mixin</code> with a single argument, we will get the output of the first definition,
+but if we call it with <em>two</em> arguments, we will get the second definition, namely <code><span class="variable">@a</span></code> faded to <code><span class="variable">@b</span></code>.</p>
+
+<h3>Guards</h3>
+
+<p>Guards are useful when you want to match on <em>expressions</em>, as opposed to simple values or arity. If you are
+familiar with functional programming, you have probably encountered them already.</p>
+
+<p>In trying to stay as close as possible to the declarative nature of CSS, LESS has opted to implement
+conditional execution via <strong>guarded mixins</strong> instead of if/else statements, in the vein of <code><span class="variable">@media</span></code>
+query feature specifications.</p>
+
+<p>Let’s start with an example:</p>
+
+<pre><code><span class="class"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">.mixin</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line"> (</span><span class="variable"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">@a</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">) </span><span class="keyword"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">when</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line"> (lightness(</span><span class="variable"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">@a</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">) &gt;= </span><span class="number"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">50%</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">) {</span>
+  <span class="attribute">background-color</span>: black;
+}
+<span class="class">.mixin</span> (<span class="variable">@a</span>) <span class="keyword">when</span> (lightness(<span class="variable">@a</span>) &lt; <span class="number">50%</span>) {
+  <span class="attribute">background-color</span>: white;
+}
+<span class="class"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">.mixin</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line"> (</span><span class="variable"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">@a</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">) {</span>
+  <span class="attribute"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">color</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">: </span><span class="variable"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">@a</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">;</span>
+}
+</code></pre>
+
+<p>The key is the <strong><code><span class="keyword">when</span></code></strong> keyword, which introduces a guard sequence (here with only one guard). Now if we run the following
+code:</p>
+
+<pre><code><span class="class"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">.class1</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line"> { </span><span class="mixin"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">.mixin</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">(</span><span class="color"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">#ddd</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">) }</span>
+<span class="class">.class2</span> { <span class="mixin">.mixin</span>(<span class="color">#555</span>) }
+</code></pre>
+
+<p>Here’s what we’ll get:</p>
+
+<pre><code><span class="class">.class1</span> {
+<span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">  </span><span class="attribute"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">background-color</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">: black;
+  </span><span class="attribute"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">color</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">: </span><span class="color"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">#ddd</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">;</span>
+}
+<span class="class">.class2</span> {
+  <span class="attribute">background-color</span>: white;
+  <span class="attribute">color</span>: <span class="color">#555</span>;
+}
+</code></pre>
+
+<p>The full list of comparison operators usable in guards are: <strong><code>&gt; &gt;= = =&lt; &lt;</code></strong>. Additionally, the keyword <code>true</code>
+is the only truthy value, making <span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">these two mixins equivalent:</span></p>
+
+<pre><code><span class="class"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">.truth</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line"> (</span><span class="variable"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">@a</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">) </span><span class="keyword"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">when</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line"> (</span><span class="variable"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">@a</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">) { ... }
+</span><span class="class"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">.truth</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line"> (</span><span class="variable"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">@a</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">) </span><span class="keyword"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">when</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line"> (</span><span class="variable"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">@a </span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">= true) { ... }
+</span></code></pre>
+
+<p><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">Any value other than the keyword </span><code><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">true</span></code><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line"> is falsy:</span></p>
+
+<pre><code><span class="class">.class</span> {
+<span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">  </span><span class="mixin"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">.truth</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">(</span><span class="number"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">40</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">); </span><span class="comment"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">// Will not match any of the above definitions.</span></span>
+}
+</code></pre>
+
+<p><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">Guards can be separated with a comma ‘</span><code><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">,</span></code><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">’—if any of the guards evaluates to true, it’s
+considered as a match:</span></p>
+
+<pre><code><span class="class">.mixin</span> (<span class="variable">@a</span>) <span class="keyword">when</span> <span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">(</span><span class="variable"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">@a </span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">&gt; </span><span class="number"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">10</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">), (</span><span class="variable"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">@a </span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">&lt; -</span><span class="number"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">10</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">)</span> { ... }
+</code></pre>
+
+<p>Note that you can also compare arguments with each other, or with non-arguments:</p>
+
+<pre><code><span class="variable">@media</span>: mobile;
+
+<span class="class"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">.mixin</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line"> (</span><span class="variable"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">@a</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">) </span><span class="keyword"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">when</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line"> (</span><span class="variable"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">@media </span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">= mobile) { ... }</span>
+<span class="class">.mixin</span> (<span class="variable">@a</span>) <span class="keyword">when</span> (<span class="variable">@media </span>= desktop) { ... }
+
+<span class="class"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">.max</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line"> (</span><span class="variable"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">@a</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">, </span><span class="variable"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">@b</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">) </span><span class="keyword"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">when</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line"> (</span><span class="variable"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">@a </span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">&gt; </span><span class="variable"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">@b</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">) { </span><span class="attribute"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">width</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">: </span><span class="variable"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">@a </span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">}</span>
+<span class="class">.max</span> (<span class="variable">@a</span>, <span class="variable">@b</span>) <span class="keyword">when</span> (<span class="variable">@a </span>&lt; <span class="variable">@b</span>) { <span class="attribute">width</span>: <span class="variable">@b </span>}
+</code></pre>
+
+<p>Lastly, if you want to match mixins based on value type, you can use the <em>is*</em> functions:</p>
+
+<pre><code><span class="class">.mixin</span> (<span class="variable">@a</span>, <span class="variable">@b</span>: <span class="number">0</span>) <span class="keyword">when</span> (<span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">isnumber(</span><span class="variable"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">@b</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">)</span>) { ... }
+<span class="class">.mixin</span> (<span class="variable">@a</span>, <span class="variable">@b</span>: black) <span class="keyword">when</span> (<span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">iscolor(</span><span class="variable"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">@b</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">)</span>) { ... }
+</code></pre>
+
+<p>Here are the basic type checking functions:</p>
+
+<ul>
+<li><code>iscolor</code></li>
+<li><code>isnumber</code></li>
+<li><code>isstring</code></li>
+<li><code>iskeyword</code></li>
+<li><code>isurl</code></li>
+</ul>
+
+
+<p>If you want to check if a value, in addition to being a number, is in a specific unit, you may use one of:</p>
+
+<ul>
+<li><code>ispixel</code></li>
+<li><code>ispercentage</code></li>
+<li><code>isem</code></li>
+</ul>
+
+
+<p>Last but not least, you may use the <strong><code>and</code></strong> keyword to provide additional conditions inside a guard:</p>
+
+<pre><code><span class="class">.mixin</span> (<span class="variable">@a</span>) <span class="keyword">when</span> (<span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">isnumber(</span><span class="variable"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">@a</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">)) and (</span><span class="variable"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">@a </span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">&gt; </span><span class="number"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">0</span></span>) { ... }
+</code></pre>
+
+<p>And the <strong><code>not</code></strong> keyword to negate conditions:</p>
+
+<pre><code><span class="class">.mixin</span> (<span class="variable">@b</span>) <span class="keyword">when</span> <span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">not (</span><span class="variable"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">@b </span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">&gt; </span><span class="number"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">0</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">)</span> { ... }
+</code></pre>
+
+<h2 id="-nested-rules">Nested rules</h2>
+
+<p>LESS gives you the ability to use <em>nesting</em> instead of, or in combination with cascading.
+Lets say we have the following CSS:</p>
+
+<pre><code><span class="id">#header</span> { <span class="attribute">color</span>: black; }
+<span class="id">#header</span> <span class="class">.navigation</span> {
+  <span class="attribute">font-size</span>: <span class="number">12px</span>;
+}
+<span class="id">#header</span> <span class="class">.logo</span> {
+  <span class="attribute">width</span>: <span class="number">300px</span>;
+}
+<span class="id"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">#header</span></span> <span class="class"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">.logo</span></span><span class="class"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">:hover</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line"> {</span>
+  <span class="attribute">text-decoration</span>: none;
+}
+</code></pre>
+
+<p>In LESS, we can also write it this way:</p>
+
+<pre><code><span class="id"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">#header</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line"> {</span>
+  <span class="attribute">color</span>: black;
+
+  <span class="class">.navigation</span> {
+    <span class="attribute">font-size</span>: <span class="number">12px</span>;
+  }
+  <span class="class"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">.logo</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line"> {</span>
+    <span class="attribute">width</span>: <span class="number">300px</span>;
+    <span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">&amp;</span><span class="class"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">:hover</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line"> { </span><span class="attribute"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">text-decoration</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">: none }</span>
+  }
+}
+</code></pre>
+
+<p>Or this way:</p>
+
+<pre><code><span class="id">#header</span>        { <span class="attribute">color</span>: black;
+  <span class="class">.navigation</span>  { <span class="attribute">font-size</span>: <span class="number">12px</span> }
+  <span class="class">.logo</span>        { <span class="attribute">width</span>: <span class="number">300px</span>;
+    &amp;<span class="class">:hover</span>    { <span class="attribute">text-decoration</span>: none }
+  }
+}
+</code></pre>
+
+<p>The resulting code is more concise, and mimics the structure of your <code>DOM tree</code>.</p>
+
+<p>Notice the <code>&amp;</code> combinator—it’s used when you want a nested selector to be concatenated to its parent selector, instead
+of acting as a descendant. This is especially important for pseudo-classes like <code>:hover</code> and <code>:focus</code>.</p>
+
+<p>For example:</p>
+
+<pre><code><span class="class"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">.bordered</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line"> {
+  &amp;</span><span class="class"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">.float</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line"> {</span>
+    <span class="attribute">float</span>: left;
+  }
+<span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">  </span><span class="class"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">.top</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line"> {</span>
+    <span class="attribute">margin</span>: <span class="number">5px</span>;
+  }
+}
+</code></pre>
+
+<p>Will output</p>
+
+<pre><code><span class="class"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">.bordered</span></span><span class="class"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">.float</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line"> {</span>
+  <span class="attribute">float</span>: left;
+}
+<span class="class"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">.bordered</span></span> <span class="class"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">.top</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line"> {</span>
+  <span class="attribute">margin</span>: <span class="number">5px</span>;
+}
+</code></pre>
+
+<h2 id="-advanced-usage-of-&amp;amp;">Advanced Usage of &amp;</h2>
+
+<p>The &amp; symbol can be used in selectors in order to reverse the ordering of the nesting and to multiply classes.</p>
+
+<p>For example:</p>
+
+<pre><code><span class="class"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">.child</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">, </span><span class="class"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">.sibling</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line"> {</span>
+    <span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line"></span><span class="class"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">.parent</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line"> &amp; {</span>
+        <span class="attribute">color</span>: black;
+    }
+    &amp; + &amp; {
+        <span class="attribute">color</span>: red;
+    }
+}
+</code></pre>
+
+<p>Will output</p>
+
+<pre><code><span class="class"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">.parent</span></span> <span class="class"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">.child</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">,
+</span><span class="class"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">.parent</span></span> <span class="class"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">.sibling</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line"> {</span>
+    <span class="attribute">color</span>: black;
+}
+<span class="class">.child</span> + <span class="class">.child</span>,
+<span class="class">.child</span> + <span class="class">.sibling</span>,
+<span class="class">.sibling</span> + <span class="class">.child</span>,
+<span class="class">.sibling</span> + <span class="class">.sibling</span> {
+    <span class="attribute">color</span>: red;
+}
+</code></pre>
+
+<p>You can also use &amp; in mixins in order to reference nesting that is outside of your mixin.</p>
+
+<h2 id="-operations">Operations</h2>
+
+<p>Any number, color or variable can be operated on. <span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">Operations should be performed
+within parentheses. </span>Here are a couple of examples:</p>
+
+<pre><code><span class="variable">@base</span>: <span class="number">5%</span>;
+<span class="variable"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">@filler</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">: (</span><span class="variable"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">@base </span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">* </span><span class="number"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">2</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">);</span>
+<span class="variable">@other</span>: (<span class="variable">@base </span>+ <span class="variable">@filler</span>);
+
+<span class="attribute">color</span>: (<span class="color">#888</span> / <span class="number">4</span>);
+<span class="attribute">background-color</span>: (<span class="variable">@base-color </span>+ <span class="color">#111</span>);
+<span class="attribute">height</span>: (<span class="number">100%</span> / <span class="number">2</span> + <span class="variable">@filler</span>);
+</code></pre>
+
+<p>The output is pretty much what you expect—LESS understands the 
+difference between colors and units. If a unit is used in an operation, 
+like in:</p>
+
+<pre><code><span class="variable">@var</span>: (<span class="number">1px</span> + <span class="number">5</span>);
+</code></pre>
+
+<p>LESS will use that unit for the final output—<code><span class="number">6px</span></code> in this case.</p>
+
+<p>Extra parentheses are also authorized in operations:</p>
+
+<pre><code><span class="attribute">width</span>: ((<span class="variable">@var </span>+ <span class="number">5</span>) * <span class="number">2</span>);
+</code></pre>
+
+<h2 id="-color-functions">Color functions</h2>
+
+<p>LESS provides a variety of functions which transform colors. Colors are first converted to
+the <em>HSL</em> color-space, and then manipulated at the channel level:</p>
+
+<pre><code>lighten(<span class="variable">@color</span>, <span class="number">10%</span>);    <span class="comment">// return a color 10 percentage points *lighter* than @color</span>
+darken(<span class="variable">@color</span>, <span class="number">10%</span>);     <span class="comment">// return a color 10 percentage points *darker* than @color</span>
+
+saturate(<span class="variable">@color</span>, <span class="number">10%</span>);   <span class="comment">// return a color 10 percentage points *more* saturated than @color</span>
+desaturate(<span class="variable">@color</span>, <span class="number">10%</span>); <span class="comment">// return a color 10 percentage points *less* saturated than @color</span>
+
+fadein(<span class="variable">@color</span>, <span class="number">10%</span>);     
+    <span class="comment">// return a color 10 percentage points *less* transparent than @color</span>
+fadeout(<span class="variable">@color</span>, <span class="number">10%</span>);    
+    <span class="comment">// return a color 10 percentage points *more* transparent than @color</span>
+fade(<span class="variable">@color</span>, <span class="number">50%</span>);       <span class="comment">// return @color with 50% transparency</span>
+
+spin(<span class="variable">@color</span>, <span class="number">10</span>);        <span class="comment">// return a color with a 10 degree larger in hue than @color</span>
+spin(<span class="variable">@color</span>, -<span class="number">10</span>);       <span class="comment">// return a color with a 10 degree smaller hue than @color</span>
+
+mix(<span class="variable">@color1</span>, <span class="variable">@color2</span>, <span class="variable">@weight</span>);  
+    <span class="comment">// return a mix of @color1 and @color2, default weight 50%</span>
+contrast(<span class="variable">@color1</span>, <span class="variable">@darkcolor</span>, <span class="variable">@lightcolor</span>); 
+    <span class="comment">// return @darkcolor if @color1 is &gt; 43% luma (i.e. is a light color), </span>
+    <span class="comment">// otherwise return @lightcolor</span>
+</code></pre>
+
+<p>Using them is pretty straightforward:</p>
+
+<pre><code><span class="variable">@base</span>: <span class="color">#f04615</span>;
+
+<span class="class">.class</span> {
+  <span class="attribute">color</span>: saturate(<span class="variable">@base</span>, <span class="number">5%</span>);
+  <span class="attribute">background-color</span>: spin(lighten(<span class="variable">@base</span>, <span class="number">25%</span>), <span class="number">8</span>);
+}
+</code></pre>
+
+<p>You can also extract color information:</p>
+
+<pre><code>hue(<span class="variable">@color</span>);        <span class="comment">// returns the `hue` channel of @color</span>
+saturation(<span class="variable">@color</span>); <span class="comment">// returns the `saturation` channel of @color</span>
+lightness(<span class="variable">@color</span>);  <span class="comment">// returns the 'lightness' channel of @color</span>
+red(<span class="variable">@color</span>);        <span class="comment">// returns the 'red' channel of @color</span>
+green(<span class="variable">@color</span>);      <span class="comment">// returns the 'green' channel of @color</span>
+blue(<span class="variable">@color</span>);       <span class="comment">// returns the 'blue' channel of @color</span>
+alpha(<span class="variable">@color</span>);      <span class="comment">// returns the 'alpha' channel of @color</span>
+luma(<span class="variable">@color</span>);       <span class="comment">// returns the 'luma' value (perceptual brightness) of @color</span>
+</code></pre>
+
+<p>This is useful if you want to create a new color based on another color’s channel, for example:</p>
+
+<pre><code><span class="variable">@new</span>: hsl(hue(<span class="variable">@old</span>), <span class="number">45%</span>, <span class="number">90%</span>);
+</code></pre>
+
+<p><code><span class="variable">@new</span></code> will have <code><span class="variable">@old</span></code>’s <em>hue</em>, and its own saturation and lightness. Colors are always returned as RGB values, so applying <code>spin</code> to a grey value will do nothing.</p>
+
+<h2 id="-math-functions">Math functions</h2>
+
+<p>LESS provides a couple of handy math functions you can use on number values:</p>
+
+<pre><code><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">round(</span><span class="number"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">1.67</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">); </span><span class="comment"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">// returns `2`</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">
+ceil(</span><span class="number"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">2.4</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">);   </span><span class="comment"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">// returns `3`</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">
+floor(</span><span class="number"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">2.6</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">);  </span><span class="comment"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">// returns `2`</span></span>
+</code></pre>
+
+<p>If you need to turn a value into a percentage, you can do so with the <code>percentage</code> function:</p>
+
+<pre><code>percentage(<span class="number">0.5</span>); <span class="comment">// returns `50%`</span>
+</code></pre>
+
+<h2 id="-namespaces">Namespaces</h2>
+
+<p>Sometimes, you may want to group your variables or mixins, for organizational purposes, or just to offer some encapsulation.
+You can do this pretty intuitively in LESS—say you want to bundle some mixins and variables under <code>#bundle</code>, for later re-use, or for distributing:</p>
+
+<pre><code><span class="id"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">#bundle</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line"> {</span>
+  <span class="class"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">.button</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line"> () {</span>
+    <span class="attribute">display</span>: block;
+    <span class="attribute">border</span>: <span class="number">1px</span> solid black;
+    <span class="attribute">background-color</span>: grey;
+    &amp;<span class="class">:hover</span> { <span class="attribute">background-color</span>: white }
+  }
+  <span class="class">.tab</span> { ... }
+  <span class="class">.citation</span> { ... }
+}
+</code></pre>
+
+<p>Now if we want to mixin the <code>.button</code> class in our <code>#header a</code>, we can do:</p>
+
+<pre><code><span class="id">#header</span> <span class="element">a</span> {
+  <span class="attribute">color</span>: orange;
+  <span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line"></span><span class="mixin"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">#bundle</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line"> &gt; </span><span class="mixin"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">.button</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">;</span>
+}
+</code></pre>
+
+<h2 id="-scope">Scope</h2>
+
+<p>Scope in LESS is very similar to that of programming languages. Variables and mixins are first looked up locally,
+and if they aren’t found, the compiler will look in the parent scope, and so on.</p>
+
+<pre><code><span class="variable">@var</span>: red;
+
+<span class="id">#page</span> {
+  <span class="variable">@var</span>: white;
+  <span class="id">#header</span> {
+    <span class="attribute">color</span>: <span class="variable">@var</span>; <span class="comment">// white</span>
+  }
+}
+
+<span class="id">#footer</span> {
+  <span class="attribute">color</span>: <span class="variable">@var</span>; <span class="comment">// red</span>
+}
+</code></pre>
+
+<h2 id="-comments">Comments</h2>
+
+<p>CSS-style comments are preserved by LESS:</p>
+
+<pre><code><span class="comment"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">/* Hello, I'm a CSS-style comment */</span></span>
+<span class="class">.class</span> { <span class="attribute">color</span>: black }
+</code></pre>
+
+<p>Single-line comments are also valid in LESS, but they are ‘silent’,
+they don’t show up in the compiled CSS output:</p>
+
+<pre><code><span class="comment">// Hi, I'm a silent comment, I won't show up in your CSS</span>
+<span class="class">.class</span> { <span class="attribute">color</span>: white }
+</code></pre>
+
+<h2 id="-importing">Importing</h2>
+
+<p><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">You can import </span><code><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">.less</span></code><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line"> files, and all the variables and mixins in them will be made available to the main file.
+The </span><code><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">.less</span></code><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line"> extension is optional, so both of these are valid:</span></p>
+
+<pre><code><span class="variable"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">@import </span></span><span class="string"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">"lib.less"</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">;
+</span><span class="variable"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">@import </span></span><span class="string"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">"lib"</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">;</span>
+</code></pre>
+
+<p>If you want to import a CSS file, and don’t want LESS to process it, just use the <code>.css</code> extension:</p>
+
+<pre><code><span class="variable"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">@import </span></span><span class="string"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">"lib.css"</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">;</span>
+</code></pre>
+
+<p>The directive will just be left as is, and end up in the CSS output.</p>
+
+<h2 id="-string-interpolation">String interpolation</h2>
+
+<p>Variables can be embeded inside strings in a similar way to ruby or PHP, with the <code>@{name}</code> construct:</p>
+
+<pre><code><span class="variable"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">@base-url</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">: </span><span class="string"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">"http://assets.fnord.com"</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">;
+</span><span class="attribute"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">background-image</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">: url(</span><span class="string"><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">"@{base-url}/images/bg.png"</span></span><span style="background-color: #FFFF00; color: #000000;" class="linemarker-marked-line">);</span>
+</code></pre>
+
+<h2 id="-escaping">Escaping</h2>
+
+<p>Sometimes you might need to output a CSS value which is either not valid CSS syntax,
+or uses proprietary syntax which LESS doesn’t recognize.</p>
+
+<p>To output such value, we place it inside a string prefixed with <code>~</code>, for example:</p>
+
+<pre><code><span class="class">.class</span> {
+  <span class="attribute">filter</span>: ~<span class="string">"ms:alwaysHasItsOwnSyntax.For.Stuff()"</span>;
+}
+</code></pre>
+
+<p>This is called an “escaped value”, which will result in:</p>
+
+<pre><code><span class="class">.class</span> {
+  <span class="attribute">filter</span>: <span class="attribute">ms</span>:alwaysHasItsOwnSyntax<span class="mixin">.For</span><span class="mixin">.Stuff</span>();
+}
+</code></pre>
+
+<h2 id="-selector-interpolation">Selector Interpolation</h2>
+
+<p>If you want to use less variables inside selectors, you can do this by referencing the variable using <code>@{selector}</code> as
+in string interpolation. For example:</p>
+
+<pre><code><span class="variable">@name</span>: blocked;
+.@{name} {
+    <span class="attribute">color</span>: black;
+}
+</code></pre>
+
+<p>will output</p>
+
+<pre><code><span class="class">.blocked</span> {
+    <span class="attribute">color</span>: black;
+}
+</code></pre>
+
+<p>Note: prior to less 1.3.1 a <code>(~<span class="string">"@{name}"</span>)</code> type of selector was supported. Support for this will be removed in 1.4.0.</p>
+
+<h2 id="-javascript-evaluation">JavaScript evaluation</h2>
+
+<p>JavaScript expressions can be evaluated as values inside .less files. We reccomend using caution with this feature
+as the less will not be compilable by ports and it makes the less harder to mantain. If possible, try to think of a
+function that can be added to achieve the same purpose and ask for it on github. We have plans to allow expanding the
+default functions available. However, if you still want to use JavaScript in .less, this is done by wrapping the expression
+with back-ticks:</p>
+
+<pre><code><span class="variable">@var</span>: `<span class="string">"hello"</span><span class="mixin">.toUpperCase</span>() + <span class="string">'!'</span>`;
+</code></pre>
+
+<p>Becomes:</p>
+
+<pre><code><span class="variable">@var</span>: <span class="string">"HELLO!"</span>;
+</code></pre>
+
+<p>Note that you may also use interpolation and escaping as with strings:</p>
+
+<pre><code><span class="variable">@str</span>: <span class="string">"hello"</span>;
+<span class="variable">@var</span>: ~`<span class="string">"@{str}"</span><span class="mixin">.toUpperCase</span>() + <span class="string">'!'</span>`;
+</code></pre>
+
+<p>Becomes:</p>
+
+<pre><code><span class="variable">@var</span>: HELLO!;
+</code></pre>
+
+<p>It is also possible to access the JavaScript environment:</p>
+
+<pre><code><span class="variable">@height</span>: `document<span class="mixin">.body</span><span class="mixin">.clientHeight</span>`;
+</code></pre>
+
+<p>If you want to parse a JavaScript string as a hex color, you may use the <code>color</code> function:</p>
+
+<pre><code><span class="variable">@color</span>: color(`window<span class="mixin">.colors</span><span class="mixin">.baseColor</span>`);
+<span class="variable">@darkcolor</span>: darken(<span class="variable">@color</span>, <span class="number">10%</span>);
+</code></pre>
+
+  </div>
+</section>
+
+<section id="translations" class="page">
+  <div class="content">
+    <h1>In Other Languages</h1>
+    <ul>
+        <li>Russian: <a href="http://lesscss.ru/">http://lesscss.ru</a></li>
+        <li>Chinese: <a href="http://lesscss.net/">http://lesscss.net</a></li>
+        <li>Japanese: <a href="http://less-ja.studiomohawk.com/">http://less-ja.studiomohawk.com/</a></li>
+        <li>Belorussian: <a href="http://www.designcontest.com/show/lesscss-be">http://www.designcontest.com/show/lesscss-be</a></li>
+        <li>Portugese: <a href="http://lesscss.loopinfinito.com.br/">http://lesscss.loopinfinito.com.br/</a></li>
+        <li>Polish: <a href="http://ciembor.github.com/lesscss.org/">http://ciembor.github.com/lesscss.org/</a></li>
+        <li>Indonesian: <a href="http://bertzzie.com/post/7/dokumentasi-less-bahasa-indonesia">http://bertzzie.com/post/7/dokumentasi-less-bahasa-indonesia</a></li>
+    </ul>
+  </div>
+</section>
+
+<section id="about" class="page">
+  <div class="content">
+    <h1>About</h1>
+
+<p>LESS was developed by <a href="http://cloudhead.io/">Alexis Sellier</a>, more commonly known as <a href="http://cloudhead.io/">cloudhead</a>.</p>
+
+    <footer>
+        <p>powered by <a href="http://github.com/cloudhead/less.js">LESS</a></p>
+        <p id="copy">Copyright © Alexis Sellier 2010-2012</p>
+    </footer>
+  </div>
+</section>
+
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+    </section>
+    <a href="http://github.com/cloudhead/less.js">
+      <img style="position: absolute; z-index: 5; top: 0; left: 0; border: 0;" src="less-language_files/forkme_left_red_aa0000.png" alt="Fork me on GitHub">
+    </a>
+    <script src="less-language_files/hiless.js"></script>
+  
+<div class="scrapbook-sticky" style="left: 677px; top: 8842px; position: absolute; width: 382px; height: 201px;"><div class="scrapbook-sticky-header"></div>if we go with .wrap like below:
+.wrap {
+  text-wrap: wrap;
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  word-wrap: break-word;
+}
+the content of .wrap will be converted as CSS output, that's why we need .wrap() if we don't hope this happens.</div>
+<div class="scrapbook-sticky" style="left: 668px; top: 11875px; position: absolute; width: 380px; height: 78px;"><div class="scrapbook-sticky-header"></div>.mixin(red); will invoke first .mixin(@a)
+.mixin(red, blue); will invoke second .mixin(@a, @b)</div>
+<div class="scrapbook-sticky" style="left: 841px; top: 14023px; position: absolute; width: 250px; height: 100px;"><div class="scrapbook-sticky-header"></div>why not pass the correct data from the invoker? Guess I will never use these functions to check parameters.</div>
+<div class="scrapbook-sticky" style="left: 782px; top: 13825px; position: absolute; width: 250px; height: 100px;"><div class="scrapbook-sticky-header"></div>Compare with non-arguments: mobile
+
+Compare arguments with each other</div>
+</body></html>
