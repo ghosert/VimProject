@@ -50,3 +50,7 @@ $ make test
 
 See more details in ./bootstrap/Makefile
 
+## Samples for bootstrap
+
+Take a look at ./test_bootstrap.html
+
