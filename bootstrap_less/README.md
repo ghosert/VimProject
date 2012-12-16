@@ -26,7 +26,7 @@ $ make
 If you want to build bootstrap try this:
 
 ```
-$ make bootstrap # a "bootstrap" folder will be generated, and all stuffs are there.
+$ make bootstrap # a "bootstrap" sub-folder will be generated, and all stuffs are there.
 $ make clean     # to delete "bootstrap" folder generated above.
 ```
 
@@ -36,7 +36,7 @@ Try on make test like this:
 $ make test
 ```
 
-I got errors for not found "connect" module, to fix, in current folder, run this:
+I got errors for not found "connect" module, to fix, in "./bootstrap" folder, run this:
 
 ```
 $ npm install connect # Install connect locally, this will generate ./bootstrap/node_modules
