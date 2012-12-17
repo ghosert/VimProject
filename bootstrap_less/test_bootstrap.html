@@ -4,18 +4,113 @@
         <title>Bootstrap 101 Template</title>
         <!-- Bootstrap -->
         <link href="bootstrap/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <style id="bcss" type="text/css">
+            div.row div, div.row-fluid div {
+                background-color: #eeeeee;
+            }
+        </style>
+        <script>
+            document.getElementById('bcss').disabled = true;
+        </script>
     </head>
     <body>
-        <h1>Hello, world!</h1>
-        <!--The default Bootstrap grid system utilizes 12 columns-->
+
+        <h1>Bootstrap samples</h1>
+
+        <br/>
+
+        <h2>Scaffolding</h2>
+        
+        <button onclick="document.getElementById('bcss').disabled=!document.getElementById('bcss').disabled">
+            Show/Hide the background color around sub-divs for better understanding the Scaffolding.
+        </button>
+
+        <br/> <br/>
+
+        <h2>Default grid system</h2>
+        <h4>The default Bootstrap grid system utilizes 12 columns.</h4>
         <div class="row">
-          <div class="span4">span 4</div>
-          <div class="span8">span 8</div>
+            <div class="span4">span 4</div>
+            <div class="span8">span 8</div>
         </div>
-        <!--The span 8 with offset 4-->
+        <h4>Offsetting columns</h4>
         <div class="row">
-          <div class="span8 offset4">span 8 offset 4</div>
+            <div class="span8 offset4">span 8 offset 4</div>
         </div>
+        <h4>Nesting columns</h4>
+        <div class="row">
+            <div class="span12">
+                span 12
+                <div class="row">
+                    <div class="span4">span 4 level2</div>
+                    <div class="span8">span 8 level2</div>
+                </div>
+            </div>
+        </div>
+
+        <br/>
+
+        <h2>Fluid grid system</h2>
+        <h4>The fluid Bootstrap grid system occuppies the whole row and dynamically changed as per screen size, percents instead of pixcels based.</h4>
+        <div class="row-fluid">
+            <div class="span4">span 4</div>
+            <div class="span8">span 8</div>
+        </div>
+        <h4>Fluid offsetting</h4>
+        <div class="row-fluid">
+            <div class="span4">span 4</div>
+            <div class="span4 offset4">span 4 offset 4</div>
+        </div>
+        <h4>Fluid nesting</h4>
+        <p>Since fluid grid uses percentages not pixcels, each nested level of columns should add up to 12 columns.</p>
+        <div class="row-fluid">
+            <div class="span12">
+                Fluid 12
+                <div class="row-fluid">
+                    <div class="span6">
+                        Fluid 6
+                        <div class="row-fluid">
+                            <div class="span6">Fluid 6</div>
+                            <div class="span6">Fluid 6</div>
+                        </div>
+                    </div>
+                    <div class="span6">Fluid 6</div>
+                </div>
+            </div>
+        </div>
+
+        <br/>
+
+        <h2>Layouts</h2>
+        <h4>Fixed layout</h4>
+        <div class="container">
+            Fixed layout
+        </div>
+        <h4>Fluid layout</h4>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span2">
+                    <div>Sidebar content</div>
+                </div>
+                <div class="span10">
+                    <div>Body content</div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         <!-- jquery & Bootstrap -->
         <script src="http://code.jquery.com/jquery-latest.js"></script>
