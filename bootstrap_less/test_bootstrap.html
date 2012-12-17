@@ -1,9 +1,15 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta charset="utf-8">
         <title>Bootstrap 101 Template</title>
+
         <!-- Bootstrap -->
         <link href="bootstrap/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <!-- Bootstrap Responsive -->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="bootstrap/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
+
         <style id="bcss" type="text/css">
             div.row div, div.row-fluid div {
                 background-color: #eeeeee;
@@ -15,102 +21,282 @@
     </head>
     <body>
 
-        <h1>Bootstrap samples</h1>
-
-        <br/>
-
-        <h2>Scaffolding</h2>
-        
-        <button onclick="document.getElementById('bcss').disabled=!document.getElementById('bcss').disabled">
-            Show/Hide the background color around sub-divs for better understanding the Scaffolding.
-        </button>
-
-        <br/> <br/>
-
-        <h2>Default grid system</h2>
-        <h4>The default Bootstrap grid system utilizes 12 columns.</h4>
-        <div class="row">
-            <div class="span4">span 4</div>
-            <div class="span8">span 8</div>
-        </div>
-        <h4>Offsetting columns</h4>
-        <div class="row">
-            <div class="span8 offset4">span 8 offset 4</div>
-        </div>
-        <h4>Nesting columns</h4>
-        <div class="row">
-            <div class="span12">
-                span 12
-                <div class="row">
-                    <div class="span4">span 4 level2</div>
-                    <div class="span8">span 8 level2</div>
-                </div>
-            </div>
-        </div>
-
-        <br/>
-
-        <h2>Fluid grid system</h2>
-        <h4>The fluid Bootstrap grid system occuppies the whole row and dynamically changed as per screen size, percents instead of pixcels based.</h4>
-        <div class="row-fluid">
-            <div class="span4">span 4</div>
-            <div class="span8">span 8</div>
-        </div>
-        <h4>Fluid offsetting</h4>
-        <div class="row-fluid">
-            <div class="span4">span 4</div>
-            <div class="span4 offset4">span 4 offset 4</div>
-        </div>
-        <h4>Fluid nesting</h4>
-        <p>Since fluid grid uses percentages not pixcels, each nested level of columns should add up to 12 columns.</p>
-        <div class="row-fluid">
-            <div class="span12">
-                Fluid 12
-                <div class="row-fluid">
-                    <div class="span6">
-                        Fluid 6
-                        <div class="row-fluid">
-                            <div class="span6">Fluid 6</div>
-                            <div class="span6">Fluid 6</div>
-                        </div>
-                    </div>
-                    <div class="span6">Fluid 6</div>
-                </div>
-            </div>
-        </div>
-
-        <br/>
-
-        <h2>Layouts</h2>
-        <h4>Fixed layout</h4>
         <div class="container">
-            Fixed layout
-        </div>
-        <h4>Fluid layout</h4>
-        <div class="container-fluid">
-            <div class="row-fluid">
-                <div class="span2">
-                    <div>Sidebar content</div>
-                </div>
-                <div class="span10">
-                    <div>Body content</div>
+
+            <h1>Bootstrap samples</h1>
+
+            <br/>
+
+            <h2>Scaffolding</h2>
+            
+            <button onclick="document.getElementById('bcss').disabled=!document.getElementById('bcss').disabled">
+                Show/Hide the background color around sub-divs for better understanding the Scaffolding.
+            </button>
+
+            <br/> <br/>
+
+            <h3>Default grid system</h3>
+            <h4>The default Bootstrap grid system utilizes 12 columns.</h4>
+            <div class="row">
+                <div class="span4">span 4</div>
+                <div class="span8">span 8</div>
+            </div>
+            <h4>Offsetting columns</h4>
+            <div class="row">
+                <div class="span8 offset4">span 8 offset 4</div>
+            </div>
+            <h4>Nesting columns</h4>
+            <div class="row">
+                <div class="span12">
+                    span 12
+                    <div class="row">
+                        <div class="span4">span 4 level2</div>
+                        <div class="span8">span 8 level2</div>
+                    </div>
                 </div>
             </div>
+
+            <br/>
+
+            <h3>Fluid grid system</h3>
+            <h4>The fluid Bootstrap grid system occuppies the whole row and dynamically changed as per screen size, percents instead of pixcels based.</h4>
+            <div class="row-fluid">
+                <div class="span4">span 4</div>
+                <div class="span8">span 8</div>
+            </div>
+            <h4>Fluid offsetting</h4>
+            <div class="row-fluid">
+                <div class="span4">span 4</div>
+                <div class="span4 offset4">span 4 offset 4</div>
+            </div>
+            <h4>Fluid nesting</h4>
+            <p>Since fluid grid uses percentages not pixcels, each nested level of columns should add up to 12 columns.</p>
+            <div class="row-fluid">
+                <div class="span12">
+                    Fluid 12
+                    <div class="row-fluid">
+                        <div class="span6">
+                            Fluid 6
+                            <div class="row-fluid">
+                                <div class="span6">Fluid 6</div>
+                                <div class="span6">Fluid 6</div>
+                            </div>
+                        </div>
+                        <div class="span6">Fluid 6</div>
+                    </div>
+                </div>
+            </div>
+
+            <br/>
+
+            <h3>Layouts</h3>
+            <h4>Fixed layout</h4>
+            <div class="container">
+                Fixed layout
+            </div>
+            <h4>Fluid layout</h4>
+            <div class="container-fluid">
+                <div class="row-fluid">
+                    <div class="span2">
+                        <div>Sidebar content</div>
+                    </div>
+                    <div class="span10">
+                        <div>Body content</div>
+                    </div>
+                </div>
+            </div>
+
+            <br/>
+
+            <h3>Responsive design</h3>
+            <h4>Enabling responsive features</h4>
+            <h5>Add two sentences below to &lt;head&gt; tag, then the page will be responsive based on different devices, resolutions.</h5>
+            <div class="text-info">
+                &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+            </div>
+            <div class="text-info">
+                &lt;link href="bootstrap/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet"&gt;
+            </div>
+            <h4>Supported devices</h4>
+            <h5>media queries in a single file to help make your projects more appropriate on different devices, resolutions.</h5>
+            <pre>
+                /* Large desktop */
+                @media (min-width: 1200px) { ... }
+                 
+                /* Portrait tablet to landscape and desktop */
+                @media (min-width: 768px) and (max-width: 979px) { ... }
+                 
+                /* Landscape phone to portrait tablet */
+                @media (max-width: 767px) { ... }
+                 
+                /* Landscape phones and down */
+                @media (max-width: 480px) { ... }
+            </pre>
+            <h4>Responsive utility classes</h4>
+            <h5>There are 6 combinations of responsive classes: .visible/hidden-phone/tablet/desktop</h5>
+            <p>Test on .visible-phone/tablet/desktop</p>
+            <div class="row">
+                <div class="span4"><span><span class="visible-phone">✔</span>Phone</span></div>
+                <div class="span4"><span><span class="visible-tablet">✔</span>Tablet</span></div>
+                <div class="span4"><span><span class="visible-desktop">✔</span>Desktop</span></div>
+            </div>
+            <br/>
+            <p>Test on .hidden-phone/tablet/desktop</p>
+            <div class="row">
+                <div class="span4"><span><span class="hidden-phone">✔</span>Phone</span></div>
+                <div class="span4"><span><span class="hidden-tablet">✔</span>Tablet</span></div>
+                <div class="span4"><span><span class="hidden-desktop">✔</span>Desktop</span></div>
+            </div>
+            <br/>
+            <p>Change resolution to see the changes on ✔ sign.</p>
+
+            <br/>
+
+            <h2>Base CSS</h2>
+
+            <br/>
+
+            <h3>Typography</h3>
+            <h4>Body copy: Work for all paragraphs in the body tag</h4>
+            <p>This is a sample for &lt;p&gt; tag.</p>
+            <p class="lead">This is a sample for &lt;p&gt; tag with "lead" class.</p>
+            <h4>Emphasis: small, strong, italics and Emphasis classes</h4>
+            <p>
+              <small>This line of text is meant to be treated as fine print.</small>
+            </p>
+            <p>
+              <strong>The following snippet of text is rendered as bold text.</strong>
+            </p>
+            <p>
+              <em>The following snippet of text is rendered as italicized text.</em>
+            </p>
+            <p class="muted">Fusce dapibus, tellus ac cursus commodo, tortor mauris nibh.</p>
+            <p class="text-warning">Etiam porta sem malesuada magna mollis euismod.</p>
+            <p class="text-error">Donec ullamcorper nulla non metus auctor fringilla.</p>
+            <p class="text-info">Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis.</p>
+            <p class="text-success">Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
+            <h4>Abbreviations</h4>
+            An abbreviation of the word attribute is <abbr title="attribute">attr</abbr>.
+            <h4>Addresses</h4>
+            <address>
+                <strong>Twitter, Inc.</strong><br>
+                795 Folsom Ave, Suite 600<br>
+                San Francisco, CA 94107<br>
+                <abbr title="Phone">P:</abbr> (123) 456-7890
+            </address>
+            <address>
+                <strong>Full Name</strong><br>
+                <a href="mailto:#">first.last@example.com</a>
+            </address>
+            <h4>Blockquotes</h4>
+            <h5>Default blockquote</h5>
+            <strong>Wrap &lt;blockquote&gt; around any HTML as quote, &lt;p&gt; is recommended.</strong>
+            <blockquote>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+            </blockquote>
+            <h5>Blockquote options</h5>
+            <strong>Naming a source</strong>
+            <blockquote>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+                <small>Someone famous <cite title="Source Title">Source Title</cite></small>
+            </blockquote>
+            <strong>Alternate displays</strong>
+            <blockquote class="pull-right">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
+                <small>Someone famous <cite title="Source Title">Source Title</cite></small>
+            </blockquote>
+            <h4>Lists</h4>
+            <h5>Unordered</h5>
+            <ul>
+                <li>sample 1</li>
+                <li>
+                    sample 2
+                    <ul>
+                        <li>sample 2.1</li>
+                        <li>sample 2.2</li>
+                        <li>sample 2.3</li>
+                    </ul>
+                </li>
+                <li>sample 3</li>
+            </ul>
+            <h5>Ordered</h5>
+            <ol>
+                <li>sample 1</li>
+                <li>sample 2</li>
+                <li>sample 3</li>
+            </ol>
+            <h5>Unstyled</h5>
+            <strong>remove the default <code>list-style</code> and left padding on list items.</strong>
+            <ul class="unstyled">
+                <li>sample 1</li>
+                <li>
+                    sample 2
+                    <ul>
+                        <li>sample 2.1</li>
+                        <li>sample 2.2</li>
+                        <li>sample 2.3</li>
+                    </ul>
+                </li>
+                <li>sample 3</li>
+            </ul>
+            <h5>Inline</h5>
+            <strong>Place all list items on a single line with <code>inline-block</code> and some light padding.</strong>
+            <ul class="inline">
+                <li>sample 1</li>
+                <li>sample 2</li>
+                <li>sample 3</li>
+            </ul>
+            <h5>Description</h5>
+            <dl>
+                <dt>Titile 1</dt>
+                <dd>Description 1</dd>
+                <dt>Titile 2</dt>
+                <dd>Description 2</dd>
+                <dt>Titile 3</dt>
+                <dd>Description 3</dd>
+            </dl>
+            <strong>Horizontal description</strong>
+            <dl class="dl-horizontal">
+                <dt>Titile 1</dt>
+                <dd>Description 1</dd>
+                <dt>Titile 2</dt>
+                <dd>Description 2</dd>
+                <dt>Titile 3</dt>
+                <dd>Description 3</dd>
+            </dl>
+
+            <br/>
+
+            <h3>Code</h3>
+            <h4>Inline</h4>
+            <div>For example, <code>&lt;section&gt;</code> should be wrapped as inline.</div>
+            <h4>Basic block</h4>
+            <pre>
+                &lt;p&gt;Sample text here...&lt;/p&gt;
+            </pre>
+            
+            <br/>
+
+            <h3>Table</h3>
+            <h4>Default styles</h4>
+            <table class="table">
+                <thead>
+                    <tr><th>#</th><th>First Name</th><th>Last Name</th><th>Username</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>1</td><td>Mark</td><td>Otto</td><td>@mdo</td></tr>
+                    <tr><td>2</td><td>Jacob</td><td>Thornton</td><td>@fat</td></tr>
+                    <tr><td>3</td><td>Larry</td><td>the Bird</td><td>@twitter</td></tr>
+                </tbody>
+            </table>
+            
+
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
         </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         <!-- jquery & Bootstrap -->
         <script src="http://code.jquery.com/jquery-latest.js"></script>
