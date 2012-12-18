@@ -335,15 +335,86 @@
                     <button type="submit" class="btn">Submit</button>
                 </fieldset>
             </form>
-
-
-
-
-
-
-
-
-
+            <h4>Optional layouts</h4>
+            <h5>Search form</h5>
+            <p>Add class .form-search on form and .search-query on input</p>
+            <form class="form-search">
+                <input type="text" class="input-medium search-query">
+                <button type="submit" class="btn">Search</button>
+            </form>
+            <h5>Inline form</h5>
+            <p>Add class .form-inline on form</p>
+            <form class="form-inline">
+                <input type="text" class="input-small" placeholder="Email">
+                <input type="password" class="input-small" placeholder="Password">
+                <label class="checkbox">
+                    <input type="checkbox"> Remember me
+                </label>
+                <button type="submit" class="btn">Sign in</button>
+            </form>
+            <h5>Horizontal form</h5>
+            <ul>
+                <li>Add .form-horizontal to the form</li>
+                <li>Wrap labels and controls in .control-group</li>
+                <li>Add .control-label to the label</li>
+                <li>Wrap any associated controls in .controls for proper alignment</li>
+            </ul>
+            <form class="form-horizontal">
+              <div class="control-group">
+                <label class="control-label" for="inputEmail">Email</label>
+                <div class="controls">
+                  <input type="text" id="inputEmail" placeholder="Email">
+                </div>
+              </div>
+              <div class="control-group">
+                <label class="control-label" for="inputPassword">Password</label>
+                <div class="controls">
+                  <input type="password" id="inputPassword" placeholder="Password">
+                </div>
+              </div>
+              <div class="control-group">
+                <div class="controls">
+                  <label class="checkbox">
+                    <input type="checkbox"> Remember me
+                  </label>
+                  <button type="submit" class="btn">Sign in</button>
+                </div>
+              </div>
+            </form>
+            <h4>Supported form controls</h4>
+            <h5>Checkboxes and radios</h5>
+            <strong>Take a look and CSS on input tag below, you could find: .checkbox input[type="checkbox"] {float:left;} so that checkbox and text is aligned well.</strong>
+            <label class="checkbox">
+                <input type="checkbox" name="checkboxRememberMe" value="yes" checked> Remember me
+            </label>
+            <label class="radio">
+                <input type="radio" name="optionsRadios" value="optionA" checked> Choose A
+            </label>
+            <label class="radio">
+                <input type="radio" name="optionsRadios" value="optionB"> Choose B
+            </label>
+            <strong>Inline checkboxes</strong>
+            <label class="checkbox inline">
+                <input type="checkbox" id="inlineCheckbox1" value="option1"> 1
+            </label>
+            <label class="checkbox inline">
+                <input type="checkbox" id="inlineCheckbox2" value="option2"> 2
+            </label>
+            <label class="checkbox inline">
+                <input type="checkbox" id="inlineCheckbox3" value="option3"> 3
+            </label>
+            <h5>Selects</h5>
+            <select>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+            </select>
+            <select multiple="multiple">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+            </select>
+            <h4>Extending form controls</h4>
 
 
 
