@@ -415,11 +415,107 @@
                 <option>3</option>
             </select>
             <h4>Extending form controls</h4>
-
-
-
-
-
+            <h5>Prepended and appended inputs</h5>
+            <strong>Default options</strong>
+            <div class="input-prepend">
+                <span class="add-on">@</span>
+                <input class="span2" id="prependedInput" type="text" placeholder="Username">
+            </div>
+            <div class="input-append">
+                <input class="span2" id="appendedInput" type="text">
+                <span class="add-on">.00</span>
+            </div>
+            <strong>Combined</strong>
+            <div class="input-prepend input-append">
+                <span class="add-on">$</span>
+                <input class="span2" id="appendedPrependedInput" type="text">
+                <span class="add-on">.00</span>
+            </div>
+            <strong>Buttons instead of text</strong>
+            <div class="input-append">
+                <input class="span2" id="appendedInputButton" type="text">
+                <button class="btn" type="button">Go!</button>
+            </div>
+            <div class="input-append">
+                <input class="span2" id="appendedInputButtons" type="text">
+                <button class="btn" type="button">Search</button>
+                <button class="btn" type="button">Options</button>
+            </div>
+            <strong>Button dropdowns</strong>
+            <div class="input-append">
+                <input class="span2" id="appendedDropdownButton" type="text">
+                <div class="btn-group">
+                    <button class="btn dropdown-toggle" data-toggle="dropdown">
+                        Action
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        ...
+                    </ul>
+                </div>
+            </div>
+            <div class="input-prepend">
+                <div class="btn-group">
+                    <button class="btn dropdown-toggle" data-toggle="dropdown">
+                        Action
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        ...
+                    </ul>
+                </div>
+                <input class="span2" id="prependedDropdownButton" type="text">
+            </div>
+            <strong>Segmented dropdown groups</strong>
+            <div class="input-append">
+                <input class="span2" id="appendedDropdownButton" type="text">
+                <div class="btn-group">
+                    <button class="btn">Action</button>
+                    <button class="btn dropdown-toggle" data-toggle="dropdown">
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        ...
+                    </ul>
+                </div>
+            </div>
+            <strong>Search form</strong>
+            <p>.form-search on form tag is necessary.</p>
+            <form class="form-search">
+                <div class="input-append">
+                    <input type="text" class="span2 search-query">
+                    <button type="submit" class="btn">Search</button>
+                </div>
+                <div class="input-prepend">
+                    <button type="submit" class="btn">Search</button>
+                    <input type="text" class="span2 search-query">
+                </div>
+            </form>
+            <h5>Control sizing</h5>
+            <strong>Block level inputs</strong>
+            <p>Make any input or textarea element behave like a block level element.</p>
+            <input class="input-block-level" type="text" placeholder=".input-block-level">
+            <strong>Relative sizing</strong>
+            <input class="input-mini" type="text" placeholder=".input-mini">
+            <input class="input-small" type="text" placeholder=".input-small">
+            <input class="input-medium" type="text" placeholder=".input-medium">
+            <input class="input-large" type="text" placeholder=".input-large">
+            <input class="input-xlarge" type="text" placeholder=".input-xlarge">
+            <input class="input-xxlarge" type="text" placeholder=".input-xxlarge">
+            <strong>Grid sizing</strong>
+            <p>Use .span1 to .span12 for inputs that match the same sizes of the grid columns.</p>
+            <input class="span1" type="text" placeholder=".span1">
+            <input class="span2" type="text" placeholder=".span2">
+            <input class="span3" type="text" placeholder=".span3">
+            <select class="span1">
+            ...
+            </select>
+            <select class="span2">
+            ...
+            </select>
+            <select class="span3">
+            ...
+            </select>
 
 
 
@@ -437,7 +533,7 @@
         </div>
 
         <!-- jquery & Bootstrap -->
-        <script src="http://code.jquery.com/jquery-latest.js"></script>
+        <script src="jquery-latest.js"></script>
         <script src="bootstrap/bootstrap/js/bootstrap.min.js"></script>
     </body>
 </html>
