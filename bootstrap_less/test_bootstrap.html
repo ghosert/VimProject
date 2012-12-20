@@ -5,10 +5,10 @@
         <title>Bootstrap 101 Template</title>
 
         <!-- Bootstrap -->
-        <link href="bootstrap/bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <link href="bootstrap/bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
         <!-- Bootstrap Responsive -->
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="bootstrap/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
+        <link href="bootstrap/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
 
         <style id="bcss" type="text/css">
             div.row div, div.row-fluid div {
@@ -359,7 +359,7 @@
                 <li>Add .control-label to the label</li>
                 <li>Wrap any associated controls in .controls for proper alignment</li>
             </ul>
-            <form class="form-horizontal">
+            <form class="form-horizontal"> <!--You can try removing the .form-horizontal to see the effect.-->
               <div class="control-group">
                 <label class="control-label" for="inputEmail">Email</label>
                 <div class="controls">
@@ -383,102 +383,118 @@
             </form>
             <h4>Supported form controls</h4>
             <h5>Checkboxes and radios</h5>
-            <strong>Take a look and CSS on input tag below, you could find: .checkbox input[type="checkbox"] {float:left;} so that checkbox and text is aligned well.</strong>
-            <label class="checkbox">
-                <input type="checkbox" name="checkboxRememberMe" value="yes" checked> Remember me
-            </label>
-            <label class="radio">
-                <input type="radio" name="optionsRadios" value="optionA" checked> Choose A
-            </label>
-            <label class="radio">
-                <input type="radio" name="optionsRadios" value="optionB"> Choose B
-            </label>
+            <strong>Take a look at CSS on input tag below, you could find: .checkbox input[type="checkbox"] {float:left;} so that checkbox and text is aligned well.</strong>
+            <form>
+                <label class="checkbox">
+                    <input type="checkbox" name="checkboxRememberMe" value="yes" checked> Remember me
+                </label>
+                <label class="radio">
+                    <input type="radio" name="optionsRadios" value="optionA" checked> Choose A
+                </label>
+                <label class="radio">
+                    <input type="radio" name="optionsRadios" value="optionB"> Choose B
+                </label>
+            </form>
             <strong>Inline checkboxes</strong>
-            <label class="checkbox inline">
-                <input type="checkbox" id="inlineCheckbox1" value="option1"> 1
-            </label>
-            <label class="checkbox inline">
-                <input type="checkbox" id="inlineCheckbox2" value="option2"> 2
-            </label>
-            <label class="checkbox inline">
-                <input type="checkbox" id="inlineCheckbox3" value="option3"> 3
-            </label>
+            <form>
+                <label class="checkbox inline">
+                    <input type="checkbox" id="inlineCheckbox1" value="option1"> 1
+                </label>
+                <label class="checkbox inline">
+                    <input type="checkbox" id="inlineCheckbox2" value="option2"> 2
+                </label>
+                <label class="checkbox inline">
+                    <input type="checkbox" id="inlineCheckbox3" value="option3"> 3
+                </label>
+            </form>
             <h5>Selects</h5>
-            <select>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-            </select>
-            <select multiple="multiple">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-            </select>
+            <form>
+                <select>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                </select>
+                <select multiple="multiple">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                </select>
+            </form>
             <h4>Extending form controls</h4>
             <h5>Prepended and appended inputs</h5>
             <strong>Default options</strong>
-            <div class="input-prepend">
-                <span class="add-on">@</span>
-                <input class="span2" id="prependedInput" type="text" placeholder="Username">
-            </div>
-            <div class="input-append">
-                <input class="span2" id="appendedInput" type="text">
-                <span class="add-on">.00</span>
-            </div>
+            <form>
+                <div class="input-prepend">
+                    <span class="add-on">@</span>
+                    <input class="span2" id="prependedInput" type="text" placeholder="Username">
+                </div>
+                <div class="input-append">
+                    <input class="span2" id="appendedInput" type="text">
+                    <span class="add-on">.00</span>
+                </div>
+            </form>
             <strong>Combined</strong>
-            <div class="input-prepend input-append">
-                <span class="add-on">$</span>
-                <input class="span2" id="appendedPrependedInput" type="text">
-                <span class="add-on">.00</span>
-            </div>
+            <form>
+                <div class="input-prepend input-append">
+                    <span class="add-on">$</span>
+                    <input class="span2" id="appendedPrependedInput" type="text">
+                    <span class="add-on">.00</span>
+                </div>
+            </form>
             <strong>Buttons instead of text</strong>
-            <div class="input-append">
-                <input class="span2" id="appendedInputButton" type="text">
-                <button class="btn" type="button">Go!</button>
-            </div>
-            <div class="input-append">
-                <input class="span2" id="appendedInputButtons" type="text">
-                <button class="btn" type="button">Search</button>
-                <button class="btn" type="button">Options</button>
-            </div>
+            <form>
+                <div class="input-append">
+                    <input class="span2" id="appendedInputButton" type="text">
+                    <button class="btn" type="button">Go!</button>
+                </div>
+                <div class="input-append">
+                    <input class="span2" id="appendedInputButtons" type="text">
+                    <button class="btn" type="button">Search</button>
+                    <button class="btn" type="button">Options</button>
+                </div>
+            </form>
             <strong>Button dropdowns</strong>
-            <div class="input-append">
-                <input class="span2" id="appendedDropdownButton" type="text">
-                <div class="btn-group">
-                    <button class="btn dropdown-toggle" data-toggle="dropdown">
-                        Action
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        ...
-                    </ul>
+            <form>
+                <div class="input-append">
+                    <input class="span2" id="appendedDropdownButton" type="text">
+                    <div class="btn-group">
+                        <button class="btn dropdown-toggle" data-toggle="dropdown">
+                            Action
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            ...
+                        </ul>
+                    </div>
                 </div>
-            </div>
-            <div class="input-prepend">
-                <div class="btn-group">
-                    <button class="btn dropdown-toggle" data-toggle="dropdown">
-                        Action
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        ...
-                    </ul>
+                <div class="input-prepend">
+                    <div class="btn-group">
+                        <button class="btn dropdown-toggle" data-toggle="dropdown">
+                            Action
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            ...
+                        </ul>
+                    </div>
+                    <input class="span2" id="prependedDropdownButton" type="text">
                 </div>
-                <input class="span2" id="prependedDropdownButton" type="text">
-            </div>
+            </form>
             <strong>Segmented dropdown groups</strong>
-            <div class="input-append">
-                <input class="span2" id="appendedDropdownButton" type="text">
-                <div class="btn-group">
-                    <button class="btn">Action</button>
-                    <button class="btn dropdown-toggle" data-toggle="dropdown">
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        ...
-                    </ul>
+            <form>
+                <div class="input-append">
+                    <input class="span2" id="appendedDropdownButton" type="text">
+                    <div class="btn-group">
+                        <button class="btn">Action</button>
+                        <button class="btn dropdown-toggle" data-toggle="dropdown">
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            ...
+                        </ul>
+                    </div>
                 </div>
-            </div>
+            </form>
             <strong>Search form</strong>
             <p>.form-search on form tag is necessary.</p>
             <form class="form-search">
@@ -547,6 +563,54 @@
                 <input type="text"><span class="help-block">A longer block of help text that breaks onto a new line and may extend beyond one line.</span>
             </form>
 
+            <h4>Form control states</h4>
+            <h5>Input focus</h5>
+            <form>
+                <input class="input-xlarge" id="focusedInput" type="text" value="This is focused...">
+            </form>
+            <h5>Invalid inputs</h5>
+            <p>Style inputs via default browser functionality with :invalid. Specify a type and add the required attribute.</p>
+            <p>If the value filled out is not email address like input, it will show red color, guess it's new feature for CSS3.</p>
+            <form>
+                <input class="span3" type="email" required>
+            </form>
+            <h5>Disabled inputs</h5>
+            <form>
+                <input class="input-xlarge" id="disabledInput" type="text" value="Disabled input here..." disabled>
+            </form>
+            <h5>Validation states</h5>
+            <p>Add .warning, .error, .info and .success to the surrounding .control-group</p>
+            <form class="form-horizontal">
+                <div class="control-group warning">
+                    <label class="control-label" for="inputWarning">Input with warning</label>
+                    <div class="controls">
+                        <input type="text" id="inputWarning">
+                        <span class="help-inline">Something may have gone wrong</span>
+                    </div>
+                </div>
+                <div class="control-group error">
+                    <label class="control-label" for="inputError">Input with error</label>
+                    <div class="controls">
+                        <input type="text" id="inputError">
+                        <span class="help-inline">Please correct the error</span>
+                    </div>
+                </div>
+                <div class="control-group info">
+                    <label class="control-label" for="inputInfo">Input with info</label>
+                    <div class="controls">
+                        <input type="text" id="inputInfo">
+                        <span class="help-inline">Username is taken</span>
+                    </div>
+                </div>
+                <div class="control-group success">
+                    <label class="control-label" for="inputSuccess">Input with success</label>
+                    <div class="controls">
+                        <input type="text" id="inputSuccess">
+                        <span class="help-inline">Woohoo!</span>
+                    </div>
+                </div>
+            </form>
+
 
 
 
@@ -561,6 +625,6 @@
 
         <!-- jquery & Bootstrap -->
         <script src="jquery-latest.js"></script>
-        <script src="bootstrap/bootstrap/js/bootstrap.min.js"></script>
+        <script src="bootstrap/bootstrap/js/bootstrap.js"></script>
     </body>
 </html>
