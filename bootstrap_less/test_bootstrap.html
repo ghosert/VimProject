@@ -496,26 +496,56 @@
             <p>Make any input or textarea element behave like a block level element.</p>
             <input class="input-block-level" type="text" placeholder=".input-block-level">
             <strong>Relative sizing</strong>
-            <input class="input-mini" type="text" placeholder=".input-mini">
-            <input class="input-small" type="text" placeholder=".input-small">
-            <input class="input-medium" type="text" placeholder=".input-medium">
-            <input class="input-large" type="text" placeholder=".input-large">
-            <input class="input-xlarge" type="text" placeholder=".input-xlarge">
-            <input class="input-xxlarge" type="text" placeholder=".input-xxlarge">
+            <form>
+                <input class="input-mini" type="text" placeholder=".input-mini">
+                <input class="input-small" type="text" placeholder=".input-small">
+                <input class="input-medium" type="text" placeholder=".input-medium">
+                <input class="input-large" type="text" placeholder=".input-large">
+                <input class="input-xlarge" type="text" placeholder=".input-xlarge">
+                <input class="input-xxlarge" type="text" placeholder=".input-xxlarge">
+            </form>
             <strong>Grid sizing</strong>
             <p>Use .span1 to .span12 for inputs that match the same sizes of the grid columns.</p>
-            <input class="span1" type="text" placeholder=".span1">
-            <input class="span2" type="text" placeholder=".span2">
-            <input class="span3" type="text" placeholder=".span3">
-            <select class="span1">
-            ...
-            </select>
-            <select class="span2">
-            ...
-            </select>
-            <select class="span3">
-            ...
-            </select>
+            <form>
+                <input class="span1" type="text" placeholder=".span1">
+                <input class="span2" type="text" placeholder=".span2">
+                <input class="span3" type="text" placeholder=".span3">
+                <select class="span1">
+                ...
+                </select>
+                <select class="span2">
+                ...
+                </select>
+                <select class="span3">
+                ...
+                </select>
+            </form>
+            <p>For multiple grid inputs per line, use the <strong>.controls-row</strong> modifier class for proper spacing. It floats the inputs to collapse white-space, sets the proper margins, and clears the float.</p>
+            <div class="controls">
+                <input class="span5" type="text" placeholder=".span5">
+            </div>
+            <div class="controls controls-row">
+                <input class="span4" type="text" placeholder=".span4">
+                <input class="span1" type="text" placeholder=".span1">
+            </div>
+            <h5>Uneditable inputs</h5>
+            <span class="input-xlarge uneditable-input">Some value here</span>
+            <h5>Form actions</h5>
+            <p>End a form with a group of actions (buttons). When placed within a .form-horizontal, the buttons will automatically indent to line up with the form controls.</p>
+            <form>
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn">Cancel</button>
+                </div>
+            </form>
+            <h5>Help text</h5>
+            <p>Inline and block level support for help text that appears around form controls.</p>
+            <form class="form-inline">
+                <div><strong>Inline help</strong></div>
+                <input type="text"><span class="help-inline">Inline help text</span>
+                <div><strong>Block help</strong></div>
+                <input type="text"><span class="help-block">A longer block of help text that breaks onto a new line and may extend beyond one line.</span>
+            </form>
 
 
 
@@ -524,9 +554,6 @@
 
 
 
-
-            <br/>
-            <br/>
             <br/>
             <br/>
             <br/>
