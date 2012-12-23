@@ -382,6 +382,14 @@
               </div>
             </form>
             <h4>Supported form controls</h4>
+            <h5>Inputs</h5>
+            <form>
+                <input type="text" placeholder="Text input">
+            </form>
+            <h5>Textarea</h5>
+            <form>
+                <textarea rows="3"></textarea>
+            </form>
             <h5>Checkboxes and radios</h5>
             <strong>Take a look at CSS on input tag below, you could find: .checkbox input[type="checkbox"] {float:left;} so that checkbox and text is aligned well.</strong>
             <form>
@@ -611,7 +619,50 @@
                 </div>
             </form>
 
+            <br/>
 
+            <h3>Buttons</h3>
+            <h4>Default buttons</h4>
+            <p>.btn .btn-primary .btn-info .btn-success .btn-warning .btn-danger .btn-inverse .btn-link can be applied to any element, but &lt;a&gt; and &lt;button&gt; are best elements for the best rendering</p>
+            <button class="btn">Default</button>
+            <button class="btn btn-primary">Primary</button>
+            <button class="btn btn-info">Info</button>
+            <button class="btn btn-success">Success</button>
+            <button class="btn btn-warning">Warning</button>
+            <button class="btn btn-danger">Danger</button>
+            <button class="btn btn-inverse">Inverse</button>
+            <button class="btn btn-link">Link</button>
+            <a class="btn btn-primary">I'm link as Primary button.</a>
+            <h4>Button sizes</h4>
+            <p>.btn-large .btn-small .btn-mini</p>
+            <p>
+                <button class="btn btn-large btn-primary" type="button">Large button</button>
+                <button class="btn btn-large" type="button">Large button</button>
+            </p>
+            <p>
+                <button class="btn btn-primary" type="button">Default button</button>
+                <button class="btn" type="button">Default button</button>
+            </p>
+            <p>
+                <button class="btn btn-small btn-primary" type="button">Small button</button>
+                <button class="btn btn-small" type="button">Small button</button>
+            </p>
+            <p>
+                <button class="btn btn-mini btn-primary" type="button">Mini button</button>
+                <button class="btn btn-mini" type="button">Mini button</button>
+            </p>
+            <p>.btn-block: span the full width of a parent</p>
+            <p>
+                <button class="btn btn-large btn-block btn-primary" type="button">Block level button</button>
+                <button class="btn btn-large btn-block" type="button">Block level button</button>
+            </p>
+            <h4>Disabled state</h4>
+            <h5>Anchor element</h5>
+            <a href="#" class="btn btn-large btn-primary disabled">Primary link</a>
+            <a href="#" class="btn btn-large disabled">Link</a>
+            <h5>Button element</h5>
+            <button type="button" class="btn btn-large btn-primary disabled" disabled="disabled">Primary button</button>
+            <button type="button" class="btn btn-large" disabled>Button</button>
 
 
 
