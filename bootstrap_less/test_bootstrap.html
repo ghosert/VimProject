@@ -894,6 +894,7 @@
             <h3>Dropdown menus</h3>
 
             <h4>Markup</h4>
+            <p>You need to wrap the dropdown's trigger and the dropdown menu within .dropdown, or another element that declares position: relative; like <code>btn-group</code>, means if you are not wrapping dropdown menu within <code>btn-group</code>, you should at least wrap it within <code>dropdown</code>, Then just create the menu.</p>
             <div class="dropdown">
                 <ul style="display: block; position: static;" class="dropdown-menu" role="menu" aria-labelledby="dLabel">
                     <li><a tabindex="-1" href="#">Action</a></li>
@@ -1039,7 +1040,98 @@
 
 			<h3>Nav: tabs, pills, and lists</h3>
 			<h4>Lightweight defaults</h4>
+            <p>All nav components here—tabs, pills, and lists—share the same base markup and styles through the <code>.nav</code> class.</p>
 			<h5>Basic tabs</h5>
+            <ul class="nav nav-tabs">
+                <li class="active">
+                    <a href="#">Home</a>
+                </li>
+                <li><a href="#">Profile</a></li>
+                <li><a href="#">Messages</a></li>
+            </ul>
+			<h5>Basic pills</h5>
+            <ul class="nav nav-pills">
+                <li class="active">
+                    <a href="#">Home</a>
+                </li>
+                <li><a href="#">Profile</a></li>
+                <li><a href="#">Messages</a></li>
+            </ul>
+			<h5>Disabled state</h5>
+            <p>You have to manually make the disabled nav unclickable. Like remove the <code>href</code> attribute, or use JavaScript to prevent those clicks.</p>
+            <ul class="nav nav-pills">
+                <li class="active">
+                    <a href="#">Home</a>
+                </li>
+                <li><a href="#">Profile</a></li>
+                <li class="disabled"><a href="#">Messages</a></li>
+            </ul>
+			<h5>Component alignment</h5>
+            <p>Use the <code>.pull-left</code> or <code>.pull-right</code></p>
+
+			<h4>Stackable</h4>
+            <h5>Stacked tabs</h5>
+            <ul class="nav nav-tabs nav-stacked">
+                <li class="active">
+                    <a href="#">Home</a>
+                </li>
+                <li><a href="#">Profile</a></li>
+                <li><a href="#">Messages</a></li>
+            </ul>
+            <h5>Stacked pills</h5>
+            <ul class="nav nav-pills nav-stacked">
+                <li class="active">
+                    <a href="#">Home</a>
+                </li>
+                <li><a href="#">Profile</a></li>
+                <li><a href="#">Messages</a></li>
+            </ul>
+
+			<h4>Dropdowns</h4>
+            <h5>Tabs with dropdowns</h5>
+            <ul class="nav nav-tabs">
+                <li class="active">
+                    <a href="#">Home</a>
+                </li>
+                <li><a href="#">Help</a></li>
+                <li class="dropdown"><!--Why we need .dropdown class here, see Markup sction above.-->
+                    <a class="dropdown-toggle"
+                    data-toggle="dropdown"
+                    href="#">
+                    Dropdown
+                    <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <!-- links -->
+                        <li><a href="#">Action 1</a></li>
+                        <li><a href="#">Action 2</a></li>
+                        <li><a href="#">Action 3</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <h5>Pills with dropdowns</h5>
+            <ul class="nav nav-pills">
+                <li class="active">
+                    <a href="#">Home</a>
+                </li>
+                <li><a href="#">Help</a></li>
+                <li class="dropdown"><!--Why we need .dropdown class here, see Markup sction above.-->
+                    <a class="dropdown-toggle"
+                    data-toggle="dropdown"
+                    href="#">
+                    Dropdown
+                    <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <!-- links -->
+                        <li><a href="#">Action 1</a></li>
+                        <li><a href="#">Action 2</a></li>
+                        <li><a href="#">Action 3</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+			<h4>Nav lists</h4>
 
 
 
