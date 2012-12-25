@@ -6,6 +6,14 @@
 
         <!-- Bootstrap -->
         <link href="bootstrap/bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
+
+        <!-- Add at least 40px padding on body for .navbar-fixed-top, and this padding should be made between core Bootstrap CSS above and optional responsive CSS below. -->
+        <style type="text/css">
+            body {
+                padding-top: 40px;
+            }
+        </style>
+
         <!-- Bootstrap Responsive -->
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="bootstrap/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
@@ -894,7 +902,7 @@
             <h3>Dropdown menus</h3>
 
             <h4>Markup</h4>
-            <p>You need to wrap the dropdown's trigger and the dropdown menu within .dropdown, or another element that declares position: relative; like <code>btn-group</code>, means if you are not wrapping dropdown menu within <code>btn-group</code>, you should at least wrap it within <code>dropdown</code>, Then just create the menu.</p>
+            <p>You need to wrap the dropdown's trigger and the <code>.dropdown-menu</code> within <code>.dropdown</code>, or another element that declares position: relative; like <code>.btn-group</code>, means if you are not wrapping <code>.dropdown-menu</code> within <code>.btn-group</code>, you should at least wrap it within <code>.dropdown</code>, Then just create the menu.</p>
             <div class="dropdown">
                 <ul style="display: block; position: static;" class="dropdown-menu" role="menu" aria-labelledby="dLabel">
                     <li><a tabindex="-1" href="#">Action</a></li>
@@ -1188,10 +1196,12 @@
 
             <h3>Navbar</h3>
             <h4>Basic navbar</h4>
-            <p>Add <code>.navbar .navbar-inner</code> divs outside of the ul tag.</p>
+            <p>Add <code>.navbar .navbar-inner</code> divs outside of the ul tag, and you can place navbar anywhere within a <code>.container</code>, which sets the width of your site and content.</p>
             <div class="navbar">
                 <div class="navbar-inner">
-                    <a class="brand" href="#">Title</a>
+                    <!--Brand-->
+                    <a class="brand" href="#">Title</a> 
+                    <!--Nav links-->
                     <ul class="nav">
                         <li class="active"><a href="#">Home</a></li>
                         <li><a href="#">Link</a></li>
@@ -1200,6 +1210,114 @@
                 </div>
             </div>
 
+            <h4>Navbar components</h4>
+            <h5>Brand</h5>
+            <p>See Above</p>
+            <h5>Nav links</h5>
+            <p>See below and add dividers <code>.divider-vertical</code> like below</p>
+            <div class="navbar">
+                <div class="navbar-inner">
+                    <!--Brand-->
+                    <a class="brand" href="#">Title</a> 
+                    <!--Nav links-->
+                    <ul class="nav">
+                        <li class="active"><a href="#">Home</a></li>
+                        <li class="divider-vertical"></li>
+                        <li><a href="#">Link</a></li>
+                        <li class="divider-vertical"></li>
+                        <li><a href="#">Link</a></li>
+                    </ul>
+                </div>
+            </div>
+            <h5>Forms</h5>
+            <p>Add <code>.navbar-form</code> to the form and either <code>.pull-left or pull-right</code> to properly align it.</p>
+            <form class="navbar-form pull-left"><!-- .pull-left here will cause float: left; you need .clearfix like below to fix this. -->
+                <input type="text" class="span2">
+                <button type="submit" class="btn">Submit</button>
+            </form>
+            <div class="clearfix"></div>
+            <h5>Search form</h5>
+            <p>Add <code>.navbar-search</code> to the form and either <code>.pull-left or pull-right</code> to properly align it, and <code>.search-query</code> to the input for specialized styles in the navar.</p>
+            <form class="navbar-search pull-left"><!-- .pull-left here will cause float: left; you need .clearfix like below to fix this. -->
+                <input type="text" class="search-query" placeholder="Search">
+            </form>
+            <div class="clearfix"></div>
+            <h5>Component alignment</h5>
+            <p><code>.pull-left or .pull-right</code> will add a CSS float like "float: left;" or "float: right;" you need <code>.clearfix</code> like above(in source code) to fix this.</p>
+            <h5>Using dropdowns</h5>
+            <div class="navbar">
+                <div class="navbar-inner">
+                    <!--Brand-->
+                    <a class="brand" href="#">Title</a> 
+                    <!--Nav links-->
+                    <ul class="nav">
+                        <li class="active"><a href="#">Home</a></li>
+                        <li><a href="#">Link</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                Link
+                                <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Sub Menu 1</a></li>
+                                <li><a href="#">Sub Menu 2</a></li>
+                                <li><a href="#">Sub Menu 3</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h5>Text</h5>
+            <p>Wrap strings of text in an element with <code>.navbar-text</code>, usually on a <code>p</code> tag for proper leading and color.</p>
+            <p><code>Regarding Text above, I personally fail to understand what it means so far.</code></p>
+
+            <h4>Optional display variations</h4>
+            <p>Fix the navbar to the top or bottom of the viewport</p>
+            <h5>Fixed to top</h5>
+            <p><code>&lt;div class="navbar navbar-fixed-top"&gt;...&lt;/div&gt;</code>, see the nav on the top of this page?</p> 
+            <p>Add <code>.navbar-fixed-top</code> and remember to account for the hidden area underneath it by adding at least 40px padding to the <code>body</code>. Be sure to add this after the core Bootstrap CSS and before the optional responsive CSS. Otherwise, it will overlap part of the content of the main page.</p>
+            <strong><code>Check this 40px padding CSS in the source code of this page.</code></strong>
+            <div class="navbar navbar-fixed-top">
+                <div class="navbar-inner">
+                    <!--Brand-->
+                    <a class="brand" href="#">Title</a> 
+                    <!--Nav links-->
+                    <ul class="nav">
+                        <li class="active"><a href="#">Home</a></li>
+                        <li><a href="#">Link</a></li>
+                        <li><a href="#">Link</a></li>
+                    </ul>
+                </div>
+            </div>
+            <h5>Fixed to bottom</h5>
+            <p><code>&lt;div class="navbar navbar-fixed-bottom"&gt;...&lt;/div&gt;</code>, see the nav on the bottom of this page?</p> 
+            <div class="navbar navbar-fixed-bottom">
+                <div class="navbar-inner">
+                    <!--Brand-->
+                    <a class="brand" href="#">Title</a> 
+                    <!--Nav links-->
+                    <ul class="nav">
+                        <li class="active"><a href="#">Home</a></li>
+                        <li><a href="#">Link</a></li>
+                        <li><a href="#">Link</a></li>
+                    </ul>
+                </div>
+            </div>
+            <h5>Static top navbar</h5>
+            <p>Create a full-width navbar that scrolls away with the page by adding <code>.navbar-static-top</code>.</p>
+            <div class="navbar navbar-static-top">
+                <div class="navbar-inner">
+                    <!--Brand-->
+                    <a class="brand" href="#">Title</a> 
+                    <!--Nav links-->
+                    <ul class="nav">
+                        <li class="active"><a href="#">Home</a></li>
+                        <li><a href="#">Link</a></li>
+                        <li><a href="#">Link</a></li>
+                    </ul>
+                </div>
+            </div>
 
 
             <br/>
