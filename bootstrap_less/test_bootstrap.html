@@ -1132,9 +1132,73 @@
             </ul>
 
 			<h4>Nav lists</h4>
+            <p>They are best used in sidebars like the Finder in OS X.</p>
+            <h5>Example nav list</h5>
+            <p>Add <code>nav nav-list</code> on <code>ul</code>, and they can be applied on any nested <code>ul</code></p>
+            <ul class="nav nav-list">
+                <li class="nav-header">List header</li>
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#">Library</a></li>
+            </ul>
+            <h5>Horizontal dividers</h5>
+            <p>Add <code>.divider</code> on <code>li</code></p>
+            <ul class="nav nav-list">
+                <li class="nav-header">List header</li>
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#">Library</a></li>
+                <li class="divider"></li>
+                <li><a href="#">Help</a></li>
+            </ul>
 
+			<h4>Tabbable nav</h4>
+            <h5>Tabbable example</h5>
+            <p>To make tabs tabbable, create a <code>.tab-pane</code> with unique ID for every tab and wrap them in <code>.tab-content</code>, to make tabs fade in, add <code>.fade</code> to each <code>.tab-pane</code></p>
+            <div class="tabbable"> <!-- Only required for left/right/down tabs, see below samples -->
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#tab1" data-toggle="tab">Section 1</a></li>
+                    <li><a href="#tab2" data-toggle="tab">Section 2</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="tab1">
+                        <p>I'm in Section 1.</p>
+                    </div>
+                    <div class="tab-pane" id="tab2">
+                        <p>Howdy, I'm in Section 2.</p>
+                    </div>
+                </div>
+            </div>
+            <h5>Tabbable in any direction</h5>
+            <p>Tabs on the bottom, add <code>.tabs-below</code> <code>.tabs-left</code> <code>.tabs-right</code> following <code>.tabbable</code></p>
+            <div class="tabbable tabs-left"> <!-- Only required for left/right/down tabs, this is the sample. -->
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#tab1" data-toggle="tab">Section 1</a></li>
+                    <li><a href="#tab2" data-toggle="tab">Section 2</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div class="tab-pane active" id="tab1">
+                        <p>I'm in Section 1.</p>
+                    </div>
+                    <div class="tab-pane" id="tab2">
+                        <p>Howdy, I'm in Section 2.</p>
+                    </div>
+                </div>
+            </div>
 
+            <br/>
 
+            <h3>Navbar</h3>
+            <h4>Basic navbar</h4>
+            <p>Add <code>.navbar .navbar-inner</code> divs outside of the ul tag.</p>
+            <div class="navbar">
+                <div class="navbar-inner">
+                    <a class="brand" href="#">Title</a>
+                    <ul class="nav">
+                        <li class="active"><a href="#">Home</a></li>
+                        <li><a href="#">Link</a></li>
+                        <li><a href="#">Link</a></li>
+                    </ul>
+                </div>
+            </div>
 
 
 
