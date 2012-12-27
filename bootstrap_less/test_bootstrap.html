@@ -1349,6 +1349,7 @@
                 </div>
               </div><!-- /navbar-inner -->
             </div>
+            <p>In this case, you can also put <code>.navbar-fixed-top</code> to place this navbar on the top of the page, but make sure 40px padding to the <code>body</code> </p>
 
             <h4>Inverted variation</h4>
             <p>Add <code>.navbar-inverse</code> to modify the look of the navbar.</p>
@@ -1402,16 +1403,104 @@
                 </ul>
             </div>
             <h5>Sizes</h5>
+            <p>Add <code>.pagination-large .pagination-small .pagination-mini</code></p>
+            <div class="pagination pagination-large">
+                <ul>
+                    <li class="disabled"><span>Prev</span></li>
+                    <li class="active"><span>1</span></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">Next</a></li>
+                </ul>
+            </div>
+            <h5>Alignment</h5>
+            <p><code>.pagination-centered .pagination-right</code></p>
+            <div class="pagination pagination-centered">
+                <ul>
+                    <li class="disabled"><span>Prev</span></li>
+                    <li class="active"><span>1</span></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">Next</a></li>
+                </ul>
+            </div>
+            <h4>Pager</h4>
+            <h5>Default example</h5>
+            <ul class="pager">
+                <li><a href="#">Previous</a></li>
+                <li><a href="#">Next</a></li>
+            </ul>
+            <h5>Aligned links</h5>
+            <ul class="pager">
+                <li class="previous">
+                    <a href="#">&larr; Older</a>
+                </li>
+                <li class="next">
+                    <a href="#">Newer &rarr;</a>
+                </li>
+            </ul>
+            <h5>Optional disabled state</h5>
+            <ul class="pager">
+                <li class="previous disabled">
+                    <a href="#">&larr; Older</a>
+                </li>
+                <li class="next">
+                    <a href="#">Newer &rarr;</a>
+                </li>
+            </ul>
 
+            <br/>
 
+            <h3>Labels and badges</h3>
+            <h4>Labels</h4>
+            <span class="label">Default</span>
+            <span class="label label-success">Success</span>
+            <span class="label label-warning">Warning</span>
+            <span class="label label-important">Important</span>
+            <span class="label label-info">Info</span>
+            <span class="label label-inverse">Inverse</span>
+            <h4>Badges</h4>
+            <span class="badge">1</span>
+            <span class="badge badge-success">2</span>
+            <span class="badge badge-warning">4</span>
+            <span class="badge badge-important">6</span>
+            <span class="badge badge-info">8</span>
+            <span class="badge badge-inverse">10</span>
+            <h4>Easily collapsible</h4>
+            <span class="badge badge-inverse"></span><!-- There is no content here, so this whole badge will not be shown. -->
 
+            <br/>
 
+            <h3>Typographic components</h3>
+            <h4>Hero unit</h4>
+            <p>To show key content on your site, works well on marketing and content-heavy sites.</p>
+            <div class="hero-unit">
+                <h1>Heading</h1>
+                <p>Tagline</p>
+                <p>
+                    <a class="btn btn-primary btn-large">
+                        Learn more
+                    </a>
+                </p>
+            </div>
+            <h4>Page header</h4>
+            <div class="page-header">
+                <h1>Example page header <small>Subtext for header</small></h1>
+            </div>
 
+            <br/>
 
-
-
-
-
+            <h3>Thumbnails <small>Grids of images, videos, text and more</small></h3>
+            <h4>Markup</h4>
+            <ul class="thumbnails">
+                <li class="span3">
+                    <a href="#" class="thumbnail">
+                    <img alt="260x180" data-src="holder.js/260x180" style="width: 260px; height: 180px;" src="data:image/png;base64,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">
+                    </a>
+                </li>
+            </ul>
 
 
 
