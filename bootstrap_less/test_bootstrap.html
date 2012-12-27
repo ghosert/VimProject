@@ -1320,6 +1320,100 @@
             </div>
 
             <h4>Responsive navbar</h4>
+            <p>Wrap your navbar content in a <code>.container .nav-collapse .collapse</code> div and add the navbar toggle button: <code>.btn-navbar</code></p>
+            <p>Minimize the browser to see the effect here.</p>
+            <div class="navbar">
+              <div class="navbar-inner">
+                  <div class="container">
+
+                  <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+                  <a data-target=".navbar-responsive-collapse" data-toggle="collapse" class="btn btn-navbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                  </a>
+                
+                  <!-- Be sure to leave the brand out there if you want it shown -->
+                  <a href="#" class="brand">Title</a>
+
+                  <!-- Everything you want hidden at 940px or less, place within here -->
+                  <div class="nav-collapse collapse navbar-responsive-collapse">
+                    <ul class="nav">
+                      <li class="active"><a href="#">Home</a></li>
+                      <li><a href="#">Link</a></li>
+                    </ul>
+                    <form action="" class="navbar-search pull-left">
+                      <input type="text" placeholder="Search" class="search-query span2">
+                    </form>
+                  </div><!-- /.nav-collapse -->
+                </div>
+              </div><!-- /navbar-inner -->
+            </div>
+
+            <h4>Inverted variation</h4>
+            <p>Add <code>.navbar-inverse</code> to modify the look of the navbar.</p>
+            <div class="navbar navbar-inverse">
+                <div class="navbar-inner">
+                    <!--Brand-->
+                    <a class="brand" href="#">Title</a> 
+                    <!--Nav links-->
+                    <ul class="nav">
+                        <li class="active"><a href="#">Home</a></li>
+                        <li><a href="#">Link</a></li>
+                        <li><a href="#">Link</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <br/>
+
+            <h3>Breadcrumbs</h3>
+            <ul class="breadcrumb">
+                <li><a href="#">Home</a> <span class="divider">/</span></li>
+                <li><a href="#">Library</a> <span class="divider">/</span></li>
+                <li class="active">Data</li>
+            </ul>
+
+            <br/>
+
+            <h3>Pagination</h3>
+            <h4>Standard pagination</h4>
+            <div class="pagination">
+                <ul>
+                    <li><a href="#">Prev</a></li>
+                    <li><a href="#">1</a></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">Next</a></li>
+                </ul>
+            </div>
+            <h4>Options</h4>
+            <h5>Disabled and active state</h5>
+            <p><code>.disabled</code> for unclickable links and <code>.active</code> to indicate the current page.</p>
+            <div class="pagination">
+                <ul>
+                    <li class="disabled"><span>Prev</span></li>
+                    <li class="active"><span>1</span></li>
+                    <li><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">Next</a></li>
+                </ul>
+            </div>
+            <h5>Sizes</h5>
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
