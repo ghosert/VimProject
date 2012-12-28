@@ -1526,15 +1526,218 @@
                 <button type="button" class="close" data-dismiss="alert">&times;</button>
                 <strong>Warning!</strong> Best check yo self, you're not looking too good.
             </div>
-
-
-
-
-
-
-
+            <h5>Dismiss buttons</h5>
+            <p>
+                Use tag &lt;a&gt;/&lt;button&gt; as dismiss button, it requires href="#" for &lt;a&gt;. It requires type="button" for &lt;button&gt;, or your forms may not submit.
+            </p>
+            <div class="alert">
+                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                <strong>Warning!</strong> Best check yo self, you're not looking too good.
+            </div>
+            <h4>Options</h4>
+            <p>For longer messages, increase the padding on the top and bottom of the alert wrapper by adding <code>.alert-block</code></p>
+            <div class="alert alert-block">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <h4>Warning!</h4>
+                Best check yo self, you're not...
+            </div>
+            <h4>Contextual alternatives</h4>
+            <h5>Error or danger</h5>
+            <div class="alert alert-error">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                Oh snap! Change a few things up and try submitting again. 
+            </div>
+            <h5>Success</h5>
+            <div class="alert alert-success">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                Well done! You successfully read this important alert message. 
+            </div>
+            <h5>Information</h5>
+            <div class="alert alert-info">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                Heads up! This alert needs your attention, but it's not super important. 
+            </div>
 
             <br/>
+
+            <h3>Progress bars <small>For loading, redirecting or action status</small></h3>
+            <h4>Examples and markup</h4>
+            <h5>Basic</h5>
+            <div class="progress">
+                <div class="bar" style="width: 60%;"></div>
+            </div>
+            <h5>Striped</h5>
+            <p>Not available in IE7-8</p>
+            <div class="progress progress-striped">
+                <div class="bar" style="width: 60%;"></div>
+            </div>
+            <h5>Animated</h5>
+            <p>Add <code>.active</code> to <code>.progress-striped</code>, not available in all versions of IE.</p>
+            <div class="progress progress-striped active">
+                <div class="bar" style="width: 60%;"></div>
+            </div>
+            <h5>Stacked</h5>
+            <p>Place multiple bars into the same <code>.progress</code> to stack them.</p>
+            <div class="progress">
+                <div class="bar bar-success" style="width: 35%;"></div>
+                <div class="bar bar-warning" style="width: 20%;"></div>
+                <div class="bar bar-danger" style="width: 10%;"></div>
+            </div>
+            <h4>Options</h4>
+            <h5>Additional colors</h5>
+            <div class="progress progress-info">
+                <div class="bar" style="width: 20%"></div>
+            </div>
+            <div class="progress progress-success">
+                <div class="bar" style="width: 40%"></div>
+            </div>
+            <div class="progress progress-warning">
+                <div class="bar" style="width: 60%"></div>
+            </div>
+            <div class="progress progress-danger">
+                <div class="bar" style="width: 80%"></div>
+            </div>
+            <h5>Striped bars</h5>
+            <div class="progress progress-info progress-striped">
+                <div class="bar" style="width: 20%"></div>
+            </div>
+            <div class="progress progress-success progress-striped">
+                <div class="bar" style="width: 40%"></div>
+            </div>
+            <div class="progress progress-warning progress-striped">
+                <div class="bar" style="width: 60%"></div>
+            </div>
+            <div class="progress progress-danger progress-striped">
+                <div class="bar" style="width: 80%"></div>
+            </div>
+
+            <h4>Browser support</h4>
+            <p>Progress bars use CSS3 gradients, transitions and animations to achieve all their effects. Not supported in IE7-9 or older versions of Firefox.</p>
+
+            <br/>
+
+            <h3>Media object</h3>
+            <small>
+                Abstract object styles for building various types of components (like blog comments, Tweets, etc) that feature a left- or right-aligned image alongside textual content.
+            </small>
+            <h4>Default example</h4>
+            <p>The default media allow to float a media object (images, video, audio) to the left or right of a content block.</p>
+            <div class="media">
+              <a class="pull-left" href="#">
+                <img src="./64_64.png" style="width: 64px; height: 64px;" alt="64x64" class="media-object" data-src="holder.js/64x64">
+              </a>
+              <div class="media-body">
+                <h4 class="media-heading">Media heading</h4>
+                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+              </div>
+            </div>
+            <div class="media">
+              <a class="pull-left" href="#">
+                <img src="./64_64.png" style="width: 64px; height: 64px;" alt="64x64" class="media-object" data-src="holder.js/64x64">
+              </a>
+              <div class="media-body">
+                <h4 class="media-heading">Media heading</h4>
+                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                <!-- Nested media object -->
+                <div class="media">
+                  <a class="pull-left" href="#">
+                    <img src="./64_64.png" style="width: 64px; height: 64px;" alt="64x64" class="media-object" data-src="holder.js/64x64">
+                  </a>
+                  <div class="media-body">
+                    <h4 class="media-heading">Media heading</h4>
+                    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+                  </div>
+                </div>
+              </div>
+            </div>
+          
+            <h4>Media list</h4>
+            <p>With a bit of extra markup, you can use media inside list (useful for comment threads or articles lists).</p>
+            <pre>
+                &lt;ul class="media-list"&gt;
+                    &lt;li class="media"&gt;
+                        &lt;a class="pull-left" href="#"&gt;
+                            &lt;img class="media-object" data-src="holder.js/64x64"&gt;
+                        &lt;/a&gt;
+                        &lt;div class="media-body"&gt;
+                            &lt;h4 class="media-heading"&gt;Media heading&lt;/h4&gt;
+                            ...
+                         
+                            &lt;!-- Nested media object --&gt;
+                            &lt;div class="media"&gt;
+                            ...
+                            &lt;/div&gt;
+                        &lt;/div&gt;
+                    &lt;/li&gt;
+                &lt;/ul&gt;
+            </pre>
+
+            <br/>
+
+            <h3>Miscellaneous <small>Lightweight utility components</small></h3>
+            <h4>Wells</h4>
+            <div class="well">
+                Look, I'm in a well!
+            </div>
+            <div class="well well-large">
+                Look, I'm in a well large!
+            </div>
+            <div class="well well-small">
+                Look, I'm in a well small!
+            </div>
+            <h4>Close icon</h4>
+            <button class="close pull-left">&times;</button>
+            <a class="close" href="#">&times;</a>
+
+            <div class="clearfix"></div>
+
+            <h4>Helper classes</h4>
+            <p>Simple, focused classes for small display or behavior tweaks.</p>
+            <h5>.pull-left</h5>
+            <p>Float an element left</p>
+            <code>class="pull-left"</code>
+            <pre>
+                .pull-left {
+                    float: left;
+                }
+            </pre>
+            <h5>.pull-right</h5>
+            <p>Float an element right</p>
+            <code>class="pull-right"</code>
+            <pre>
+                .pull-right {
+                    float: right;
+                }
+            </pre>
+            <h5>.muted</h5>
+            <p>Change an element's color to #999</p>
+            <code>class="muted"</code>
+            <pre>
+                .muted {
+                    color: #999;
+                }
+            </pre>
+            <h5>.clearfix</h5>
+            <p>Clear the float on any element</p>
+            <code>class="clearfix"</code>
+            <pre>
+                .clearfix {
+                    *zoom: 1;
+                    &:before,
+                    &:after {
+                        display: table;
+                        content: "";
+                    }
+                    &:after {
+                        clear: both;
+                    }
+                }
+            </pre>
+
+
+
+
+
             <br/>
             <br/>
             <br/>
