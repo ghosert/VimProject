@@ -1734,6 +1734,103 @@
                 }
             </pre>
 
+            <br/>
+
+            <h2>JavaScript</h2>
+            <h3>JavaScript in Bootstrap</h3>
+            <p>See docs...</p>
+            <br/>
+            <h3>Transitions</h3>
+            <p>See docs...</p>
+            <br/>
+            <h3>Models</h3>
+            <h4>Example</h4>
+            <h5>Static example</h5>
+            <div class="modal" style="position: relative; top: auto; left: auto; right: auto; margin: 0 auto 20px; z-index: 1; max-width: 100%;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3>Modal header</h3>
+                </div>
+                <div class="modal-body">
+                    <p>One fine body…</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">Close</a>
+                    <a href="#" class="btn btn-primary">Save changes</a>
+                </div>
+            </div>
+
+            <h5>Live demo</h5>
+
+            <!-- Button to trigger modal -->
+            <a href="#myModal" role="button" class="btn btn-primary" data-toggle="modal">Launch demo modal</a>
+             
+            <!-- Modal -->
+            <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h3 id="myModalLabel">Modal header</h3>
+                </div>
+                <div class="modal-body">
+                    <p>One fine body…</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+                    <button class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+
+
+            <h4>Usage</h4>
+            <h5>Via data attributes</h5>
+            <p>
+                Activate a modal without writing JavaScript. Set <code>data-toggle="modal"</code> on a controller element like a button along with a 
+                <code>data-target="#foo"</code> or <code>href="#foo"</code> to target a specific modal to toggle.
+            </p>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-backdrop="false" data-target="#myModal">
+                Launch demo modal via data attributes - backdrop: false
+            </button>
+            <h5>Via JavaScript</h5>
+            <button type="button" class="btn btn-primary" onclick="toggleModal()">Launch demo modal via JavaScript - backdrop: false</button>
+            <script>
+                function toggleModal() {
+                    $('#myModal').modal({backdrop: false}); // .modal(options)
+                }
+            </script>
+            <h5>Options</h5>
+            <p>See docs: backdrop, keyboard, show, remote. P.S. data-backdrop="false" in data attributes, equals .modal({backdrop: false}); in JavaScript.</p>
+            <h5>Methods</h5>
+            <p>See docs: .modal(options) like sample above, .modal('toggle'), .modal('show'), .modal('hide'), I don't see point here.</p>
+            <h5>Events</h5>
+            <p>show - prepare to show, shown - complete to show, hide - prepare to hide, hidden - complete to hide</p>
+            <p>$('#myModal').on('hidden', function(){// do something...})</p>
+            <button type="button" class="btn btn-primary" onclick="modalEvents()">Launch demo modal with hidden events.</button>
+            <script>
+                function modalEvents() {
+                    $('#myModal').on('hidden', function() {
+                        alert('I have closed.');
+                    });
+                    $('#myModal').modal({backdrop: false}); // .modal(options)
+                }
+            </script>
+
+            <br/>
+
+            <h3>Dropdowns</h3>
+             
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
