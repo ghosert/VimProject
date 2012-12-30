@@ -1179,14 +1179,14 @@
             <p>Tabs on the bottom, add <code>.tabs-below</code> <code>.tabs-left</code> <code>.tabs-right</code> following <code>.tabbable</code></p>
             <div class="tabbable tabs-left"> <!-- Only required for left/right/down tabs, this is the sample. -->
                 <ul class="nav nav-tabs">
-                    <li class="active"><a href="#tab1" data-toggle="tab">Section 1</a></li>
-                    <li><a href="#tab2" data-toggle="tab">Section 2</a></li>
+                    <li class="active"><a href="#tab3" data-toggle="tab">Section 1</a></li>
+                    <li><a href="#tab4" data-toggle="tab">Section 2</a></li>
                 </ul>
                 <div class="tab-content">
-                    <div class="tab-pane active" id="tab1">
+                    <div class="tab-pane active" id="tab3">
                         <p>I'm in Section 1.</p>
                     </div>
-                    <div class="tab-pane" id="tab2">
+                    <div class="tab-pane" id="tab4">
                         <p>Howdy, I'm in Section 2.</p>
                     </div>
                 </div>
@@ -1817,14 +1817,148 @@
             <br/>
 
             <h3>Dropdowns</h3>
-             
+            <h4>Usage</h4>
+            <h5>Via data attributes</h5>
+            <p>Add <code>data-toggle="dropdown"</code> to a link or button to toggle a dropdown.</p>
+            <div class="dropdown">
+                <a id="dLabel" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+                    Dropdown trigger
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+					<li><a tabindex="-1" href="#">Action 1</a></li>
+					<li><a tabindex="-1" href="#">Action 2</a></li>
+                </ul>
+            </div>
+            <p>To keep URLs intact, use the <code>data-target</code> attribute instead of <code>href="#"</code>, just in case href contains url ?</p>
+            <div class="dropdown">
+                <a id="dLabel" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" data-target="#" href="/page.html">
+                    Dropdown trigger
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+					<li><a tabindex="-1" href="#">Action 1</a></li>
+					<li><a tabindex="-1" href="#">Action 2</a></li>
+                </ul>
+            </div>
+            <h5>Via JavaScript</h5>
+            <p><code>$('.dropdown-toggle').dropdown()</code></p>
+            <p><code>$().dropdown('toggle')</code></p>
+            <p>A programmatic api for toggling menus for a given navbar or tabbed navigation.</p>
 
+            <br/>
 
+            <h3>ScrollSpy</h3>
+            <p>ScrollSpy is for automatically updating nav targets based on scroll position.</p>
+            <h4>Usage</h4>
+            <h5>Via data attributes</h5>
+            <p>Add <code>data-spy="scroll"</code> to the element you want to spy like <code>body</code> and data-target=".navbar" or "#navbarExample" to select which nav to use like <code>.nav or .navbar</code> component.</p>
+            <h5>Via JavaScript</h5>
+            <p>Call the scrollspy via JavaScript: <code>$('#navbar').scrollspy()</code></p>
+            <div class="alert alert-info">
+                Heads up! Navbar links must have resolvable id targets. For example, a <code>&lt;a href="#home"&gt;home&lt;/a&gt;</code> must correspond to something in the dom like <code>&lt;div id="home"&gt;&lt;/div&gt;</code> See the details in <strong>docs</strong>.
+            </div>
+            <h5>Methods, Options, Events: see docs</h5>
 
+            <br/>
 
+            <h3>Togglable tabs</h3>
+            <ul class="nav nav-tabs" id="myTab">
+              <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
+              <li class=""><a data-toggle="tab" href="#profile">Profile</a></li>
+              <li class="dropdown">
+                <a data-toggle="dropdown" class="dropdown-toggle" href="#">Dropdown <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li class=""><a data-toggle="tab" href="#dropdown1">@fat</a></li>
+                  <li class=""><a data-toggle="tab" href="#dropdown2">@mdo</a></li>
+                </ul>
+              </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+              <div id="home" class="tab-pane fade active in">
+                <p>home</p>
+              </div>
+              <div id="profile" class="tab-pane fade">
+                <p>profile</p>
+              </div>
+              <div id="dropdown1" class="tab-pane fade">
+                <p>fat</p>
+              </div>
+              <div id="dropdown2" class="tab-pane fade">
+                <p>mdo</p>
+              </div>
+            </div>
+            <h4>Usage</h4>
+            <p>Enable tabbled tabs via Javascript</p>
+            <pre>
+                $('#myTab a').click(function (e) {
+                    e.preventDefault();
+                    $(this).tab('show');
+                })
+            </pre>
+            <h4>Markup</h4>
+            <p>If you want to activate a tab or pill navigation without writing any JavaScript, specify <code>data-toggle="tab" / "pill"</code> on an element.</p>
+            <pre>
+                &lt;ul class="nav nav-tabs"&gt;
+                    &lt;li&gt;&lt;a href="#home" data-toggle="tab"&gt;Home&lt;/a&gt;&lt;/li&gt;
+                    ...
+                &lt;/ul&gt;
+            </pre>
+            <div>
+                href="#home" here is the div id in the <code>div.tab-content #home</code> which contains the content to be shown when clicking on home tab
+            </div>
+            <div>
+                see the source code sample above.
+            </div>
+            <h4>Methods</h4>
+            <h5>$().tab</h5>
+            <p>Activates a tab element and content container. Tab should have either a <code>data-target</code> or an <code>href</code> targeting a container node in the DOM.</p>
+            <pre>
+                $('#myTab a:last').tab('show'); // show tab manually by JavaScript
+            </pre>
+            <h4>Events</h4>
+            <h5>show, shown</h5>
+            <pre>
+                $('a[data-toggle="tab"]').on('shown', function (e) {
+                    e.target // activated tab
+                    e.relatedTarget // previous tab
+                })
+            </pre>
 
+            <br/>
 
+            <h3>Tooltips</h3>
+            <div>
+                This is <a href="#" rel="tooltip" title="top tooltip" data-placement="top">Tooltip on top</a>, 
+                and this is <a href="#" rel="tooltip" title="right tooltip" data-placement="right">Tooltip on right</a>.
+                and this is <a href="#" rel="tooltip" title="bottom tooltip" data-placement="bottom">Tooltip on bottom</a>.
+                and this is <a href="#" rel="tooltip" title="left tooltip" data-placement="left">Tooltip on left</a>.
+            </div>
+            <h4>Usage</h4>
+            <p><code>$().tooltip(options)</code></p>
+            <button class="btn btn-primary" onclick="enableTooltips()">
+                Trigger the tooltip, the coressponding JS should be loaded when page loading, otherwise, there is no bootstrap tooltip effect.
+            </button>
+            <script type="text/javascript">
+                function enableTooltips() {
+                    $("[rel=tooltip]").tooltip();
+                }
+            </script>
+            <h5>Options</h5>
+            <p>Options can be passed via data attributes or JavaScript. For data attributes, append the option name to <code>data-</code>, as in <code>data-animation=""</code>.</p>
+            <div>Check docs for details: <code>animation, html, placement, selector, title, trigger: how tooltip is triggered - click|hover|focus|manual, delay</code></div>
+            <h5>Markup</h5>
+            <pre>
+                &lt;a href="#" rel="tooltip" title="first tooltip"&gt;hover over me&lt;/a&gt;
+            </pre>
+            <h5>Methods</h5>
+            <div>
+                Check docs: <code>$().tooltip(options)</code>--options see above <code>.tooltip('show')</code> <code>.tooltip('hide')</code> <code>.tooltip('toggle')</code>--Toggles an element's tooltip .tooltip('destroy')--Hides and destroys element's tooptip.
+            </div>
 
+            <br/>
+
+            <h3>Popovers</h3>
 
 
 
