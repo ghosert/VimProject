@@ -33,11 +33,17 @@
 
             <h1>Bootstrap samples</h1>
 
+            <h1>
+                <small>
+                    If only you have any doubts, check out the <strong>docs/source code(css/html/js)</strong> of <a href="http://twitter.github.com/bootstrap/">the official site</a>
+                </small>
+            </h1>
+
             <br/>
 
             <h2>Scaffolding</h2>
             
-            <button onclick="document.getElementById('bcss').disabled=!document.getElementById('bcss').disabled">
+            <button class="btn btn-primary" onclick="document.getElementById('bcss').disabled=!document.getElementById('bcss').disabled">
                 Show/Hide the background color around sub-divs for better understanding the Scaffolding.
             </button>
 
@@ -1939,9 +1945,10 @@
             <button class="btn btn-primary" onclick="enableTooltips()">
                 Trigger the tooltip, the coressponding JS should be loaded when page loading, otherwise, there is no bootstrap tooltip effect.
             </button>
+            <p class="alert alert-info"><strong>You can check out http://twitter.github.com/bootstrap/assets/js/application.js</strong></p>
             <script type="text/javascript">
                 function enableTooltips() {
-                    $("[rel=tooltip]").tooltip();
+                    $("a[rel=tooltip]").tooltip();
                 }
             </script>
             <h5>Options</h5>
@@ -1959,9 +1966,164 @@
             <br/>
 
             <h3>Popovers</h3>
+            <div>
+                <a data-content="Vivamus sagittis lacus." data-placement="top" rel="popover" class="btn" href="#" data-original-title="Popover on top">Popover on top</a>
+                <a data-content="Vivamus sagittis lacus." data-placement="right" rel="popover" class="btn" href="#" data-original-title="Popover on right">Popover on right</a>
+                <a data-content="Vivamus sagittis lacus." data-placement="bottom" rel="popover" class="btn" href="#" data-original-title="Popover on bottom">Popover on bottom</a>
+                <a data-content="Vivamus sagittis lacus." data-placement="left" rel="popover" class="btn" href="#" data-original-title="Popover on left">Popover on left</a>
+            </div>
+            <h4>Usage</h4>
+            <p>Enable popovers via JavaScript:</p>
+            <p>$().popover(options)</p>
+            <button class="btn btn-primary" onclick="enablePopovers()">
+                Trigger the popovers, the coressponding JS should be loaded when page loading, otherwise, there is no bootstrap popover effect.
+            </button>
+            <p class="alert alert-info"><strong>You can check out http://twitter.github.com/bootstrap/assets/js/application.js</strong></p>
+            <script type="text/javascript">
+                function enablePopovers() {
+                    $("a[rel=popover]").popover().click(function(e){e.preventDefault()});
+                }
+            </script>
+            <h5>Options</h5>
+            <p>Options can be passed via data attributes or JavaScript. For data attributes, append the option name to <code>data-</code>, as in <code>data-animation=""</code>.</p>
+            <div>Check docs for details: <code>animation, html, placement, selector, title, trigger: how tooltip is triggered - click|hover|focus|manual, content, delay</code></div>
+            <h5>Methods</h5>
+            <div>
+                Check docs: <code>$().popover(options)</code>--options see above <code>.popover('show')</code> <code>.popover('hide')</code> <code>.popover('toggle')</code>--Toggles an element's popover .popover('destroy')--Hides and destroys element's popover.
+            </div>
 
+            <br/>
 
+            <h3>Alert messages</h3>
+            <div class="alert fade in">
+                <button data-dismiss="alert" class="close" type="button">×</button>
+                <strong>Holy guacamole!</strong> Best check yo self, you're not looking too good.
+            </div>
+            <div class="alert alert-block alert-error fade in">
+                <button data-dismiss="alert" class="close" type="button">×</button>
+                <h4 class="alert-heading">Oh snap! You got an error!</h4>
+                <p>Change this and that and try again. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum.</p>
+                <p>
+                    <a href="#" class="btn btn-danger">Take this action</a> <a href="#" class="btn">Or do this</a>
+                </p>
+            </div>
+            <h4>Usage</h4>
+            <p>$(".alert").alert()</p>
+            <button class="btn btn-primary" onclick="$('.alert.fade.in').alert('close')">Enable dismissal of an alert via JavaScript</button>
+            <h5>Markup</h5>
+            <p>Add <code>data-dismiss="alert"</code> to your close button like this: &lt;a class="close" data-dismiss="alert" href="#"&gt;&times;&lt;/a&gt;</p>
+            <h5>Methods</h5>
+            <p>$().alert('close'): closes an alert.</p>
+            <h5>Events</h5>
+            <p>close, closed</p>
+            <pre>
+                $('#my-alert').bind('closed', function () {
+                    // do something…
+                })
+            </pre>
 
+            <br/>
+
+            <h3>Buttons</h3>
+            <h4>Example uses</h4>
+            <h5>Stateful</h5>
+            <p>Add data-loading-text="Loading..." to use a loading state on a button.</p>
+            <button type="button" class="btn btn-primary" data-loading-text="loading..." onclick="loading(this)">Loading state</button>
+            <script>
+                function loading(btLoading) {
+                    var btn = $(btLoading);
+                    btn.button('loading');
+                    window.setTimeout(function () {btn.button('reset')}, 3000);
+                }
+            </script>
+            <h5>Single toggle</h5>
+            <p>Add data-toggle="button" to activate toggling on a single button.</p>
+            <button type="button" class="btn btn-primary" data-toggle="button">Single Toggle</button>
+            <h5>Checkbox</h5>
+            <p>Add data-toggle="buttons-checkbox" for checkbox style toggling on btn-group.</p>
+            <div class="btn-group" data-toggle="buttons-checkbox">
+                <button type="button" class="btn btn-primary">Left</button>
+                <button type="button" class="btn btn-primary">Middle</button>
+                <button type="button" class="btn btn-primary">Right</button>
+            </div>
+            <h5>Radio</h5>
+            <p>Add data-toggle="buttons-radio" for radio style toggling on btn-group.</p>
+            <div class="btn-group" data-toggle="buttons-radio">
+                <button type="button" class="btn btn-primary">Left</button>
+                <button type="button" class="btn btn-primary">Middle</button>
+                <button type="button" class="btn btn-primary">Right</button>
+            </div>
+            <h4>Usage</h4>
+            <p>$().button()</p>
+            <h5>Methods</h5>
+            <strong>$().button('toggle')</strong>
+            <p>Same as data-toggle="button" above</p>
+            <strong>$().button('loading')</strong>
+            <p>Sets button state to loading - disables button and swaps text to loading text. See samples above.</p>
+            <strong>$().button('reset')</strong>
+            <p>Resets button state - swaps text to original text.</p>
+            <strong>$().button('complete')</strong>
+            <p>Resets button state - swaps text to any data defined text state.</p>
+            <button type="button" class="btn btn-primary" data-complete-text="finished!" onclick="$(this).button('complete')" >I'm doing ...</button>
+
+            <br/>
+
+            <h3>Collapse</h3>
+            <h4>Example accordion</h4>
+            <div class="accordion" id="accordion2">
+                <div class="accordion-group">
+                <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+                Collapsible Group Item #1
+                </a>
+                </div>
+                <div id="collapseOne" class="accordion-body collapse in">
+                <div class="accordion-inner">
+                Anim pariatur cliche...
+                </div>
+                </div>
+                </div>
+                <div class="accordion-group">
+                <div class="accordion-heading">
+                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+                Collapsible Group Item #2
+                </a>
+                </div>
+                <div id="collapseTwo" class="accordion-body collapse">
+                <div class="accordion-inner">
+                Anim pariatur cliche...
+                </div>
+                </div>
+                </div>
+            </div>
+            <p>Use the plugin without the accordion markup</p>
+            <button type="button" class="btn btn-danger" data-toggle="collapse" data-target="#demo">
+                simple collapsible
+            </button>
+            <div id="demo" class="collapse">I'm simple collapse.</div> <!--This is default close, add class ".in" on this div to open it by default-->
+            <h4>Usage</h4>
+            <h5>Via data attributes</h5>
+            <p>Add <code>data-toggle="collapse" data-target href collapse in(for default open) data-parent="#selector"</code>, see the demos above.</p>
+            <h5>Via JavaScript</h5>
+            <p>$().collapse()</p>
+            <h5>Options</h5>
+            <p>parent, toggle in js options as a parameter, just like data-parent, data-toggle in data attributes.</p>
+            <h5>Methods</h5>
+            <strong>$().collapse(options)</strong>
+            <strong>$().collapse('toggle')</strong>
+            <strong>$().collapse('show')</strong>
+            <strong>$().collapse('hide')</strong>
+            <h5>Events</h5>
+            <p>show, shown, hide, hidden</p>
+            <pre>
+                $('#myCollapsible').on('hidden', function () {
+                    // do something…
+                })
+            </pre>
+
+            <br/>
+
+            <h3>Carousel</h3>
 
 
 
