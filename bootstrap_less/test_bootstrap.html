@@ -51,9 +51,24 @@
 
             <h3>Default grid system</h3>
             <h4>The default Bootstrap grid system utilizes 12 columns.</h4>
+            <p><code>spanX</code> combined with <code>row</code> most likely, since <code>spanX</code> will introdue float while <code>row</code> could clear it.</p>
+            <div class="row">
+                <div class="span3">span 3</div>
+                <div class="span3">span 3</div>
+                <div class="span3">span 3</div>
+                <div class="span3">span 3</div>
+            </div>
+            <div class="row">
+                <div class="span4">span 4</div>
+                <div class="span4">span 4</div>
+                <div class="span4">span 4</div>
+            </div>
             <div class="row">
                 <div class="span4">span 4</div>
                 <div class="span8">span 8</div>
+            </div>
+            <div class="row">
+                <div class="span12">span 12</div>
             </div>
             <h4>Offsetting columns</h4>
             <div class="row">
@@ -2124,21 +2139,90 @@
             <br/>
 
             <h3>Carousel</h3>
+            <h4>Example carousel</h4>
+            <div class="row"><!--jiawzhang: we need div.row here because div.span6.offset3 below, span6 offset3 will introduce float, we need row here to clear it.-->
+            <div id="myCarousel" class="carousel slide span6 offset3">
+                <!-- Carousel items -->
+                <div class="carousel-inner">
+                    <div class="active item">
+                        <!-- centering the img if you want.
+                        <img style="margin-left: auto; margin-right: auto;" alt="" src="./head.jpg">
+                        -->
+                        <img alt="" src="./head.jpg">
+                        <div class="carousel-caption">
+                            <h4>First Thumbnail label</h4>
+                            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <img alt="" src="./head.jpg">
+                        <div class="carousel-caption">
+                            <h4>Second Thumbnail label</h4>
+                            <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Carousel nav -->
+                <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+                <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+            </div>
+            </div>
+            <h4>Usage</h4>
+            <h5>Via JavaScript</h5>
+            <pre>
+                $().carousel()
+            </pre>
+            <button class="btn btn-primary" onclick="$('#myCarousel').carousel()">
+                Enable carousel, the coressponding JS should be loaded when page loading, otherwise, there is carousel auto-start.
+            </button>
+            <p class="alert alert-info"><strong>You can check out http://twitter.github.com/bootstrap/assets/js/application.js</strong></p>
+            <h5>Options</h5>
+            <p><code>interval pause</code>: See docs</p>
+            <h5>Methods</h5>
+            <strong>$().carousel(options)</strong>
+            <p>$().carousel({interval: 2000})</p>
+            <strong>$().carousel('cycle')</strong>
+            <p>Cycles through the carousel items from left to right.</p>
+            <strong>$().carousel('pause')</strong>
+            <p>Stops the carousel from cycling through items.</p>
+            <strong>$().carousel(number)</strong>
+            <p>Cycles the carousel to a particular frame (0 based, similar to an array).</p>
+            <strong>$().carousel('prev')</strong>
+            <p>Cycles to the previous item.</p>
+            <strong>$().carousel('next')</strong>
+            <p>Cycles to the next item.</p>
+            <h5>Events</h5>
+            <p><code>slide, slid</code></p>
 
+            <br/>
 
+            <h3>Typeahead</h3>
+            <input type="text" class="span3" data-provide="typeahead" data-items="4" data-source='["Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Dakota","North Carolina","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"]'>
+            <h4>Usage</h4>
+            <h5>Via JavaScript</h5>
+            <pre>
+                $().typeahead()
+            </pre>
+            <h5>Options</h5>
+            <p>
+                See docs: <code>source items minLength matcher sorter updater highlighter</code>. For data attributes, append the option name to <code>data-</code>, as data-source.
+            </p>
+            <h5>Methods</h5>
+            <strong>.typeahead(options)</strong>
+            <p>See options like <code>source, itmes, ...</code> above.</p>
 
+            <br/>
 
-
+            <h3>Affix</h3>
+            <h4>Example</h4>
+            <h5>See official docs.</h5>
+            <h4>Usage</h4>
+            <h5>See official docs.</h5>
 
 
             <br/>
             <br/>
             <br/>
-            <br/>
-            <br/>
-
-
-
         </div>
 
         <!-- jquery & Bootstrap -->
