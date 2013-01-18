@@ -29,7 +29,7 @@ if __name__ == "__main__":
     # import new module
     import study 
     print "study.Study.__module__"
-    # see the module of the object, it should be __study__ compared with __main__ above.
+    # see the module of the object, it should be "study" compared with "__main__" above.
     print study.Study.__module__ 
     print
     print "study.__doc__"
