@@ -1,3 +1,0 @@
-include studypylons/config/deployment.ini_tmpl
-recursive-include studypylons/public *
-recursive-include studypylons/templates *
