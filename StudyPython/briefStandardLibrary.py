@@ -171,7 +171,7 @@ if __name__ == "__main__":
     logging.warning('Warning:config file %s not found', 'server.conf')
     logging.error('Error occurred')
     logging.critical('Critical error -- shutting down')
-    # by default, debug and info above is supressed, and all the logging message output is sent to standard error.
+    # by default, debug and info above is suppressed, and all the logging message output is sent to standard error.
 
     # add item to sorted list 
     import bisect

@@ -666,7 +666,7 @@ if __name__ == "__main__":
 
     # You can not invoke any one of the object below, since they are private class variable, private instance method and private instance variable
     # PrivateSample.__private_class_variable
-    # PrivateSample().__class__.__private_instance_variable
+    # PrivateSample().__class__.__private_class_variable
     # PrivateSample().__private_instance_variable
     # PrivateSample().__private_method()
     PrivateSample().public_method()
