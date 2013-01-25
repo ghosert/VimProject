@@ -14,6 +14,8 @@ if __name__ == '__main__':
     print re.sub(r'\bROAD$', 'RD.', s) # ROAD is not at the end of the string, so the expression will not work.
     print re.sub(r'\bROAD\b', 'RD.', s) # Use '\bkeyword\b' to match the word exactly.
 
+    print "============================================================"
+
     pattern = '^M?M?M?$' # means the the string must start with 'M' or '' and end with 'M' or '', and '' to 3M string is qualified. 'M?' here means match zero or single 'M'
     print re.search(pattern, 'M') 
     print re.search(pattern, 'MM') 
@@ -40,11 +42,11 @@ if __name__ == '__main__':
 
     pattern = '^M?M?M?M?(CM|CD|D?C?C?C?)(XC|XL|L?X?X?X?)$'
     # pattern = '^M{0, 4}(CM|CD|D?C{0, 3})(XC|XL|L?X{0, 3})$'
-    re.search(pattern, 'MCMXL')
-    re.search(pattern, 'MCML')
-    re.search(pattern, 'MCMLX')
-    re.search(pattern, 'MCMLXXX')
-    re.search(pattern, 'MCMLXXXX') # get None result here.
+    print re.search(pattern, 'MCMXL')
+    print re.search(pattern, 'MCML')
+    print re.search(pattern, 'MCMLX')
+    print re.search(pattern, 'MCMLXXX')
+    print re.search(pattern, 'MCMLXXXX') # get None result here.
 
     # Verbose regular expression is different from compact regular expression in two ways: Whitespace is ignored while Comments are ignored.
     # Verbose regular expression is used for ease of understanding the regular expression.
@@ -59,8 +61,10 @@ if __name__ == '__main__':
                      # or 5?8 (V, followed by 0 to 3 I's)
     $                # end of string
     """
-    re.search(pattern, 'M', re.VERBOSE) # re.VERBOSE indicate that, it is verbose mode now.
-    re.search(pattern, 'MCMLXXXIX', re.VERBOSE)
+    print re.search(pattern, 'M', re.VERBOSE) # re.VERBOSE indicate that, it is verbose mode now.
+    print re.search(pattern, 'MCMLXXXIX', re.VERBOSE)
+
+    print "============================================================"
 
     # 'prog = re.compile(pattern) result = prog.search(str)' is equivalent to 'result = re.search(pattern, str)'
     # What's \d{3}? Well, the {3} means "match exactly three numeric digits"; \d means "any numeric digit" (0 through 9).
