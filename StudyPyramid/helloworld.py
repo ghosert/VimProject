@@ -15,7 +15,7 @@ def hello(request):
 
 if __name__ == '__main__':
     config = Configurator()
-    config.add_view(hello_world) # Imperative Configuration
+    config.add_view(hello_world) # Imperative Configuration, without 'name' specified, it means root context '/'.
     config.add_view(goodbye_world, name='goodbye')
     # config.scan() will take care all the method with @view_config annotation, this is called declarative configuration.
     # And it has same side effect to imperative way: config.add_view(hello, name='hello')
