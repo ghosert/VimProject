@@ -104,7 +104,7 @@ if __name__ == '__main__':
     # Wait! I just want to get the words between 'S' and FIRST 'F'
     print re.search(r'S(.*?)F', str).groups()[0]
     print re.search(r'S(.*?)F', str).group()
-    # CONCULUTION: .* HERE MEANS ANY WORDS WHILE ? MEANS LAZY SEARCHING.
+    # CONCLUSION: .* HERE MEANS ANY WORDS WHILE ? MEANS LAZY SEARCHING.
 
     str = 'jiaSw\neiFzhangFjing'
     matcher = re.search(r'S(.*?)F', str)
@@ -114,13 +114,15 @@ if __name__ == '__main__':
 
     
 
-    # You should now be familiar with the following techniques:
+    # CONCLUSION: You should now be familiar with the following techniques:
     # ^ matches the beginning of a string.
     # $ matches the end of a string.
     # [...] Any one character between the brackets.
     # [^...] Any one character not between the brackets.
     # .* Any character except newline or another Unicode line terminator.
     # .*? Same above, but ? means lazy searching, match the first one the pattern finds.
+    # [\w\W]* Any character including newline or another Unicode line terminator.
+    # [\w\W]*? Same above, but ? means lazy searching, match the first one the pattern finds.
     # \b matches a word boundary.
     # \d matches any numeric digit.
     # \D matches any non?numeric character.
@@ -133,7 +135,12 @@ if __name__ == '__main__':
     # x+ matches x one or more times.
     # x{n,m} matches an x character at least n times, but not more than m times.
     # (a|b|c) matches either a or b or c.
-    # (x) in general is a remembered group. You can get the value of what matched by using the groups()
+    # (x) in general is a remembered group. You can get the value of what matched by using the groups()--matched list or group()--whole matched string
     # method of the object returned by re.search.
+    # re.sub(r'pattern', replace, target_string)
+    # re.search(r'pattern', target_string)
+    # cpl = re.compile(r'pattern')
+    # cpl.sub(replace, target_string)
+    # cpl.search(target_string)
     
     
