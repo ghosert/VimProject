@@ -30,7 +30,7 @@ Try on the live site for tutorial on PRODUCTION:
    To work pyramid app together with uwsgi. Check out "[uwsgi]" section in "development.ini" and "production.ini" to see details.
 3. visit http://localhost/python
    This support the "Virtual Hosting"(search below) "/python" feature.
-4. reload and stop an daemon uwsgi, "kill -9 pid" or uwsgi --reload/stop /var/log/pyramid/pid_5000.pid
+4. reload and stop an daemon uwsgi, "kill -9 pid" or uwsgi --reload/--stop /var/log/pyramid/pid_5000.pid
 
 5. log file is defined in production.ini and it's located in /var/log/pyramid/server.log and /var/log/pyramid/uwsgi.log
 [END: SQLAlchemy + URL Dispatch Wiki Tutorial]
