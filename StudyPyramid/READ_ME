@@ -18,7 +18,7 @@ Try on the live site for tutorial when developing:
 4. visit http://localhost:6543/
 5. Edit the page to add some words like "\b([A-Z]\w+[A-Z]+\w+)", for example: "SomePage".
 6. Input "viewer"/"viewer" or "editor"/"editor" as username/password if it ask login. "editor" is granted "edit" permission.
-7. "python setup.py test -q" OR "nosetests --cover-package=myproject --cover-erase --with-coverage" to run test case in ~/xxx/MyProject folder.
+7. "python setup.py test -q" OR "nosetests" OR "nosetests --cover-package=myproject --cover-erase --with-coverage" to run test case in ~/xxx/MyProject folder.
 8. Distributing your application: "python setup.py sdist" this will generate a tarball which can be installed by pointing the "easy_install" command directly at it.
 
 9. log file is defined in development.ini and it's located in /var/log/pyramid/server.log
@@ -85,7 +85,7 @@ Creating a Pyramid Project:
 
 # Exposing Test Coverage Information
 
-	$ ../bin/nosetests --cover-package=myproject --cover-erase --with-coverage
+	$ ../bin/nosetests OR ../bin/nosetests --cover-package=myproject --cover-erase --with-coverage
 
 	This will do the same thing as "python setup.py test -q" but with additional "coverage" information.
 
@@ -117,7 +117,7 @@ Creating a Pyramid Project:
 		config = Configurator(settings = settings)
 		// blablabla
 	if you have a "[DEFAULT]" section in development.ini, "global_config" here stores all the key/values pairs in "[DEFAULT]" section.
-	"settings" here stores all the key/values pairs in "[app.main]" section in development except one: "use = egg:MyProject"
+	"settings" here stores all the key/values pairs in "[app:main]" section in development except one: "use = egg:MyProject"
 	 you can put anything you want here into "settings" and access it later from "view callable" by invoking request.registry.setting dictionary at application runtime.
 
 

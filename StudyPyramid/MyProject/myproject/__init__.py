@@ -11,7 +11,7 @@ from .models import DBSession
 def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.
     """
-    # jiawzhang: Create a SQLAlchemy database engine from the sqlalchemy. prefixed settings in the development.ini file's [app:myproject] section. This will be a URI (something like sqlite://).
+    # jiawzhang: Create a SQLAlchemy database engine from the sqlalchemy. prefixed settings in the development.ini file's [app:main] section. This will be a URI (something like sqlite://). "settings" here can access any key/value pair in development.ini file's [app:main] section.
     engine = engine_from_config(settings, 'sqlalchemy.')
     DBSession.configure(bind=engine)
 
