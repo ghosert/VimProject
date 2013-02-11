@@ -423,6 +423,7 @@ if __name__ == "__main__":
         # from package import module
         # from package.module import function/class
         # from package.module import *
+        # from package import function/class (fun/class in package __init__.py can be accessable by fun/class, package.module can not be accessable)
         # from package import * (sub modules can be accessable if they are in the '__all__' list in __init__.py file, see more details below.)
 
     # when __all__ is defined in __init__.py like below:

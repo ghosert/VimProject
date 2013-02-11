@@ -39,6 +39,7 @@ setup(name='MyProject',
       zip_safe=False,
       test_suite='myproject',
       install_requires=requires,
+      # jiawzhang: ./myproject/scripts/initializedb.py sepcified below is executed when running "python setup.py develop"
       entry_points="""\
       [paste.app_factory]
       main = myproject:main
