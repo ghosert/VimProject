@@ -90,10 +90,10 @@ if __name__ == '__main__':
 
     # Regarding group function:
 
-        # match.group() the entire matched string.
-        # match.group(0) the entire matched string.
-        # match.group(1) the first matched string.
-        # match.groups() the matched list.
+        # match.group() the entire matched string -- parenthesis () is not required in pattern.
+        # match.group(0) the entire matched string -- parenthesis () is not required in pattern.
+        # match.group(1) the first matched string -- parenthesis () is required in pattern.
+        # match.groups() the matched list -- parenthesis () is required in pattern.
 
 
     # Match any string

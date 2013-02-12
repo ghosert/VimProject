@@ -135,7 +135,7 @@ URL Dispatch:
 
 # Route pattern syntax:
 
-	pattern: {foo}/bar/baz equals to /{foo}/bar/baz, the slash wil be prepended automatically anyway.
+	pattern: {foo}/bar/baz equals to /{foo}/bar/baz, a replacement marker like "{foo}" doesn't need "/" preceded, the slash will be prepended automatically anyway, a literal string like "foo" will not.
 
 	pattern: foo/{baz}/{bar}
 	url: foo/1/2        -> {'baz':u'1', 'bar':u'2'}
@@ -150,7 +150,7 @@ URL Dispatch:
 	pattern: foo/{name}.{ext}
 	url: /foo/biz.html  -> {'name':u'biz', 'ext':u'html'}
 
-	regular expession pattern: {foo} is actually: {foo:[^/]+} by default so that a replacement markder don't need to be preceded by a / slash, you can also change it to {foo:\d+}
+	regular expession pattern: {foo} is actually: {foo:[^/]+} by default means: matches one or more characters which are not a slash, you can also change it to {foo:\d+} to match only digits.
 
 	regular expression pattern: foo/{bar}
 	foo/La%20Pe%C3%B1a  -> {'bar':u'La Pe\xf1a'}
