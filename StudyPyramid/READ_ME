@@ -63,6 +63,7 @@ First Pyramid Application:
 	http://localhost:8080/
 	http://localhost:8080/goodbye/
 	http://localhost:8080/hello/
+	http://localhost:8080/test_route/name
 
 Creating a Pyramid Project:
 
@@ -135,7 +136,7 @@ URL Dispatch:
 
 # Route pattern syntax:
 
-	pattern: {foo}/bar/baz equals to /{foo}/bar/baz, a replacement marker like "{foo}" doesn't need "/" preceded, the slash will be prepended automatically anyway, a literal string like "foo" will not.
+	pattern: {foo}/bar/baz equals to /{foo}/bar/baz, if the pattern does not start with a "/", the slash will be prepended automatically anyway in matching time.
 
 	pattern: foo/{baz}/{bar}
 	url: foo/1/2        -> {'baz':u'1', 'bar':u'2'}
@@ -151,6 +152,8 @@ URL Dispatch:
 	url: /foo/biz.html  -> {'name':u'biz', 'ext':u'html'}
 
 	regular expession pattern: {foo} is actually: {foo:[^/]+} by default means: matches one or more characters which are not a slash, you can also change it to {foo:\d+} to match only digits.
+
+	** jiawzhang notes: the pattern above "{foo}/bar/baz" actually internally is like this: "^/{foo}/bar/baz$" ==> "^/([^/]+)/bar/baz$" slash is automatically prepended with ^,$ **
 
 	regular expression pattern: foo/{bar}
 	foo/La%20Pe%C3%B1a  -> {'bar':u'La Pe\xf1a'}
@@ -207,7 +210,7 @@ URL Dispatch:
 
 	1 pyramid.request.Request.route_url()
 	  url = request.route_url('foo', a='1', b='2', c='3')
-	  This would return the string http://example.com/1/2/3 (at least if the current protocol and hostname implied http:/example.com).
+	  This would return the string http://example.com/1/2/3 (at least if the current protocol and hostname implied http://example.com).
 	2 pyramid.request.Request.route_path()
 	  url = request.route_path('foo', a='1', b='2', c='3')
 	  This would return the string /1/2/3 rather than a full URL.
@@ -620,6 +623,8 @@ Renderers
 	def myview(request):
 		request.response.status = '404 Not Found'
 		return {'URL':request.URL}
+	
+	The sample above is useful to customize a notfound view by renderer with dict data rather than just returning HTTPNotFound response.
 	
 	The following example calls request.response.set_cookie, but this call will have no effect, because a different Response object is returned.
 
