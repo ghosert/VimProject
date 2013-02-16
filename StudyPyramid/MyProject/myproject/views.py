@@ -24,11 +24,17 @@ from .models import (
 
 from .security import USERS
 
+# The log below will leverage the logging configurations in development.ini or production.ini files.
+import logging
+log = logging.getLogger(__name__)
+
 # regular expression used to find WikiWords
 wikiwords = re.compile(r"\b([A-Z]\w+[A-Z]+\w+)")
 
 @view_config(route_name='view_wiki')
 def view_wiki(request):
+    log.info("I'm going to redirect to FrontPage page. Here is the %s for info.", "sample")
+    log.debug("I'm going to redirect to FrontPage page. Here is the %s for debug.", "sample")
     return HTTPFound(location = request.route_url('view_page',
                                                   pagename='FrontPage'))
 
