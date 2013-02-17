@@ -2408,7 +2408,7 @@ Using Hooks
 
 	from pyramid.view import forbidden_view_config
 
-	forbidden_view_config()
+	@forbidden_view_config()
 	def forbidden(request):
 		return Response('forbidden')
 
