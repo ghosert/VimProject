@@ -2475,7 +2475,7 @@ Using Hooks
 			response.cache_control.max_age = 360
 	request.add_response_callback(cache_callback)
 
-	Response callbacks are, however, invoked when a exception view is rendered successfully: in such a case, the request.exception attribute of the request when it enters a response callback will be an exception object instead of its default value of None.
+	Response callbacks are, however, invoked when an exception view is rendered successfully: in such a case, the request.exception attribute of the request when it enters a response callback will be an exception object instead of its default value of None.
 
 	Response callbacks are called in the order they’re added (first-to-most-recently-added). All response callbacks are called after the NewResponse event is sent. Errors raised by response callbacks are not handled specially. They will be propagated to the caller of the Pyramid router application.
 
