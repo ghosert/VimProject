@@ -112,7 +112,7 @@ Creating Table, Class and Mapper All at Once Declaratively
 
 	>>> metadata = Base.metadata
 
-	Like the way before this section, running "metadata.create_all(engine)" will create tables.
+	Like the way before this section, running "metadata.create_all(engine)" will create tables, to make sure the "users" table above will be created, just make sure "User" along with "Base" object exist in the current namespace because "Base.metadata.create_all(engine)" hasn't explicitly indicated the "users" table should be created, but it still knows.
 
 
 Creating a Session
