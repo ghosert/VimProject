@@ -13,6 +13,7 @@ def _initTestingDB():
     engine = create_engine('sqlite://')
     Base.metadata.create_all(engine)
     DBSession.configure(bind=engine)
+    # jiawzhang: you have to introduce "transaction.manager" here because this is the unit test context instead of the web context, see details in ./models.py
     with transaction.manager:
         model = Page('FrontPage', 'This is the front page')
         DBSession.add(model)

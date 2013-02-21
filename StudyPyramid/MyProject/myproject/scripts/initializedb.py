@@ -36,6 +36,7 @@ def main(argv=sys.argv):
     engine = engine_from_config(settings, 'sqlalchemy.')
     DBSession.configure(bind=engine)
     Base.metadata.create_all(engine)
+    # jiawzhang: you have to introduce "transaction.manager" here because this is the script context instead of the web context, see details in ../models.py
     with transaction.manager:
         # jiawzhang: add new model.
         model = Page('FrontPage', 'This is the front page')
