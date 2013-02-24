@@ -661,17 +661,17 @@ Querying with Joins
 	join() knows how to join between User and Address because there’s only one foreign key between them.
 	If there were no foreign keys, or several, join() works better when one of the following forms are used:
 
-	query.join((Address, User.id==Address.user_id))  # explicit condition (note the tuple)
-	query.join(User.addresses)                       # specify relationship from left to right
-	query.join((Address, User.addresses))            # same, with explicit target
-	query.join('addresses')                          # same, using a string
+	query.join(Address, User.id==Address.user_id)  # explicit condition
+	query.join(User.addresses)                     # specify relationship from left to right
+	query.join(Address, User.addresses)            # same, with explicit target
+	query.join('addresses')                        # same, using a string
 
 	This is so that multiple joins can be chained together, as in:
 
 	session.query(Foo).join(
 	Foo.bars,
 	(Bat, bar.bats),
-	(Widget, Bat.widget_id==Widget.id)
+	(Widget, Bat.widget_id==Widget.id)  # This is one widget to many bats, or means one bat to one widget, not like the relations above.
 	)
 
 	The above would produce SQL something like foo JOIN bars ON <onclause> JOIN bats ON <onclause> JOIN widgets ON <onclause>.
@@ -866,6 +866,8 @@ Common Relationship Operators
 
 	• has (used for many-to-one):
 
+		query.filter(Address.user.has(User.name == 'ed'))
+		Or
 		query.filter(Address.user.has(name='ed'))
 
 	• with_parent (used for any relationship):
