@@ -76,6 +76,7 @@ class Keyword(Base):
 
 # "dynamic" loading relationship to User, and notice we don't define posts/relationship() in User class.
 BlogPost.author = relationship(User, backref=backref('posts', lazy='dynamic'))
+# BlogPost.author = relationship(User, backref=backref('posts'))
 
 metadata.create_all(engine) 
 
@@ -98,10 +99,13 @@ print '=========================================================================
 
 blog = session.query(BlogPost).filter(BlogPost.author==wendy).filter(BlogPost.keywords.any(keyword='firstpost')).all() 
 print blog[0].keywords[0].posts
+print '================================================================================================================='
 
 # Even if we fail to define posts/relationship() in User class, we can still use it like below:
 wendy = session.query(User).filter_by(name='wendy').one() 
-print wendy.posts[0].headline
+# print wendy.posts[0].headline
+# The line below won't produce any sql because of lazy='dynamic' above, but 'print wendy.posts' will produce sql, means: unless you do need data, it will produce sql, otherwise, not.
+wendy.posts
 
 
 
