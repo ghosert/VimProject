@@ -16,74 +16,8 @@ Connecting
 
 	"echo=True" means generated SQL produced.
 
-	Define and Create a Table:
 
-	>>> from sqlalchemy import Table, Column, Integer, String, MetaData, ForeignKey
-	>>> metadata = MetaData()
-	>>> users_table = Table('users', metadata,
-	...     Column('id', Integer, primary_key=True),
-	...     Column('name', String),
-	...     Column('fullname', String),
-	...     Column('password', String)
-	... )
-
-	Call create_all() and passing it the engine instance which points to our database to create table, this will check for the presence of a table first before creating, so it’s safe to call multiple times:
-
-	sql>>> metadata.create_all(engine)
-	PRAGMA table_info("users")
-	()
-	CREATE TABLE users (
-		id INTEGER NOT NULL,
-		name VARCHAR,
-		fullname VARCHAR,
-		password VARCHAR,
-		PRIMARY KEY (id)
-	)
-	()
-	COMMIT
-
-	If you see issue when create table, it could be the target db requires "length" to the String type as below:
-	Column('name', String(50))
-
-	For oracle sequence:
-	Column('id', Integer, Sequence('user_id_seq'), primary_key=True)
-
-
-Define a Python Class to be Mapped
-
-	>>> class User(object):
-	...     def __init__(self, name, fullname, password):
-	...         self.name = name
-	...         self.fullname = fullname
-	...         self.password = password
-	...
-	...     def __repr__(self):
-	...        return "<User('%s','%s', '%s')>" % (self.name, self.fullname, self.password)
-
-
-Setting up the Mapping
-
-	>>> from sqlalchemy.orm import mapper
-	>>> mapper(User, users_table)
-		<Mapper at 0x...; User>
-
-		The mapper() function creates a new Mapper object and stores it away for future
-		reference, associated with our class. Let’s now create and inspect a User
-		object:
-
-		>>> ed_user = User('ed', 'Ed Jones', 'edspassword')
-		>>> ed_user.name
-		'ed'
-		>>> ed_user.password
-		'edspassword'
-		>>> str(ed_user.id)
-		'None'
-		Since we have not yet told SQLAlchemy to persist Ed Jones within the database, its id is None. And User class doesn't define "id" attribute, but users_table does, so we have "id" here.
-
-
-Creating Table, Class and Mapper All at Once Declaratively
-
-	The steps above to create table, class and mapper could be simplized as below:
+Declare a Mapping
 
 	>>> from sqlalchemy.ext.declarative import declarative_base
 
@@ -108,11 +42,50 @@ Creating Table, Class and Mapper All at Once Declaratively
 
 	>>> users_table = User.__table__
 
+	While rarely needed, making available the Mapper object via the __mapper__ attribute:
+
+	>>> mapper = User.__mapper__
+
 	The owning MetaData object is available as well:
 
-	>>> metadata = Base.metadata
+	>>> Base.metadata.create_all(engine)
 
-	Like the way before this section, running "metadata.create_all(engine)" will create tables, to make sure the "users" table above will be created, just make sure "User" along with "Base" object exist in the current namespace because "Base.metadata.create_all(engine)" hasn't explicitly indicated the "users" table should be created, but it still knows.
+	PRAGMA table_info("users")
+	()
+	CREATE TABLE users (
+		id INTEGER NOT NULL,
+		name VARCHAR,
+		fullname VARCHAR,
+		password VARCHAR,
+		PRIMARY KEY (id)
+	)
+	()
+	COMMIT
+
+	Call create_all() and passing it the engine instance which points to our database to create table, this will check for the presence of a table first before creating, so it’s safe to call multiple times.
+
+	To make sure the "users" table above will be created, just make sure "User" along with "Base" object exist in the current namespace because "Base.metadata.create_all(engine)" hasn't explicitly indicated the "users" table should be created, but it still knows.
+
+	If you see issue when creating table, it could be the target db requires "length" to the String type as below:
+	name = Column(String(50))
+
+	For oracle sequence:
+	id = Column(Integer, Sequence('user_id_seq'), primary_key=True)
+
+
+Create an Instance of the Mapped Class
+
+	With mappings complete, let's now create and inspect a User object:
+
+	>>> ed_user = User('ed', 'Ed Jones', 'edspassword')
+	>>> ed_user.name
+	'ed'
+	>>> ed_user.password
+	'edspassword'
+	>>> str(ed_user.id)
+	'None'
+
+	Since we have not yet told SQLAlchemy to persist Ed Jones within the database, its id is None. And User class doesn't define "id" attribute, but users_table does, so we have "id" here.
 
 
 Creating a Session
@@ -608,29 +581,7 @@ Working with Related Objects
 	(5,)
 	[<Address('jack@google.com')>, <Address('j25@yahoo.com')>]
 
-	This is an example of a lazy loading relationship.
-
-	To reduce the number of queries, apply an eager load to the query operation, using the joinedload() function.
-	SQLAlchemy then constructs an outer join between the users and addresses tables, and loads them at once, populating the addresses collection on each User object if it’s not already populated:
-
-	>>> from sqlalchemy.orm import joinedload
-
-	sql>>> jack = session.query(User).\
-	...                        options(joinedload('addresses')).\
-	...                        filter_by(name='jack').one()
-	SELECT users.id AS users_id, users.name AS users_name, users.fullname AS users_fullname,
-	users.password AS users_password, addresses_1.id AS addresses_1_id, addresses_1.email_address
-	AS addresses_1_email_address, addresses_1.user_id AS addresses_1_user_id
-	FROM users LEFT OUTER JOIN addresses AS addresses_1 ON users.id = addresses_1.user_id
-	WHERE users.name = ? ORDER BY addresses_1.id
-	('jack',)
-	>>> jack
-	<User('jack','Jack Bean', 'gjffdd')>
-
-	>>> jack.addresses
-	[<Address('jack@google.com')>, <Address('j25@yahoo.com')>]
-
-	Check out joinedload() and subqueryload() in documentation.
+	This is an example of a lazy loading relationship, check out "Eager Loading" to see the solution.
 
 
 Querying with Joins
@@ -674,41 +625,11 @@ Querying with Joins
 	(Widget, Bat.widget_id==Widget.id)  # This is one widget to many bats, or means one bat to one widget, not like the relations above.
 	)
 
-	The above would produce SQL something like foo JOIN bars ON <onclause> JOIN bats ON <onclause> JOIN widgets ON <onclause>.
+	The above would produce SQL something like foo JOIN bars ON <onclause> JOIN bats ON <onclause> JOIN widget ON <onclause>.
 
-	The general functionality of join() is also available as a standalone function join(), which is an ORM-enabled version of the same function present in the SQL expression language.
+	As you would expect, the same idea is used for 'outer' joins, using the outerjoin() function:
 
-	>>> from sqlalchemy.orm import join
-	sql>>> session.query(User).\
-	...                select_from(join(User, Address, User.addresses)).\
-	...                filter(Address.email_address=='jack@google.com').all()
-	SELECT users.id AS users_id, users.name AS users_name, users.fullname AS users_fullname, users.password AS users_password
-	FROM users JOIN addresses ON users.id = addresses.user_id
-	WHERE addresses.email_address = ?
-	('jack@google.com',)
-	[<User('jack','Jack Bean', 'gjffdd')>]
-
-
-Using join() to Eagerly Load Collections/Attributes
-
-	join() or an equivalent + contains_eager() option = joinedload()
-
-	means join tables first, then loading related entity onto the resulting resutls in one step instead of addtional queries and 'automatic' join embedded by the joinedload() function:
-
-	>>> from sqlalchemy.orm import contains_eager
-	sql>>> for address in session.query(Address).\
-	...                join(Address.user).\
-	...                filter(User.name=='jack').\
-	...                options(contains_eager(Address.user)):
-	...         print address, address.user
-	SELECT users.id AS users_id, users.name AS users_name, users.fullname AS users_fullname,
-	users.password AS users_password, addresses.id AS addresses_id,
-	addresses.email_address AS addresses_email_address, addresses.user_id AS addresses_user_id
-	FROM addresses JOIN users ON users.id = addresses.user_id
-	WHERE users.name = ?
-	('jack',)
-	<Address('jack@google.com')> <User('jack','Jack Bean', 'gjffdd')>
-	<Address('j25@yahoo.com')> <User('jack','Jack Bean', 'gjffdd')>
+	query.outerjoin(User.addresses) # LEFT OUTER JOIN
 
 
 Using Aliases
@@ -719,7 +640,7 @@ Using Aliases
 	>>> adalias2 = aliased(Address)
 	sql>>> for username, email1, email2 in \
 	...     session.query(User.name, adalias1.email_address, adalias2.email_address).\
-	...     join((adalias1, User.addresses), (adalias2, User.addresses)).\
+	...     join(adalias1, User.addresses).join(adalias2, User.addresses).\
 	...     filter(adalias1.email_address=='jack@google.com').\
 	...     filter(adalias2.email_address=='j25@yahoo.com'):
 	...     print username, email1, email2
@@ -772,7 +693,7 @@ Selecting Entities from Subqueries
 
 	sql>>> stmt = session.query(Address).filter(Address.email_address != 'j25@yahoo.com').subquery()
 	>>> adalias = aliased(Address, stmt)
-	>>> for user, address in session.query(User, adalias).join((adalias, User.addresses)): # just like "for user, address in session.query(User, Address).join((Address, User.addresses)):"
+	>>> for user, address in session.query(User, adalias).join(adalias, User.addresses): # like "for user, address in session.query(User, Address).join(Address, User.addresses):"
 	...     print user, address
 	SELECT users.id AS users_id, users.name AS users_name, users.fullname AS users_fullname,
 	users.password AS users_password, anon_1.id AS anon_1_id,
@@ -873,6 +794,54 @@ Common Relationship Operators
 	• with_parent (used for any relationship):
 
 		session.query(Address).with_parent(someuser, 'addresses')
+
+
+Eager Loading
+
+	1) Joined Load
+
+	To reduce the number of queries, apply an eager load to the query operation, using the joinedload() function.
+	SQLAlchemy then constructs an outer join between the users and addresses tables, and loads them at once, populating the addresses collection on each User object if it’s not already populated:
+
+	>>> from sqlalchemy.orm import joinedload
+
+	sql>>> jack = session.query(User).\
+	...                        options(joinedload('addresses')).\
+	...                        filter_by(name='jack').one()
+	SELECT users.id AS users_id, users.name AS users_name, users.fullname AS users_fullname,
+	users.password AS users_password, addresses_1.id AS addresses_1_id, addresses_1.email_address
+	AS addresses_1_email_address, addresses_1.user_id AS addresses_1_user_id
+	FROM users LEFT OUTER JOIN addresses AS addresses_1 ON users.id = addresses_1.user_id
+	WHERE users.name = ? ORDER BY addresses_1.id
+	('jack',)
+	>>> jack
+	<User('jack','Jack Bean', 'gjffdd')>
+
+	>>> jack.addresses
+	[<Address('jack@google.com')>, <Address('j25@yahoo.com')>]
+
+	Check out joinedload() and subqueryload() in documentation.
+
+	2) Explicit Join + Eagerload
+
+	join() or an equivalent + contains_eager() option = joinedload()
+
+	means join tables first, then loading related entity onto the resulting resutls in one step instead of addtional queries and 'automatic' join embedded by the joinedload() function:
+
+	>>> from sqlalchemy.orm import contains_eager
+	sql>>> for address in session.query(Address).\
+	...                join(Address.user).\
+	...                filter(User.name=='jack').\
+	...                options(contains_eager(Address.user)):
+	...         print address, address.user
+	SELECT users.id AS users_id, users.name AS users_name, users.fullname AS users_fullname,
+	users.password AS users_password, addresses.id AS addresses_id,
+	addresses.email_address AS addresses_email_address, addresses.user_id AS addresses_user_id
+	FROM addresses JOIN users ON users.id = addresses.user_id
+	WHERE users.name = ?
+	('jack',)
+	<Address('jack@google.com')> <User('jack','Jack Bean', 'gjffdd')>
+	<Address('j25@yahoo.com')> <User('jack','Jack Bean', 'gjffdd')>
 
 
 Deleting
