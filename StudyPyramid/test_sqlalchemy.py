@@ -104,10 +104,13 @@ print '=========================================================================
 # Even if we fail to define posts/relationship() in User class, we can still use it like below:
 wendy = session.query(User).filter_by(name='wendy').one() 
 # print wendy.posts[0].headline
+print '================================================================================================================='
 # The line below won't produce any sql because of lazy='dynamic' above, but 'print wendy.posts' will produce sql, means: unless you do need data, it will produce sql, otherwise, not.
 wendy.posts
-
-
-
+print '================================================================================================================='
+# When we access User.posts, we'd like to be able to filter results further so as not to load the entire collection. For this we use a setting accepted by relationship() called lazy='dynamic', which configures an alternate loader strategy on the attribute.
+# That means, if you set lazy='dynamic', wendy.posts will not trigger any sql to avoid loading a large entire collection, you are supposed to filter results further like below to fetch the partial collection conditionally. Ideally in this case if there are too many posts for the single user, you don't want to load them all but filter them conditionally, you can set lazy='dynamic' like this.
+# And once you set lazy='dynamic', you can't use something like "join + options(contains_eager(User.posts))" in query to load posts all, instead, you will get an error, because they are paradoxical.
+wendy.posts.filter(BlogPost.keywords.any(keyword='firstpost')).all()
 
 
