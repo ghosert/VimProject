@@ -881,20 +881,27 @@ Configuring delete/delete-orphan Cascade
 	We will configure cascade options on the User.addresses relationship to change the behavior.
 
 	>>> session.close()  # roll back and close the transaction
-	>>> from sqlalchemy.orm import clear_mappers
-	>>> clear_mappers() # remove all class mappings
 
 	The User.addresses relationship now has delete, delete-orphan cascade on it, which indicates that DELETE operations will cascade to attached Address objects as well as Address objects which are removed from their parent:
 
-	>>> users_table = User.__table__
-	>>> mapper(User, users_table, properties={
-	...     'addresses':relationship(Address, backref='user', cascade="all, delete, delete-orphan")
-	... })
-	<Mapper at 0x...; User>
+	and use a new declarative_base():
 
-	>>> addresses_table = Address.__table__
-	>>> mapper(Address, addresses_table)
-	<Mapper at 0x...; Address>
+	>>> Base = declarative_base()
+
+	Next we’ll declare the User class, adding in the addresses relationship including the cascade configuration (we’ll leave the constructor out too):
+
+	>>> class User(Base):
+	...     __tablename__ = 'users'
+	...
+	...     id = Column(Integer, primary_key=True)
+	...     name = Column(String)
+	...     fullname = Column(String)
+	...     password = Column(String)
+	...
+	...     addresses = relationship(Address, backref='user', cascade="all, delete, delete-orphan")
+	...
+	...     def __repr__(self):
+	...        return "<User('%s','%s', '%s')>" % (self.name, self.fullname, self.password)
 
 	Now when we load Jack (below using get(), which loads by primary key), removing an address from his addresses collection will result in that Address being deleted:
 
@@ -955,7 +962,7 @@ Building a Many To Many Relationship
 
 	The declarative setup is as follows:
 
-	>>> from sqlalchemy import Text
+	>>> from sqlalchemy import Table, Text
 
 	>>> # association table
 	>>> post_keywords = Table('post_keywords', metadata,
@@ -1001,7 +1008,7 @@ Building a Many To Many Relationship
 
 	Create new tables:
 
-	sql>>> metadata.create_all(engine)
+	sql>>> Base.metadata.create_all(engine)
 	PRAGMA table_info("users")
 	()
 	PRAGMA table_info("addresses")
