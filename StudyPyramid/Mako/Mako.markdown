@@ -53,11 +53,11 @@ from mako.template import Template
 mytemplate = Template(filename='docs/mytmpl.txt', module_directory='/tmp/mako_modules')
 print mytemplate.render()
 ```
-The value of 'module_directory' above should be a path in 'sys.path' for example, you are running python file above in the '/tmp/mako_modules', this path will be in 'sys.path', thus '/tmp/mako_modules' is a qualified 'module_direcotry'.
+The value of ``module_directory`` above should be a path in `sys.path` for example, you are running python file above in the ``/tmp/mako_modules``, this path will be in `sys.path`, thus ``/tmp/mako_modules`` is a qualified ``module_direcotry``.
 
-When the above code is rendered, a file /tmp/mako_modules/docs/mytmpl.txt.py is created containing the source code for the module. The next time a Template with the same arguments is created, this module file will be automatically re-used.
+When the above code is rendered, a file ``/tmp/mako_modules/docs/mytmpl.txt.py`` is created containing the source code for the module. The next time a Template with the same arguments is created, this module file will be automatically re-used.
 
-### Using ``TemplateLookup``
+### Using `TemplateLookup`
 
 **1. TemplateLookup**
 
@@ -69,7 +69,7 @@ mylookup = TemplateLookup(directories=['/docs'])
 mytemplate = Template("""<%include file="header.txt"/> hello world!""", lookup=mylookup)
 print mytemplate.render()
 ```
-Above, we created a textual template which includes the file "header.txt". In this way, it will search in the directory "/docs" for the file "header.txt".
+Above, we created a textual template which includes the file `header.txt`. In this way, it will search in the directory `/docs` for the file `header.txt`.
 
 **2. TemplateLookup.get_template(templatename)**
 
@@ -84,7 +84,7 @@ def serve_template(templatename, **kwargs):
     print mytemplate.render(**kwargs)
 ```
 
-TemplateLookup will look for templates in the `/docs` directory, and will store generated module files in the /tmp/mako_modules directory. If given '/etc/beans/info.txt' as templatename, it would search for the file '/docs/etc/beans/info.txt' and create a module file '/tmp/mako_modules/etc/beans/info.txt.py'
+TemplateLookup will look for templates in the `/docs` directory, and will store generated module files in the ``/tmp/mako_modules`` directory. If given `/etc/beans/info.txt` as templatename, it would search for the file `/docs/etc/beans/info.txt` and create a module file ``/tmp/mako_modules/etc/beans/info.txt.py``
 
 **3. Setting the Collection Size**
 
@@ -93,6 +93,5 @@ mylookup = TemplateLookup(directories=['/docs'],
 
 The above lookup will continue to load templates into memory until it reaches a count of around 500. At that point, it will clean out a certain percentage of templates using a least recently used scheme.
 
-Skip the rest of the part, if you do need to refer to it, check out:
-http://docs.makotemplates.org/en/latest/usage.html#basic-usage
+Skip the rest of the part, if you do need to refer to it, check out: http://docs.makotemplates.org/en/latest/usage.html#basic-usage
 
