@@ -4,12 +4,10 @@
 
 **1. template.render()**
 
-```
-from mako.template import Template
+	from mako.template import Template
 
-mytemplate = Template('hello world!')
-print mytemplate.render()
-```
+	mytemplate = Template('hello world!')
+	print mytemplate.render()
 
 **2. template.render(key='value')**
 
