@@ -1,0 +1,97 @@
+<h2>Usage</h2>
+
+<p><strong>If you are using web framework like Pyramid, you can skip this 'Usage' section, otherwise, you'd like to generate you own html by Mako, check this section. See samples in ./test_mako.py</strong></p>
+
+<h3>Basic Usage</h3>
+
+<p><strong>1. template.render()</strong></p>
+
+<p>```
+from mako.template import Template</p>
+
+<p>mytemplate = Template('hello world!')
+print mytemplate.render()
+```</p>
+
+<p><strong>2. template.render(key='value')</strong></p>
+
+<p>```
+from mako.template import Template</p>
+
+<p>mytemplate = Template('hello ${name}!')
+print mytemplate.render(name='jack')
+```</p>
+
+<p><strong>3. Call render with your own context</strong></p>
+
+<p>```
+from mako.template import Template
+from mako.runtime import Context
+from StringIO import StringIO</p>
+
+<p>mytemplate = Template('hello ${name}!')
+buf = StringIO()
+ctx = Context(buf, name='jack')
+mytemplate.render_context(ctx)
+print buf.getvalue()
+```</p>
+
+<h3>Using File-Based Templates</h3>
+
+<p>```
+from mako.template import Template</p>
+
+<p>mytemplate = Template(filename='/docs/mytmpl.txt')
+print mytemplate.render()
+```</p>
+
+<p>For improved performance, a Template which is loaded from a file can also cache the source code to its generated module on the filesystem as a regular Python module file (i.e. a .py file). </p>
+
+<p>```
+from mako.template import Template</p>
+
+<p>mytemplate = Template(filename='docs/mytmpl.txt', module<em>directory='/tmp/mako</em>modules')
+print mytemplate.render()
+```
+The value of 'module<em>directory' above should be a path in 'sys.path' for example, you are running python file above in the '/tmp/mako</em>modules', this path will be in 'sys.path', thus '/tmp/mako<em>modules' is a qualified 'module</em>direcotry'.</p>
+
+<p>When the above code is rendered, a file /tmp/mako_modules/docs/mytmpl.txt.py is created containing the source code for the module. The next time a Template with the same arguments is created, this module file will be automatically re-used.</p>
+
+<h3>Using <code>TemplateLookup</code></h3>
+
+<p><strong>1. TemplateLookup</strong></p>
+
+<p>```
+from mako.template import Template
+from mako.lookup import TemplateLookup</p>
+
+<p>mylookup = TemplateLookup(directories=['/docs'])
+mytemplate = Template("""&lt;%include file="header.txt"/> hello world!""", lookup=mylookup)
+print mytemplate.render()
+```
+Above, we created a textual template which includes the file "header.txt". In this way, it will search in the directory "/docs" for the file "header.txt".</p>
+
+<p><strong>2. TemplateLookup.get_template(templatename)</strong></p>
+
+<p>```
+from mako.template import Template
+from mako.lookup import TemplateLookup</p>
+
+<p>mylookup = TemplateLookup(directories=['/docs'], module<em>directory='/tmp/mako</em>modules')</p>
+
+<p>def serve<em>template(templatename, <strong>kwargs):
+    mytemplate = mylookup.get</em>template(templatename)
+    print mytemplate.render(</strong>kwargs)
+```</p>
+
+<p>TemplateLookup will look for templates in the <code>/docs</code> directory, and will store generated module files in the /tmp/mako<em>modules directory. If given '/etc/beans/info.txt' as templatename, it would search for the file '/docs/etc/beans/info.txt' and create a module file '/tmp/mako</em>modules/etc/beans/info.txt.py'</p>
+
+<p><strong>3. Setting the Collection Size</strong></p>
+
+<p>mylookup = TemplateLookup(directories=['/docs'],
+                module<em>directory='/tmp/mako</em>modules', collection_size=500)</p>
+
+<p>The above lookup will continue to load templates into memory until it reaches a count of around 500. At that point, it will clean out a certain percentage of templates using a least recently used scheme.</p>
+
+<p>Skip the rest of the part, if you do need to refer to it, check out:
+http://docs.makotemplates.org/en/latest/usage.html#basic-usage</p>
