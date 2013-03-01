@@ -52,10 +52,10 @@ from mako.template import Template</p>
 
 <p>mytemplate = Template(filename='docs/mytmpl.txt', module<em>directory='/tmp/mako</em>modules')
 print mytemplate.render()
-```
-The value of 'module<em>directory' above should be a path in 'sys.path' for example, you are running python file above in the '/tmp/mako</em>modules', this path will be in 'sys.path', thus '/tmp/mako<em>modules' is a qualified 'module</em>direcotry'.</p>
+<code>`
+The value of</code>module<em>directory<code>above should be a path in `sys.path` for example, you are running python file above in the</code>/tmp/mako</em>modules<code>, this path will be in `sys.path`, thus</code>/tmp/mako<em>modules<code>is a qualified</code>module</em>direcotry``.</p>
 
-<p>When the above code is rendered, a file /tmp/mako_modules/docs/mytmpl.txt.py is created containing the source code for the module. The next time a Template with the same arguments is created, this module file will be automatically re-used.</p>
+<p>When the above code is rendered, a file <code>/tmp/mako_modules/docs/mytmpl.txt.py</code> is created containing the source code for the module. The next time a Template with the same arguments is created, this module file will be automatically re-used.</p>
 
 <h3>Using <code>TemplateLookup</code></h3>
 
@@ -68,8 +68,8 @@ from mako.lookup import TemplateLookup</p>
 <p>mylookup = TemplateLookup(directories=['/docs'])
 mytemplate = Template("""&lt;%include file="header.txt"/> hello world!""", lookup=mylookup)
 print mytemplate.render()
-```
-Above, we created a textual template which includes the file "header.txt". In this way, it will search in the directory "/docs" for the file "header.txt".</p>
+<code>``
+Above, we created a textual template which includes the file</code>header.txt<code>. In this way, it will search in the directory</code>/docs<code>for the file</code>header.txt`.</p>
 
 <p><strong>2. TemplateLookup.get_template(templatename)</strong></p>
 
@@ -84,7 +84,7 @@ from mako.lookup import TemplateLookup</p>
     print mytemplate.render(</strong>kwargs)
 ```</p>
 
-<p>TemplateLookup will look for templates in the <code>/docs</code> directory, and will store generated module files in the /tmp/mako<em>modules directory. If given '/etc/beans/info.txt' as templatename, it would search for the file '/docs/etc/beans/info.txt' and create a module file '/tmp/mako</em>modules/etc/beans/info.txt.py'</p>
+<p>TemplateLookup will look for templates in the <code>/docs</code> directory, and will store generated module files in the <code>/tmp/mako_modules</code> directory. If given <code>/etc/beans/info.txt</code> as templatename, it would search for the file <code>/docs/etc/beans/info.txt</code> and create a module file <code>/tmp/mako_modules/etc/beans/info.txt.py</code></p>
 
 <p><strong>3. Setting the Collection Size</strong></p>
 
@@ -93,5 +93,27 @@ from mako.lookup import TemplateLookup</p>
 
 <p>The above lookup will continue to load templates into memory until it reaches a count of around 500. At that point, it will clean out a certain percentage of templates using a least recently used scheme.</p>
 
-<p>Skip the rest of the part, if you do need to refer to it, check out:
-http://docs.makotemplates.org/en/latest/usage.html#basic-usage</p>
+<p>Skip the rest of the part, if you do need to refer to it, check out: http://docs.makotemplates.org/en/latest/usage.html#basic-usage</p>
+
+<h2>Syntax</h2>
+
+<h3>Expression Substitution</h3>
+
+<p><code>
+this  is x: ${x}
+</code>
+If x is not supplied, it evaluates to a special value <code>UNDEFINED</code>.</p>
+
+<p>The contents within the ${} tag are evaluated by Python directly, so full expressions are OK:</p>
+
+<p><code>
+pythagorean theorem:  ${pow(x,2) + pow(y,2)}
+</code></p>
+
+<h3>Expression Escaping</h3>
+
+<p>${"this is some text" | u}</p>
+
+<p>The above expression applies URL escaping to the expression, and produces this+is+some+text. The u name indicates URL escaping, whereas h represents HTML escaping, x represents XML escaping, and trim applies a trim function.</p>
+
+<h3>Control Structures</h3>

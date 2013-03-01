@@ -95,3 +95,122 @@ The above lookup will continue to load templates into memory until it reaches a 
 
 Skip the rest of the part, if you do need to refer to it, check out: http://docs.makotemplates.org/en/latest/usage.html#basic-usage
 
+
+## Syntax
+
+### Expression Substitution
+
+```
+this  is x: ${x}
+```
+If x is not supplied, it evaluates to a special value `UNDEFINED`.
+
+The contents within the ${} tag are evaluated by Python directly, so full expressions are OK:
+
+```
+pythagorean theorem:  ${pow(x,2) + pow(y,2)}
+```
+
+### Expression Escaping
+
+${"this is some text" | u}
+
+The above expression applies URL escaping to the expression, and produces this+is+some+text. The u name indicates URL escaping, whereas h represents HTML escaping, x represents XML escaping, and trim applies a trim function.
+
+### Control Structures
+
+conditionals(`if/else`), loops(`while/for`) as well as things like `try/except`
+
+```
+% if x==5:
+    this is some output
+% endif
+```
+the % can appear anywhere on the line as long as no text precedes it; indentation is not significant. The full range of Python “colon” expressions are allowed here, including if/elif/else, while, for, and even def, although Mako has a built-in tag for defs which is more full-featured.
+
+```
+% for a in ['one', 'two', 'three', 'four', 'five']:
+    % if a[0] == 't':
+    its two or three
+    % elif a[0] == 'f':
+    four/five
+    % else:
+    one
+    % endif
+% endfor
+```
+
+The % sign can also be “escaped”, if you actually want to emit a percent sign as the first non whitespace character on a line, by escaping it as in %%:
+
+```
+%% some text
+
+    %% some more text
+```
+
+### The Loop Context
+
+```
+<ul>
+% for a in ("one", "two", "three"):
+    <li>Item ${loop.index}: ${a}</li>
+% endfor
+</ul>
+```
+
+### Comments
+
+Comments come in two varieties. The single line comment uses ## as the first non-space characters on a line:
+
+```
+## this is a comment.
+...text ...
+```
+
+A multiline version exists using <%doc> ...text... </%doc>:
+
+```
+<%doc>
+    these are comments
+    more comments
+</%doc>
+```
+
+### Newline Filters
+
+```
+here is a line that goes onto \
+another line.
+```
+
+The above text evaluates to:
+
+```
+here is a line that goes onto another line.
+```
+
+### Python Blocks
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
