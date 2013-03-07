@@ -191,7 +191,52 @@ here is a line that goes onto another line.
 
 ### Python Blocks
 
+Any arbitrary block of python can be dropped in using the `<% %>` tags:
 
+```
+this is a template
+<%
+    x = db.get_resource('foo')
+    y = [z.element for z in x if x.frobnizzle==5]
+%>
+% for elem in y:
+    element: ${elem}
+% endfor
+```
+
+### Module-level Blocks
+
+A variant on <% %> is the module-level code block, denoted by <%! %>.
+
+```
+<%!
+	import mylib
+    import re
+
+    def filter(text):
+        return re.sub(r'^@', '', text)
+%>
+```
+
+The code doesn't have access to the template's context and is only executed when the template is loaded into memory (which can be only once per application, or more, depending on the runtime environment). Use the <%! %> tags to declare your template’s imports, as well as any pure-Python functions you might want to declare:
+
+### Tags
+
+The tag is closed either by a contained slash character, or an explicit closing tag:
+
+```
+<%include file="foo.txt"/>
+
+<%def name="foo" buffered="True">
+    this is a def
+</%def>
+```
+
+All tags have a set of attributes which are defined for each tag. Some of these attributes are required. Also, many attributes support evaluation, meaning you can embed an expression (using ${}) inside the attribute text:
+
+```
+<%include file="/foo/bar/${myfile}.txt"/>
+```
 
 
 

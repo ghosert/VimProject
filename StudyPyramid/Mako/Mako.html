@@ -117,3 +117,94 @@ pythagorean theorem:  ${pow(x,2) + pow(y,2)}
 <p>The above expression applies URL escaping to the expression, and produces this+is+some+text. The u name indicates URL escaping, whereas h represents HTML escaping, x represents XML escaping, and trim applies a trim function.</p>
 
 <h3>Control Structures</h3>
+
+<p>conditionals(<code>if/else</code>), loops(<code>while/for</code>) as well as things like <code>try/except</code></p>
+
+<p><code>
+% if x==5:
+    this is some output
+% endif
+</code>
+the % can appear anywhere on the line as long as no text precedes it; indentation is not significant. The full range of Python “colon” expressions are allowed here, including if/elif/else, while, for, and even def, although Mako has a built-in tag for defs which is more full-featured.</p>
+
+<p><code>
+% for a in ['one', 'two', 'three', 'four', 'five']:
+    % if a[0] == 't':
+    its two or three
+    % elif a[0] == 'f':
+    four/five
+    % else:
+    one
+    % endif
+% endfor
+</code></p>
+
+<p>The % sign can also be “escaped”, if you actually want to emit a percent sign as the first non whitespace character on a line, by escaping it as in %%:</p>
+
+<p>```
+%% some text</p>
+
+<pre><code>%% some more text
+</code></pre>
+
+<p>```</p>
+
+<h3>The Loop Context</h3>
+
+<p>```</p>
+
+<ul>
+% for a in ("one", "two", "three"):
+    <li>Item ${loop.index}: ${a}</li>
+% endfor
+</ul>
+
+<p>```</p>
+
+<h3>Comments</h3>
+
+<p>Comments come in two varieties. The single line comment uses ## as the first non-space characters on a line:</p>
+
+<p>```</p>
+
+<h2>this is a comment.</h2>
+
+<p>...text ...
+```</p>
+
+<p>A multiline version exists using &lt;%doc> ...text... </%doc>:</p>
+
+<p><code>
+&lt;%doc&gt;
+    these are comments
+    more comments
+&lt;/%doc&gt;
+</code></p>
+
+<h3>Newline Filters</h3>
+
+<p><code>
+here is a line that goes onto \
+another line.
+</code></p>
+
+<p>The above text evaluates to:</p>
+
+<p><code>
+here is a line that goes onto another line.
+</code></p>
+
+<h3>Python Blocks</h3>
+
+<p>Any arbitrary block of python can be dropped in using the <code>&lt;% %&gt;</code> tags:</p>
+
+<p><code>
+this is a template
+&lt;%
+    x = db.get_resource('foo')
+    y = [z.element for z in x if x.frobnizzle==5]
+%&gt;
+% for elem in y:
+    element: ${elem}
+% endfor
+</code></p>
