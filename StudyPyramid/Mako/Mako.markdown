@@ -126,7 +126,7 @@ conditionals(`if/else`), loops(`while/for`) as well as things like `try/except`
     this is some output
 % endif
 ```
-the % can appear anywhere on the line as long as no text precedes it; indentation is not significant. The full range of Python “colon” expressions are allowed here, including if/elif/else, while, for, and even def, although Mako has a built-in tag for defs which is more full-featured.
+the % can appear anywhere on the line as long as no text precedes it; indentation is not significant. The full range of Python "colon" expressions are allowed here, including if/elif/else, while, for, and even def, although Mako has a built-in tag for defs which is more full-featured.
 
 ```
 % for a in ['one', 'two', 'three', 'four', 'five']:
@@ -140,7 +140,7 @@ the % can appear anywhere on the line as long as no text precedes it; indentatio
 % endfor
 ```
 
-The % sign can also be “escaped”, if you actually want to emit a percent sign as the first non whitespace character on a line, by escaping it as in %%:
+The % sign can also be "escaped", if you actually want to emit a percent sign as the first non whitespace character on a line, by escaping it as in %%:
 
 ```
 %% some text
@@ -218,7 +218,7 @@ A variant on <% %> is the module-level code block, denoted by <%! %>.
 %>
 ```
 
-The code doesn't have access to the template's context and is only executed when the template is loaded into memory (which can be only once per application, or more, depending on the runtime environment). Use the <%! %> tags to declare your template’s imports, as well as any pure-Python functions you might want to declare:
+The code doesn't have access to the template's context and is only executed when the template is loaded into memory (which can be only once per application, or more, depending on the runtime environment). Use the <%! %> tags to declare your template's imports, as well as any pure-Python functions you might want to declare:
 
 ### Tags
 
@@ -238,20 +238,128 @@ All tags have a set of attributes which are defined for each tag. Some of these 
 <%include file="/foo/bar/${myfile}.txt"/>
 ```
 
+#### `<%page>`
 
+This tag defines general characteristics of the template, including caching arguments, and optional lists of arguments which the template expects when invoked.
 
+```
+<%page args="x, y, z='default'"/>
+```
 
+Or a page tag that defines caching characteristics:
 
+```
+<%page cached="True" cache_type="memory"/>
+```
 
+Currently, 0.7.4 only one `<%page>` tag gets used per template, the rest get ignored. See more below.
 
+#### `<%include>`
 
+```
+<%include file="header.html"/>
 
+    hello world
 
+<%include file="footer.html"/>
+```
 
+Include also accepts arguments which are available as <%page> arguments in the receiving template:
 
+```
+<%include file="toolbar.html" args="current_section='members', username='ed'"/>
+```
 
+#### `<%def>`
 
+The %def tag defines a Python function which contains a set of content, that can be called at some other point in the template. The basic idea is simple:
 
+```
+<%def name="myfunc(x)">
+    this is myfunc, x is ${x}
+</%def>
+
+${myfunc(7)}
+```
+
+#### `<%block>`
+
+`%block` is a tag that is close to a %def, except executes itself immediately in its base-most scope, and can also be anonymous (i.e. with no name):
+
+```
+<%block filter="h">
+    some <html> stuff.
+</%block>
+```
+
+jiawzhang: Not sure what is the `<%block>` for so far, see below for details.
+
+#### `<%namespace>`
+
+`%namespace` is Mako's equivalent of Python's import statement. It allows access to all the rendering functions and metadata of other template files, plain Python modules, as well as locally defined "packages" of functions.
+
+```
+<%namespace file="functions.html" import="*"/>
+```
+
+See below for details.
+
+#### `<%inherit>`
+
+Inherit allows templates to arrange themselves in inheritance chains.
+
+```
+<%inherit file="base.html"/>
+```
+
+#### `<%nsname:defname>`
+
+user-defined "tag"
+
+```
+<%mynamespace:somedef param="some value">
+    this is the body
+</%mynamespace:somedef>
+```
+
+#### `<%call>`
+
+user-defined "tag" and is roughly equivalent to the `<%nsname:defname>` syntax described above.
+
+#### `<%doc>`
+
+For multiline comments, see above.
+
+#### `<%text>`
+
+This tag suspends the Mako lexer's normal parsing of Mako template directives, and returns its entire body contents as plain text. It is used pretty much to write documentation about Mako:
+
+```
+<%text filter="h">
+    heres some fake mako ${syntax}
+    <%def name="x()">${x}</%def>
+</%text>
+```
+
+#### Returning Early from a Template
+
+Sometimes you want to stop processing a template or <%def> method in the middle and just use the text you’ve accumulated so far. You can use a return statement inside a Python block to do that.
+
+```
+% if not len(records):
+    No records found.
+    <% return %>
+% endif
+```
+
+Or perhaps:
+
+```
+<%
+    if not len(records):
+        return
+%>
+```
 
 
 
