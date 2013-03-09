@@ -31,9 +31,9 @@ print '====================3======================'
 
 mytemplate = Template('${"this is some text for url" | u}')
 print mytemplate.render()
-mytemplate = Template('${"this is some text for html" | h}')
+mytemplate = Template('${"this is some text for <html>" | h}')
 print mytemplate.render()
-mytemplate = Template('${"this is some text for xml" | x}')
+mytemplate = Template('${"this is some text for <xml>" | x}')
 print mytemplate.render()
 mytemplate = Template('${"   this is some text for trim   " | trim}')
 print mytemplate.render()

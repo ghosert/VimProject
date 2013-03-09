@@ -351,7 +351,7 @@ this is a template
 
 <h4>Returning Early from a Template</h4>
 
-<p>Sometimes you want to stop processing a template or &lt;%def> method in the middle and just use the text you’ve accumulated so far. You can use a return statement inside a Python block to do that.</p>
+<p>Sometimes you want to stop processing a template or &lt;%def> method in the middle and just use the text you've accumulated so far. You can use a return statement inside a Python block to do that.</p>
 
 <p><code>
 % if not len(records):
@@ -368,3 +368,622 @@ this is a template
         return
 %&gt;
 </code></p>
+
+<h2>Defs and Blocks</h2>
+
+<p>Whereas &lt;%def> provides a construct that is very much like a named Python def, the &lt;%block> is more layout oriented.</p>
+
+<h3>Using Defs</h3>
+
+<p><code>
+&lt;%def name="hello()"&gt;
+    hello world
+&lt;/%def&gt;
+</code>
+To invoke the <code>&lt;%def&gt;</code></p>
+
+<p><code>
+the def: ${hello()}
+</code></p>
+
+<p><strong>top level def</strong>(the <code>&lt;%def&gt;</code> is not nested inside of another <code>&lt;%def&gt;</code>) can be accessed anywhere in the template, including above where it was defined.</p>
+
+<p>All defs have access to the current contextual namespace in exactly the same way their containing template does.</p>
+
+<p>```
+Hello there ${username}, how are ya.  Lets see what your account says:</p>
+
+<p>${account()}</p>
+
+<p>&lt;%def name="account()">
+    Account for ${username}:<br/></p>
+
+<pre><code>% for row in accountdata:
+    Value: ${row}&lt;br/&gt;
+% endfor
+</code></pre>
+
+<p></%def>
+```</p>
+
+<p>The <code>username</code> and <code>accountdata</code> variables are present within the main template body as well as the body of the account() def.</p>
+
+<p>Since defs are just Python functions, you can define and pass arguments to them as well:</p>
+
+<p>${account(accountname='john')}</p>
+
+<p>&lt;%def name="account(accountname, type='regular')">
+    account name: ${accountname}, type: ${type}
+</%def></p>
+
+<h4>Calling Defs from Other Files</h4>
+
+<p>Calling a &lt;%def> from another template is something like using an &lt;%include> – except you are calling a specific function within the template, not the whole template.</p>
+
+<p>To import another template, use the &lt;%namespace> tag:</p>
+
+<p><code>
+&lt;%namespace name="mystuff" file="mystuff.html"/&gt;
+</code></p>
+
+<p>The above tag adds a local variable mystuff to the current scope.</p>
+
+<p>Then, just call the defs off of mystuff:</p>
+
+<p><code>
+${mystuff.somedef(x=5,y=7)}
+</code></p>
+
+<p>The &lt;%namespace> tag also supports some of the other semantics of Python's import statement, including pulling names into the local variable space, or using * to represent all names, using the import attribute:</p>
+
+<p>&lt;%namespace file="mystuff.html" import="foo, bar"/></p>
+
+<h4>Calling Defs Programmatically</h4>
+
+<p>You can call defs programmatically from any Template object using the get_def() method, which returns a DefTemplate object.</p>
+
+<p>```
+from mako.template import Template</p>
+
+<p>template = Template("""
+    &lt;%def name="hi(name)">
+        hi ${name}!
+    </%def></p>
+
+<pre><code>&lt;%def name="bye(name)"&gt;
+    bye ${name}!
+&lt;/%def&gt;
+</code></pre>
+
+<p>""")</p>
+
+<p>print template.get<em>def("hi").render(name="ed")
+print template.get</em>def("bye").render(name="ed")
+```</p>
+
+<h4>Defs within Defs</h4>
+
+<p>&lt;%def> is basically def keyword in python to define function, so that nested &lt;%def> is allowed.</p>
+
+<p>```
+&lt;%def name="mydef()">
+    &lt;%def name="subdef()">
+        a sub def
+    </%def></p>
+
+<pre><code>i'm the def, and the subcomponent is ${subdef()}
+</code></pre>
+
+<p></%def>
+```</p>
+
+<p>Just like Python, names that exist outside the inner &lt;%def> exist inside it as well:</p>
+
+<p>```
+&lt;%
+    x = 12
+%>
+&lt;%def name="outer()">
+    &lt;%
+        y = 15
+    %>
+    &lt;%def name="inner()">
+        inner, x is ${x}, y is ${y}
+    </%def></p>
+
+<pre><code>outer, x is ${x}, y is ${y}
+</code></pre>
+
+<p></%def>
+```</p>
+
+<h4>Calling a Def with Embedded Content and/or Other Defs</h4>
+
+<p>```
+&lt;%def name="buildtable()">
+    <table>
+        <tr><td>
+            ${caller.body()}
+        </td></tr>
+    </table>
+</%def></p>
+
+<p>&lt;%self:buildtable>
+    I am the table body.
+</%self:buildtable>
+```</p>
+
+<p>This produces the output (whitespace formatted):</p>
+
+<p>```</p>
+
+<table>
+    <tr><td>
+        I am the table body.
+    </td></tr>
+</table>
+
+<p>```</p>
+
+<p>Using the older %call syntax looks like:</p>
+
+<p>```
+&lt;%def name="buildtable()">
+    <table>
+        <tr><td>
+            ${caller.body()}
+        </td></tr>
+    </table>
+</%def></p>
+
+<p>&lt;%call expr="buildtable()">
+    I am the table body.
+</%call>
+```</p>
+
+<p>The body() can be executed multiple times or not at all. This means you can use def-call-with-content to build iterators, conditionals, etc:</p>
+
+<p>```
+&lt;%def name="lister(count)">
+    % for x in range(count):
+        ${caller.body()}
+    % endfor
+</%def></p>
+
+<p>&lt;%self:lister count="${3}">
+    hi
+</%self:lister>
+```</p>
+
+<p>Produces:</p>
+
+<p><code>
+hi
+hi
+hi
+</code></p>
+
+<p>Notice above we pass 3 as a Python expression, so that it remains as an integer.</p>
+
+<p>A custom "conditional" tag:</p>
+
+<p>```
+&lt;%def name="conditional(expression)">
+    % if expression:
+        ${caller.body()}
+    % endif
+</%def></p>
+
+<p>&lt;%self:conditional expression="${4==4}">
+    i'm the result
+</%self:conditional>
+```</p>
+
+<p>Produces:</p>
+
+<p><code>
+i'm the result
+</code></p>
+
+<p>The body() function also can handle arguments, which will augment the local namespace of the body callable. The caller must define the arguments which it expects to receive from its target def using the <code>args</code> attribute(<code>args="col"</code> below), which is a comma-separated list of argument names, we defined "col" below in caller's body as argument and then pass the value from customize tag <code>layoutdata</code> by <code>${caller.body(col=col)}</code>:</p>
+
+<p>```
+&lt;%def name="layoutdata(somedata)">
+    <table>
+    % for item in somedata:
+        <tr>
+        % for col in item:
+            <td>${caller.body(col=col)}</td>
+        % endfor
+        </tr>
+    % endfor
+    </table>
+</%def></p>
+
+<p>&lt;%self:layoutdata somedata="${[[1,2,3],[4,5,6],[7,8,9]]}" args="col">\
+Body data: ${col}\
+</%self:layoutdata>
+```</p>
+
+<p>Produces:</p>
+
+<p>```</p>
+
+<table>
+    <tr>
+        <td>Body data: 1</td>
+        <td>Body data: 2</td>
+        <td>Body data: 3</td>
+    </tr>
+    <tr>
+        <td>Body data: 4</td>
+        <td>Body data: 5</td>
+        <td>Body data: 6</td>
+    </tr>
+    <tr>
+        <td>Body data: 7</td>
+        <td>Body data: 8</td>
+        <td>Body data: 9</td>
+    </tr>
+</table>
+
+<p>```</p>
+
+<p>You don't have to stick to calling just the body() function. The caller can define any number of callables, allowing the &lt;%call> tag to produce whole layouts:</p>
+
+<p>```
+&lt;%def name="layout()">
+    ## a layout def
+    <div class="mainlayout">
+        <div class="header">
+            ${caller.header()}
+        </div></p>
+
+<pre><code>    &lt;div class="sidebar"&gt;
+        ${caller.sidebar()}
+    &lt;/div&gt;
+
+    &lt;div class="content"&gt;
+        ${caller.body()}
+    &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+
+<p></%def></p>
+
+<p>## calls the layout def
+&lt;%self:layout>
+    &lt;%def name="header()">
+        I am the header
+    </%def>
+    &lt;%def name="sidebar()">
+        <ul>
+            <li>sidebar 1</li>
+            <li>sidebar 2</li>
+        </ul>
+    </%def></p>
+
+<pre><code>    this is the body
+</code></pre>
+
+<p></%self:layout>
+```</p>
+
+<p>The above layout would produce:</p>
+
+<p>```</p>
+
+<div class="mainlayout">
+    <div class="header">
+    I am the header
+    </div>
+
+    <div class="sidebar">
+    <ul>
+        <li>sidebar 1</li>
+        <li>sidebar 2</li>
+    </ul>
+    </div>
+
+    <div class="content">
+    this is the body
+    </div>
+</div>
+
+<p>```</p>
+
+<p>Basically anything you'd do with a "custom tag" or tag library in some other system, Mako provides via &lt;%def> tags and plain Python callables which are invoked via &lt;%namespacename:defname> or &lt;%call>.</p>
+
+<h3>Using Blocks</h3>
+
+<p>The <code>&lt;%block&gt;</code> tag compared with <code>&lt;%def&gt;</code> is more closely tailored towards layout.</p>
+
+<p><code>
+&lt;html&gt;
+    &lt;body&gt;
+        &lt;%block&gt;
+            this is a block.
+        &lt;/%block&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></p>
+
+<p>The block renders its content in the place that it's defined. Since there is no block <code>name</code> above, it's <strong>anonymous block</strong> which will produce:</p>
+
+<p><code>
+&lt;html&gt;
+    &lt;body&gt;
+            this is a block.
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></p>
+
+<p>So in fact the above block has absolutely no effect. Its usefulness comes when we start using modifiers. Such as, we can apply a filter to our block:</p>
+
+<p><code>
+&lt;html&gt;
+    &lt;body&gt;
+        &lt;%block filter="h"&gt;
+            &lt;html&gt;this is some escaped html.&lt;/html&gt;
+        &lt;/%block&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></p>
+
+<p><code>&lt;html&gt;this is some escaped html.&lt;/html&gt;</code> will be converted to <code>&amp;lt;html&amp;gt;this is some escaped html.&amp;lt;/html&amp;gt;</code></p>
+
+<p>or perhaps a caching directive:</p>
+
+<p><code>
+&lt;html&gt;
+    &lt;body&gt;
+        &lt;%block cached="True" cache_timeout="60"&gt;
+            This content will be cached for 60 seconds.
+        &lt;/%block&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</code></p>
+
+<p>Blocks also work in iterations, conditionals, just like defs:</p>
+
+<p><code>
+% if some_condition:
+    &lt;%block&gt;condition is met&lt;/%block&gt;
+% endif
+</code></p>
+
+<p>Anonymous blocks are defined as closures in the local rendering body, so have access to local variable scope:</p>
+
+<p><code>
+% for i in range(1, 4):
+    &lt;%block&gt;i is ${i}&lt;/%block&gt;
+% endfor
+</code></p>
+
+<h4>Using Named Blocks</h4>
+
+<p>Possibly the more important area where blocks are useful is when we do actually give them names. In sharp contrast to the &lt;%def> tag, the name given to a block is global for the entire template regardless of how deeply it's nested:</p>
+
+<p><code>
+&lt;html&gt;
+&lt;%block name="header"&gt;
+    &lt;head&gt;
+        &lt;title&gt;
+            &lt;%block name="title"&gt;Title&lt;/%block&gt;
+        &lt;/title&gt;
+    &lt;/head&gt;
+&lt;/%block&gt;
+&lt;body&gt;
+    ${next.body()}
+&lt;/body&gt;
+&lt;/html&gt;
+</code></p>
+
+<p>The above example has two named blocks "header" and "title", both of which can be referred to by an inheriting template. A detailed walkthrough of this usage can be found at Inheritance.</p>
+
+<p>Note above that named blocks don't have any argument declaration the way defs do.</p>
+
+<p>```</p>
+
+<div name="page">
+    <%block name="pagecontrol">
+        <a href="">previous page</a> |
+        <a href="">next page</a>
+    </%block>
+
+    <table>
+        ## some content
+    </table>
+
+    ${pagecontrol()}
+</div>
+
+<p>```</p>
+
+<p>The content referenced by pagecontrol above will be rendered both above and below the <table> tags.</p>
+
+<p>&lt;%block> name should be unique to other &lt;%block> and top level &lt;%def>
+A named &lt;%block> cannot be defined within a &lt;%def>, or inside the body of a "call", i.e. &lt;%call> or &lt;%namespacename:defname> tag. Anonymous blocks can, however.</p>
+
+<h4>Using Page Arguments in Named Blocks</h4>
+
+<p>Using arguments with the &lt;%page> tag is described in the section <a href="http://docs.makotemplates.org/en/latest/namespaces.html#namespaces-body">The body() Method</a>, to allow a named block to share the same arguments passed to the page, the <code>args</code> attribute can be used:</p>
+
+<p>```
+&lt;%page args="post"/></p>
+
+<p><a name="${post.title}" /></p>
+
+<p><span class="post_prose">
+    &lt;%block name="post_prose" args="post">
+        ${post.content}
+    </%block>
+</span>
+```</p>
+
+<p>Where above, if the template is called via a directive like &lt;%include file="post.mako" args="post=post" />, the post variable is available both in the main body as well as the post_prose block.</p>
+
+<p>Similarly, the **pageargs variable is present, in named blocks only, for those arguments not explicit in the &lt;%page> tag:</p>
+
+<p><code>
+&lt;%block name="post_prose"&gt;
+    ${pageargs['post'].content}
+&lt;/%block&gt;
+</code></p>
+
+<p>The args attribute is only allowed with named blocks. With anonymous blocks, the Python function is always rendered in the same scope as the call itself, so anything available directly outside the anonymous block is available inside as well.</p>
+
+<h2>The Mako Runtime Environment</h2>
+
+<h3>Context</h3>
+
+<h3>The Buffer</h3>
+
+<p>Occasionally, you want to programmatically send content to the output stream, such as within a <code>&lt;% %&gt;</code> block.
+<code>
+&lt;%
+    context.write("some programmatic text")
+%&gt;
+</code></p>
+
+<h3>Context Variables</h3>
+
+<p>If you think UNDEFINE makes it hard to find what name is missing in Context, secify the option "strict_undefined=True" to the Template or TemplateLookup. This will cause any non-present variables to raise an immediate <code>NameError</code>, <code>UNDEFINED</code> is not used.</p>
+
+<p><code>
+% if someval is UNDEFINED:
+    someval is: no value
+% else:
+    someval is: ${someval}
+% endif
+</code></p>
+
+<p>what if I want to set values that are global to everyone within a template request?</p>
+
+<p>Running the template looks like:</p>
+
+<p><code>
+output = template.render(attributes={})
+</code></p>
+
+<p>Within a template, just reference the dictionary:</p>
+
+<p><code>
+&lt;%
+    attributes['foo'] = 'bar'
+%&gt;
+'foo' attribute is: ${attributes['foo']}
+</code></p>
+
+<h3>Context Methods and Accessors</h3>
+
+<ul>
+<li>context[key] / context.get(key, default=None)</li>
+<li>context.keys - all the names defined within this context.</li>
+<li>context.kwargs - this returns a copy of the context's dictionary of variables. This is useful when you want to propagate the variables in the current context to a function as keyword arguments, i.e.:
+<code>
+${next.body(**context.kwargs)}
+</code></li>
+<li>context.write(text) - write some text to the current output stream.</li>
+<li>context.lookup - returns the <code>TemplateLookup</code> instance that is used for all file-lookups within the current execution.</li>
+</ul>
+
+<h3>The Loop Context</h3>
+
+<p>Within <code>% for</code> blocks, the reserved name <code>loop</code> is available.</p>
+
+<p>```</p>
+
+<ul>
+% for a in ("one", "two", "three"):
+    <li>Item ${loop.index}: ${a}</li>
+% endfor
+</ul>
+
+<p>```</p>
+
+<h4>Iterations</h4>
+
+<ul>
+<li><code>loop.index</code> - 0-indexed iteration count</li>
+<li><code>loop.even</code> / <code>loop.odd</code> bools - loop parity</li>
+<li><code>loop.first</code> bool - whether the loop is on its first iteration</li>
+</ul>
+
+<p>If your iterable provides a <code>__len__</code> method, the below two attributes are available:</p>
+
+<ul>
+<li>loop.reverse_index - a count of iterations remaining</li>
+<li>loop.last - a bool indicating whether the loop is on its last iteration
+Accessing them without <code>__len__</code> will raise a <code>TypeError</code></li>
+</ul>
+
+<h4>Cycling</h4>
+
+<p>Cycling is available regardless of whether the iterable you’re using provides a <strong>len</strong> method.</p>
+
+<p>```</p>
+
+<ul>
+% for i, item in enumerate(('spam', 'ham', 'eggs')):
+  <li class="${'odd' if i % 2 else 'even'}">${item}</li>
+% endfor
+</ul>
+
+<p>```</p>
+
+<p>With loop.cycle, you get the same results with cleaner code and less prep work:</p>
+
+<p>```</p>
+
+<ul>
+% for item in ('spam', 'ham', 'eggs'):
+  <li class="${loop.cycle('even', 'odd')}">${item}</li>
+% endfor
+</ul>
+
+<p>```</p>
+
+<p>Both approaches produce output like the following:</p>
+
+<p>```</p>
+
+<ul>
+  <li class="even">spam</li>
+  <li class="odd">ham</li>
+  <li class="even">eggs</li>
+</ul>
+
+<p>```</p>
+
+<h4>Parent Loops</h4>
+
+<p>Access the parent loop context through <code>loop.parent</code> or <code>loop.parent.parent....</code></p>
+
+<p>```</p>
+
+<table>
+% for consonant in 'pbj':
+  <tr>
+  % for vowel in 'iou':
+    <td class="${'black' if (loop.parent.even == loop.even) else 'red'}">
+      ${consonant + vowel}t
+    </td>
+  % endfor
+  </tr>
+% endfor
+</table>
+
+<p>```</p>
+
+<h4>All the Built-in Names</h4>
+
+<p>See more details <a href="http://docs.makotemplates.org/en/latest/runtime.html">here</a></p>
+
+<h4>Reserved Names</h4>
+
+<p>See more details <a href="http://docs.makotemplates.org/en/latest/runtime.html">here</a></p>
+
+<h4>API Reference</h4>
+
+<p>See more details <a href="http://docs.makotemplates.org/en/latest/runtime.html">here</a></p>
