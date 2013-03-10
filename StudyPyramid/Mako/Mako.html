@@ -987,3 +987,28 @@ Accessing them without <code>__len__</code> will raise a <code>TypeError</code><
 <h4>API Reference</h4>
 
 <p>See more details <a href="http://docs.makotemplates.org/en/latest/runtime.html">here</a></p>
+
+<h2>Namespaces</h2>
+
+<p>If the file components.html defines these two defs:</p>
+
+<p>```
+ ## components.html
+&lt;%def name="comp1()">
+    this is comp1
+</%def></p>
+
+<p>&lt;%def name="comp2(x)">
+    this is comp2, x is ${x}
+</%def>
+```</p>
+
+<p>you can make another file, for example index.html, that pulls those two defs into a namespace called comp:</p>
+
+<p>```
+ ## index.html
+&lt;%namespace name="comp" file="components.html"/></p>
+
+<p>Here's comp1:  ${comp.comp1()}
+Here's comp2:  ${comp.comp2(x=5)}
+```</p>

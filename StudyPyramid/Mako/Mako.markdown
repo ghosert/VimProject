@@ -947,6 +947,32 @@ See more details [here](http://docs.makotemplates.org/en/latest/runtime.html)
 See more details [here](http://docs.makotemplates.org/en/latest/runtime.html)
 
 
+## Namespaces
+
+If the file components.html defines these two defs:
+
+```
+ ## components.html
+<%def name="comp1()">
+    this is comp1
+</%def>
+
+<%def name="comp2(x)">
+    this is comp2, x is ${x}
+</%def>
+```
+
+you can make another file, for example index.html, that pulls those two defs into a namespace called comp:
+
+```
+ ## index.html
+<%namespace name="comp" file="components.html"/>
+
+Here's comp1:  ${comp.comp1()}
+Here's comp2:  ${comp.comp2(x=5)}
+```
+
+
 
 
 
