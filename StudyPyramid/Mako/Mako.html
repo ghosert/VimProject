@@ -1012,3 +1012,113 @@ Accessing them without <code>__len__</code> will raise a <code>TypeError</code><
 <p>Here's comp1:  ${comp.comp1()}
 Here's comp2:  ${comp.comp2(x=5)}
 ```</p>
+
+<p>Use the <code>import</code> attribute.</p>
+
+<p>```
+&lt;%namespace file="components.html" import="comp1, comp2"/></p>
+
+<p>Heres comp1:  ${comp1()}
+Heres comp2:  ${comp2(x=5)}
+```</p>
+
+<p>import also supports the “*” operator:</p>
+
+<p>```
+&lt;%namespace file="components.html" import="*"/></p>
+
+<p>Heres comp1:  ${comp1()}
+Heres comp2:  ${comp2(x=5)}
+```</p>
+
+<p>The file argument allows expressions – if looking for context variables, the context must be named explicitly:</p>
+
+<p><code>
+&lt;%namespace name="dyn" file="${context['namespace_name']}"/&gt;
+</code></p>
+
+<p>instead of being named implicitly like:</p>
+
+<p><code>
+&lt;%namespace name="dyn" file="${namespace_name}"/&gt;
+</code></p>
+
+<h3>Ways to Call Namespaces</h3>
+
+<p><strong>1. expressions like any other function:</strong></p>
+
+<p>${mynamespace.somefunction('some arg1', 'some arg2', arg3='some arg3', arg4='some arg4')}</p>
+
+<p><strong>2. "custom" Mako tag, with the function arguments passed in using named attributes:</strong></p>
+
+<p>&lt;%mynamespace:somefunction arg1="some arg1" arg2="some arg2" arg3="some arg3" arg4="some arg4"/></p>
+
+<p><strong>3. To embed Python expressions as arguments, use the embedded expression format:</strong></p>
+
+<p>&lt;%mynamespace:somefunction arg1="${someobject.format()}" arg2="${somedef(5, 12)}"/></p>
+
+<p><strong>4. The "custom tag" format is intended mainly for namespace functions which recognize body content(like <code>&lt;%self:buildtable&gt;</code> above, there should be a <code>caller.body()</code> in namespace function):</strong></p>
+
+<p>&lt;%mynamespace:somefunction arg1="some argument" args="x, y">
+    Some record: ${x}, ${y}
+</%mynamespace:somefunction></p>
+
+<h3>Namespaces from Regular Python Modules</h3>
+
+<p>Make sure the callables need to take at least one argument, <code>context</code>, an instance of <code>Context</code>. A module file <code>some/module.py</code> might contain the callable:</p>
+
+<p><code>
+def my_tag(context):
+    context.write("hello world")
+    return ''
+</code></p>
+
+<p>A template can use this module via:</p>
+
+<p>```
+&lt;%namespace name="hw" module="some.module"/></p>
+
+<p>${hw.my_tag()}
+```</p>
+
+<p>The return value of <code>def</code> coming with <code>context.write()</code> is rendered after the <code>def</code> completes. So that "my_tag(context)" above should return '' instead of <code>None</code> if nothing should be rendered from "return"</p>
+
+<p>To make sure your def is to be called in an "embedded content" context like <code>&lt;%self:buildtable&gt;</code> above, Add "@supports_caller" on your def and get body by conext['caller'].body():</p>
+
+<p>```
+from mako.runtime import supports_caller</p>
+
+<p>@supports<em>caller
+def my</em>tag(context):
+    context.write("<div>")
+    context['caller'].body()
+    context.write("</div>")
+    return ''
+```</p>
+
+<p>Capturing of output is available as well like this:</p>
+
+<p>```
+from mako.runtime import supports_caller, capture</p>
+
+<p>@supports<em>caller
+def my</em>tag(context):
+    return "<div>%s</div>" % \
+            capture(context, context['caller'].body, x="foo", y="bar")
+```</p>
+
+<h3>Declaring Defs in Namespaces</h3>
+
+<p>```
+ ## define a namespace
+&lt;%namespace name="stuff">
+    &lt;%def name="comp1()">
+        comp1
+    </%def>
+</%namespace></p>
+
+<p>## then call it
+${stuff.comp1()}
+```</p>
+
+<h3>The <code>body()</code> Method</h3>
