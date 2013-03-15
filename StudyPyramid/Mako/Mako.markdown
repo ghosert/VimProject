@@ -1110,7 +1110,7 @@ The local namespace is also where properties like uri, filename, and module and 
 
 `self`
 
-The self namespace, in the case of a template that does not use inheritance, is synonymous with local. If inheritance is used, then self references the topmost template in the inheritance chain. The `self` above represents the `base.html`
+The self namespace, in the case of a template that does not use inheritance, is synonymous with local. If inheritance is used, then self references the topmost template in the inheritance chain. The `self` above represents the `somefile.html`
 
 ### Inheritable Namespaces
 
@@ -1225,5 +1225,78 @@ ${next.body()}
 
 ### API Reference
 See more details [here](http://docs.makotemplates.org/en/latest/namespaces.html#the-body-method)
+
+
+## Inheritance
+
+In practice, it looks like this. Here’s a hypothetical inheriting template, index.html:
+
+```
+ ## index.html
+<%inherit file="base.html"/>
+
+<%block name="header">
+    this is some header content
+</%block>
+
+this is the body content.
+```
+
+And base.html, the inherited template:
+
+```
+ ## base.html
+<html>
+    <body>
+        <div class="header">
+            <%block name="header"/>
+        </div>
+
+        ${self.body()}
+
+        <div class="footer">
+            <%block name="footer">
+                this is the footer
+            </%block>
+        </div>
+    </body>
+</html>
+```
+
+base.html then renders the top part of an HTML document, then invokes the <%block name="header"> block. It invokes the underlying header() function off of a built-in namespace called self (this namespace was first introduced in the Namespaces chapter in self). Since index.html is the topmost template and also defines a block called header, it’s this header block that ultimately gets executed – instead of the one that’s present in base.html.
+
+base.html executes self.body(). The body() function on all template-based namespaces refers to the main body of the template, therefore the main body of index.html is rendered.
+
+When <%block name="header"> is encountered in index.html during the self.body() call, a conditional is checked – does the current inherited template, i.e. base.html, also define this block? If yes, only the one in topmost template `index.html` will be executed.
+
+The footer block is only defined in base.html, so being the topmost definition of footer, it’s the one that executes. If index.html also specified footer, then its version would override that of the base.
+
+The above, producing:
+
+```
+<html>
+	<body>
+		<div class="header">
+			this is some header content
+		</div>
+
+		this is the body content.
+
+		<div class="footer">
+			this is the footer
+		</div>
+	</body>
+</html>
+```
+
+### Nesting Blocks
+kkkkkkkkkkkkkkkkkkk
+
+
+
+
+
+
+
 
 

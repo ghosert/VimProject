@@ -1122,3 +1122,148 @@ ${stuff.comp1()}
 ```</p>
 
 <h3>The <code>body()</code> Method</h3>
+
+<p><code>
+ ## base.html
+&lt;%page args="x, y, someval=8, scope='foo', **kwargs"/&gt;
+</code></p>
+
+<p>So above, the body might be called as:</p>
+
+<p>```
+ ## somefile.html
+&lt;%inherit file="base.html"/></p>
+
+<p>${self.body(5, y=10, someval=15, delta=7)}
+```</p>
+
+<p>The Context object also supplies a kwargs accessor, for cases when you’d like to pass along whatever is in the context to a body() callable:</p>
+
+<p>${next.body(**context.kwargs)}</p>
+
+<h3>Built-in Namespaces</h3>
+
+<p><code>local</code></p>
+
+<p>The local namespace is basically the namespace for the currently executing template. This means that all of the top level defs defined in your template, as well as your template’s body() function, are also available off of the local namespace.</p>
+
+<p>The local namespace is also where properties like uri, filename, and module and the get_namespace method can be particularly useful.</p>
+
+<p><code>self</code></p>
+
+<p>The self namespace, in the case of a template that does not use inheritance, is synonymous with local. If inheritance is used, then self references the topmost template in the inheritance chain. The <code>self</code> above represents the <code>base.html</code></p>
+
+<h3>Inheritable Namespaces</h3>
+
+<p>The &lt;%namespace> tag includes an optional attribute inheritable="True", which will cause the namespace to be attached to the self namespace.</p>
+
+<p>```
+ ## base.html
+&lt;%namespace name="foo" file="foo.html" inheritable="True"/></p>
+
+<p>${next.body()}</p>
+
+<p>## somefile.html
+&lt;%inherit file="base.html"/></p>
+
+<p>${self.foo.bar()}
+```</p>
+
+<h3>Namespace API Usage Example - Static Dependencies</h3>
+
+<h4>Version One - Use Namespace.attr</h4>
+
+<p>The Namespace.attr attribute allows us to locate any variables declared in the &lt;%! %> of a template.</p>
+
+<p>```
+ ## base.mako
+ ## base-most template, renders layout etc.
+<html>
+<head>
+ ## traverse through all namespaces present,
+ ## look for an attribute named 'includes'
+% for ns in context.namespaces.values():
+    % for incl in getattr(ns.attr, 'includes', []):
+        ${incl}
+    % endfor
+% endfor
+</head>
+<body>
+${next.body()}
+</body
+</html></p>
+
+<p>## library.mako
+ ## library functions.
+&lt;%!
+    includes = [
+        '<link rel="stylesheet" type="text/css" href="mystyle.css"/>',
+        '<script type="text/javascript" src="functions.js"></script>'
+    ]
+%></p>
+
+<p>&lt;%def name="mytag()">
+    <form>
+        ${caller.body()}
+    </form>
+</%def></p>
+
+<p>## index.mako
+ ## calling template.
+&lt;%inherit file="base.mako"/>
+&lt;%namespace name="foo" file="library.mako"/></p>
+
+<p>&lt;%foo:mytag>
+    a form
+</%foo:mytag>
+```</p>
+
+<h4>Version Two - Use a specific named def</h4>
+
+<p>In this version, we put the includes into a &lt;%def> that follows a naming convention.</p>
+
+<p>```
+ ## base.mako
+ ## base-most template, renders layout etc.
+<html>
+<head>
+ ## traverse through all namespaces present,
+ ## look for a %def named 'includes'
+% for ns in context.namespaces.values():
+    % if hasattr(ns, 'includes'):
+        ${ns.includes()}
+    % endif
+% endfor
+</head>
+<body>
+${next.body()}
+</body
+</html></p>
+
+<p>## library.mako
+ ## library functions.</p>
+
+<p>&lt;%def name="includes()">
+    <link rel="stylesheet" type="text/css" href="mystyle.css"/>
+    <script type="text/javascript" src="functions.js"></script>
+</%def></p>
+
+<p>&lt;%def name="mytag()">
+    <form>
+        ${caller.body()}
+    </form>
+</%def></p>
+
+<p>## index.mako
+ ## calling template.
+&lt;%inherit file="base.mako"/>
+&lt;%namespace name="foo" file="library.mako"/></p>
+
+<p>&lt;%foo:mytag>
+    a form
+</%foo:mytag>
+```</p>
+
+<h3>API Reference</h3>
+
+<p>See more details <a href="http://docs.makotemplates.org/en/latest/namespaces.html#the-body-method">here</a></p>
