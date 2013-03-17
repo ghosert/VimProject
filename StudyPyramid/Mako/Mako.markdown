@@ -629,7 +629,7 @@ You don't have to stick to calling just the body() function. The caller can defi
     </div>
 </%def>
 
-\#\# calls the layout def
+ ## calls the layout def
 <%self:layout>
     <%def name="header()">
         I am the header
@@ -886,7 +886,7 @@ Accessing them without `__len__` will raise a `TypeError`
 
 #### Cycling
 
-Cycling is available regardless of whether the iterable you’re using provides a __len__ method.
+Cycling is available regardless of whether the iterable you're using provides a __len__ method.
 
 ```
 <ul>
@@ -1096,7 +1096,7 @@ So above, the body might be called as:
 ${self.body(5, y=10, someval=15, delta=7)}
 ```
 
-The Context object also supplies a kwargs accessor, for cases when you’d like to pass along whatever is in the context to a body() callable:
+The Context object also supplies a kwargs accessor, for cases when you'd like to pass along whatever is in the context to a body() callable:
 
 ${next.body(**context.kwargs)}
 
@@ -1104,7 +1104,7 @@ ${next.body(**context.kwargs)}
 
 `local`
 
-The local namespace is basically the namespace for the currently executing template. This means that all of the top level defs defined in your template, as well as your template’s body() function, are also available off of the local namespace.
+The local namespace is basically the namespace for the currently executing template. This means that all of the top level defs defined in your template, as well as your template's body() function, are also available off of the local namespace.
 
 The local namespace is also where properties like uri, filename, and module and the get_namespace method can be particularly useful.
 
@@ -1229,7 +1229,7 @@ See more details [here](http://docs.makotemplates.org/en/latest/namespaces.html#
 
 ## Inheritance
 
-In practice, it looks like this. Here’s a hypothetical inheriting template, index.html:
+In practice, it looks like this. Here's a hypothetical inheriting template, index.html:
 
 ```
  ## index.html
@@ -1263,13 +1263,13 @@ And base.html, the inherited template:
 </html>
 ```
 
-base.html then renders the top part of an HTML document, then invokes the <%block name="header"> block. It invokes the underlying header() function off of a built-in namespace called self (this namespace was first introduced in the Namespaces chapter in self). Since index.html is the topmost template and also defines a block called header, it’s this header block that ultimately gets executed – instead of the one that’s present in base.html.
+base.html then renders the top part of an HTML document, then invokes the <%block name="header"> block. It invokes the underlying header() function off of a built-in namespace called self (this namespace was first introduced in the Namespaces chapter in self). Since index.html is the topmost template and also defines a block called header, it's this header block that ultimately gets executed – instead of the one that's present in base.html.
 
 base.html executes self.body(). The body() function on all template-based namespaces refers to the main body of the template, therefore the main body of index.html is rendered.
 
-When <%block name="header"> is encountered in index.html during the self.body() call, a conditional is checked – does the current inherited template, i.e. base.html, also define this block? If yes, only the one in topmost template `index.html` will be executed.
+When <%block name="header"> is encountered in index.html during the self.body() call, a conditional is checked – does the current inherited template, i.e. base.html, also define this block? If yes, the <%block> is not executed here – the inheritance mechanism knows that the parent template is responsible for rendering this block (and in fact it already has). In other words a block only renders in its basemost scope. Means <%block name="header"> is defined in base.html, so that self.body() will not present <%block name="header"> in index.html.
 
-The footer block is only defined in base.html, so being the topmost definition of footer, it’s the one that executes. If index.html also specified footer, then its version would override that of the base.
+The footer block is only defined in base.html, so being the topmost definition of footer, it's the one that executes. If index.html also specified footer, then its version would override that of the base.
 
 The above, producing:
 
@@ -1290,12 +1290,288 @@ The above, producing:
 ```
 
 ### Nesting Blocks
-kkkkkkkkkkkkkkkkkkk
+
+```
+ ## base.html
+<html>
+    <body>
+        <div class="header">
+            <%block name="header">
+                <h2>
+                    <%block name="title"/>
+                </h2>
+            </%block>
+        </div>
+
+        ${self.body()}
+
+        <div class="footer">
+            <%block name="footer">
+                this is the footer
+            </%block>
+        </div>
+    </body>
+</html>
+```
+
+The inheriting template can name either or both of header and title, separately or nested themselves:
+
+```
+ ## index.html
+<%inherit file="base.html"/>
+
+<%block name="header">
+    this is some header content
+    ${parent.header()}
+</%block>
+
+<%block name="title">
+    this is the title
+</%block>
+
+this is the body content.
+```
+
+Note when we overrode header, we added an extra call ${parent.header()} in order to invoke the parent's header block in addition to our own.
+
+### Rendering a Named Block Multiple Times
+
+Recall from the section Using Blocks that a named block is just like a <%def>, with some different usage rules.
+
+```
+ ## base.html
+<html>
+    <head>
+        <title>${self.title()}</title>
+    </head>
+    <body>
+    <%block name="header">
+        <h2><%block name="title"/></h2>
+    </%block>
+    ${self.body()}
+    </body>
+</html>
+```
+
+Where above an inheriting template can define `<%block name="title">` just once, and it will be used in the base template both in the `<title>` section as well as the `<h2>`.
+
+### But what about Defs?
+
+`<%block>` is more streamlined compared with `<%def>`, we should prefer `<%block>` to `<%def>`, if you do want to see `<%def>` sample, here is it:
+
+```
+ ## index.html
+<%inherit file="base.html"/>
+
+<%def name="header()">
+    this is some header content
+</%def>
+
+this is the body content.
+```
+
+And base.html, the inherited template:
+
+```
+ ## base.html
+<html>
+    <body>
+        <div class="header">
+            ${self.header()}
+        </div>
+
+        ${self.body()}
+
+        <div class="footer">
+            ${self.footer()}
+        </div>
+    </body>
+</html>
+
+<%def name="header()"/>
+<%def name="footer()">
+    this is the footer
+</%def>
+```
+
+Above, we illustrate that defs differ from blocks in that their definition and invocation are defined in two separate places, instead of at once(blocks is at once). You can almost do exactly what a block does if you put the two together:
+
+```
+<div class="header">
+    <%def name="header()"></%def>${self.header()}
+</div>
+```
+
+See more details on [`But what about Defs?`](http://docs.makotemplates.org/en/latest/inheritance.html#rendering-a-named-block-multiple-times) ..., since in most case, Blocks could replace Defs, we are not going to care too much on the rest of this section.
 
 
+### Using the `next` Namespace to Produce Content Wrapping
+
+```
+ ## base.html
+<html>
+    <body>
+        <div class="header">
+            <%block name="header"/>
+        </div>
+
+        ${next.body()}
+
+        <div class="footer">
+            <%block name="footer">
+                this is the footer
+            </%block>
+        </div>
+    </body>
+</html>
+```
+
+Lets also add an intermediate template called layout.html, which inherits from base.html:
+
+```
+ ## layout.html
+<%inherit file="base.html"/>
+<ul>
+    <%block name="toolbar">
+        <li>selection 1</li>
+        <li>selection 2</li>
+        <li>selection 3</li>
+    </%block>
+</ul>
+<div class="mainlayout">
+    ${next.body()}
+</div>
+```
+
+And finally change index.html to inherit from layout.html instead:
+
+```
+ ## index.html
+<%inherit file="layout.html"/>
+
+<%def name="header()">
+    this is some header content
+</%def>
+
+this is the body content.
+```
+
+In this setup, each call to next.body() will render the body of the next template in the inheritance chain (which can be written as base.html -> layout.html -> index.html). Control is still first passed to the bottommost template base.html, and self still references the topmost definition of any particular def.
+
+The output we get would be:
+
+```
+<html>
+    <body>
+        <div class="header">
+            this is some header content
+        </div>
+
+        <ul>
+            <li>selection 1</li>
+            <li>selection 2</li>
+            <li>selection 3</li>
+        </ul>
+
+        <div class="mainlayout">
+        this is the body content.
+        </div>
+
+        <div class="footer">
+            this is the footer
+        </div>
+    </body>
+</html>
+```
+
+Without the `next` namespace, only the main body of index.html could be used; there would be no way to call layout.html's body content.
 
 
+### Using the parent Namespace to Augment Defs
 
+The opposite of next called parent. Let's modify `index.html` above to augment the list of selections provided by the `toolbar` function in `layout.html`:
+
+```
+ ## index.html
+<%inherit file="layout.html"/>
+
+<%block name="header">
+    this is some header content
+</%block>
+
+<%block name="toolbar">
+    ## call the parent's toolbar first
+    ${parent.toolbar()}
+    <li>selection 4</li>
+    <li>selection 5</li>
+</%block>
+
+this is the body content.
+```
+
+Above, we implemented a toolbar() function, which is meant to override the definition of toolbar within the inherited template layout.html. However, since we want the content from that of layout.html as well, we call it via the parent namespace whenever we want it's content, in this case before we add our own selections. So the output for the whole thing is now:
+
+```
+<html>
+    <body>
+        <div class="header">
+            this is some header content
+        </div>
+
+        <ul>
+            <li>selection 1</li>
+            <li>selection 2</li>
+            <li>selection 3</li>
+            <li>selection 4</li>
+            <li>selection 5</li>
+        </ul>
+
+        <div class="mainlayout">
+        this is the body content.
+        </div>
+
+        <div class="footer">
+            this is the footer
+        </div>
+    </body>
+</html>
+```
+
+and you're now a template inheritance ninja!
+
+
+### Inheritable Attributes
+
+The `attr` accessor of the `Namespace` object allows access to module level variables declared in a template. By accessing `self.attr`, you can access regular attributes from the inheritance chain as declared in `<%! %>` sections. Such as:
+
+```
+<%!
+    class_ = "grey"
+%>
+
+<div class="${self.attr.class_}">
+    ${self.body()}
+</div>
+```
+
+If an inheriting template overrides class_ to be "white", as in:
+
+```
+<%!
+    class_ = "white"
+%>
+<%inherit file="parent.html"/>
+
+This is the body
+```
+
+you'll get output like:
+
+```
+<div class="white">
+    This is the body
+</div>
+```
 
 
 
