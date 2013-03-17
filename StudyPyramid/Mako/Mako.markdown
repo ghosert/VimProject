@@ -981,7 +981,7 @@ Heres comp1:  ${comp1()}
 Heres comp2:  ${comp2(x=5)}
 ```
 
-import also supports the “*” operator:
+import also supports the "*" operator:
 
 ```
 <%namespace file="components.html" import="*"/>
@@ -1573,6 +1573,334 @@ you'll get output like:
 </div>
 ```
 
+## Filtering and Buffering
 
+### Expression Filtering
+
+u, h, x, trim, entity, unicode, decode.<some encoding>(decode.utf8), n(disable all default filtering, only local expression tag will be applied, see below)
+
+```
+${" <tag>some value</tag> " | h,trim}
+```
+
+produces:
+
+```
+&lt;tag&gt;some value&lt;/tag&gt;
+```
+
+Make your own filters:
+
+```
+<%!
+    def myescape(text):
+        return "<TAG>" + text + "</TAG>"
+%>
+
+Here's some tagged text: ${"text" | myescape}
+```
+
+Or from any Python module:
+
+```
+<%!
+    import myfilters
+%>
+```
+
+Here's some tagged text: ${"text" | myfilters.tagfilter}
+
+A page can apply a default set of filters to all expression tags using the `expression_filter` argument to the `%page` tag:
+
+```
+<%page expression_filter="h"/>
+
+Escaped text:  ${"<html>some html</html>"}
+```
+
+Result:
+
+```
+Escaped text: &lt;html&gt;some html&lt;/html&gt;
+```
+
+### The `default_filters` Argument
+
+The `default_filters` argument to both `Template` and `TemplateLookup` can specify filtering for all expression tags at programmatic level.
+
+```
+t = TemplateLookup(directories=['/tmp'], default_filters=['unicode', 'decode.utf8'])
+```
+
+Since it's not the main focus on programmatic level, skip the rest of this section first.
+
+### Turning off Filtering with the `n` Filter
+
+In all cases the special `n` filter, used locally within an expression, will disable all filters declared in the `<%page>` tag as well as in `default_filters`. Such as:
+
+```
+${'myexpression' | n}
+```
+
+will render `myexpression` with no filtering of any kind, and:
+
+```
+${'myexpression' | n,trim}
+```
+
+will render `myexpression` using the `trim` filter only.
+
+### Filtering Defs and Blocks
+
+For the %def and %block tags have an argument called `filter`:
+
+<%def name="foo()" filter="h, trim">
+    <b>this is bold</b>
+</%def>
+
+When the `filter` attribute is applied to a def as above, the def is automatically **buffered** as well. This is described next.
+
+### Buffering
+
+One of Mako's central design goals is speed, all of the textual content within a template and its various callables is by default piped directly to the single buffer that is stored within the Context object.
+
+But this will have side effect like this:
+
+```
+<%def name="somedef()">
+    somedef's results
+</%def>
+```
+
+```
+${" results " + somedef() + " more results "}
+```
+
+the above template would produce this output:
+
+```
+somedef's results results more results
+```
+
+This is because somedef() fully executes before the expression returns the results of its concatenation; the concatenation in turn receives just the empty string as its middle expression.
+
+Mako provides two ways to work around this. One is by applying buffering to the %def itself:
+
+```
+<%def name="somedef()" buffered="True">
+    somedef's results
+</%def>
+```
+
+Note that the filter argument on %def also causes the def to be buffered.
+
+The other way to buffer the output of a def or any Mako callable is by using the built-in capture function. This function performs an operation similar to the above buffering operation except it is specified by the caller.
+
+```
+${" results " + capture(somedef) + " more results "}
+```
+
+To send arguments to the function, just send them to capture instead:
+
+```
+${capture(somedef, 17, 'hi', use_paging=True)}
+```
+
+The above call is equivalent to the unbuffered call:
+
+```
+${somedef(17, 'hi', use_paging=True)}
+```
+
+### Decorating
+
+The original intent of this function is to allow the creation of custom cache logic, but there may be other uses as well.
+
+decorator is intended to be used with a regular Python function, such as one defined in a library module. Here we'll illustrate the python function defined in the template for simplicities' sake:
+
+```
+<%!
+    def bar(fn):
+        def decorate(context, *args, **kw):
+            context.write("BAR")
+            fn(*args, **kw)
+            context.write("BAR")
+            return ''
+        return decorate
+%>
+
+<%def name="foo()" decorator="bar">
+    this is foo
+</%def>
+
+${foo()}
+```
+
+The above template will return "BAR this is foo BAR". The `fun` function is the render callable itself and by default will write to the context like `context.write('this is foo')`.
+
+To capture its output, use the capture() callable in the mako.runtime module (available in templates as just runtime):
+
+```
+<%!
+    def bar(fn):
+        def decorate(context, *args, **kw):
+            return "BAR" + runtime.capture(context, fn, *args, **kw) + "BAR"
+        return decorate
+%>
+
+<%def name="foo()" decorator="bar">
+    this is foo
+</%def>
+
+${foo()}
+```
+
+The result outputs by `return` clause above instead of writing the out to context like `context.write('BAR this is foo BAR')`.
+
+The decorator can be used with top-level defs as well as nested defs, and blocks too.
+
+
+## The Unicode Chapter
+
+Skip this chapter for now since most notions coming from python unicode, read more on [here](http://docs.makotemplates.org/en/latest/unicode.html)
+
+
+## Caching
+
+Any template or component can be cached using the cache argument to the <%page>, <%def> or <%block> directives:
+
+```
+<%page cached="True"/>
+
+template text
+```
+
+By default, caching requires that the Beaker package be installed on the system, however the mechanism of caching can be customized to use any third party or user defined system – see Cache Plugins.
+
+The caching flag on <%def> tag:
+
+```
+<%def name="mycomp" cached="True" cache_timeout="60">
+    other text
+</%def>
+```
+
+... and equivalently with the <%block> tag, anonymous or named:
+
+```
+<%block cached="True" cache_timeout="60">
+    other text
+</%block>
+```
+
+### Cache Arguments
+
+**Go through this quickly, it's NICE TO HAVE chapter.**
+
+Mako has two cache arguments available on tags that are available in all cases. The rest of the arguments available are specific to a backend.
+
+The two generic tags arguments are:
+
+* cached="True" - enable caching for this <%page>, <%def>, or <%block>.
+* cache_key - the "key" used to uniquely identify this content in the cache. Usually, this key is chosen automatically based on the name of the rendering callable. Using the cache_key parameter, the key can be overridden using a fixed or programmatically generated value.
+
+    For example, here's a page that caches any page which inherits from it, based on the filename of the calling template:
+
+	```
+    <%page cached="True" cache_key="${self.filename}"/>
+
+    ${next.body()}
+
+     ## rest of template
+	```
+
+On a Template or TemplateLookup, the caching can be configured using these arguments:
+
+* cache_eabnled
+* cache_impl
+* cache_args
+
+See details [here](http://docs.makotemplates.org/en/latest/caching.html)
+
+
+### Backend-Specific Cache Arguments
+
+The <%page>, <%def>, and <%block> tags accept any named argument that starts with the prefix "cache_". Those arguments are then packaged up and passed along to the underlying caching implementation, minus the "cache_" prefix.
+
+#### Using the Beaker Cache Backend
+
+When using Beaker, new implementations will want to make usage of cache regions so that cache configurations can be maintained externally to templates. These configurations live under named "regions" that can be referred to within templates themselves.
+
+For example, suppose we would like two regions. One is a "short term" region that will store content in a memory-based dictionary, expiring after 60 seconds. The other is a Memcached region, where values should expire in five minutes. To configure our TemplateLookup, first we get a handle to a beaker.cache.CacheManager:
+
+```
+from beaker.cache import CacheManager
+
+manager = CacheManager(cache_regions={
+    'short_term':{
+        'type': 'memory',
+        'expire': 60
+    },
+    'long_term':{
+        'type': 'ext:memcached',
+        'url': '127.0.0.1:11211',
+        'expire': 300
+    }
+})
+
+lookup = TemplateLookup(
+                directories=['/path/to/templates'],
+                module_directory='/path/to/modules',
+                cache_impl='beaker',
+                cache_args={
+                    'manager':manager
+                }
+        )
+
+```
+Our templates can then opt to cache data in one of either region, using the cache_region argument. Such as using short_term at the <%page> level:
+
+```
+<%page cached="True" cache_region="short_term">
+
+ ## ...
+```
+
+Or, long_term at the <%block> level:
+
+```
+<%block name="header" cached="True" cache_region="long_term">
+    other text
+</%block>
+```
+
+The Beaker backend also works without regions. There are a variety of arguments that can be passed to the cache_args dictionary, which are also allowable in templates via the <%page>, <%block>, and <%def> tags specific to those sections. The values given override those specified at the TemplateLookup or Template level.
+
+With the possible exception of **cache_timeout**, these arguments are probably better off staying at the template configuration level. Each argument specified as **cache_XYZ** in a template tag is specified without the **cache_** prefix in the **cache_args** dictionary:
+
+* cache_timeout - number of seconds in which to invalidate the cached data. After this timeout, the content is re-generated on the next call. Available as timeout in the cache_args dictionary.
+* cache_type - type of caching. 'memory', 'file', 'dbm', or 'ext:memcached' (note that the string memcached is also accepted by the dogpile.cache Mako plugin, though not by Beaker itself). Available as type in the cache_args dictionary.
+* cache_url - (only used for memcached but required) a single IP address or a semi-colon separated list of IP address of memcache servers to use. Available as url in the cache_args dictionary.
+* cache_dir - in the case of the 'file' and 'dbm' cache types, this is the filesystem directory with which to store data files. If this option is not present, the value of module_directory is used (i.e. the directory where compiled template modules are stored). If neither option is available an exception is thrown. Available as dir in the cache_args dictionary.
+
+#### Using the dogpile.cache Backend
+
+dogpile.cache is a new replacement for Beaker. It provides a modernized, slimmed down interface and is generally easier to use than Beaker. As of this writing it has not yet been released. dogpile.cache includes its own Mako cache plugin --- see dogpile.cache.plugins.mako_cache in the dogpile.cache documentation.
+
+### Programmatic Cache Access
+
+See details [here](http://docs.makotemplates.org/en/latest/caching.html)
+
+### Cache Plugins
+
+See details [here](http://docs.makotemplates.org/en/latest/caching.html)
+
+### Guidelines for Writing Cache Plugins
+
+See details [here](http://docs.makotemplates.org/en/latest/caching.html)
+
+### API Reference
+
+See details [here](http://docs.makotemplates.org/en/latest/caching.html)
 
 
