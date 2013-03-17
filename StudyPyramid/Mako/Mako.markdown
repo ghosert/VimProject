@@ -1767,6 +1767,8 @@ Skip this chapter for now since most notions coming from python unicode, read mo
 
 ## Caching
 
+**Go through this quickly, it's NICE TO HAVE chapter.**
+
 Any template or component can be cached using the cache argument to the <%page>, <%def> or <%block> directives:
 
 ```
@@ -1794,8 +1796,6 @@ The caching flag on <%def> tag:
 ```
 
 ### Cache Arguments
-
-**Go through this quickly, it's NICE TO HAVE chapter.**
 
 Mako has two cache arguments available on tags that are available in all cases. The rest of the arguments available are specific to a backend.
 
