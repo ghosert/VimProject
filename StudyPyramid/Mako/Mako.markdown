@@ -1,3 +1,14 @@
+# Table of Contents
+## Usage
+## Syntax
+## Defs and Blocks
+## The Mako Runtime Environment
+## Namespaces
+## Inheritance
+## Filtering and Buffering
+## The Unicode Chapter
+## Caching
+
 ## Usage
 
 **If you are using web framework like Pyramid, you can skip this 'Usage' section, otherwise, you'd like to generate you own html by Mako, check this section. See samples in ./test_mako.py**
