@@ -101,8 +101,10 @@ TemplateLookup will look for templates in the `/docs` directory, and will store 
 
 **3. Setting the Collection Size**
 
+```
 mylookup = TemplateLookup(directories=['/docs'],
                 module_directory='/tmp/mako_modules', collection_size=500)
+```
 
 The above lookup will continue to load templates into memory until it reaches a count of around 500. At that point, it will clean out a certain percentage of templates using a least recently used scheme.
 
@@ -128,7 +130,7 @@ pythagorean theorem:  ${pow(x,2) + pow(y,2)}
 
 ${"this is some text" | u}
 
-The above expression applies URL escaping to the expression, and produces this+is+some+text. The u name indicates URL escaping, whereas h represents HTML escaping, x represents XML escaping, and trim applies a trim function.
+The above expression applies URL escaping to the expression, and produces `this+is+some+text`. The `u` name indicates URL escaping, whereas `h` represents HTML escaping, `x` represents XML escaping, and `trim` applies a trim function.
 
 ### Control Structures
 
@@ -305,7 +307,7 @@ ${myfunc(7)}
 </%block>
 ```
 
-jiawzhang: Not sure what is the `<%block>` for so far, see below for details.
+See more about `<%block>` below for details.
 
 #### `<%namespace>`
 
@@ -413,11 +415,13 @@ The `username` and `accountdata` variables are present within the main template 
 
 Since defs are just Python functions, you can define and pass arguments to them as well:
 
+```
 ${account(accountname='john')}
 
 <%def name="account(accountname, type='regular')">
     account name: ${accountname}, type: ${type}
 </%def>
+```
 
 #### Calling Defs from Other Files
 
@@ -439,7 +443,9 @@ ${mystuff.somedef(x=5,y=7)}
 
 The <%namespace> tag also supports some of the other semantics of Python's import statement, including pulling names into the local variable space, or using * to represent all names, using the import attribute:
 
+```
 <%namespace file="mystuff.html" import="foo, bar"/>
+```
 
 #### Calling Defs Programmatically
 
@@ -786,7 +792,7 @@ Note above that named blocks don't have any argument declaration the way defs do
 </div>
 ```
 
-The content referenced by pagecontrol above will be rendered both above and below the <table> tags.
+The content referenced by pagecontrol above will be rendered both above and below the `<table>` tags.
 
 <%block> name should be unique to other <%block> and top level <%def>
 A named <%block> cannot be defined within a <%def>, or inside the body of a "call", i.e. <%call> or <%namespacename:defname> tag. Anonymous blocks can, however.
@@ -807,7 +813,7 @@ Using arguments with the <%page> tag is described in the section [The body() Met
 </span>
 ```
 
-Where above, if the template is called via a directive like <%include file="post.mako" args="post=post" />, the post variable is available both in the main body as well as the post_prose block.
+Where above, if the template is called via a directive like `<%include file="post.mako" args="post=post" />`, the post variable is available both in the main body as well as the post_prose block.
 
 Similarly, the **pageargs variable is present, in named blocks only, for those arguments not explicit in the <%page> tag:
 
