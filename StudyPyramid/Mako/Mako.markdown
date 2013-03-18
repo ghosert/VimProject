@@ -1,13 +1,13 @@
 ## Table of Contents
-### [Usage](/#usage-1)
-### Syntax
-### Defs and Blocks
-### The Mako Runtime Environment
-### Namespaces
-### Inheritance
-### Filtering and Buffering
-### The Unicode Chapter
-### Caching
+### [Usage](#usage-1)
+### [Syntax](#syntax-1)
+### [Defs and Blocks](#defs-and-blocks-1)
+### [The Mako Runtime Environment](#the-mako-runtime-environment-1)
+### [Namespaces](#namespaces-1)
+### [Inheritance](#inheritance-1)
+### [Filtering and Buffering](#filtering-and-buffering-1)
+### [The Unicode Chapter](#the-unicode-chapter-1)
+### [Caching](#caching-1)
 
 ## Usage
 
