@@ -1096,7 +1096,7 @@ def my</em>tag(context):
     return ''
 ```</p>
 
-<p>Capturing of output is available as well like this:</p>
+<p>Capturing of output is available as well like this, the below has the same effect like the above.</p>
 
 <p>```
 from mako.runtime import supports_caller, capture</p>
@@ -1125,17 +1125,17 @@ ${stuff.comp1()}
 
 <p><code>
  ## base.html
-&lt;%page args="x, y, someval=8, scope='foo', **kwargs"/&gt;
+${self.body(5, y=10, someval=15, delta=7)}
 </code></p>
 
 <p>So above, the body might be called as:</p>
 
 <p>```
  ## somefile.html
-&lt;%inherit file="base.html"/></p>
+&lt;%inherit file="base.html"/>
+&lt;%page args="x, y, someval=8, scope='foo', **kwargs"/></p>
 
-<p>${self.body(5, y=10, someval=15, delta=7)}
-```</p>
+<p>```</p>
 
 <p>The Context object also supplies a kwargs accessor, for cases when you'd like to pass along whatever is in the context to a body() callable:</p>
 
@@ -1712,11 +1712,13 @@ ${'myexpression' | n,trim}
 
 <h3>Filtering Defs and Blocks</h3>
 
-<p>For the %def and %block tags have an argument called <code>filter</code>:</p>
+<p>For the <code>%def</code> and <code>%block</code> tags have an argument called <code>filter</code>:</p>
 
-<p>&lt;%def name="foo()" filter="h, trim">
-    <b>this is bold</b>
-</%def></p>
+<p><code>
+&lt;%def name="foo()" filter="h, trim"&gt;
+    &lt;b&gt;this is bold&lt;/b&gt;
+&lt;/%def&gt;
+</code></p>
 
 <p>When the <code>filter</code> attribute is applied to a def as above, the def is automatically <strong>buffered</strong> as well. This is described next.</p>
 
@@ -1752,7 +1754,7 @@ somedef's results results more results
 &lt;/%def&gt;
 </code></p>
 
-<p>Note that the filter argument on %def also causes the def to be buffered.</p>
+<p><strong>Note that the filter argument on %def also causes the def to be buffered.</strong></p>
 
 <p>The other way to buffer the output of a def or any Mako callable is by using the built-in capture function. This function performs an operation similar to the above buffering operation except it is specified by the caller.</p>
 
