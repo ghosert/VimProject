@@ -1713,7 +1713,7 @@ Mako provides two ways to work around this. One is by applying buffering to the 
 </%def>
 ```
 
-**Note that the filter argument on %def also causes the def to be buffered.**
+**Note that the *filter* argument on `%def` also causes the def to be buffered.**
 
 The other way to buffer the output of a def or any Mako callable is by using the built-in capture function. This function performs an operation similar to the above buffering operation except it is specified by the caller.
 

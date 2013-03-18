@@ -110,8 +110,10 @@ from mako.lookup import TemplateLookup</p>
 
 <p><strong>3. Setting the Collection Size</strong></p>
 
-<p>mylookup = TemplateLookup(directories=['/docs'],
-                module<em>directory='/tmp/mako</em>modules', collection_size=500)</p>
+<p><code>
+mylookup = TemplateLookup(directories=['/docs'],
+                module_directory='/tmp/mako_modules', collection_size=500)
+</code></p>
 
 <p>The above lookup will continue to load templates into memory until it reaches a count of around 500. At that point, it will clean out a certain percentage of templates using a least recently used scheme.</p>
 
@@ -136,7 +138,7 @@ pythagorean theorem:  ${pow(x,2) + pow(y,2)}
 
 <p>${"this is some text" | u}</p>
 
-<p>The above expression applies URL escaping to the expression, and produces this+is+some+text. The u name indicates URL escaping, whereas h represents HTML escaping, x represents XML escaping, and trim applies a trim function.</p>
+<p>The above expression applies URL escaping to the expression, and produces <code>this+is+some+text</code>. The <code>u</code> name indicates URL escaping, whereas <code>h</code> represents HTML escaping, <code>x</code> represents XML escaping, and <code>trim</code> applies a trim function.</p>
 
 <h3>Control Structures</h3>
 
@@ -322,7 +324,7 @@ this is a template
 &lt;/%block&gt;
 </code></p>
 
-<p>jiawzhang: Not sure what is the <code>&lt;%block&gt;</code> for so far, see below for details.</p>
+<p>See more about <code>&lt;%block&gt;</code> below for details.</p>
 
 <h4><code>&lt;%namespace&gt;</code></h4>
 
@@ -432,11 +434,13 @@ Hello there ${username}, how are ya.  Lets see what your account says:</p>
 
 <p>Since defs are just Python functions, you can define and pass arguments to them as well:</p>
 
-<p>${account(accountname='john')}</p>
+<p>```
+${account(accountname='john')}</p>
 
 <p>&lt;%def name="account(accountname, type='regular')">
     account name: ${accountname}, type: ${type}
-</%def></p>
+</%def>
+```</p>
 
 <h4>Calling Defs from Other Files</h4>
 
@@ -458,7 +462,9 @@ ${mystuff.somedef(x=5,y=7)}
 
 <p>The &lt;%namespace> tag also supports some of the other semantics of Python's import statement, including pulling names into the local variable space, or using * to represent all names, using the import attribute:</p>
 
-<p>&lt;%namespace file="mystuff.html" import="foo, bar"/></p>
+<p><code>
+&lt;%namespace file="mystuff.html" import="foo, bar"/&gt;
+</code></p>
 
 <h4>Calling Defs Programmatically</h4>
 
@@ -822,7 +828,7 @@ Body data: ${col}\
 
 <p>```</p>
 
-<p>The content referenced by pagecontrol above will be rendered both above and below the <table> tags.</p>
+<p>The content referenced by pagecontrol above will be rendered both above and below the <code>&lt;table&gt;</code> tags.</p>
 
 <p>&lt;%block> name should be unique to other &lt;%block> and top level &lt;%def>
 A named &lt;%block> cannot be defined within a &lt;%def>, or inside the body of a "call", i.e. &lt;%call> or &lt;%namespacename:defname> tag. Anonymous blocks can, however.</p>
@@ -843,7 +849,7 @@ A named &lt;%block> cannot be defined within a &lt;%def>, or inside the body of 
 </span>
 ```</p>
 
-<p>Where above, if the template is called via a directive like &lt;%include file="post.mako" args="post=post" />, the post variable is available both in the main body as well as the post_prose block.</p>
+<p>Where above, if the template is called via a directive like <code>&lt;%include file="post.mako" args="post=post" /&gt;</code>, the post variable is available both in the main body as well as the post_prose block.</p>
 
 <p>Similarly, the **pageargs variable is present, in named blocks only, for those arguments not explicit in the &lt;%page> tag:</p>
 
@@ -1776,7 +1782,7 @@ somedef's results results more results
 &lt;/%def&gt;
 </code></p>
 
-<p><strong>Note that the filter argument on %def also causes the def to be buffered.</strong></p>
+<p><strong>Note that the <em>filter</em> argument on <code>%def</code> also causes the def to be buffered.</strong></p>
 
 <p>The other way to buffer the output of a def or any Mako callable is by using the built-in capture function. This function performs an operation similar to the above buffering operation except it is specified by the caller.</p>
 
