@@ -9,7 +9,7 @@
 ### [The Unicode Chapter](#the-unicode-chapter-1)
 ### [Caching](#caching-1)
 
-## Usage
+## [Usage](#usage)
 
 **If you are using web framework like Pyramid, you can skip this 'Usage' section, otherwise, you'd like to generate you own html by Mako, check this section. See samples in ./test_mako.py**
 
@@ -107,7 +107,7 @@ The above lookup will continue to load templates into memory until it reaches a 
 Skip the rest of the part, if you do need to refer to it, check out: http://docs.makotemplates.org/en/latest/usage.html#basic-usage
 
 
-## Syntax
+## [Syntax](#syntax)
 
 ### Expression Substitution
 
@@ -372,7 +372,7 @@ Or perhaps:
 %>
 ```
 
-## Defs and Blocks
+## [Defs and Blocks](#defs-and-blocks)
 
 Whereas <%def> provides a construct that is very much like a named Python def, the <%block> is more layout oriented.
 
@@ -818,7 +818,7 @@ Similarly, the **pageargs variable is present, in named blocks only, for those a
 The args attribute is only allowed with named blocks. With anonymous blocks, the Python function is always rendered in the same scope as the call itself, so anything available directly outside the anonymous block is available inside as well.
 
 
-## The Mako Runtime Environment
+## [The Mako Runtime Environment](#the-mako-runtime-environment)
 
 ### Context
 
@@ -958,7 +958,7 @@ See more details [here](http://docs.makotemplates.org/en/latest/runtime.html)
 See more details [here](http://docs.makotemplates.org/en/latest/runtime.html)
 
 
-## Namespaces
+## [Namespaces](#namespaces)
 
 If the file components.html defines these two defs:
 
@@ -1238,7 +1238,7 @@ ${next.body()}
 See more details [here](http://docs.makotemplates.org/en/latest/namespaces.html#the-body-method)
 
 
-## Inheritance
+## [Inheritance](#inheritance)
 
 In practice, it looks like this. Here's a hypothetical inheriting template, index.html:
 
@@ -1584,7 +1584,7 @@ you'll get output like:
 </div>
 ```
 
-## Filtering and Buffering
+## [Filtering and Buffering](#filtering-and-buffering)
 
 ### Expression Filtering
 
@@ -1771,12 +1771,12 @@ The result outputs by `return` clause above instead of writing the out to contex
 The decorator can be used with top-level defs as well as nested defs, and blocks too.
 
 
-## The Unicode Chapter
+## [The Unicode Chapter](#the-unicode-chapter)
 
 Skip this chapter for now since most notions coming from python unicode, read more on [here](http://docs.makotemplates.org/en/latest/unicode.html)
 
 
-## Caching
+## [Caching](#caching)
 
 **Go through this quickly, it's NICE TO HAVE chapter.**
 
