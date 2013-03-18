@@ -9,6 +9,8 @@
 ### [The Unicode Chapter](#the-unicode-chapter-1)
 ### [Caching](#caching-1)
 
+## Contents
+
 ## [Usage](#usage)
 
 **If you are using web framework like Pyramid, you can skip this 'Usage' section, otherwise, you'd like to generate you own html by Mako, check this section. See samples in ./test_mako.py**
