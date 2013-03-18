@@ -1,4 +1,26 @@
-<h2>Usage</h2>
+<h2>Table of Contents</h2>
+
+<h3><a href="#usage-1">Usage</a></h3>
+
+<h3><a href="#syntax-1">Syntax</a></h3>
+
+<h3><a href="#defs-and-blocks-1">Defs and Blocks</a></h3>
+
+<h3><a href="#the-mako-runtime-environment-1">The Mako Runtime Environment</a></h3>
+
+<h3><a href="#namespaces-1">Namespaces</a></h3>
+
+<h3><a href="#inheritance-1">Inheritance</a></h3>
+
+<h3><a href="#filtering-and-buffering-1">Filtering and Buffering</a></h3>
+
+<h3><a href="#the-unicode-chapter-1">The Unicode Chapter</a></h3>
+
+<h3><a href="#caching-1">Caching</a></h3>
+
+<h2>Contents</h2>
+
+<h2><a href="#usage">Usage</a></h2>
 
 <p><strong>If you are using web framework like Pyramid, you can skip this 'Usage' section, otherwise, you'd like to generate you own html by Mako, check this section. See samples in ./test_mako.py</strong></p>
 
@@ -95,7 +117,7 @@ from mako.lookup import TemplateLookup</p>
 
 <p>Skip the rest of the part, if you do need to refer to it, check out: http://docs.makotemplates.org/en/latest/usage.html#basic-usage</p>
 
-<h2>Syntax</h2>
+<h2><a href="#syntax">Syntax</a></h2>
 
 <h3>Expression Substitution</h3>
 
@@ -369,7 +391,7 @@ this is a template
 %&gt;
 </code></p>
 
-<h2>Defs and Blocks</h2>
+<h2><a href="#defs-and-blocks">Defs and Blocks</a></h2>
 
 <p>Whereas &lt;%def> provides a construct that is very much like a named Python def, the &lt;%block> is more layout oriented.</p>
 
@@ -833,7 +855,7 @@ A named &lt;%block> cannot be defined within a &lt;%def>, or inside the body of 
 
 <p>The args attribute is only allowed with named blocks. With anonymous blocks, the Python function is always rendered in the same scope as the call itself, so anything available directly outside the anonymous block is available inside as well.</p>
 
-<h2>The Mako Runtime Environment</h2>
+<h2><a href="#the-mako-runtime-environment">The Mako Runtime Environment</a></h2>
 
 <h3>Context</h3>
 
@@ -988,7 +1010,7 @@ Accessing them without <code>__len__</code> will raise a <code>TypeError</code><
 
 <p>See more details <a href="http://docs.makotemplates.org/en/latest/runtime.html">here</a></p>
 
-<h2>Namespaces</h2>
+<h2><a href="#namespaces">Namespaces</a></h2>
 
 <p>If the file components.html defines these two defs:</p>
 
@@ -1268,7 +1290,7 @@ ${next.body()}
 
 <p>See more details <a href="http://docs.makotemplates.org/en/latest/namespaces.html#the-body-method">here</a></p>
 
-<h2>Inheritance</h2>
+<h2><a href="#inheritance">Inheritance</a></h2>
 
 <p>In practice, it looks like this. Here's a hypothetical inheriting template, index.html:</p>
 
@@ -1633,7 +1655,7 @@ ${next.body()}
 
 <p>```</p>
 
-<h2>Filtering and Buffering</h2>
+<h2><a href="#filtering-and-buffering">Filtering and Buffering</a></h2>
 
 <h3>Expression Filtering</h3>
 
@@ -1821,11 +1843,11 @@ ${somedef(17, 'hi', use_paging=True)}
 
 <p>The decorator can be used with top-level defs as well as nested defs, and blocks too.</p>
 
-<h2>The Unicode Chapter</h2>
+<h2><a href="#the-unicode-chapter">The Unicode Chapter</a></h2>
 
 <p>Skip this chapter for now since most notions coming from python unicode, read more on <a href="http://docs.makotemplates.org/en/latest/unicode.html">here</a></p>
 
-<h2>Caching</h2>
+<h2><a href="#caching">Caching</a></h2>
 
 <p><strong>Go through this quickly, it's NICE TO HAVE chapter.</strong></p>
 

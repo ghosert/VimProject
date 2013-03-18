@@ -1,4 +1,17 @@
-## Usage
+## Table of Contents
+### [Usage](#usage-1)
+### [Syntax](#syntax-1)
+### [Defs and Blocks](#defs-and-blocks-1)
+### [The Mako Runtime Environment](#the-mako-runtime-environment-1)
+### [Namespaces](#namespaces-1)
+### [Inheritance](#inheritance-1)
+### [Filtering and Buffering](#filtering-and-buffering-1)
+### [The Unicode Chapter](#the-unicode-chapter-1)
+### [Caching](#caching-1)
+
+## Contents
+
+## [Usage](#usage)
 
 **If you are using web framework like Pyramid, you can skip this 'Usage' section, otherwise, you'd like to generate you own html by Mako, check this section. See samples in ./test_mako.py**
 
@@ -88,15 +101,17 @@ TemplateLookup will look for templates in the `/docs` directory, and will store 
 
 **3. Setting the Collection Size**
 
+```
 mylookup = TemplateLookup(directories=['/docs'],
                 module_directory='/tmp/mako_modules', collection_size=500)
+```
 
 The above lookup will continue to load templates into memory until it reaches a count of around 500. At that point, it will clean out a certain percentage of templates using a least recently used scheme.
 
 Skip the rest of the part, if you do need to refer to it, check out: http://docs.makotemplates.org/en/latest/usage.html#basic-usage
 
 
-## Syntax
+## [Syntax](#syntax)
 
 ### Expression Substitution
 
@@ -115,7 +130,7 @@ pythagorean theorem:  ${pow(x,2) + pow(y,2)}
 
 ${"this is some text" | u}
 
-The above expression applies URL escaping to the expression, and produces this+is+some+text. The u name indicates URL escaping, whereas h represents HTML escaping, x represents XML escaping, and trim applies a trim function.
+The above expression applies URL escaping to the expression, and produces `this+is+some+text`. The `u` name indicates URL escaping, whereas `h` represents HTML escaping, `x` represents XML escaping, and `trim` applies a trim function.
 
 ### Control Structures
 
@@ -292,7 +307,7 @@ ${myfunc(7)}
 </%block>
 ```
 
-jiawzhang: Not sure what is the `<%block>` for so far, see below for details.
+See more about `<%block>` below for details.
 
 #### `<%namespace>`
 
@@ -361,7 +376,7 @@ Or perhaps:
 %>
 ```
 
-## Defs and Blocks
+## [Defs and Blocks](#defs-and-blocks)
 
 Whereas <%def> provides a construct that is very much like a named Python def, the <%block> is more layout oriented.
 
@@ -400,11 +415,13 @@ The `username` and `accountdata` variables are present within the main template 
 
 Since defs are just Python functions, you can define and pass arguments to them as well:
 
+```
 ${account(accountname='john')}
 
 <%def name="account(accountname, type='regular')">
     account name: ${accountname}, type: ${type}
 </%def>
+```
 
 #### Calling Defs from Other Files
 
@@ -426,7 +443,9 @@ ${mystuff.somedef(x=5,y=7)}
 
 The <%namespace> tag also supports some of the other semantics of Python's import statement, including pulling names into the local variable space, or using * to represent all names, using the import attribute:
 
+```
 <%namespace file="mystuff.html" import="foo, bar"/>
+```
 
 #### Calling Defs Programmatically
 
@@ -773,7 +792,7 @@ Note above that named blocks don't have any argument declaration the way defs do
 </div>
 ```
 
-The content referenced by pagecontrol above will be rendered both above and below the <table> tags.
+The content referenced by pagecontrol above will be rendered both above and below the `<table>` tags.
 
 <%block> name should be unique to other <%block> and top level <%def>
 A named <%block> cannot be defined within a <%def>, or inside the body of a "call", i.e. <%call> or <%namespacename:defname> tag. Anonymous blocks can, however.
@@ -794,7 +813,7 @@ Using arguments with the <%page> tag is described in the section [The body() Met
 </span>
 ```
 
-Where above, if the template is called via a directive like <%include file="post.mako" args="post=post" />, the post variable is available both in the main body as well as the post_prose block.
+Where above, if the template is called via a directive like `<%include file="post.mako" args="post=post" />`, the post variable is available both in the main body as well as the post_prose block.
 
 Similarly, the **pageargs variable is present, in named blocks only, for those arguments not explicit in the <%page> tag:
 
@@ -807,7 +826,7 @@ Similarly, the **pageargs variable is present, in named blocks only, for those a
 The args attribute is only allowed with named blocks. With anonymous blocks, the Python function is always rendered in the same scope as the call itself, so anything available directly outside the anonymous block is available inside as well.
 
 
-## The Mako Runtime Environment
+## [The Mako Runtime Environment](#the-mako-runtime-environment)
 
 ### Context
 
@@ -947,7 +966,7 @@ See more details [here](http://docs.makotemplates.org/en/latest/runtime.html)
 See more details [here](http://docs.makotemplates.org/en/latest/runtime.html)
 
 
-## Namespaces
+## [Namespaces](#namespaces)
 
 If the file components.html defines these two defs:
 
@@ -1227,7 +1246,7 @@ ${next.body()}
 See more details [here](http://docs.makotemplates.org/en/latest/namespaces.html#the-body-method)
 
 
-## Inheritance
+## [Inheritance](#inheritance)
 
 In practice, it looks like this. Here's a hypothetical inheriting template, index.html:
 
@@ -1573,7 +1592,7 @@ you'll get output like:
 </div>
 ```
 
-## Filtering and Buffering
+## [Filtering and Buffering](#filtering-and-buffering)
 
 ### Expression Filtering
 
@@ -1762,12 +1781,12 @@ The result outputs by `return` clause above instead of writing the out to contex
 The decorator can be used with top-level defs as well as nested defs, and blocks too.
 
 
-## The Unicode Chapter
+## [The Unicode Chapter](#the-unicode-chapter)
 
 Skip this chapter for now since most notions coming from python unicode, read more on [here](http://docs.makotemplates.org/en/latest/unicode.html)
 
 
-## Caching
+## [Caching](#caching)
 
 **Go through this quickly, it's NICE TO HAVE chapter.**
 
