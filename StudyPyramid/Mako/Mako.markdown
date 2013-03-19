@@ -1074,7 +1074,7 @@ def my_tag(context):
     return ''
 ```
 
-Capturing of output is available as well like this:
+Capturing of output is available as well like this, the below has the same effect like the above.
 
 ```
 from mako.runtime import supports_caller, capture
@@ -1103,7 +1103,7 @@ ${stuff.comp1()}
 
 ```
  ## base.html
-<%page args="x, y, someval=8, scope='foo', **kwargs"/>
+${self.body(5, y=10, someval=15, delta=7)}
 ```
 
 So above, the body might be called as:
@@ -1111,8 +1111,8 @@ So above, the body might be called as:
 ```
  ## somefile.html
 <%inherit file="base.html"/>
+<%page args="x, y, someval=8, scope='foo', **kwargs"/>
 
-${self.body(5, y=10, someval=15, delta=7)}
 ```
 
 The Context object also supplies a kwargs accessor, for cases when you'd like to pass along whatever is in the context to a body() callable:
@@ -1671,11 +1671,13 @@ will render `myexpression` using the `trim` filter only.
 
 ### Filtering Defs and Blocks
 
-For the %def and %block tags have an argument called `filter`:
+For the `%def` and `%block` tags have an argument called `filter`:
 
+```
 <%def name="foo()" filter="h, trim">
     <b>this is bold</b>
 </%def>
+```
 
 When the `filter` attribute is applied to a def as above, the def is automatically **buffered** as well. This is described next.
 
@@ -1711,7 +1713,7 @@ Mako provides two ways to work around this. One is by applying buffering to the 
 </%def>
 ```
 
-Note that the filter argument on %def also causes the def to be buffered.
+**Note that the *filter* argument on `%def` also causes the def to be buffered.**
 
 The other way to buffer the output of a def or any Mako callable is by using the built-in capture function. This function performs an operation similar to the above buffering operation except it is specified by the caller.
 
