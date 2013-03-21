@@ -24,6 +24,10 @@ Try on the live site for tutorial when developing:
 9. log file is defined in development.ini and it's located in /var/log/pyramid/server.log
 
 Try on the live site for tutorial on PRODUCTION:
+0. You may need to run the command lines below to make sure all the libs in virtualenv is up to date.
+   cd ~/VimProject/StudyPyramid/MyProject
+   source ~/devenv/bin/activate
+   python setup.py develop
 1. sudo nginx
    To work nginx together with uwsgi. Check out "/usr/local/nginx/conf/nginx.conf" or "~/ProductProject/env-conf/nginx.conf"
 2. uwsgi --ini-paste-logged ~/VimProject/StudyPyramid/MyProject/production.ini
