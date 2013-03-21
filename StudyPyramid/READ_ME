@@ -14,14 +14,15 @@ The two steps above will make sure all the python libs you need is preinstalled.
 Try on the live site for tutorial when developing:
 1. source ~/devenv/bin/activate
 2. cd ~/VimProject/StudyPyramid/MyProject
-3. pserve development.ini --reload
-4. visit http://localhost:6543/
-5. Edit the page to add some words like "\b([A-Z]\w+[A-Z]+\w+)", for example: "SomePage".
-6. Input "viewer"/"viewer" or "editor"/"editor" as username/password if it ask login. "editor" is granted "edit" permission.
-7. "python setup.py test -q" OR "nosetests" OR "nosetests --cover-package=myproject --cover-erase --with-coverage" to run test case in ~/xxx/MyProject folder.
-8. Distributing your application: "python setup.py sdist" this will generate a tarball which can be installed by pointing the "easy_install" command directly at it.
+3. python setup.py develop(optional: if your virtualenv is not up to date, run this)
+4. pserve development.ini --reload
+5. visit http://localhost:6543/
+6. Edit the page to add some words like "\b([A-Z]\w+[A-Z]+\w+)", for example: "SomePage".
+7. Input "viewer"/"viewer" or "editor"/"editor" as username/password if it ask login. "editor" is granted "edit" permission.
+8. "python setup.py test -q" OR "nosetests" OR "nosetests --cover-package=myproject --cover-erase --with-coverage" to run test case in ~/xxx/MyProject folder.
+9. Distributing your application: "python setup.py sdist" this will generate a tarball which can be installed by pointing the "easy_install" command directly at it.
 
-9. log file is defined in development.ini and it's located in /var/log/pyramid/server.log
+10. log file is defined in development.ini and it's located in /var/log/pyramid/server.log
 
 Try on the live site for tutorial on PRODUCTION:
 0. You may need to run the command lines below to make sure all the libs in virtualenv is up to date.
