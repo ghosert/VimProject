@@ -15,7 +15,7 @@ from zope.sqlalchemy import ZopeTransactionExtension
 
 # jiawzhang: We specify that we'd like to use the "ZopeTransactionExtension".
 # jiawzhang: This extension is an extension which allows us to use a transaction manager instead of controlling commits and aborts to database operations by hand.
-# jiawzhang: This works only when you start application in web context: it commits at the end of a request or aborts if there’s an exception.
+# jiawzhang: This works only when you start application in web context: it commits at the end of a request or aborts if there's an exception.
 # jiawzhang: This does not work in unit test or script context, that's why in the file ./tests.py ./scripts/initializedb.py you have to introduce "transaction.manager"
 DBSession = scoped_session(sessionmaker(extension=ZopeTransactionExtension()))
 
