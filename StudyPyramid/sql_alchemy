@@ -507,7 +507,8 @@ Building a Relationship
 	The relationship between the User and Address classes is defined separately using the relationship() function, which defines an attribute user to be placed on the Address class, as well as an addresses collection to be placed on the User class. SQLAlchemy is automatically aware of many-to-one/one-to-many based on foreign keys.
 
 	class User(Base):
-	# ....
+	# .... NOTICE: if you do have defined relationship in Address, you can't define the relationship once again in User like below, otherwise error raised.
+	#              remember to define relationship only in either one side not both sides.
 	addresses = relationship(Address, order_by=Address.id, backref="user")
 
 	[We are also free to not define a backref, and to define the relationship() only on one class and not the other.](means you don't have to have "addresses" defined in class User) It is also possible to define two separate relationship() constructs for either direction, which is generally safe for many-to-one and one-to-many relationships, but not for many-to-many relationships.
