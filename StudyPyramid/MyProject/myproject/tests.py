@@ -10,7 +10,7 @@ def _initTestingDB():
         Base
         )
     # jiawzhang: 'sqlite://' means specify the db persistence as memory.
-    engine = create_engine('sqlite://')
+    engine = create_engine('sqlite://', echo=True)
     Base.metadata.create_all(engine)
     DBSession.configure(bind=engine)
     # jiawzhang: you have to introduce "transaction.manager" here because this is the unit test context instead of the web context, see details in ./models.py
