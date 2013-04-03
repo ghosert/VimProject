@@ -900,7 +900,7 @@ Within `% for` blocks, the reserved name `loop` is available.
 If your iterable provides a `__len__` method, the below two attributes are available:
 
 * loop.reverse_index - a count of iterations remaining
-* loop.last - a bool indicating whether the loop is on its last iteration
+* `loop.last` - a bool indicating whether the loop is on its last iteration
 Accessing them without `__len__` will raise a `TypeError`
 
 #### Cycling
