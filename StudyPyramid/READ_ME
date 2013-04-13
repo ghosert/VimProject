@@ -1114,7 +1114,7 @@ Static Assets
 	Subsequently, you may wire the files that are served by this view up to be accessible as /<filename> using a configuration method in your application’s startup code.
 
 	1 # .. every other add_route declaration should come
-	2 # before this one, as it will, by default, catch all requests
+	2 # before this one, as it will, by default, catch all requests later.
 	3
 	4 config.add_route('catchall_static', '/*subpath', 'myapp.static.static_view')
 
@@ -2469,6 +2469,27 @@ Using Hooks
 	An object of this type is sent as an event just before a renderer is invoked (but after the application-level renderer globals factory added via set_renderer_globals_factory, if any, has injected its own keys into the renderer globals dictionary).
 
 	If a subscriber attempts to add a key that already exist in the renderer globals dictionary, a KeyError is raised. This limitation is enforced because event subscribers do not possess any relative ordering. The set of keys added to the renderer globals dictionary by all pyramid.events.BeforeRender subscribers and renderer globals factories must be unique.
+
+	You can also access dictionary returned by view callable like this:
+
+	Suppose you return {'mykey': 'somevalue', 'mykey2': 'somevalue2'} from your view callable, like so:
+
+	from pyramid.view import view_config
+
+	@view_config(renderer='some_renderer')
+	def myview(request):
+		return {'mykey': 'somevalue', 'mykey2': 'somevalue2'}
+
+	rendering_val can be used to access these values from the BeforeRender object:
+
+	from pyramid.events import subscriber
+	from pyramid.events import BeforeRender
+
+	@subscriber(BeforeRender)
+	def read_return(event):
+		# {'mykey': 'somevalue'} is returned from the view
+		print(event.rendering_val['mykey'])
+
 
 # Using Response Callbacks
 
