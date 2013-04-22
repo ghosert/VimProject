@@ -1468,9 +1468,9 @@ And finally change index.html to inherit from layout.html instead:
  ## index.html
 <%inherit file="layout.html"/>
 
-<%def name="header()">
+<%block name="header">
     this is some header content
-</%def>
+</%block>
 
 this is the body content.
 ```
