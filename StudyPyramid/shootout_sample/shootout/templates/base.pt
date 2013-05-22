@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"	
+      xmlns:metal="http://xml.zope.org/namespaces/metal">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+        <link href="${request.static_url('shootout:static/default.css')}" rel="stylesheet" type="text/css" />
+        <title>Shootout</title>
+    </head>
+    <body>
+        <div id="wrapper">
+            <div id="header">
+                <h1>Shootout</h1>
+                <h2>Pyramid web framework demo app</h2>
+            </div>
+            <div id="menu">
+                <ul>
+                    <li><a href="${request.route_url('main')}">Home</a></li>
+                    <li><a href="${request.route_url('about')}">About this demo</a></li>
+                </ul>
+            </div>
+            <div id="content">
+                <div id="sidebar">
+                    <div tal:replace="structure login_form" />
+                    <div tal:replace="structure cloud" />
+                    <div tal:replace="structure latest" />
+                </div>
+                <div id="main">
+                    <div tal:replace="structure toolbar" />
+                    <div id="message" tal:condition="request.session.peek_flash()">
+                        <p tal:repeat="message request.session.pop_flash()">
+                            ${message}
+                        </p>
+                    </div>
+                    <div id="sections">
+                        <tal:block metal:define-slot="content">
+                        </tal:block>
+                    </div>
+                </div>
+                <div style="clear: both; height: 1px;"></div>
+            </div>
+            <div id="footer">
+                <p>
+                    Copyright &copy; 2010 <a href="http://www.delaguardia.com.mx">Carlos de la Guardia</a> and Łukasz Fidosz.
+                    Powered by <a href="http://docs.pylonshq.com">Pyramid</a>.
+                    Design by <a href="http://www.sumanasa.com/">Sumanasa.com</a>.
+                </p>
+            </div>
+        </div>
+    </body>
+</html>

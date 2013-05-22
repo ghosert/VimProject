@@ -1,0 +1,17 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      metal:use-macro="base">
+
+<tal:block metal:fill-slot="content">
+    <h1>${user.name}</h1>
+    <p>login: <b class="byline">${user.username}</b>.</p>
+    <h3 class="subtitle">Performance</h3>
+    <p>Hits: <b class="hits">${user.hits}</b>.</p>
+    <p>Misses: <b class="misses">${user.misses}</b>.</p>
+    <h3 class="subtitle">Vote history</h3>
+    <p>Hits: <b class="hits">${user.delivered_hits}</b>.</p>
+    <p>Misses: <b class="misses">${user.delivered_misses}</b>.</p>
+</tal:block>
+
+</html>

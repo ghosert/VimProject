@@ -1,0 +1,542 @@
+/* SET MARGIN AND PADDING TO 0 FOR ALL ELEMENTS */
+* {
+margin: 0; padding: 0;
+}
+
+/* SET BASE FONT ATTRUBUTES */
+html, body {
+font: Georgia, "Times New Roman", Times, serif 14px/1.5em;
+color: #000;
+}
+
+/* REMOVE PADDING AND MARGIN VALUES */
+html, body, h1, h2, h3, h4, h5, h6, p, ul, ol, dl, li, dd, dt, img,
+blockquote, q, table, thead, tbody, tfoot, caption, th, tr, td, a, form,
+input, textarea, fieldset, pre
+{margin: 0; padding: 0;}
+
+/* SORT OUT HEADER FORMATTING AND SIZES */
+h1, h2, h3, h4, h5 {font-weight: bold;}
+
+h1 {font-size: 2em;}
+h2 {font-size: 1.75em;}
+h3 {font-size: 1.5em;}
+h4 {font-size: 1.2em;}
+h5 {font-size: 1.1em;}
+h6 {font-size: 1em;}
+
+/* HARMONIZE LINKS, KILL BORDER ON IMG LINKS */
+a {text-decoration: underline;}
+a:link, a:visited {color: #00f;}
+a:hover {color: #33f;}
+a:active {color: #fff;}
+a img, :link img, :visited img {border: none}
+
+/* REMOVE BROWSERS DEFAULT TABLE BORDERS */
+table {border-collapse: collapse;}
+
+/* REMOVE AUTOMATIC TOP/BOTTOM MARGINS ON NESTED LISTS */
+ul ul, ul ol, ul dir, ul menu, ul dl,
+ol ul, ol ol, ol dir, ol menu, ol dl,
+dir ul, dir ol, dir dir, dir menu, dir dl,
+menu ul, menu ol, menu dir, menu menu, menu dl,
+dl ul, dl ol, dl dir, dl menu, dl dl
+{margin-top: 0; margin-bottom: 0;}
+
+/* HARMONISE LIST-BULLET TYPE */
+ul, ol, dl {list-style-type: disc;}
+
+body {
+	background: #666;
+}
+
+body, input, textarea, select {
+	font: normal small "Trebuchet MS", Arial, Helvetica, sans-serif;
+	color: #333;
+	margin: 5px auto;
+}
+
+h1, h2, h3 {
+	margin-bottom: 1em;
+	font-weight: normal;
+	color: #975700;
+}
+
+h1 {
+	font-size: 2.2em;
+}
+
+h2 {
+	font-size: 1.7em;
+}
+
+h3 {
+	font-size: 1em;
+	font-weight: bold;
+}
+
+p, blockquote, ul, ol, form {
+	margin-bottom: 1.5em;
+}
+
+blockquote, ul, ol {
+	margin-left: 3em;
+}
+
+blockquote {
+	margin-right: 3em;
+	font-style: italic;
+}
+
+ul {
+	list-style-type: square;
+}
+
+a {
+	color: #975700;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+a:link, a:visited {color: #975700;}
+
+
+/* Wrapper */
+
+#wrapper {
+	width: 942px;
+	margin: 0px auto;
+	background-color: #FFFFFF;
+}
+
+/* Header */
+
+#header {
+	height: 257px;
+	width: 942px;
+	position: relative;
+	background: #E6CD91 url(images/gun.jpg) no-repeat;
+	margin: 0px auto;
+}
+
+#header h1, #header h2 {
+}
+
+#header h1 {
+	position: absolute;
+	top: 13px;
+	left: 20px;  
+	font-size: 3em;
+	letter-spacing: -2px;
+	text-decoration: none;
+	color: #FFF;
+}
+
+#header h2 {
+	position: absolute;
+	top: 55px;
+	left: 30px;  
+	font-size: 1em;
+	text-decoration: none;
+	color: #FFF;
+}
+
+#header:after {
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+
+/* Menu */
+
+#menu
+{
+	width: 928px;
+	position: absolute;
+	margin: -40px 0;
+}
+
+#menu ul
+{
+	list-style: none;
+	text-align: right;
+	padding: 10px 0px 10px 0px;
+	margin: 0;
+}
+
+#menu li
+{
+	padding: 0em 0.7em 0em 0.7em;
+	display: inline;
+}
+
+#menu li a
+{
+	color: #FFFFFF;
+	font-weight: bold;
+	text-decoration: none;
+	border-bottom: 1px dotted #FFFFFF;
+	font-size: 1.2em;
+}
+
+#menu li a.active
+{
+	border-bottom: 4px solid #FFFFFF;
+}
+
+#menu li a:hover
+{
+	border-bottom: 4px solid #FFFFFF;
+}
+
+/* tags */
+
+.tags {
+}
+
+.tags a {
+        color: #FFFFFF;
+        background-color: #975700;
+        margin: 3px 1px 3px 1px;
+        padding: 1px 3px;
+	text-decoration: none;
+        font-size: 80%;
+}
+
+/* Content */
+
+#content {
+	background: #FFFFFF url(images/bg.gif) repeat-y;
+	border-top: 5px solid #C48C05;
+	border-bottom: 1px solid #C48C05;
+	margin: 0px auto;
+	width: 928px;
+}
+
+/* Blog */
+
+#main {
+	float: right;
+	width: 678px !important;
+	width: 675px; /*IE6 3px problem */
+	margin: 0px auto;
+}
+
+/* Post */
+
+#sections {
+	padding-bottom: 20px;
+}
+
+#sections .title {
+	height: 30px;
+	border-top: 1px solid #C48C05;
+	text-transform: uppercase;
+	font-size: small;
+	font-weight: bold;
+	padding: 5px 10px 0px 10px;
+	background: #FFF url(images/cbg.gif) repeat-x;
+}
+
+#sections .idea-text {
+        padding: 10px 10px;
+}
+#sections .title a {
+	text-decoration: none;
+}
+
+#sections .title a:hover {
+	text-decoration: underline;
+}
+
+#sections .byline{
+	margin-top: -73px;
+	text-align: right;
+	font-size: 90%;
+	padding: 0px;
+	color: #975700;
+}
+
+#sections .idea {
+        font-weight: bold;
+        font-size: 110%;
+}
+
+#sections .text {
+	padding: 10px 20px 10px 20px;
+	line-height: 1.8em;
+}
+
+#sections h1 {
+        margin: 25px 5px 5px 5px;
+}
+
+#sections p {
+	text-align: justify;
+        font-size: 120%;
+        margin: 5px 5px 5px 5px;
+}
+
+#sections ul {
+        list-style: none;
+}
+
+#sections .meta {
+	padding: 0 15px;
+	font-size: x-small;
+	color: #333;
+}
+
+.text h1, .text h2, .text h3 {
+	color: #333;
+}
+
+/* Sidebar */
+
+#sidebar {
+	float: left;
+	width: 250px;
+	padding-top: 5px;
+	margin: 0px auto;
+	border-top: 1px solid #C48C05;
+}
+
+#sidebar div {
+	margin: 0;
+	padding: 0 10px;
+}
+
+#sidebar div  {
+	margin-bottom: 35px;
+	background: url(images/sbg.gif) repeat-x;
+}
+
+#sidebar div ul {
+	line-height: 1.5em;
+	list-style-type: none;
+	padding: 5px 0px 0px 0px;
+}
+
+#sidebar div li {
+	margin: 0;
+	color: #975700;
+}
+
+#sidebar h2 {
+	border-bottom: 3px solid #C48C05;
+	text-transform: uppercase;
+	font-size: small;
+	font-weight: bold;
+	margin: 0px;
+}
+
+#sidebar li a {
+	text-decoration: none;
+	color: #975700;
+	padding-left: 15px;
+	background: transparent url(images/listoff.gif) left center no-repeat;
+}
+
+#sidebar li a:hover {
+	text-decoration: none;
+	color: #530000;
+	background: transparent url(images/liston.gif) left center no-repeat;
+}
+
+/* Search */
+
+#search {
+}
+
+#search h2 {
+}
+
+#search form {
+}
+
+#search #inputtext1 {
+}
+
+#search #inputsubmit1 {
+}
+
+/* Archives */
+
+#archives {
+}
+
+/* Categories */
+
+#categories {
+}
+
+/* Blogroll */
+
+#blogroll {
+}
+
+/* Meta */
+
+#meta {
+}
+
+/* Footer */
+
+#footer {
+	width: 928px;
+	height: 50px;
+	margin: 0px auto;
+	background: #CDE691 url(images/fbg.gif) repeat-x;
+}
+
+#footer p {
+	margin: 0;
+	padding: 10px 0;
+	text-align: center;
+	font-size: x-small;
+}
+
+#footer a {
+}
+
+#toolbar {
+        padding: 10px; 5px;
+        float: right;
+        font-size: 90%;
+}
+
+.hits {
+        color: green;
+        font-weight: bold;
+}
+
+.hits0 {
+        color: black;
+}
+
+.misses {
+        font-weight: bold;
+        color: red;
+}
+
+.misses0 {
+        color: black;
+}
+
+#cloud {
+        margin: 10px 10px 30px 10px;
+}
+
+#cloud a {
+        font-weight: bold;
+        padding: 2px 3px;
+        text-decoration: none;
+}
+
+.subtitle {
+        margin: 15px 5px 5px 5px;
+        font-size: 140%;
+        font-weight: normal;
+}
+
+fieldset {
+        border: none;
+        padding: 20px;
+    color: #975700;
+}
+
+label {
+        float: left;
+        width: 120px;
+        font-weight: bold;
+}
+
+input {
+        margin-bottom: 5px;
+}
+
+textarea {
+        margin-bottom: 5px;
+}
+
+.submit {
+        margin-left: 120px;
+        margin-top: 5px;
+        width: 90px;
+        border: #f0f0f0 1px solid;
+        color: #ffffff;
+    background-color: #975700;
+}
+
+form br {
+        clear: left;
+}
+
+.tag-list {
+        font-weight: bold;
+        font-size: 120%;
+        margin: 15px;
+}
+
+.tag-list li {
+        display: inline;
+        padding: 5px;
+}
+
+.tag-list a {
+        text-decoration: none;
+}
+
+#login_form {
+}
+
+#login_form label {
+        float: left;
+}
+
+#login_form fieldset {
+        border: none;
+        padding: 20px 20px 0px 40px;
+    color: #975700;
+}
+
+#login_form input{
+        margin-bottom: 5px;
+        width: 120px;
+}
+
+.login {
+        margin-top: 5px;
+        border: #f0f0f0 1px solid;
+        color: #ffffff;
+    background-color: #975700;
+        font-size: 90%;
+}
+
+#idea_add_form {
+}
+
+#idea_add_form input {
+        width: 250px;
+}
+
+#idea_add_form textarea {
+        width: 450px;
+}
+
+#idea_add_form .submit {
+        width: 90px;
+}
+
+#message {
+        background-color: yellow;
+        border: #000000 1px solid;
+        margin: 2px;
+        padding: 2px;
+        font-weight: bold;
+        color: brown;
+}

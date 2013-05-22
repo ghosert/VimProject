@@ -1,0 +1,5 @@
+<div id="cloud" xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:tal="http://xml.zope.org/namespaces/tal">
+     <h2>Tag Cloud</h2>
+     <a tal:repeat="tag cloud" href="${request.route_url('tag', tag_name=tag[0])}" style="font-size: ${tag[2]}px">${tag[0]} </a>
+ </div>

@@ -1,0 +1,10 @@
+<div xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:tal="http://xml.zope.org/namespaces/tal" id="toolbar">
+    <span tal:condition="viewer_username" class="username">
+        <a href="${request.route_url('idea_add')}">Post an idea</a>. You are logged in as <b>${viewer_username}</b>.
+        <a href="${request.route_url('logout')}">Logout</a>.</span>
+    <span tal:condition="not viewer_username">
+        <b>You need to log in to post or vote.</b> Not a member? <b>
+        <a href="${request.route_url('register')}">Register</a></b>.
+    </span>
+</div>

@@ -1,0 +1,26 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      metal:use-macro="base">
+
+<tal:block metal:fill-slot="content">
+    <h1>${tag}</h1>
+    <ul>
+        <li tal:repeat="idea ideas">
+            <span class="tags">
+                <a tal:repeat="tag idea.tags" href="${request.route_url('tag', tag_name=tag.name)}">
+                    ${tag.name}
+                </a>
+            </span>
+            <a href="${request.route_url('idea', idea_id=idea.idea_id)}">${idea.title}</a>, by 
+            <a class="byline" href="${request.route_url('user', username=idea.author.username)}">
+                ${idea.author.name}
+            </a>
+            <span class="hits">${idea.hits}</span> hits,
+            <span class="misses">${idea.misses}</span> misses.
+        </li>
+    </ul>
+</tal:block>
+
+</html>
+

@@ -1,0 +1,36 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      metal:use-macro="base">
+
+<tal:block metal:fill-slot="content">
+    <h1>Register</h1>
+    ${form.begin(request.route_url('register'))}
+        <fieldset>
+            ${form.csrf_token()}
+            ${form.errorlist('username')}
+            ${form.label('username', 'Username:')}
+            ${form.text('username')}
+            <br />
+            ${form.errorlist('password')}
+            ${form.label('password', 'Password:')}
+            ${form.password('password')}
+            <br />
+            ${form.errorlist('confirm_password')}
+            ${form.label('confirm_password', 'Confirm password:')}
+            ${form.password('confirm_password')}
+            <br />
+            ${form.errorlist('name')}
+            ${form.label('name', 'Full name:')}
+            ${form.text('name')}
+            <br />
+            ${form.errorlist('email')}
+            ${form.label('email', 'Email:')}
+            ${form.text('email')}
+            <br />
+            ${form.submit('form.submitted', 'Register', class_='submit')}
+        </fieldset>
+    ${form.end()}
+</tal:block>
+
+</html>

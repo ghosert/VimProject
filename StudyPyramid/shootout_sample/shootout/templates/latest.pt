@@ -1,0 +1,10 @@
+<div id="latest" xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:tal="http://xml.zope.org/namespaces/tal">
+    <h2>Latest shots</h2>
+    <ul>
+        <li tal:repeat="idea latest">
+            <a class="idea" href="${request.route_url('idea', idea_id=idea.idea_id)}">${idea.title}</a>.
+        </li>
+    </ul>
+</div>
+

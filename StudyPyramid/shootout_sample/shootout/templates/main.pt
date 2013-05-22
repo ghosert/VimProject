@@ -1,0 +1,40 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      metal:use-macro="base">
+
+<tal:block metal:fill-slot="content">
+    <h1>The Shooting Range</h1>
+    <p>
+        This is a place to discuss and vote on ideas of all kind. Want 
+        to know what others think about your idea? Give it a shot.
+    </p>
+    <p tal:condition="username"><a href="idea_add">What's your idea?</a></p>
+    <p tal:condition="not username">
+        You need to <a href="${request.route_url('register')}">register</a> to be able to post.
+    </p>
+    <div tal:condition="toplists">
+        <div tal:repeat="toplist toplists">
+            <h3 class="title">${toplist['title']}</h3>
+            <ul>
+                <li tal:repeat="idea toplist['items']">
+                    <span class="tags">
+                        <a tal:repeat="tag idea.tags" href="${request.route_url('tag', tag_name=tag.name)}">
+                            ${tag.name}
+                        </a>
+                    </span>
+                    <a class="idea" href="${request.route_url('idea', idea_id=idea.idea_id)}">
+                        ${idea.title}
+                    </a>, by 
+                    <a class="byline" href="${request.route_url('user', username=idea.author.username)}">
+                        ${idea.author.name}
+                    </a> 
+                    <span class="hits hits${idea.hits}">${idea.hits}</span> hits, 
+                    <span class="misses misses${idea.misses}">${idea.misses}</span> misses.
+                </li>
+            </ul>
+        </div>
+    </div>
+</tal:block>
+
+</html>

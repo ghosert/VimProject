@@ -1,0 +1,26 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      metal:use-macro="base">
+
+<tal:block metal:fill-slot="content">
+    <div id="sections">
+        <h1>shootout</h1>
+        <p>This is a demo application for the
+            <a href="http://docs.pylonshq.com">Pyramid</a> Python web framework.
+        </p>
+        <p>The concepts demonstrated in the code include:</p>
+        <ul>
+            <li>Urldispatch mechanism (similar to routes).</li>
+            <li>Built-in authentication and authorization mechanism.</li>
+            <li>Integration with pyramid_simpleform for form handling.</li>
+            <li>Beaker encrypted sessions using pyramid_beaker.</li>
+            <li>SQLAlchemy based models.</li>
+        </ul>
+        <p>The code can be checked out from the version control repository at:</p>
+        <p><a href="https://github.com/Pylons/shootout">https://github.com/Pylons/shootout</a></p>
+    </div>
+</tal:block>
+
+</html>
+

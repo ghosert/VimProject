@@ -1,0 +1,42 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      metal:use-macro="base">
+
+<tal:block metal:fill-slot="content">
+    <h1>Add ${kind}</h1>
+    <div class="instructions" tal:condition="target">
+        <p>You are commenting on
+            <a href="${request.route_url('idea', idea_id=target.idea_id)}">
+                ${target.title}
+            </a>, by 
+            <a href="${request.route_url('user', username=target.author.username)}">
+                ${target.author.name}
+            </a>.
+        </p>
+    </div>
+    <div class="instructions" tal:condition="not target">
+        <p>Please submit your idea.</p>
+    </div>
+    ${form.begin(request.route_url('idea_add'), id='idea_add_form')}
+        <fieldset>
+            ${form.csrf_token()}
+            ${form.errorlist('title')}
+            ${form.label('title', 'Title:')}
+            ${form.text('title', size="60")}
+            <br />
+            ${form.errorlist('tags')}
+            ${form.label('tags', 'Tags:')}
+            ${form.text('tags', size="60")}
+            <br />
+            ${form.errorlist('text')}
+            ${form.label('text', 'Text:')}
+            ${form.textarea('text', rows="10", cols="60")}
+            <br />
+            <input tal:condition="target" type="hidden" name="target" value="${target.idea_id}" />
+            ${form.submit('form.submitted', 'Shoot', class_='submit')}
+        </fieldset>
+    ${form.end()}
+</tal:block>
+
+</html>
