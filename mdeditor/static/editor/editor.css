@@ -11,17 +11,39 @@ p, pre, blockquote {
 
 h1 {
   margin: 30px 0;
+  font-size: 30px;
+}
+
+h2 {
+  font-size: 24px;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+code, pre {
+  font-size: 14px;
 }
 
 #editor-title {
-    margin-top: 20px;
+    padding-top: 20px;
     padding-bottom: 20px;
     font-size: 20px;
-    color: #2C3E50;
+    color: #FFF;
     font-weight: bold;
     text-align: center; /* make it horizontal center */
     border-bottom: 1px solid #EEEEEE;
     line-height: 30px;
+    background-color: #444;
+}
+
+#editor-title a {
+    color: #AAAAAA;
+}
+
+#editor-title a:hover {
+    color: #FFFFFF;
 }
 
 #wmd-button-bar {
