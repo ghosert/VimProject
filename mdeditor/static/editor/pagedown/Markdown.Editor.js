@@ -118,13 +118,14 @@
         var that = this,
             panels;
 
-        this.run = function () {
+        // jiawzhang
+        this.run = function (previewWrapper) {
             if (panels)
                 return; // already initialized
 
             panels = new PanelCollection(idPostfix);
             var commandManager = new CommandManager(hooks, getString);
-            var previewManager = new PreviewManager(markdownConverter, panels, function () { hooks.onPreviewRefresh(); });
+            var previewManager = new PreviewManager(markdownConverter, panels, function () { hooks.onPreviewRefresh(); }, previewWrapper); // jiawzhang
             var undoManager, uiManager;
 
             if (!/\?noundo/.test(doc.location.href)) {
@@ -821,7 +822,7 @@
         this.init();
     };
 
-    function PreviewManager(converter, panels, previewRefreshCallback) {
+    function PreviewManager(converter, panels, previewRefreshCallback, previewWrapper) {// jiawzhang
 
         var managerObj = this;
         var timeout;
@@ -887,6 +888,10 @@
 
             pushPreviewHtml(text);
         };
+        if(previewWrapper !== undefined) { // jiawzhang
+            makePreviewHtml = previewWrapper(makePreviewHtml);
+        }
+
 
         // setTimeout is already used.  Used as an event listener.
         var applyTimeout = function () {

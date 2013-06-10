@@ -14,26 +14,11 @@ new function($) {
 }(jQuery);
 
 (function () {
-    var markdownBriefIntroduction = 
-    '# Markdown 语法简明手册\n\n### 1. 使用 * 和 ** 表示斜体和粗体\n\n示例：\n\n这是 *斜体*，这是 **粗体**。\n\n### 2. 使用 === 表示一级标题，使用 --- 表示二级标题\n\n示例：\n\n' +
-    '这是一个一级标题\n============================\n\n这是一个二级标题\n--------------------------------------------------\n\n### 这是一个三级标题\n\n' + 
-    '你也可以选择在行首加井号表示不同级别的标题，例如：# H1, ## H2, ### H3。\n\n### 3. 使用 \\[描述](链接地址) 为文字增加外链接\n\n' +
-    '示例：\n\n这是去往 [本人博客](http://ghosertblog.github.com) 的链接。\n\n### 4. 在行末加两个空格表示换行\n\n示例：\n\n第一行(此行最右有两个看不见的空格)  \n' +
-    '第二行\n\n### 5. 使用 *，+，- 表示无序列表\n\n示例：\n\n- 无序列表项 一\n- 无序列表项 二\n- 无序列表项 三\n\n### 6. 使用数字和点表示有序列表\n\n' +
-    '示例：\n\n1. 有序列表项 一\n2. 有序列表项 二\n3. 有序列表项 三\n\n### 7. 使用 > 表示文字引用\n\n示例：\n\n> 野火烧不尽，春风吹又生\n\n### 8. 使用 \\`代码` 表示行内代码块\n\n' +
-    '示例：\n\n让我们聊聊 `html`\n\n### 9.  使用 四个缩进空格 表示代码块\n\n示例：\n\n    这是一个代码块，此行左侧有四个不可见的空格\n\n### 10.  使用 \\!\\[描述](图片链接地址) 插入图像' +
-    '\n\n示例：\n\n![我的头像](http://tp3.sinaimg.cn/2204681022/180/5606968568/1)';
-
-    if (window.isMarkdownHelpPage) { // markdown help page is loading the certain text, regardless of local storage.
-        article = '`此页面为沙箱页面，您的任何修改不会被保存`\n\n' + markdownBriefIntroduction;
-    } else {
-        var article = $.localStorage('article');
-        if (!article) {
-            article = markdownBriefIntroduction;
-        }
-    }
 
     var converter1 = Markdown.getSanitizingConverter();
+
+    // tell the converter to use Markdown Extra for tables, fenced_code_gfm, def_list
+    Markdown.Extra.init(converter1, {extensions: ["tables", "fenced_code_gfm", "def_list"], highlighter: "prettify"});
 
     var help = function () {
         var w = window.open(window.location);
@@ -49,7 +34,30 @@ new function($) {
     var scrollLink = getScrollLink(); 
     scrollLink.onLayoutCreated();
     editor1.hooks.chain("onPreviewRefresh", function () {
-        scrollLink.onPreviewFinished();
+        
+        // Call onPreviewFinished callbacks when all async preview are finished
+        var counter = 0;
+        var nbAsyncPreviewCallback = 2; // 1 for waitForImages below and 1 for MathJax below, they are both time consuming task, if only they are both done, begin to caculate md section and scroll bar.
+        function tryFinished() {
+            if(++counter === nbAsyncPreviewCallback) {
+                scrollLink.onPreviewFinished();
+            }
+        }
+        // We assume images are loading in the preview
+        $("#wmd-preview").waitForImages(tryFinished);
+        // TODO: could we cache the result to speed up ? This action is slow, especially, when there are multiple LaTeX expression on the page, google solution.
+        MathJax.Hub.Queue(["Typeset",MathJax.Hub,"wmd-preview"]);
+        MathJax.Hub.Queue(tryFinished);
+
+        $('.prettyprint').each(function(){
+            $(this).addClass('linenums');
+        });
+        prettyPrint(); // print code syntax for code snippet if there is.
+
+        $('table').each(function() {
+            $(this).addClass('table table-striped table-bordered');
+        });
+
         if (!window.isMarkdownHelpPage) { // Editing on markdown help page won't change local storage
             var preSaveArticle = $('#wmd-input').val();
             var savedArticle = $.localStorage('article');
@@ -108,7 +116,24 @@ new function($) {
         $('#editorDialog').find('.modal-body input').focus();
     });
 
-    editor1.run();
+
+    // Make preview if it's inactive in 500ms to reduce the calls in onPreviewRefresh chains above and cpu cost.
+    documentContent = undefined;
+    var previewWrapper;
+    previewWrapper = function(makePreview) {
+        var debouncedMakePreview = _.debounce(makePreview, 500);
+        return function() {
+            if(documentContent === undefined) {
+                makePreview();
+                documentContent = '';
+            } else {
+                debouncedMakePreview();
+            }
+        };
+    };
+    editor1.run(previewWrapper);
+    // editor1.run();
+
 
     // To make sure there is no overflow(scroll bar) on the whole page.
     function calculateEditorPreviewHeight() {
@@ -122,10 +147,27 @@ new function($) {
     });
 
 
-    // Populate editor value
-    $('#wmd-input').val(article);
-    $('#wmd-input').setCursorPosition(0);
-    editor1.refreshPreview();
+    // load md help doc from server.
+    $.get('static/editor/md-help', function(data) {
+        if (data) {
+            var article = null;
+            var cursorPosition = 0;
+            if (window.isMarkdownHelpPage) { // markdown help page is loading the certain text, regardless of local storage.
+                article = data;
+            } else {
+                var article = $.localStorage('article');
+                if (!article) {
+                    article = data;
+                } else {
+                    cursorPosition = article.length; // go to the end of the article, if the article is not help doc.
+                }
+            }
+            // Populate editor value
+            $('#wmd-input').val(article);
+            $('#wmd-input').setCursorPosition(cursorPosition);
+            editor1.refreshPreview();
+        }
+    });
 
 
     // Load awesome font to button
@@ -150,9 +192,12 @@ new function($) {
     $('#wmd-help-button').css('margin-left', '50px');
 
     $('#wmd-new-button').on('click', function() {
-        $('#wmd-input').val('\n\n\n> *使用 [Cmd](http://ghosertblog.github.io/mdeditor/ "中文在线 Markdown 编辑器") 编写*');
-        $('#wmd-input').setCursorPosition(0);
-        editor1.refreshPreview();
+        var answer = confirm('新建文件将会清除当前的文件内容，请确认当前内容已保存');
+        if (answer) {
+            $('#wmd-input').val('\n\n\n> *本文使用 [Cmd](http://ghosertblog.github.io/mdeditor/ "中文在线 Markdown 编辑器") 编写*');
+            $('#wmd-input').setCursorPosition(0);
+            editor1.refreshPreview();
+        }
     });
 
 
