@@ -138,7 +138,7 @@ new function($) {
         $('#wmd-input').height(height);
         $('#wmd-preview').height(height);
     }
-    calculateEditorPreviewHeight();
+
     $(window).resize(function() {
         calculateEditorPreviewHeight();
     });
@@ -212,6 +212,9 @@ new function($) {
             function() {
                 $(this).removeClass('icon-large');
             });
+
+
+            calculateEditorPreviewHeight();
         }
     });
 })();
