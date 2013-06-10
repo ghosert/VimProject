@@ -131,9 +131,6 @@ new function($) {
             }
         };
     };
-    editor1.run(previewWrapper);
-    // editor1.run();
-
 
     // To make sure there is no overflow(scroll bar) on the whole page.
     function calculateEditorPreviewHeight() {
@@ -165,57 +162,56 @@ new function($) {
             // Populate editor value
             $('#wmd-input').val(article);
             $('#wmd-input').setCursorPosition(cursorPosition);
-            editor1.refreshPreview();
+
+            // start editor.
+            editor1.run(previewWrapper);
+
+            // Load awesome font to button
+            $('#wmd-bold-button > span').addClass('icon-bold muted');
+            $('#wmd-italic-button > span').addClass('icon-italic muted');
+            $('#wmd-link-button > span').addClass('icon-link muted');
+            $('#wmd-quote-button > span').addClass('icon-quote-left muted');
+            $('#wmd-code-button > span').addClass('icon-code muted');
+            $('#wmd-image-button > span').addClass('icon-picture muted');
+            $('#wmd-olist-button > span').addClass('icon-list-ol muted');
+            $('#wmd-ulist-button > span').addClass('icon-list-ul muted');
+            $('#wmd-heading-button > span').addClass('icon-list-alt muted');
+            $('#wmd-hr-button > span').addClass('icon-minus muted');
+            $('#wmd-undo-button > span').addClass('icon-undo muted');
+            $('#wmd-redo-button > span').addClass('icon-repeat muted');
+            $('#wmd-help-button > span').addClass('icon-question-sign muted');
+
+
+            // create additional new buttons.
+            $('#wmd-help-button').before('<li id="wmd-new-button" class="wmd-button" title="新建文件"><span class="icon-file muted"></span></li>');
+            $('#wmd-new-button').css('margin-left', '50px');
+            $('#wmd-help-button').css('margin-left', '50px');
+
+            $('#wmd-new-button').on('click', function() {
+                var answer = confirm('新建文件将会清除当前的文件内容，请确认当前内容已保存');
+                if (answer) {
+                    $('#wmd-input').val('\n\n\n> *本文使用 [Cmd](http://ghosertblog.github.io/mdeditor/ "中文在线 Markdown 编辑器") 编写*');
+                    $('#wmd-input').setCursorPosition(0);
+                    editor1.refreshPreview();
+                }
+            });
+
+
+            // change color when hovering.
+            $('.wmd-button-row').hover(function() {
+                $('.wmd-button span').animate({color: '#2C3E50'}, 400);
+            },
+            function() {
+                $('.wmd-button span').animate({color: '#999999'}, 400);
+            });
+
+            // enlarge the icon when hovering.
+            $('.wmd-button > span').hover(function() {
+                $(this).addClass('icon-large');
+            },
+            function() {
+                $(this).removeClass('icon-large');
+            });
         }
     });
-
-
-    // Load awesome font to button
-    $('#wmd-bold-button > span').addClass('icon-bold muted');
-    $('#wmd-italic-button > span').addClass('icon-italic muted');
-    $('#wmd-link-button > span').addClass('icon-link muted');
-    $('#wmd-quote-button > span').addClass('icon-quote-left muted');
-    $('#wmd-code-button > span').addClass('icon-code muted');
-    $('#wmd-image-button > span').addClass('icon-picture muted');
-    $('#wmd-olist-button > span').addClass('icon-list-ol muted');
-    $('#wmd-ulist-button > span').addClass('icon-list-ul muted');
-    $('#wmd-heading-button > span').addClass('icon-list-alt muted');
-    $('#wmd-hr-button > span').addClass('icon-minus muted');
-    $('#wmd-undo-button > span').addClass('icon-undo muted');
-    $('#wmd-redo-button > span').addClass('icon-repeat muted');
-    $('#wmd-help-button > span').addClass('icon-question-sign muted');
-
-
-    // create additional new buttons.
-    $('#wmd-help-button').before('<li id="wmd-new-button" class="wmd-button" title="新建文件"><span class="icon-file muted"></span></li>');
-    $('#wmd-new-button').css('margin-left', '50px');
-    $('#wmd-help-button').css('margin-left', '50px');
-
-    $('#wmd-new-button').on('click', function() {
-        var answer = confirm('新建文件将会清除当前的文件内容，请确认当前内容已保存');
-        if (answer) {
-            $('#wmd-input').val('\n\n\n> *本文使用 [Cmd](http://ghosertblog.github.io/mdeditor/ "中文在线 Markdown 编辑器") 编写*');
-            $('#wmd-input').setCursorPosition(0);
-            editor1.refreshPreview();
-        }
-    });
-
-
-    // change color when hovering.
-    $('.wmd-button-row').hover(function() {
-        $('.wmd-button span').animate({color: '#2C3E50'}, 400);
-    },
-    function() {
-        $('.wmd-button span').animate({color: '#999999'}, 400);
-    }
-    );
-
-    // enlarge the icon when hovering.
-    $('.wmd-button > span').hover(function() {
-        $(this).addClass('icon-large');
-    },
-    function() {
-        $(this).removeClass('icon-large');
-    }
-    );
 })();
