@@ -15,7 +15,13 @@ pre .dec { color: #98fb98 } /* decimal         - lightgreen */
 
 /* Specify class=linenums on a pre to get line numbering */
 ol.linenums { margin-top: 0; margin-bottom: 0; color: #AEAEAE } /* IE indents via margin-left */
-li.L0,li.L1,li.L2,li.L3,li.L5,li.L6,li.L7,li.L8 { list-style-type: none }
+
+/* jiawzhang: add this to leave more space to display line number, especially, when the line number is greater than 100. */
+ol.linenums { margin-left: 35px;}
+
+/* jiawzhang: comment this line to make sure all the line number is shown, otherwise, there will be display issue when there is empty line in the code snippet. */
+/* li.L0,li.L1,li.L2,li.L3,li.L5,li.L6,li.L7,li.L8 { list-style-type: none } */
+
 /* Alternate shading for lines */
 li.L1,li.L3,li.L5,li.L7,li.L9 { }
 

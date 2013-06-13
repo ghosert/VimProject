@@ -150,7 +150,7 @@ new function($) {
             var article = null;
             var cursorPosition = 0;
             if (window.isMarkdownHelpPage) { // markdown help page is loading the certain text, regardless of local storage.
-                article = data;
+                article = '`此页面为沙箱页面，您的任何修改不会被保存`\n\n' + data;
             } else {
                 var article = $.localStorage('article');
                 if (!article) {
