@@ -5,8 +5,40 @@ body
     padding-top: 0px;
 }
 
+body, button, input, select, textarea {
+	font-family: Microsoft Yahei, Hiragino Sans GB, WenQuanYi Micro Hei, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6{
+    font-family: Helvetica Neue, Microsoft Yahei,Hiragino Sans GB,WenQuanYi Micro Hei,sans-serif;
+}
+
 p, pre, blockquote {
     margin: 0 0 20px;
+}
+
+dl {
+    margin-bottom: 20px;
+}
+
+dt, dd {
+    margin-bottom: 5px;
+    margin-top: 5px;
+    line-height: 20px;
+}
+
+dt {
+    font-weight: bold;
+}
+
+dd {
+    margin-left: 40px;
+}
+
+/* restore default style in bootstrap, otherwise, it will apply the prettify.css */
+pre.prettyprint {
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    padding: 9.5px;
 }
 
 h1 {
@@ -64,6 +96,7 @@ code, pre {
     border-right: 1px solid #F7F7F7;
 }
 
+/* font-size, font-family and line-height of .wmd-input and #md-section-helper should be totally same, otherwise, there will be mismatch. */
 .wmd-input, .wmd-input:focus, #md-section-helper
 { 
 	width: 100%;

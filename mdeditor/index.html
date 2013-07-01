@@ -13,6 +13,7 @@
         <!-- awesome font -->
         <link href="static/font-awesome/css/font-awesome.css" rel="stylesheet">
 
+        <link href="static/editor/google-code-prettify/prettify.css" type="text/css" rel="stylesheet">
         <link href="static/editor/editor.css" rel="stylesheet">
 
         <!-- Bootstrap Responsive -->
@@ -78,14 +79,23 @@
         <script src="static/js/bootstrap.js"></script>
 
         <script src="static/js/jquery.storage.js"></script>
-        <script src="static/pagedown/Markdown.Converter.js"></script>
-        <script src="static/pagedown/Markdown.Sanitizer.js"></script>
-        <script src="static/pagedown/Markdown.Editor.js"></script>
-        <script src="static/pagedown/local/Markdown.local.zh.js"></script>
+        <script src="static/editor/google-code-prettify/prettify.js"></script>
+        <script src="static/editor/pagedown/Markdown.Converter.js"></script>
+        <script src="static/editor/pagedown/Markdown.Sanitizer.js"></script>
+        <script src="static/editor/pagedown/Markdown.Editor.js"></script>
+        <script src="static/editor/pagedown/local/Markdown.local.zh.js"></script>
+        <script src="static/editor/Markdown.Extra.js"></script>
         <script src="static/editor/underscore.js"></script>
         <script src="static/editor/css_browser_selector.js"></script>
         <script src="static/editor/scroll-link.js"></script>
-        <script src="static/editor/main.js"></script>
+        <!--mathjax-->
+        <script type="text/x-mathjax-config">
+          MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ["\\(","\\)"]], processEscapes: true },  messageStyle: "none"});
+        </script>
+        <!--mathjax source code is here: https://github.com/mathjax/MathJax, you could host it on your own server one day.-->
+        <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="static/editor/jquery.waitforimages.js"></script>
+        <script src="static/editor/editor.js"></script>
     </body>
 </html>
     

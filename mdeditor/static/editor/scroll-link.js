@@ -13,6 +13,9 @@ function getScrollLink() {
         ].join("")
     };
 
+    // jiawzhang: add for IE
+    var msie = /msie/.test(navigator.userAgent.toLowerCase());
+
     var mdSectionList = [];
     var htmlSectionList = [];
     function pxToFloat(px) {
@@ -34,7 +37,12 @@ function getScrollLink() {
             var sectionHeight = padding;
             if(sectionText !== undefined) {
                 textareaElt.val(sectionText);
-                sectionHeight += textareaElt.prop('scrollHeight');
+                // jiawzhang TODO: for IE: +6 everytime here, since IE count pixels between space.
+                if (msie) {
+                    sectionHeight += textareaElt.prop('scrollHeight') + 6;
+                } else {
+                    sectionHeight += textareaElt.prop('scrollHeight');
+                }
             }
             var newSectionOffset = mdSectionOffset + sectionHeight;
             mdSectionList.push({
@@ -93,6 +101,7 @@ function getScrollLink() {
 
         // apply Scroll Link
         lastEditorScrollTop = -10;
+        lastPreviewScrollTop = -10;
         isScrollPreview = false;
         runScrollLink();
     }, 500);
@@ -133,7 +142,7 @@ function getScrollLink() {
             }
             destElt.animate({
                 scrollTop: destScrollTop
-            }, 600, function() {
+            }, 500, function() {
                 callback(destScrollTop);
             });
         }
@@ -152,7 +161,7 @@ function getScrollLink() {
                 lastEditorScrollTop = destScrollTop;
             });
         }
-    }, 600);
+    }, 500);
 
     scrollLink.buildSections = function() {
         buildSections();
@@ -179,11 +188,9 @@ function getScrollLink() {
     };
 
     scrollLink.onPreviewFinished = function() {
-        _.defer(function() {
-            // Modify scroll position of the preview not the editor
-            lastEditorScrollTop = -10;
-            buildSections();
-        });
+        // Modify scroll position of the preview not the editor
+        lastEditorScrollTop = -10;
+        buildSections();
     };
 
     return scrollLink;
