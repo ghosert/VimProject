@@ -88,13 +88,13 @@ public class UnlockExpiredTicketsBatchJob extends AbstractStubHubJob {
                 return;
             }
             Set<Long> expPrimaryListings = new TreeSet<Long>(sellJobMgr.getExpiredPrimaryListing());
-            getLog().info("There are " + expPrimaryListings.size() + " listings to process " + expPrimaryListings);
+            getLog().info("There are {} listings to process {}", expPrimaryListings.size(), expPrimaryListings);
 
             this.unlockPrimaryListing(expPrimaryListings);
 
             String processedListingsCount = (null != expPrimaryListings) ? String.valueOf(expPrimaryListings.size())
                                                                         : CONSTANT_ZERO;
-            getLog().info(" ticketIds={}" + getContent(expPrimaryListings) + " processedListingsCount={}" + processedListingsCount);
+            getLog().info(" ticketIds={}{} processedListingsCount={}{}", getContent(expPrimaryListings), processedListingsCount);
 
             // update job progress status
             updateJobProgress(context, "Done with UnlockExpiredTicketsBatchJob");
@@ -131,8 +131,7 @@ public class UnlockExpiredTicketsBatchJob extends AbstractStubHubJob {
             threadPoolSize = Integer.parseInt(numberOfThreads);
         }
 
-        getLog().info("processExpiredPrimaryListingThreaded: using values pollTime=" + maxPollTime + " maxRetries=" + maxRetries
-                              + " threadPoolSize=" + threadPoolSize);
+        getLog().info("processExpiredPrimaryListingThreaded: using values pollTime={} maxRetries={} threadPoolSize={}", maxPollTime, maxRetries, threadPoolSize);
 
         ExecutorService executorService = Executors.newFixedThreadPool(threadPoolSize);
         try {
@@ -150,13 +149,11 @@ public class UnlockExpiredTicketsBatchJob extends AbstractStubHubJob {
                 }
                 for (PTVSystem ptvSystem : ptvSystems) {
                     if (!ptvSystem.isIntegrated()) {
-                        getLog().info("processExpiredPrimaryListingThreaded: ptvSystem=" + ptvSystem.getName()
-                                              + " is not integrated, continuing");
+                        getLog().info("processExpiredPrimaryListingThreaded: ptvSystem={} is not integrated, continuing", ptvSystem.getName());
                         continue;
                     }
                     vendorName = (ptvSystem.getPrimaryTicketVendor() != null) ? ptvSystem.getPrimaryTicketVendor().getName() : "";
-                    getLog().info("processExpiredPrimaryListingThreaded: Creating job for vendor=" + vendorName + " team="
-                                          + ptvSystem.getName());
+                    getLog().info("processExpiredPrimaryListingThreaded: Creating job for vendor={} team={}", vendorName, ptvSystem.getName());
                     job = new ExpireListingCallable(ptvSystem.getPrimaryTicketVendor().getId(), ptvSystem.getId());
                     submittedJobs.add(job);
                     expireCompletionService.submit(job);
@@ -171,7 +168,7 @@ public class UnlockExpiredTicketsBatchJob extends AbstractStubHubJob {
                     getLog().info("processExpiredPrimaryListingThreaded: polling for a completed job");
                     completedTask = expireCompletionService.poll(maxPollTime, TimeUnit.MILLISECONDS);
                     if (completedTask == null) {
-                        getLog().info("processExpiredPrimaryListingThreaded: no job found in ms=" + maxPollTime);
+                        getLog().info("processExpiredPrimaryListingThreaded: no job found in ms={}", maxPollTime);
                         if (--numRetries == 0) { // decrement number of retries
                             String msg = "processExpiredPrimaryListingThreaded: Maximum number of retries=" + maxRetries
                                          + " exprired waiting for job completion";
@@ -187,16 +184,15 @@ public class UnlockExpiredTicketsBatchJob extends AbstractStubHubJob {
                     submittedJobs.remove(expireListingCallable);
                     StopWatch stopWatch = new StopWatch();
                     stopWatch.start();
-                    getLog().info("processExpiredPrimaryListingThreaded: number of listings to send for unlock="
-                                          + expiredListingIds.size());
+                    getLog().info("processExpiredPrimaryListingThreaded: number of listings to send for unlock={}", expiredListingIds.size());
                     this.unlockPrimaryListing(new TreeSet<Long>(expiredListingIds)); // submit the listings
                     stopWatch.stop();
-                    getLog().info("processExpiredPrimaryListingThreaded: send complete in (ms)=" + stopWatch.getTotalTimeMillis());
+                    getLog().info("processExpiredPrimaryListingThreaded: send complete in (ms)={}", stopWatch.getTotalTimeMillis());
                     jobsCompleted++;
                 }
             }
 
-            getLog().info("processExpiredPrimaryListingThreaded: method complete jobsCompleted=" + jobsCompleted);
+            getLog().info("processExpiredPrimaryListingThreaded: method complete jobsCompleted={}", jobsCompleted);
         } finally {
             executorService.shutdownNow();
         }
@@ -221,7 +217,7 @@ public class UnlockExpiredTicketsBatchJob extends AbstractStubHubJob {
                             // to skip unlock call for trusted sellers
                             if (!skipUnlockCallForUser) {
                                 producer.sentMessage(getListingMessage(listingId));
-                                getLog().info("Unlocking listing id " + listingId);
+                                getLog().info("Unlocking listing id {}", listingId);
                                 try {
                                     ExternalListingHelper.sendFeedback(listing,
                                                                        FeedbackMessageEnum.BARCODE_LISTING_UNLOCKED_ON_PRIMARY);
@@ -231,7 +227,7 @@ public class UnlockExpiredTicketsBatchJob extends AbstractStubHubJob {
                                 }
                             }
                         } else {
-                            getLog().info("Unlock not allowed for listing id " + listingId + ". Listing is not deleted or expired");
+                            getLog().info("Unlock not allowed for listing id {}. Listing is not deleted or expired", listingId);
                         }
                     }
                 } catch (Exception e) {
@@ -256,11 +252,10 @@ public class UnlockExpiredTicketsBatchJob extends AbstractStubHubJob {
         public Pair<ExpireListingCallable, List<Long>> call() throws Exception {
             StopWatch stopWatch = new StopWatch("ExpireListingCallable");
             stopWatch.start();
-            getLog().info("ExpireListingCallable started for vendorid=" + this.vendorId + " teamId=" + this.teamId);
+            getLog().info("ExpireListingCallable started for vendorid={} teamId={}", this.vendorId, this.teamId);
             List<Long> expiredListings = sellJobMgr.getExpiredPrimaryListingsByVendorAndTeam(this.vendorId, this.teamId);
             stopWatch.stop();
-            getLog().info("ExpireListingCallable(ms)=" + stopWatch.getTotalTimeMillis() + " vendorid=" + this.vendorId + " teamId="
-                                  + this.teamId);
+            getLog().info("ExpireListingCallable(ms)={} vendorid={} teamId={}", stopWatch.getTotalTimeMillis(), this.vendorId, this.teamId);
             if (expiredListings == null)
                 expiredListings = new ArrayList<Long>(); // method returns empty list atm but check just in case it changes in the
                                                          // future
