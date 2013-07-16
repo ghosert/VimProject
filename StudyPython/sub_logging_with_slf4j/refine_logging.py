@@ -84,7 +84,7 @@ def commons_logging_handler(content):
     content = re.sub(pre_log + r'\.fatal\(', pre_log + r'.error(', content, flags = re.DOTALL)
     return content
 
-# TODO jiawzhang: add 'p4 edit' and remove '_backup'
+# TODO jiawzhang: add 'p4 edit'
 def handler(filename):
     content = None
     with open(filename, 'r+') as input_file:
@@ -109,7 +109,7 @@ def handler(filename):
             print 'manually check this file to see whether all the + in log clause has been cleaned or not: {0}'.format(filename)
             print
         
-    with open(filename + '_backup', 'w') as output_file:
+    with open(filename, 'w') as output_file:
         output_file.write(content)
 
 if __name__ == '__main__':
