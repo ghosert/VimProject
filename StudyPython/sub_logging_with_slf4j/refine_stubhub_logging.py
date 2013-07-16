@@ -134,6 +134,7 @@ if __name__ == '__main__':
                     try:
                         # print 'handling {0}'.format(filename)
                         handler(filename)
-                    except:
+                    except Exception as e:
                         print 'error happens when handling file {0}'.format(filename)
+                        print e
             
