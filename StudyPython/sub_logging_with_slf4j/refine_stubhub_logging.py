@@ -111,10 +111,20 @@ def handler(filename):
             print
         
     if file_content != content:
+        file_depot_path = '//' + re.search(r'depot.*$', filename).group(0)
+        os.system('p4 edit {0}'.format(file_depot_path))
         with open(filename, 'w') as output_file:
             output_file.write(content)
 
 if __name__ == '__main__':
+    depot_path = None
+    depot_matches = re.search(r'depot.*$', os.getcwd())
+    if depot_matches:
+        depot_path = '//' + depot_matches.group(0)
+    else:
+        print 'Run this py in peforce depot path.'
+        import sys
+        sys.exit(1)
     # Recursivly find out java file and check them.
     for root, dirs, files in os.walk(os.getcwd()):
         if files:
