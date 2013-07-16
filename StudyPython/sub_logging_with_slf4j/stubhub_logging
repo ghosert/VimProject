@@ -1,0 +1,215 @@
+## reorganized code:
+```bash
+grep "import org.apache.commons.logging.LogFactory" * -r | wc -l
+2249
+
+grep "import org.apache.log4j.Logger" * -r | wc -l
+865
+
+grep "import org.apache.log4j.LogSF" * -r | wc -l
+215
+
+grep "import org.slf4j.LoggerFactory" * -r | wc -l
+27
+```
+## Stubhub Domain:
+
+```
+grep "import org.apache.commons.logging.LogFactory" * -r | wc -l
+167
+
+grep "import org.apache.log4j.Logger" * -r | wc -l
+335
+
+grep "import org.apache.log4j.LogSF" * -r | wc -l
+0
+
+grep "import org.slf4j.LoggerFactory" * -r | wc -l
+133
+```
+## debug level clause which may be impacted:
+```
+grep debug\( * -r | wc -l
+8398
+grep debug\( * -r | grep "applications/gen2" | wc -l
+1614
+```
+
+## Standard slf4j logger:
+
+```java
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+static Logger log = LoggerFactory.getLogger(UserCookieFilter.class);
+
+if (log.isDebugEnabled()) {
+    log.debug("hReq cookies.length = {}, hReq Value = {}", cookies.length ,cookies.toString()); 
+}
+```
+
+## Existing logger
+
+### 1. Log4j: StubhubUserSessionFilter.java
+
+```java
+import org.apache.log4j.Logger;
+
+private final static Logger log = Logger.getLogger(StubhubUserSessionFilter.class);
+
+if (log.isDebugEnabled()) {
+    log.debug("Header name,value:" + k + "," + hReq.getHeader(k));
+}
+```
+
+### 2. LogSF: CreatePassword.java
+
+```java
+import org.apache.log4j.LogSF;
+
+LogSF.debug(
+        log,
+        "{} websiteUserId={} stubtexUserId={} userGuid={} errorMsg={}",
+        loggerInputArray);
+
+loggerInputArray is array, if we do need to change this, we have to do it manually.
+```
+
+### 3. commons-logging: LoggerListener.java
+
+```java
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+private static final Log logger = LogFactory.getLog(LoggerListener.class);
+
+if (logger.isWarnEnabled()) {
+    logger.warn("Security interception failed due to: " + authEvent.getCredentialsNotFoundException()
+        + "; secure object: " + authEvent.getSource() + "; configuration attributes: "
+        + authEvent.getConfigAttributes());
+}
+```
+
+### 4. slf4j: HttpCaller.java
+
+```java
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+private static Logger log = LoggerFactory.getLogger(HttpCaller.class);
+
+log.error("Error executing HTTP call for " + asyncInfo, ex);
+```
+
+## Notice:
+
+log.fatal in log4j is not supported in slf4j, find them, and manually change to log.error
+
+## Verify:
+
+0. grep log * -r | grep \+
+1. local "mvn clean install -DskipTests"
+2. deploy on test env, and no jboss startup failed
+3. QE testing on main flow
+
+## Diff changes
+
+```diff
+18c18,19
+< import org.apache.log4j.Logger;
+---
+> import org.slf4j.Logger;
+> import org.slf4j.LoggerFactory;
+60c61
+<   private final static Logger log = Logger.getLogger(StubhubUserSessionFilter.class);
+---
+>   private final static Logger log = LoggerFactory.getLogger(StubhubUserSessionFilter.class);
+114c115
+<                       log.debug("Header name,value:" + k + "," + hReq.getHeader(k));
+---
+>                       log.debug("Header name,value:{},{}", k, hReq.getHeader(k));
+120,121c121
+<                   log.debug("StubhubUserSessionFilter found a request that looks like SOAP, so we're skipping the filter. "
+<                               + "content-type="+ contentType+ "; header="+ headers);
+---
+>                   log.debug("StubhubUserSessionFilter found a request that looks like SOAP, so we're skipping the filter. content-type={}; header={}", contentType, headers);
+213c213
+<               log.info("Login Request=" + username + ",ipAddress=" + ipAddress);
+---
+>               log.info("Login Request={},ipAddress={}", username, ipAddress);
+221c221
+<                   log.info("UserName="+username+" had login attempted within " + delaySeconds + " seconds by same IP="+ipAddress+" address combination");
+---
+>                   log.info("UserName={} had login attempted within {} seconds by same IP={} address combination", username, delaySeconds, ipAddress);
+223c223
+<                       log.debug("Failed Login attempt within 5 seconds by same user/IP address combination in Memcache=" + failedLoginIpAttemptKey.toString());
+---
+>                       log.debug("Failed Login attempt within 5 seconds by same user/IP address combination in Memcache={}", failedLoginIpAttemptKey.toString());
+236c236
+<                   log.info("UserName="+username+" had more than " + maxFailedAttempts + " consecutive failed login attempts and incurred into a 1 hour penalty");
+---
+>                   log.info("UserName={} had more than {} consecutive failed login attempts and incurred into a 1 hour penalty", username, maxFailedAttempts);
+238c238
+<                       log.debug("Found Failed Login attempt in Memcache=" + failedLoginAttemptKey.toString());
+---
+>                       log.debug("Found Failed Login attempt in Memcache={}", failedLoginAttemptKey.toString());
+295c295
+<           log.error("User cannot be found" + e.getMessage());
+---
+>           log.error("User cannot be found{}", e.getMessage());
+300c300
+<           log.error("User or password missing" + e.getMessage());
+---
+>           log.error("User or password missing{}", e.getMessage());
+322c322
+<       log.info("Login Success="+ username + ",ipAddress=" + ipAddress);
+---
+>       log.info("Login Success={},ipAddress={}", username, ipAddress);
+324c324
+<           log.debug("Removing all Prev Failed LoginIP attempts (if any) from Memcache=" + failedLoginIpAttemptKey.toString());
+---
+>           log.debug("Removing all Prev Failed LoginIP attempts (if any) from Memcache={}", failedLoginIpAttemptKey.toString());
+329c329
+<           log.debug("Removing all Prev Failed Login attempts (if any) from Memcache=" + failedLoginAttemptKey.toString());
+---
+>           log.debug("Removing all Prev Failed Login attempts (if any) from Memcache={}", failedLoginAttemptKey.toString());
+442c442
+<       log.info("Check the white list with referer : " + referer);
+---
+>       log.info("Check the white list with referer : {}", referer);
+471c471
+<           log.warn("wrong ip address:" + address);
+---
+>           log.warn("wrong ip address:{}", address);
+479c479
+<               log.warn("wrong ip address:" + address);
+---
+>               log.warn("wrong ip address:{}", address);
+507,508c507,508
+<           log.debug("Login Failed:" + username + ",ipAddress:" + ipAddress);
+<           log.debug("Storing in Memcache: " + failedLoginIpAttemptKey.toString());
+---
+>           log.debug("Login Failed:{},ipAddress:{}", username, ipAddress);
+>           log.debug("Storing in Memcache: {}", failedLoginIpAttemptKey.toString());
+536c536
+<         log.debug("ValidationUtil.. validEmailAddress(" + value + ") returning: " + theResult);
+---
+>         log.debug("ValidationUtil.. validEmailAddress({}) returning: {}", value, theResult);
+```
+
+## Print error message wrongly
+### wrong:
+```
+log.error(e);
+log.error("message" + e)
+```
+### correct:
+```
+log.error(e, e);
+log.error("message" + e, e)
+```
+### count:
+```
+grep --include="*\.java" error\( * -r | grep -v "," | wc -l
+2252
+```
