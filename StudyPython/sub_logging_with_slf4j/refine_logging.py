@@ -8,6 +8,7 @@ Created on Jul 11, 2013
 
 import os
 import re
+import traceback
 
 def check_comma(debug_clause):
     # skip the form like: log.debug("xxx", yy); or log.debug(xxx, yyy) for existing slf4j and something like log.error("error message", e);
@@ -57,10 +58,14 @@ def handle_finding(finding):
     # print handled_debug_clause
     return handled_debug_clause
         
-def log4j_handler(content, filename):
+def log4j_handler(pre_log, content, filename):
+    # clean up jakarta commons logging if any first.
+    content = re.sub(r'import org.apache.commons.logging.Log;\n', '', content)
+    content = re.sub(r'import org.apache.commons.logging.LogFactory;\n', '', content)
+
+    content = re.sub(r'import org.apache.log4j.LogSF;\n', '', content)
     content = re.sub(r'import org.apache.log4j.Logger', 'import org.slf4j.Logger;\nimport org.slf4j.LoggerFactory', content)
-    content = re.sub(r'Logger.getLogger', 'LoggerFactory.getLogger', content)
-    pre_log = re.search(r'Logger\s+(\S+?)\s*=\s*LoggerFactory.getLogger', content).group(1)
+    content = re.sub(r'Logger\s*?.\s*?getLogger', 'LoggerFactory.getLogger', content)
 	# LogSF.debug(log,"PDF parsing result errorCodes={} eventId={} listingId={} sellerId={}" , errorCodes , eventId.toString()
     def replace_LogSF(matches):
         if matches.group(0).count(',') == 1:
@@ -75,11 +80,14 @@ def log4j_handler(content, filename):
         print
     return content
         
-def commons_logging_handler(content):
+def commons_logging_handler(pre_log, content):
+    # clean up log4j if any first.
+    content = re.sub(r'import org.apache.log4j.LogSF;\n', '', content)
+    content = re.sub(r'import org.apache.log4j.Logger;\n', '', content)
+
     content = re.sub(r'import org.apache.commons.logging.Log', 'import org.slf4j.Logger', content)
     content = re.sub(r'import org.apache.commons.logging.LogFactory', 'import org.slf4j.LoggerFactory', content)
-    pre_log = re.search(r'Log\s+(\S+?)\s*=\s*LogFactory.getLog', content).group(1)
-    content = re.sub(r'\bLog\b.*?LogFactory.getLog', 'Logger ' + pre_log + ' = LoggerFactory.getLogger', content)
+    content = re.sub(r'\bLog\b.*?LogFactory\s*?.\s*?getLog', 'Logger ' + pre_log + ' = LoggerFactory.getLogger', content)
     content = re.sub(r'({0})'.format(pre_log) + r'\.(debug|info|warn|error|fatal)\((.*?)\);', handle_finding, content, flags = re.DOTALL)
     content = re.sub(pre_log + r'\.fatal\(', pre_log + r'.error(', content, flags = re.DOTALL)
     return content
@@ -91,12 +99,19 @@ def handler(filename):
         content = input_file.read()
         file_content = content
         
+
     # for log4j
-    if re.search(r'import org.apache.log4j.Logger', content):
-        content = log4j_handler(content, filename)
+    matches = re.search(r'Logger\s+(\S+?)\s*=\s*Logger\s*?.\s*?getLogger', content)
+    if matches:
+        pre_log = matches.group(1)
+        content = log4j_handler(pre_log, content, filename)
+
     # for Jakarta commons logging
-    elif re.search(r'import org.apache.commons.logging.Log', content):
-        content = commons_logging_handler(content)
+    matches = re.search(r'Log\s+(\S+?)\s*=\s*LogFactory\s*?.\s*?getLog', content)
+    if matches:
+        pre_log = matches.group(1)
+        content = commons_logging_handler(pre_log, content)
+
         
     # replace the non-standard clause getLog().debug();
     content = re.sub(r'(getLog\(\))\.(debug|info|warn|error|fatal)\((.*?)\);', handle_finding, content, flags = re.DOTALL)
@@ -126,5 +141,5 @@ if __name__ == '__main__':
                         handler(filename)
                     except Exception as e:
                         print 'error happens when handling file {0}'.format(filename)
-                        print e
+                        print traceback.format_exc()
             
