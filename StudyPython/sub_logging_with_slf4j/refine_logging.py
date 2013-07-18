@@ -45,7 +45,13 @@ def handle_parameter_string(parameter_string):
     if isParamOnly:
         return parameter_string
     else:
-        return "\"{0}\"{1}".format(newString, params)
+        if params:
+            if params.count(',') >= 3:
+                return "\"{0}\", new Object[]{{{1}}}".format(newString, params[2:])
+            else:
+                return "\"{0}\"{1}".format(newString, params)
+        else:
+            return parameter_string
     
 def handle_finding(finding):
     # print
@@ -78,6 +84,8 @@ def log4j_handler(pre_log, content, filename):
     if re.search(r'LogSF\.(debug|info|warn|error|fatal)\(', content):
         print 'LogSF in this file fail to clean completely, check it: {0}'.format(filename)
         print
+        # return None means no changes.
+        return None
     return content
         
 def commons_logging_handler(pre_log, content):
@@ -92,6 +100,10 @@ def commons_logging_handler(pre_log, content):
     content = re.sub(pre_log + r'\.fatal\(', pre_log + r'.error(', content, flags = re.DOTALL)
     return content
 
+def slf4j_handler(pre_log, content):
+    content = re.sub(r'({0})'.format(pre_log) + r'\.(debug|info|warn|error|fatal)\((.*?)\);', handle_finding, content, flags = re.DOTALL)
+    return content
+
 def handler(filename):
     content = None
     file_content = None
@@ -99,28 +111,52 @@ def handler(filename):
         content = input_file.read()
         file_content = content
         
+    # for slf4j
+    matches = re.search(r'Logger\s+(\S+?)\s*=\s*LoggerFactory\s*?.\s*?getLogger', content)
+    if matches:
+        pre_log = matches.group(1)
+        changed_content = slf4j_handler(pre_log, content)
+        if changed_content:
+            content = changed_content
 
     # for log4j
     matches = re.search(r'Logger\s+(\S+?)\s*=\s*Logger\s*?.\s*?getLogger', content)
     if matches:
         pre_log = matches.group(1)
-        content = log4j_handler(pre_log, content, filename)
+        changed_content = log4j_handler(pre_log, content, filename)
+        if changed_content:
+            content = changed_content
 
     # for Jakarta commons logging
     matches = re.search(r'Log\s+(\S+?)\s*=\s*LogFactory\s*?.\s*?getLog', content)
     if matches:
         pre_log = matches.group(1)
-        content = commons_logging_handler(pre_log, content)
+        changed_content = commons_logging_handler(pre_log, content)
+        if changed_content:
+            content = changed_content
 
-        
-    # replace the non-standard clause getLog().debug();
-    content = re.sub(r'(getLog\(\))\.(debug|info|warn|error|fatal)\((.*?)\);', handle_finding, content, flags = re.DOTALL)
-    content = re.sub(r'getLog\(\)\.fatal\(', r'getLog().error(', content, flags = re.DOTALL)
-        
+
     # Check whether the changes work
-    matches = re.search(r'.*?\.(debug|info|warn|error|fatal)\(.*?\+.*?\);', content)
-    if matches:
-        if not check_comma(matches.group(0)):
+    def check_changes_passed(content):
+        matches = re.search(r'.*?\.(debug|info|warn|error|fatal)\(.*?\+.*?\);', content)
+        if matches:
+            if not check_comma(matches.group(0)):
+                return False
+        return True
+        
+    if not check_changes_passed(content):
+        # replace the non-standard clause getLog().debug();
+        content = re.sub(r'(getLog\(\))\.(debug|info|warn|error|fatal)\((.*?)\);', handle_finding, content, flags = re.DOTALL)
+        content = re.sub(r'getLog\(\)\.fatal\(', r'getLog().error(', content, flags = re.DOTALL)
+
+        content = re.sub(r'(log)\.(debug|info|warn|error|fatal)\((.*?)\);', handle_finding, content, flags = re.DOTALL)
+        content = re.sub(r'log\.fatal\(', r'log.error(', content, flags = re.DOTALL)
+
+        content = re.sub(r'(logger)\.(debug|info|warn|error|fatal)\((.*?)\);', handle_finding, content, flags = re.DOTALL)
+        content = re.sub(r'logger\.fatal\(', r'logger.error(', content, flags = re.DOTALL)
+
+        if not check_changes_passed(content):
+            matches = re.search(r'.*?\.(debug|info|warn|error|fatal)\(.*?\+.*?\);', content)
             print matches.group(0)
             print 'manually check this file to see whether all the + in log clause has been cleaned or not: {0}'.format(filename)
             print
