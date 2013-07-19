@@ -74,11 +74,19 @@ def log4j_handler(pre_log, content, filename):
     content = re.sub(r'Logger\s*?.\s*?getLogger', 'LoggerFactory.getLogger', content)
 	# LogSF.debug(log,"PDF parsing result errorCodes={} eventId={} listingId={} sellerId={}" , errorCodes , eventId.toString()
     def replace_LogSF(matches):
-        if matches.group(0).count(',') == 1:
-            return '{0}.{1}("'.format(pre_log, matches.group(1))
-        else:
-            return matches.group(0)
-    content = re.sub(r'LogSF\.(debug|info|warn|error|fatal)\(.*?,.*?"', replace_LogSF, content, flags = re.DOTALL)
+        prefix_matches = re.search(r'^(.*?)(".*)$', matches.group(2), flags = re.DOTALL)
+        if prefix_matches:
+            comma_count = prefix_matches.group(1).count(',')
+            if comma_count == 1:
+                log_params = prefix_matches.group(2)
+                return '{0}.{1}({2});'.format(pre_log, matches.group(1), log_params)
+            elif comma_count == 2:
+                exception_params = re.search(r',\s*?(\S+)\s*?,', prefix_matches.group(1)).group(1)
+                log_params = prefix_matches.group(2)
+                return '{0}.{1}({2}, {3});'.format(pre_log, matches.group(1), log_params, exception_params)
+        return matches.group(0)
+
+    content = re.sub(r'LogSF\.(debug|info|warn|error|fatal)\((.*?)\);', replace_LogSF, content, flags = re.DOTALL)
     content = re.sub(r'({0})'.format(pre_log) + r'\.(debug|info|warn|error|fatal)\((.*?)\);', handle_finding, content, flags = re.DOTALL)
     content = re.sub(pre_log + r'\.fatal\(', pre_log + r'.error(', content, flags = re.DOTALL)
     if re.search(r'LogSF\.(debug|info|warn|error|fatal)\(', content):
@@ -118,6 +126,8 @@ def handler(filename):
         changed_content = slf4j_handler(pre_log, content)
         if changed_content:
             content = changed_content
+        else:
+            return
 
     # for log4j
     matches = re.search(r'Logger\s+(\S+?)\s*=\s*Logger\s*?.\s*?getLogger', content)
@@ -126,6 +136,8 @@ def handler(filename):
         changed_content = log4j_handler(pre_log, content, filename)
         if changed_content:
             content = changed_content
+        else:
+            return
 
     # for Jakarta commons logging
     matches = re.search(r'Log\s+(\S+?)\s*=\s*LogFactory\s*?.\s*?getLog', content)
@@ -134,6 +146,8 @@ def handler(filename):
         changed_content = commons_logging_handler(pre_log, content)
         if changed_content:
             content = changed_content
+        else:
+            return
 
 
     # Check whether the changes work

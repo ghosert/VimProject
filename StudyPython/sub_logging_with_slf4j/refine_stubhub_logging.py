@@ -119,6 +119,8 @@ def handler(filename):
         changed_content = slf4j_handler(pre_log, content)
         if changed_content:
             content = changed_content
+        else:
+            return
 
     # for log4j
     matches = re.search(r'Logger\s+(\S+?)\s*=\s*Logger\s*?.\s*?getLogger', content)
@@ -127,6 +129,8 @@ def handler(filename):
         changed_content = log4j_handler(pre_log, content, filename)
         if changed_content:
             content = changed_content
+        else:
+            return
 
     # for Jakarta commons logging
     matches = re.search(r'Log\s+(\S+?)\s*=\s*LogFactory\s*?.\s*?getLog', content)
@@ -135,6 +139,8 @@ def handler(filename):
         changed_content = commons_logging_handler(pre_log, content)
         if changed_content:
             content = changed_content
+        else:
+            return
 
 
     # Check whether the changes work
