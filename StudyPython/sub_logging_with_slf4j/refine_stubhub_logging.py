@@ -119,6 +119,15 @@ def handler(filename):
     with open(filename, 'r') as input_file:
         content = input_file.read()
         file_content = content
+
+    # pre-check
+    # NOTICE jiawzhang: Uncomment this check if you want to mannually fix the issue, you could fix the issue by running 'mvn clean install -DskipTests'
+    #pre_matches = re.search(r'\.(debug|info|warn|error|fatal)\(([^"]*?)\);', content, flags = re.DOTALL)
+    #if pre_matches:
+    #    print pre_matches.group(0)
+    #    print 'manually check this file to see why there is no "" in debug/info/warn/error/fatal clause: {0}'.format(filename)
+    #    return
+
         
     # for slf4j
     matches = re.search(r'Logger\s+(\S+?)\s*=\s*LoggerFactory\s*?.\s*?getLogger', content)
@@ -152,14 +161,14 @@ def handler(filename):
 
 
     # Check whether the changes work
-    def check_changes_passed(content):
+    def check_changes_failed(content):
         matches = re.search(r'.*?\.(debug|info|warn|error|fatal)\(.*?\+.*?\);', content)
         if matches:
             if not check_comma(matches.group(0)):
-                return False
-        return True
+                return matches
+        return None
         
-    if not check_changes_passed(content):
+    if check_changes_failed(content):
         # replace the non-standard clause getLog().debug();
         content = re.sub(r'(getLog\(\))\.(debug|info|warn|error|fatal)\((.*?)\);', handle_finding, content, flags = re.DOTALL)
         content = re.sub(r'getLog\(\)\.fatal\(', r'getLog().error(', content, flags = re.DOTALL)
@@ -170,18 +179,18 @@ def handler(filename):
         content = re.sub(r'(logger)\.(debug|info|warn|error|fatal)\((.*?)\);', handle_finding, content, flags = re.DOTALL)
         content = re.sub(r'logger\.fatal\(', r'logger.error(', content, flags = re.DOTALL)
 
-        if not check_changes_passed(content):
-            matches = re.search(r'.*?\.(debug|info|warn|error|fatal)\(.*?\+.*?\);', content)
-            print matches.group(0)
+        failed_matches = check_changes_failed(content)
+        if failed_matches:
+            print failed_matches.group(0)
             print 'manually check this file to see whether all the + in log clause has been cleaned or not: {0}'.format(filename)
             print
         
     # Write to file
     if file_content != content:
-        #file_depot_path = '//' + re.search(r'depot.*$', filename).group(0)
-        #os.system('p4 edit {0}'.format(file_depot_path))
-        #with open(filename, 'w') as output_file:
-        #    output_file.write(content)
+        file_depot_path = '//' + re.search(r'depot.*$', filename).group(0)
+        os.system('p4 edit {0}'.format(file_depot_path))
+        with open(filename, 'w') as output_file:
+            output_file.write(content)
         pass
     else:
         # print 'No logging in this file, skip handling: {0}'.format(filename)
