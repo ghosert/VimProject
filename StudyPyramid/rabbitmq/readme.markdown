@@ -14,6 +14,10 @@ sudo service rabbitmq-server status
 sudo rabbitmqctl list_queues
 # list queues, unacknowledged messages
 sudo rabbitmqctl list_queues name messages_ready messages_unacknowledged
+# list exchanges
+sudo rabbitmqctl list_exchanges
+# list bindings
+sudo rabbitmqctl list_bindings
 ```
 
 ## 3. Configuration
