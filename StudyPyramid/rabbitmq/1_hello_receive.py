@@ -15,6 +15,6 @@ def callback(ch, method, properties, body):
 
 channel.basic_consume(callback,
                       queue='hello',
-                      no_ack=True)
+                      no_ack=True) # turned off acknowledgement here, means, immediately remove the message from memory once RabbitMQ deliver it.
 
 channel.start_consuming()
