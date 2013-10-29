@@ -1,6 +1,11 @@
 ## 1. Prerequisite:
 
 ```sh
+`sudo vi /etc/apt/sources.list` to add the line below:
+deb http://www.rabbitmq.com/debian/ testing main
+wget http://www.rabbitmq.com/rabbitmq-signing-key-public.asc
+sudo apt-key add rabbitmq-signing-key-public.asc
+sudo apt-get update
 sudo apt-get install rabbitmq-server
 sudo easy_install pika==0.9.8
 # make sure it's running now
