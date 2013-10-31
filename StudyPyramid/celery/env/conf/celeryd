@@ -5,21 +5,21 @@ CELERYD_NODES="w1"
 #CELERYD_NODES="w1 w2 w3"
 
 # Where to chdir at start.
-CELERYD_CHDIR="/opt/Myproject/"
+CELERYD_CHDIR="/home/jiawzhang/VimProject/StudyPyramid/celery/"
 
 # Extra arguments to celeryd
-CELERYD_OPTS="--time-limit=300 --concurrency=8"
+# CELERYD_OPTS="--time-limit=300 --concurrency=8"
 
 # %n will be replaced with the nodename.
-CELERYD_LOG_FILE="/var/log/celery/%n.log"
-CELERYD_PID_FILE="/var/run/celery/%n.pid"
+CELERYD_LOG_FILE="/var/log/pyramid/celery/%n.log"
+CELERYD_PID_FILE="/var/log/pyramid/celery/%n.pid"
 
 # Workers should run as an unprivileged user.
-CELERYD_USER="celery"
-CELERYD_GROUP="celery"
+CELERYD_USER="jiawzhang"
+CELERYD_GROUP="jiawzhang"
 
 # Where to chdir at start.
-CELERYBEAT_CHDIR="/opt/Myproject/"
+CELERYBEAT_CHDIR="/home/jiawzhang/VimProject/StudyPyramid/celery/"
 
 # Extra arguments to celerybeat
-CELERYBEAT_OPTS="--schedule=/var/run/celerybeat-schedule"
+CELERYBEAT_OPTS="--schedule=/var/log/pyramid/celery/celerybeat-schedule"

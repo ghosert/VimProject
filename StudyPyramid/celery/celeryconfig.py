@@ -7,6 +7,9 @@ BROKER_URL = 'amqp://'
 # You don't have to specify result_backend if you don't expect to get the result
 CELERY_RESULT_BACKEND = 'amqp://'
 
+# This is necessary if you are going with daemon mode
+CELERY_INCLUDE = 'tasks'
+
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'Asia/Shanghai'

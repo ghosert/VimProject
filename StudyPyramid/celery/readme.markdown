@@ -27,10 +27,13 @@ $ celery -A tasks worker -l info
 1. See details and download **extra/generic-init.d/** from [here][1] to ./env
 2. sudo cp ./env/celerybeat /etc/init.d/
 3. sudo cp ./env/celeryd /etc/init.d/
-4. sudo cp ./env/conf/celeryd /etc/default/celeryd
-5. sudo service celeryd start/stop/restart/status
-6. sudo service celerybeat start/stop/restart
-7. See more sample configurations [here][1]
+4. sudo cp ./env/conf/celeryd /etc/default/celeryd # check this config file if needed.
+5. mkdir /var/log/pyramid/celery/
+6. sudo service celeryd start/stop/restart/status
+7. sudo service celerybeat start/stop/restart
+8. sudo service celeryd status && tail -f /var/log/pyramid/celery/w1.log to check if everything is ok.
+9. if you have any py changes, make sure to sudo service celeryd restart
+10. See more sample configurations [here][1]
 
 
 ## Help
