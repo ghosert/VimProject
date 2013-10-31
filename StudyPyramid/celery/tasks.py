@@ -19,6 +19,10 @@ Notes 3:
     if you change .py like tasks.py or celeryconfig.py make sure you restart like below:
     $ sudo service celeryd restart
     Otherwise the change will not be applied.
+
+Delete message/queue
+celery amqp queue.purge queue_name
+celery amqp queue.delete queue_name
 """
 
 from celery import Celery
@@ -37,7 +41,7 @@ from celery import Celery
 # >>> result = add.deplay(4, 4)
 # >>> result.ready()
 # >>> result.get(timeout=1)
-# >>> result.get(propagate=True)
+# >>> result.get(propagate=True) # default is True equals to result.get()
 # >>> result.traceback
 
 import logging
