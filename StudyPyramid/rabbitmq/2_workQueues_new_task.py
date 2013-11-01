@@ -2,8 +2,8 @@
 
 """
 # start two workers
-python 2_workQueues_new_task.py
-python 2_workQueues_new_task.py
+python 2_workQueues_worker.py
+python 2_workQueues_workder.py
 # start new task with 'dot' to indicate the heavy task, one dot means one second.
 python 2_workQueues_new_task.py First message.
 python 2_workQueues_new_task.py Second message..
