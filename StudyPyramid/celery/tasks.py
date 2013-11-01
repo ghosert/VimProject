@@ -20,9 +20,14 @@ Notes 3:
     $ sudo service celeryd restart
     Otherwise the change will not be applied.
 
-Delete message/queue
-celery amqp queue.purge queue_name
-celery amqp queue.delete queue_name
+Remote Control
+ceelry -A tasks inspect active
+ceelry -A tasks status
+
+# lookup current events
+ceelry -A tasks control enable_events
+ceelry -A tasks events / ceelry -A tasks events --dump
+ceelry -A tasks control disable_events
 """
 
 from celery import Celery
@@ -47,7 +52,7 @@ from celery import Celery
 import logging
 
 # Go with configuration
-celery = Celery('tasks')
+celery = Celery('tasks') # specify the module name 'tasks' which is same to current module name
 celery.config_from_object('celeryconfig') # load configuration from celeryconfig.py
 
 @celery.task

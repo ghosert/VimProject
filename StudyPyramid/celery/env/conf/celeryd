@@ -15,8 +15,8 @@ CELERYD_LOG_FILE="/var/log/pyramid/celery/%n.log"
 CELERYD_PID_FILE="/var/log/pyramid/celery/%n.pid"
 
 # Workers should run as an unprivileged user.
-CELERYD_USER="jiawzhang"
-CELERYD_GROUP="jiawzhang"
+CELERYD_USER="celery"
+CELERYD_GROUP="celery"
 
 # Where to chdir at start.
 CELERYBEAT_CHDIR="/home/jiawzhang/VimProject/StudyPyramid/celery/"

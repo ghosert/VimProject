@@ -38,5 +38,3 @@ print result.state # FAILURE
 # group/map/chain/starmap/chord/chunks check out this:
 # http://docs.celeryproject.org/en/latest/getting-started/next-steps.html#next-steps
 
-# Routing
-
