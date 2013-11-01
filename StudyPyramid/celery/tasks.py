@@ -21,13 +21,13 @@ Notes 3:
     Otherwise the change will not be applied.
 
 Remote Control
-ceelry -A tasks inspect active
-ceelry -A tasks status
+celery -A tasks inspect active
+celery -A tasks status
 
 # lookup current events
-ceelry -A tasks control enable_events
-ceelry -A tasks events / ceelry -A tasks events --dump
-ceelry -A tasks control disable_events
+celery -A tasks control enable_events
+celery -A tasks events / celery -A tasks events --dump
+celery -A tasks control disable_events
 """
 
 from celery import Celery
