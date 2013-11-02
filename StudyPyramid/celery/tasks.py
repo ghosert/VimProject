@@ -49,14 +49,29 @@ from celery import Celery
 # >>> result.get(propagate=True) # default is True equals to result.get()
 # >>> result.traceback
 
-import logging
-
 # Go with configuration
 celery = Celery('tasks') # specify the module name 'tasks' which is same to current module name
 celery.config_from_object('celeryconfig') # load configuration from celeryconfig.py
 
-@celery.task
+
+from celery.utils.log import get_task_logger
+from celery import current_task
+
+logger = get_task_logger(__name__)
+
+# Put task decorator the first one if there are multiple decorators, which means @celery.task will be excuted last.
+@celery.task(max_retries=3) # default max_retries=3, default_retry_delay=180
 def add(x, y):
-    logging.info('Caculate adding expression x={0}, y={1}'.format(x, y))
-    return x + y
+    try:
+        logger.info('add.name={0}'.format(add.name))
+        logger.info('Caculate adding expression x={0}, y={1}'.format(x, y)) 
+        request = current_task.request
+        logger.info('request.delivery_info={0} request.retries={1} request.hostname={2}'.format(request.delivery_info, request.retries, request.hostname))
+        # fail deliberately until retry = 3
+        if request.retries < 3:
+            raise Exception('ERROR HAPPENS HERE.')
+        return x + y
+    except Exception as exc:
+        raise add.retry(exc=exc, countdown=5) # overwrite 180s above to 5s to retry
+
 

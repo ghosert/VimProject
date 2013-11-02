@@ -54,6 +54,7 @@ celery amqp queue.delete queue_name
 ```
 $ celery worker --help # look up command help, e.g. 'worker' here
 $ celery --help # list other commands
+$ celeryd --help
 ```
 
 [1]: http://docs.celeryproject.org/en/latest/tutorials/daemonizing.html#daemonizing

@@ -13,7 +13,7 @@ CELERY_RESULT_BACKEND = 'amqp://'
 # This is necessary if you are going with daemon mode
 CELERY_INCLUDE = 'tasks'
 
-# For test_tasks.py to go with the queue: test_tasks_queue
+# For tasks.add to go with the queue: test_tasks_queue
 CELERY_ROUTES = {
             'tasks.add': {'queue': 'test_tasks_queue'}
         }
@@ -22,6 +22,9 @@ CELERY_ROUTES = {
 CELERY_QUEUES = (
             Queue('test_tasks_queue'),
         )
+
+# acknowledged after the task has been executed, False by default
+CELERY_ACKS_LATE = True
 
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'

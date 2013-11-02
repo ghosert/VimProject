@@ -9,9 +9,12 @@ CELERYD_CHDIR="/home/jiawzhang/VimProject/StudyPyramid/celery/"
 
 # Extra arguments to celeryd
 # CELERYD_OPTS="--time-limit=300 --concurrency=8"
+# jiawzhang NOTICE: set '--app' here otherwise 'retry task' function will fail to work, seems celery 3.1 has CELERY_APP="tasks" to resolve this either
+CELERYD_OPTS="--app=tasks"
 
 # %n will be replaced with the nodename.
 CELERYD_LOG_FILE="/var/log/pyramid/celery/%n.log"
+# CELERYD_LOG_LEVEL="DEBUG"
 CELERYD_PID_FILE="/var/log/pyramid/celery/%n.pid"
 
 # Workers should run as an unprivileged user.
