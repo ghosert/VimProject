@@ -22,6 +22,7 @@ $ easy_install Celery
 $ celery -A tasks worker -l info
 >>> from tasks import add
 >>> add.delay(4, 4)
+$ celery beat
 ```
 
 ## Run in Daemon Mode
@@ -33,7 +34,7 @@ $ celery -A tasks worker -l info
 4. sudo cp ./env/conf/celeryd /etc/default/celeryd # change this **celeryd** if needed.
 5. sudo service celeryd start/stop/restart/status
 6. sudo service celerybeat start/stop/restart
-7. sudo service celeryd status && tail -f /var/log/pyramid/celery/w1.log to check if everything is ok.
+7. sudo service celeryd status && tail -f /var/log/pyramid/celery/w1.log && /var/log/pyramid/celery/beat.log to check if everything is ok.
 
 ### Notes:
 

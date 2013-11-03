@@ -26,7 +26,28 @@ CELERY_QUEUES = (
 # acknowledged after the task has been executed, False by default
 CELERY_ACKS_LATE = True
 
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_RESULT_SERIALIZER = 'json'
+# 'pickle', 'json', 'yaml', 'msgpack' are supported for serialization/unserialization
+CELERY_TASK_SERIALIZER = 'pickle'
+CELERY_RESULT_SERIALIZER = 'pickle'
+
 CELERY_TIMEZONE = 'Asia/Shanghai'
 CELERY_ENABLE_UTC = True
+
+
+# celerybeat
+from datetime import timedelta
+from celery.schedules import crontab
+
+CELERYBEAT_SCHEDULE = {
+    'add-every-30-seconds': {
+        'task': 'tasks.add',
+        'schedule': timedelta(seconds=30),
+        # 'schedule': crontab(hour=7, minute=30, day_of_week=1),
+        'args': (16, 16)
+    },
+}
+# All the crontab definition goes here:
+# http://docs.celeryproject.org/en/latest/userguide/periodic-tasks.html
+# Ensure a task is only executed one at a time
+# http://docs.celeryproject.org/en/latest/tutorials/task-cookbook.html#cookbook-task-serial
+

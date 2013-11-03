@@ -21,8 +21,17 @@ CELERYD_PID_FILE="/var/log/pyramid/celery/%n.pid"
 CELERYD_USER="celery"
 CELERYD_GROUP="celery"
 
+
+# CELERYD PATH, could be pointed to virtualenv
+# CELERYBEAT=""
 # Where to chdir at start.
 CELERYBEAT_CHDIR="/home/jiawzhang/VimProject/StudyPyramid/celery/"
-
 # Extra arguments to celerybeat
 CELERYBEAT_OPTS="--schedule=/var/log/pyramid/celery/celerybeat-schedule"
+
+CELERYBEAT_PID_FILE="/var/log/pyramid/celery/beat.pid"
+CELERYBEAT_LOG_FILE="/var/log/pyramid/celery/beat.log"
+CELERYBEAT_LOG_LEVEL="INFO"
+CELERYBEAT_USER="celery"
+CELERYBEAT_GROUP="celery"
+
