@@ -60,7 +60,7 @@ from celery import current_task
 logger = get_task_logger(__name__)
 
 # Put task decorator the first one if there are multiple decorators, which means @celery.task will be excuted last.
-@celery.task(max_retries=3) # default max_retries=3, default_retry_delay=180
+@celery.task(max_retries=3) # default max_retries=3, default_retry_delay=180, rate_limite='1/s' '1/m' '1/h', second, minute, hour
 def add(x, y):
     try:
         logger.info('add.name={0}'.format(add.name))
@@ -69,9 +69,9 @@ def add(x, y):
         logger.info('request.delivery_info={0} request.retries={1} request.hostname={2}'.format(request.delivery_info, request.retries, request.hostname))
         # fail deliberately until retry = 3
         if request.retries < 3:
-            raise Exception('ERROR HAPPENS HERE.')
+            raise Exception('ERROR HAPPENS HERE.') # Error details will be logged to logs if it exceeds max_retries.
         return x + y
     except Exception as exc:
-        raise add.retry(exc=exc, countdown=5) # overwrite 180s above to 5s to retry
+        raise add.retry(exc=exc, countdown=5) # overwrite 180s above to 5s to retry, 'Retry' will be logged into logs
 
 
