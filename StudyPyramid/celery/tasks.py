@@ -78,5 +78,7 @@ def add(x, y):
 
 @celery.task
 def mul(x, y):
+    logger.info('mul.name={0}'.format(mul.name))
+    logger.info('Caculate mul expression x={0}, y={1}'.format(x, y)) 
     return x * y
 
