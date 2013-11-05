@@ -15,7 +15,8 @@ CELERY_INCLUDE = 'tasks'
 
 # For tasks.add to go with the queue: test_tasks_queue
 CELERY_ROUTES = {
-            'tasks.add': {'queue': 'test_tasks_queue'}
+            'tasks.add': {'queue': 'test_tasks_queue'},
+            'tasks.mul': {'queue': 'test_tasks_queue'},
         }
 
 # For tasks.py to listen the queue: test_tasks_queue

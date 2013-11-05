@@ -76,4 +76,7 @@ def add(x, y):
     except Exception as exc:
         raise add.retry(exc=exc, countdown=5) # overwrite 180s above to 5s to retry, 'Retry' will be logged into logs
 
+@celery.task
+def mul(x, y):
+    return x * y
 
