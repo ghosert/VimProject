@@ -65,19 +65,24 @@ logger = get_task_logger(__name__)
 @celery.task(max_retries=3) # default max_retries=3, default_retry_delay=180, rate_limite='1/s' '1/m' '1/h', second, minute, hour
 def add(x, y):
     try:
+        request = current_task.request
+        logger.info('==================add retries: {0}======================'.format(request.retries))
         logger.info('add.name={0}'.format(add.name))
         logger.info('Caculate adding expression x={0}, y={1}'.format(x, y)) 
-        request = current_task.request
         logger.info('request.delivery_info={0} request.retries={1} request.hostname={2}'.format(request.delivery_info, request.retries, request.hostname))
         # fail deliberately until retry = 3
         if request.retries < 3:
-            raise Exception('ERROR HAPPENS HERE.') # Error details will be logged to logs if it exceeds max_retries.
+            raise Exception('ERROR HAPPENS HERE.')
         return x + y
     except Exception as exc:
-        raise add.retry(exc=exc, countdown=5) # overwrite 180s above to 5s to retry, 'Retry' will be logged into logs
+        raise add.retry(exc=exc, countdown=5)
+        # 1. overwrite 180s above to 5s to retry, 'Retry' will be logged into logs
+        # 2. worker will notify the queue to resend message for retry
+        # 3. if it excceds max_retries, the detail exception(exc here) will be thrown and logged.
 
 @celery.task
 def mul(x, y):
+    logger.info('========================mul=================================')
     logger.info('mul.name={0}'.format(mul.name))
     logger.info('Caculate mul expression x={0}, y={1}'.format(x, y)) 
     return x * y

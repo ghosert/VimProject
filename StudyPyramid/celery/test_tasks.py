@@ -7,14 +7,13 @@ y = random.choice([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
 
 print "x={0}, {1}".format(x, y)
 
-result = add.delay(x, y)
-print result.id # message id
-
 result = mul.delay(x, y)
 print result.id # message id
 print "mul.delay(x, y)={0}".format(result.get())
+result = mul.apply_async((x, y), countdown=5)  # Same as add.delay(2, 2)
+print result.id # message id
+print "mul.delay(x, y)={0}".format(result.get())
 
-# Same as above
 result = add.apply_async((2, 2))
 print result.get()
 print result.successful()

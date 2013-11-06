@@ -1,6 +1,7 @@
 # coding: utf-8
 
 from kombu import Queue
+from kombu.entity import Exchange
 
 # configuration doc:
 # http://docs.celeryproject.org/en/latest/configuration.html
@@ -13,15 +14,23 @@ CELERY_RESULT_BACKEND = 'amqp://'
 # This is necessary if you are going with daemon mode
 CELERY_INCLUDE = 'tasks'
 
-# For tasks.add to go with the queue: test_tasks_queue
+# tasks.add will go with the queue: tasks_queue for both producer and consumer
 CELERY_ROUTES = {
-            'tasks.add': {'queue': 'test_tasks_queue'},
-            'tasks.mul': {'queue': 'test_tasks_queue'},
+            'tasks.add': {'queue': 'tasks_queue', 'routing_key': 'tasks_routing'},
+            'tasks.mul': {'queue': 'tasks_queue', 'routing_key': 'tasks_routing'},
+            #'tasks.add_1': {'queue': 'tasks_queue', 'routing_key': 'tasks_routing_1'},
+            #'tasks.add_2': {'queue': 'tasks_queue_2', 'routing_key': 'tasks_routing_2'},
         }
 
-# For tasks.py to listen the queue: test_tasks_queue
+# define exchanges explicitly, change type here requires reset queue/exchange: 'celery amqp queue.delete tasks_queue' and 'celery amqp exchange.delete tasks_exchange'
+tasks_exchange = Exchange('tasks_exchange', type='direct') # fanout/direct/topic
+
+# For tasks.py to listen the queue: tasks_queue
 CELERY_QUEUES = (
-            Queue('test_tasks_queue'),
+            Queue('tasks_queue', tasks_exchange, routing_key='tasks_routing'),
+            # Queue('tasks_queue', tasks_exchange, routing_key='tasks_routing_1'),
+            # Queue('tasks_queue_2', tasks_exchange, routing_key='tasks_routing_2'),
+            # routing_key could be 'tasks.#', '*.tasks.*' if exchange type is 'topic'
         )
 
 # acknowledged after the task has been executed, False by default
