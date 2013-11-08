@@ -55,6 +55,11 @@ from celery import Celery
 celery = Celery('tasks') # specify the module name 'tasks' which is same to current module name
 celery.config_from_object('celeryconfig') # load configuration from celeryconfig.py
 
+# Set some configurations as list here:
+# celery.conf.update(
+    # CELERYD_PREFETCH_MULTIPLIER = 1,
+# )
+
 
 from celery.utils.log import get_task_logger
 from celery import current_task
@@ -86,4 +91,22 @@ def mul(x, y):
     logger.info('mul.name={0}'.format(mul.name))
     logger.info('Caculate mul expression x={0}, y={1}'.format(x, y)) 
     return x * y
+
+
+
+# There is a race condition if the task starts executing before the transaction has been committed; The database object does not exist yet!
+
+# The solution is to always commit transactions before sending tasks depending on state from the current transaction:
+
+# Django sample
+# @transaction.commit_manually
+# def create_article(request):
+    # try:
+        # article = Article.objects.create(...)
+    # except:
+        # transaction.rollback()
+        # raise
+    # else:
+        # transaction.commit()
+        # expand_abbreviations.delay(article.pk)
 

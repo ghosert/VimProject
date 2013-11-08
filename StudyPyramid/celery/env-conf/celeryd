@@ -12,6 +12,9 @@ CELERYD_CHDIR="/home/jiawzhang/VimProject/StudyPyramid/celery/"
 # jiawzhang NOTICE: set '--app' here otherwise 'retry task' function will fail to work, seems celery 3.1 has CELERY_APP="tasks" to resolve this either
 CELERYD_OPTS="--app=tasks"
 
+# Run different workers on the same machine: http://stackoverflow.com/questions/5463241/celery-run-different-workers-on-one-server
+# CELERYD_OPTS="-Q:w1 default -c:w1 2 -Q:w2 important -c:w2 2"
+
 # %n will be replaced with the nodename.
 CELERYD_LOG_FILE="/var/log/celery/%n.log"
 CELERYD_LOG_LEVEL="INFO"

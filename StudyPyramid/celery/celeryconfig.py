@@ -36,6 +36,11 @@ CELERY_QUEUES = (
 # acknowledged after the task has been executed, False by default
 CELERY_ACKS_LATE = True
 
+# The worker will reserve at most one extra task for every active worker process.
+# CELERYD_PREFETCH_MULTIPLIER = 1
+#
+# Good for many tasks with a long duration, larger this number for many short-running tasks, if there are tasks with the combination of long/short-running tasks, go with two queues and using dedicated workers with different MULTIPLIER values to consume the each queue.
+
 # 'pickle', 'json', 'yaml', 'msgpack' are supported for serialization/unserialization
 CELERY_TASK_SERIALIZER = 'pickle'
 CELERY_RESULT_SERIALIZER = 'pickle'
