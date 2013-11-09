@@ -14,6 +14,9 @@ CELERYD_OPTS="--app=tasks"
 
 # Run different workers on the same machine: http://stackoverflow.com/questions/5463241/celery-run-different-workers-on-one-server
 # CELERYD_OPTS="-Q:w1 default -c:w1 2 -Q:w2 important -c:w2 2"
+#
+# To make sure each app care the specified queue along with worker either, you could do this: define two apps(tasks, tasks_2), in the each of the app, care the only queue which the coressponding worker cares either.
+# CELERYD_OPTS="-Q:w1 tasks_queue -A:w1 tasks -Q:w2 tasks_queue_2 -A:w2 tasks_2"
 
 # %n will be replaced with the nodename.
 CELERYD_LOG_FILE="/var/log/celery/%n.log"
