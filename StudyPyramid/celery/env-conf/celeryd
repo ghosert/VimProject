@@ -17,6 +17,7 @@ CELERYD_OPTS="--app=tasks"
 #
 # To make sure each app care the specified queue along with worker either, you could do this: define two apps(tasks, tasks_2), in the each of the app, care the only queue which the coressponding worker cares either.
 # CELERYD_OPTS="-Q:w1 tasks_queue -A:w1 tasks -Q:w2 tasks_queue_2 -A:w2 tasks_2"
+# 'ps -ef | grep celeryd' to check the parameters of the current started celeyd.
 
 # %n will be replaced with the nodename.
 CELERYD_LOG_FILE="/var/log/celery/%n.log"
