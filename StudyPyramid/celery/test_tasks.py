@@ -16,7 +16,7 @@ print "mul.delay(x, y)={0}".format(result.get())
 
 result = add.apply_async((2, 2))
 print result.get()
-print result.successful()
+print 'result.successful(): {0}'.format(result.successful())
 print result.state # SUCCESS
 
 # Enhance above, create/send mesage to queue name 'lopri'
@@ -36,7 +36,7 @@ try:
 except Exception as e:
     print '---------'
     print e
-print result.failed()
+print 'result.failed(): {0}'.format(result.failed())
 print result.state # FAILURE
 
 # Canvas/subtask

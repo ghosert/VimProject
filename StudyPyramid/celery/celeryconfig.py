@@ -6,10 +6,10 @@ from kombu.entity import Exchange
 # configuration doc:
 # http://docs.celeryproject.org/en/latest/configuration.html
 
-BROKER_URL = 'amqp://'
+BROKER_URL = 'amqp://guest:guest@localhost:5672//'
 
 # You don't have to specify result_backend if you don't expect to get the result
-CELERY_RESULT_BACKEND = 'amqp://'
+CELERY_RESULT_BACKEND = 'amqp://guest:guest@localhost:5672//'
 
 # This is necessary if you are going with daemon mode
 CELERY_INCLUDE = 'tasks'
@@ -51,7 +51,7 @@ CELERY_ENABLE_UTC = True
 
 # celerybeat
 from datetime import timedelta
-from celery.schedules import crontab
+# from celery.schedules import crontab
 
 CELERYBEAT_SCHEDULE = {
     'add-every-30-seconds': {
