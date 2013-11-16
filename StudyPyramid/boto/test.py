@@ -4,6 +4,8 @@
 # http://docs.pythonboto.org/en/latest/ses_tut.html
 # Amazon SES reference
 # http://docs.pythonboto.org/en/latest/ref/ses.html
+# Boto configuration:
+# http://docs.pythonboto.org/en/latest/boto_config_tut.html
 
 # jiawzhang NOTICE: one time one recipient
 # jiawzhang NOTICE: do not send emails to hard bounced or complained recipient, you will know this by email sent to return_path above from ISP, check them and remove these recipient from sending list.
