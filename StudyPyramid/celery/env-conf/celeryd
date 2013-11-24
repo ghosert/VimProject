@@ -34,7 +34,7 @@ CELERYD_GROUP="celery"
 # Where to chdir at start.
 CELERYBEAT_CHDIR="/home/jiawzhang/VimProject/StudyPyramid/celery/"
 # Extra arguments to celerybeat
-CELERYBEAT_OPTS="--schedule=/var/log/celery/celerybeat-schedule"
+CELERYBEAT_OPTS="--schedule=/var/log/celery/celerybeat-schedule --app=tasks"
 
 CELERYBEAT_PID_FILE="/var/log/celery/beat.pid"
 CELERYBEAT_LOG_FILE="/var/log/celery/beat.log"
