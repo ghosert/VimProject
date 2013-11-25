@@ -53,7 +53,7 @@ from celery import Celery
 
 # Go with configuration
 celery = Celery('tasks') # specify the module name 'tasks' which is same to current module name
-celery.config_from_object('celeryconfig') # load configuration from celeryconfig.py
+celery.config_from_object('celeryconfig') # load configuration from celeryconfig.py, make sure use 'string' as module name only, otherwise error happens with celerybeat
 
 # Set some configurations as list here:
 # celery.conf.update(
