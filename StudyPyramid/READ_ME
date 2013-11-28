@@ -1241,7 +1241,7 @@ Request and Response Objects
 	def add_cleanup_callback(event):
 		event.request.add_finished_callback(cleanup_callback)
 	
-	Note: this is only an example, we don't need DBSession.remove() like this in reality.
+	Note: this is only an example, we don't need DBSession.remove() like this in reality. Because in Pyramid scaffold, pyramid_tm has take care of this.
 
 # Response
 
