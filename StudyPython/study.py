@@ -743,6 +743,9 @@ if __name__ == "__main__":
     print li
     print
 
+    # Python decorator:
+    # http://www.cnblogs.com/Jerry-Chou/archive/2012/05/23/python-decorator-explain.html
+
 
 """ Below is the line can be executed by pressing <F12> or <F5> directly """
 """ Can be executed in visual mode by pressing <C-F5> as well """
