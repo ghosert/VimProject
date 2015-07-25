@@ -20,6 +20,7 @@ CELERY_ROUTES = {
             'tasks.mul': {'queue': 'tasks_queue', 'routing_key': 'tasks_routing'},
             #'tasks.add_1': {'queue': 'tasks_queue', 'routing_key': 'tasks_routing_1'},
             #'tasks.add_2': {'queue': 'tasks_queue_2', 'routing_key': 'tasks_routing_2'},
+            'tasks.pdf': {'queue': 'tasks_pdf_queue', 'routing_key': 'tasks_pdf_routing'},
         }
 
 # define exchanges explicitly, change type here requires reset queue/exchange: 'celery amqp queue.delete tasks_queue' and 'celery amqp exchange.delete tasks_exchange'
@@ -31,6 +32,7 @@ CELERY_QUEUES = (
             # Queue('tasks_queue', tasks_exchange, routing_key='tasks_routing_1'),
             # Queue('tasks_queue_2', tasks_exchange, routing_key='tasks_routing_2'),
             # routing_key could be 'tasks.#', '*.tasks.*' if exchange type is 'topic'
+            Queue('tasks_pdf_queue', tasks_exchange, routing_key='tasks_pdf_routing'),
         )
 
 # acknowledged after the task has been executed, False by default

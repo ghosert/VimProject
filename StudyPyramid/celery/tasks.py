@@ -93,7 +93,11 @@ def mul(x, y):
     logger.info('Caculate mul expression x={0}, y={1}'.format(x, y)) 
     return x * y
 
-
+@celery.task
+def pdf(content):
+    import pdfkit
+    pdf_result_file = pdfkit.from_string(content, False)
+    return pdf_result_file
 
 # There is a race condition if the task starts executing before the transaction has been committed; The database object does not exist yet!
 

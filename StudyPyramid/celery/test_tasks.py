@@ -1,6 +1,6 @@
 import random
 
-from tasks import add, mul
+from tasks import add, mul, pdf
 
 x = random.choice([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
 y = random.choice([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
@@ -38,6 +38,17 @@ except Exception as e:
     print e
 print 'result.failed(): {0}'.format(result.failed())
 print result.state # FAILURE
+
+# Test on pdf
+result = pdf.delay('This is the content of this pdf')
+pdf_content = result.get(propagate=False, timeout=30)
+if not result.failed():
+    print 'get pdf successfully.'
+    with open('/home/jiawzhang/Downloads/test-pdf.pdf', 'w') as file:
+        file.write(pdf_content)
+else:
+    print 'get pdf failed.'
+
 
 # Canvas/subtask
 # group/map/chain/starmap/chord/chunks check out this:
