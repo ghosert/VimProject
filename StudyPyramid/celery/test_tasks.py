@@ -40,14 +40,19 @@ print 'result.failed(): {0}'.format(result.failed())
 print result.state # FAILURE
 
 # Test on pdf
-result = pdf.delay('This is the content of this pdf')
-pdf_content = result.get(propagate=False, timeout=30)
-if not result.failed():
-    print 'get pdf successfully.'
-    with open('/home/jiawzhang/Downloads/test-pdf.pdf', 'w') as file:
-        file.write(pdf_content)
-else:
-    print 'get pdf failed.'
+try:
+    async_result = pdf.delay('This is the content of this pdf')
+    async_result.get(propagate=False, timeout=30)
+    if not async_result.failed():
+        print 'get pdf successfully.'
+        with open('/home/jiawzhang/Downloads/test-pdf.pdf', 'w') as file:
+            file.write(async_result.result)
+    else:
+        print 'get pdf failed.'
+        raise async_result.result
+except Exception as e:
+    print '================ catch htmlto pdf exception ================'
+    print e.message
 
 
 # Canvas/subtask

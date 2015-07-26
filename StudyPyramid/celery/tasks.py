@@ -97,6 +97,7 @@ def mul(x, y):
 def pdf(content):
     import pdfkit
     pdf_result_file = pdfkit.from_string(content, False)
+    # raise Exception('========pdf=======')
     return pdf_result_file
 
 # There is a race condition if the task starts executing before the transaction has been committed; The database object does not exist yet!
