@@ -9,7 +9,7 @@ from kombu.entity import Exchange
 BROKER_URL = 'amqp://guest:guest@localhost:5672//'
 
 # You don't have to specify result_backend if you don't expect to get the result
-CELERY_RESULT_BACKEND = 'rpc://' # this 'rpc' backend is introduced since celery 3.1 and is better than 'amqp' backend which will introduce temp queue could be observed by 'rabbitmqctl list_queues'
+CELERY_RESULT_BACKEND = 'amqp' # It's said 'rpc' backend is introduced since celery 3.1 and is better than 'amqp' backend which will introduce temp queue could be observed by 'rabbitmqctl list_queues', but not the case after testing in Celery 3.1.18, seems amqp will auto delete the temp queues while rpc will not.
 # CELERY_RESULT_PERSISTENT = True # enable this if you want to keep result after invoking
 
 # This is necessary if you are going with daemon mode
