@@ -46,6 +46,7 @@ CELERY_ACKS_LATE = True
 # 'pickle', 'json', 'yaml', 'msgpack' are supported for serialization/unserialization
 CELERY_TASK_SERIALIZER = 'pickle'
 CELERY_RESULT_SERIALIZER = 'pickle'
+CELERY_ACCEPT_CONTENT = ['pickle']
 
 CELERY_TIMEZONE = 'Asia/Shanghai'
 CELERY_ENABLE_UTC = True
