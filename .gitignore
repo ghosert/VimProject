@@ -6,7 +6,10 @@ bin/
 *.[oa]
 *.so
 *.swp
+*.iml
 cscope.files
 cscope.out
 tags
 .coverage
+.idea/
+out/
