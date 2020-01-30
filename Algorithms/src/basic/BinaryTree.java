@@ -1,9 +1,6 @@
 package basic;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 class TreeNode {
     int val;
@@ -68,8 +65,37 @@ class TraversalBinaryTreeIteratively {
     }
 }
 
+class TraversalBinaryTreeLevelOrder {
+
+    public List<List<Integer>> levelOrderTraversal(TreeNode root) {
+        List<List<Integer>> results = new ArrayList<>();
+        if (root == null) {
+            return results;
+        }
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            List<Integer> result = new ArrayList<>(size);
+            for (int i = 0; i < size; i++) {
+                TreeNode node = queue.poll();
+                result.add(node.val);
+                if (node.left != null) {
+                    queue.offer(node.left);
+                }
+                if (node.right != null) {
+                    queue.offer(node.right);
+                }
+            }
+            results.add(result);
+        }
+        return results;
+    }
+}
+
 public class BinaryTree {
     public static void main(String[] args) {
+        // preorder/inorder/postorder cases:
         TreeNode root = BinaryTree.buildBinaryTree();
         TraversalBinaryTreeIteratively tbti = new TraversalBinaryTreeIteratively();
         // expected output: [1, 2, 3]
@@ -78,6 +104,13 @@ public class BinaryTree {
         BinaryTree.printNumbers(TraversalBinaryTreeIteratively.class.getSimpleName() + " inorder: ", tbti.inorderTraversal(root));
         // expected output: [3, 2, 1]
         BinaryTree.printNumbers(TraversalBinaryTreeIteratively.class.getSimpleName() + " postorder: ", tbti.postorderTraversal(root));
+
+        // level order case:
+        TreeNode rootForLevelOrder = BinaryTree.buildBinaryTreeForLevelOrder();
+        TraversalBinaryTreeLevelOrder tbtlo = new TraversalBinaryTreeLevelOrder();
+        // expected output:
+        // [ [3], [9,20], [15,7] ]
+        BinaryTree.printNumbers(TraversalBinaryTreeLevelOrder.class.getSimpleName() + " levelorder: ", tbtlo.levelOrderTraversal(rootForLevelOrder));
     }
 
     private static TreeNode buildBinaryTree() {
@@ -94,11 +127,26 @@ public class BinaryTree {
         return node;
     }
 
-    private static void printNumbers(String statement, List<Integer> numbers) {
+    private static TreeNode buildBinaryTreeForLevelOrder() {
+        // Input: [3, 9, 20, null, null, 15, 7]
+        // A Tree like below:
+        //         3
+        //    9        20
+        //         15      7
+        TreeNode node = new TreeNode(3);
+        TreeNode secondNode = new TreeNode(9);
+        TreeNode thirdNode = new TreeNode(20);
+        TreeNode fourthNode = new TreeNode(15);
+        TreeNode fifthNode = new TreeNode(7);
+        node.left = secondNode;
+        node.right = thirdNode;
+        thirdNode.left = fourthNode;
+        thirdNode.right = fifthNode;
+        return node;
+    }
+
+    private static void printNumbers(String statement, List numbers) {
         System.out.println(statement);
-        for (int n : numbers) {
-            System.out.printf("%d ", n);
-        }
-        System.out.println();
+        System.out.println(numbers.toString());
     }
 }
