@@ -99,18 +99,18 @@ public class BinaryTree {
         TreeNode root = BinaryTree.buildBinaryTree();
         TraversalBinaryTreeIteratively tbti = new TraversalBinaryTreeIteratively();
         // expected output: [1, 2, 3]
-        BinaryTree.printNumbers(TraversalBinaryTreeIteratively.class.getSimpleName() + " preorder: ", tbti.preorderTraversal(root));
+        BinaryTree.printNumbers("TraversalBinaryTreeIteratively preorder: ", tbti.preorderTraversal(root));
         // expected output: [1, 3, 2]
-        BinaryTree.printNumbers(TraversalBinaryTreeIteratively.class.getSimpleName() + " inorder: ", tbti.inorderTraversal(root));
+        BinaryTree.printNumbers("TraversalBinaryTreeIteratively inorder: ", tbti.inorderTraversal(root));
         // expected output: [3, 2, 1]
-        BinaryTree.printNumbers(TraversalBinaryTreeIteratively.class.getSimpleName() + " postorder: ", tbti.postorderTraversal(root));
+        BinaryTree.printNumbers("TraversalBinaryTreeIteratively postorder: ", tbti.postorderTraversal(root));
 
         // level order case:
         TreeNode rootForLevelOrder = BinaryTree.buildBinaryTreeForLevelOrder();
         TraversalBinaryTreeLevelOrder tbtlo = new TraversalBinaryTreeLevelOrder();
         // expected output:
         // [ [3], [9,20], [15,7] ]
-        BinaryTree.printNumbers(TraversalBinaryTreeLevelOrder.class.getSimpleName() + " levelorder: ", tbtlo.levelOrderTraversal(rootForLevelOrder));
+        BinaryTree.printNumbers("TraversalBinaryTreeLevelOrder levelorder: ", tbtlo.levelOrderTraversal(rootForLevelOrder));
     }
 
     private static TreeNode buildBinaryTree() {
