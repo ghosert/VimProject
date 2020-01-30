@@ -65,6 +65,53 @@ class TraversalBinaryTreeIteratively {
     }
 }
 
+class TraversalBinaryTreeRecursively {
+    public List<Integer> preorderTraversal(TreeNode root) {
+        List<Integer> results = new ArrayList<>();
+        this.traversePreorder(results, root);
+        return results;
+    }
+
+    private void traversePreorder(List<Integer> results, TreeNode node) {
+        if (node == null) {
+            return;
+        }
+        results.add(node.val);
+        this.traversePreorder(results, node.left);
+        this.traversePreorder(results, node.right);
+    }
+
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> results = new ArrayList<>();
+        this.traverseInorder(results, root);
+        return results;
+    }
+
+    private void traverseInorder(List<Integer> results, TreeNode node) {
+        if (node == null) {
+            return;
+        }
+        this.traverseInorder(results, node.left);
+        results.add(node.val);
+        this.traverseInorder(results, node.right);
+    }
+
+    public List<Integer> postorderTraversal(TreeNode root) {
+        List<Integer> results = new ArrayList<>();
+        this.traversePostorder(results, root);
+        return results;
+    }
+
+    private void traversePostorder(List<Integer> results, TreeNode node) {
+        if (node == null) {
+            return;
+        }
+        this.traversePostorder(results, node.left);
+        this.traversePostorder(results, node.right);
+        results.add(node.val);
+    }
+}
+
 class TraversalBinaryTreeLevelOrder {
 
     public List<List<Integer>> levelOrderTraversal(TreeNode root) {
@@ -95,7 +142,8 @@ class TraversalBinaryTreeLevelOrder {
 
 public class BinaryTree {
     public static void main(String[] args) {
-        // preorder/inorder/postorder cases:
+        // preorder/inorder/postorder traverse binary tree iteratively cases:
+        // Input: [1, null, 2, 3]
         TreeNode root = BinaryTree.buildBinaryTree();
         TraversalBinaryTreeIteratively tbti = new TraversalBinaryTreeIteratively();
         // expected output: [1, 2, 3]
@@ -105,7 +153,20 @@ public class BinaryTree {
         // expected output: [3, 2, 1]
         BinaryTree.printNumbers("TraversalBinaryTreeIteratively postorder: ", tbti.postorderTraversal(root));
 
-        // level order case:
+
+        // preorder/inorder/postorder traverse binary tree recursively cases:
+        // Input: [1, null, 2, 3]
+        root = BinaryTree.buildBinaryTree();
+        TraversalBinaryTreeRecursively tbtr = new TraversalBinaryTreeRecursively();
+        // expected output: [1, 2, 3]
+        BinaryTree.printNumbers("TraversalBinaryTreeRecursively preorder: ", tbtr.preorderTraversal(root));
+        // expected output: [1, 3, 2]
+        BinaryTree.printNumbers("TraversalBinaryTreeRecursively inorder: ", tbtr.inorderTraversal(root));
+        // expected output: [3, 2, 1]
+        BinaryTree.printNumbers("TraversalBinaryTreeRecursively postorder: ", tbtr.postorderTraversal(root));
+
+        // level order traverse binary tree case:
+        // Input: [3, 9, 20, null, null, 15, 7]
         TreeNode rootForLevelOrder = BinaryTree.buildBinaryTreeForLevelOrder();
         TraversalBinaryTreeLevelOrder tbtlo = new TraversalBinaryTreeLevelOrder();
         // expected output:
