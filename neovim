@@ -164,10 +164,20 @@ Read the text in the help window to find out how the help works.
 Type `<C-w><C-w>` to jump from one window to another.
 Type `:q` to close the help window.
 
-You can find help on just about any subject, by giving an argument to the
-":help" command. Try these (don't forget to press <Enter>):
-~~~ cmd
-    :help w
-    :help c_CTRL-D
-    :help insert-index
-    :help user-manual
+
+# Lesson 7.3: COMPLETION
+
+** Command line completion with `<C-d>`{normal} and `<Tab>`{normal}. **
+
+ 1. List the contents of the current directory: `:!ls`{vim}
+
+ 2. Type the start of a command: `:e`{vim}
+
+ 3. Press `<C-d>`{normal} and Neovim will show a list of commands beginning with "e".
+
+ 4. Press `<Tab>`{normal} and Neovim will complete the command name to ":edit".
+
+ 5. Now add a space and the start of an existing file name: `:edit FIL`{vim}
+
+ 6. Press `<Tab>`{normal}. Neovim will complete the name ("FIL" -> "FILE", if it is unique).
+
