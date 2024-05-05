@@ -71,3 +71,55 @@ EXPOSE 3000
 # Stop the container and build a new image to consolidate your chages in the image:
 #
 # sudo docker build -t ghosert/getting-started .
+
+# In general, each container should do one thing and do it well. The following are a few reasons to run the container separately:
+# 1. There's a good chance you'd have to scale APIs and front-ends differently than databases.
+# 2. Separate containers let you version and update versions in isolation.
+# 3. While you may use a container for the database locally, you may want to use a managed service for the database in production. You don't want to ship your database engine with your app then.
+# 4. Running multiple processes will require a process manager (the container only starts one process), which adds complexity to container startup/shutdown.
+
+
+# Create the network first and then attach the MySQL container at startup.
+#
+# sudo docker network create todo-app
+#
+# sudo docker run -d \
+#   --network todo-app --network-alias mysql \
+#   -v todo-mysql-data:/var/lib/mysql \
+#   -e MYSQL_ROOT_PASSWORD=secret \
+#   -e MYSQL_DATABASE=todos \
+#   mysql:8.0
+#
+# --network-alias flag above makes 'mysql' as hostname for the new container created. so app needs to connect to hostname 'mysql' only to talk to the database.
+# -v todo-mysql-database:/var/lib/mysql will create a named volume "todo-mysql-database" and map to /var/lib/mysql in container.
+# -v /var/lib/mysql will create a anomynous volume for you and map to /var/lib/mysql in container
+# -v /var/lib/mysql:/var/lib/mysql means -v host_path:container_path, which equals to "--mount type=bind,src=/var/lib/mysql,target=/var/lib/mysql"
+#
+# 
+# to confirm if database is running:
+#
+# sudo docker exec -it <mysql-container-id> mysql -u root -p
+#
+# Use this docker image tool to analyze netowrk
+#
+# sudo docker run -it --network todo-app nicolaka/netshoot
+# dig mysql
+#
+# You will see something like this, which proves, 'mysql' is the hostname of mysql container, this was set in --network-alias mysql above
+#
+# ;; ANSWER SECTION:
+# mysql.			600	IN	A	172.23.0.2
+
+# Run your app with MySQL, host is set to 'mysql' network alias to connect mysql database
+#
+# docker run -dp 127.0.0.1:3000:3000 \
+# -w /app -v "$(pwd):/app" \
+# --network todo-app \
+# -e MYSQL_HOST=mysql \
+# -e MYSQL_USER=root \
+# -e MYSQL_PASSWORD=secret \
+# -e MYSQL_DB=todos \
+# node:18-alpine \
+# sh -c "yarn install && yarn run dev"
+
+

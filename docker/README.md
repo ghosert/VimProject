@@ -51,3 +51,11 @@ sudo docker run -it -w /docker --mount type=bind,src="$(pwd)",target=/docker ubu
 ls
 ```
 
+quit from the bash above will lose data in non-mounting folders, you can do this instead
+
+```
+sudo docker run -dt -w /docker --mount type=bind,src="$(pwd)",target=/docker ubuntu /bin/bash
+sudo docker exec -it <container-id> /bin/bash
+```
+
+
