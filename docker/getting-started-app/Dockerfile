@@ -1,0 +1,54 @@
+# Use the official Node.js 18 image from Docker Hub with Alpine Linux as the base
+FROM node:18-alpine
+
+# Set the working directory inside the container to /app
+WORKDIR /app
+
+# Copy all files from the current directory on the host to the /app directory in the container
+COPY . .
+
+# Install only the production dependencies defined in package.json using yarn
+RUN yarn install --production
+
+# Define the command to run the application when the container starts
+CMD [ "node", "src/index.js" ]
+
+# Inform Docker that the container listens on port 3000 at runtime
+EXPOSE 3000
+
+
+# To build this dockerfile:
+
+# sudo docker build -t ghosert/getting-started .
+
+# To build image based on dockerfile, -t flag gives the image a name 'ghosert/getting-started'. you can refer to that image when running a container. The . at the end of the docker build command tells Docker that it should look for the Dockerfile in the current directory.
+
+
+# To run this image 'ghosert/getting-started'
+
+# sudo docker run -dp 127.0.0.1:3000:3000 ghosert/getting-started
+
+# The -d flag (short for --detach) runs the container in the background. This means that Docker starts your container and returns you to the terminal prompt. You can verify that a container is running by running docker ps in the terminal.
+
+# The -p flag (short for --publish) creates a port mapping between the host and the container. The -p flag takes a string value in the format of HOST:CONTAINER, where HOST is the address on the host, and CONTAINER is the port on the container. The command publishes the container's port 3000 to 127.0.0.1:3000 (localhost:3000) on the host. Without the port mapping, you wouldn't be able to access the application from the host.
+
+
+# To list all the running containers, in this case showing 'ghosert/getting-started' is running
+# sudo docker ps # sudo docker ps --all
+# sudo docker stop <container-id>
+# sudo docker rm <container-id> or use sudo docker rm -f <container-id> without stopping the container.
+
+# After modifying something in the ./src/*.js files, you need to `docker stop/rm` the running containers and `docker build/run` again.
+
+# Publish your docker image to docker hub.
+# Re-tag your image with YOUR-USER-NAME in the tag before publishing to docker hub.
+# sudo docker tag getting-started ghosert/getting-started
+# sudo docker login -u ghosert
+# sudo docker push ghosert/getting-started  # if ghosert/getting-started was built on amd64, and you need to pull from ARM, use `docker build --platform linux/arm/v7`
+# sudo docker run -dp 127.0.0.1:3000:3000 ghosert/getting-started # this will look up local first, if not exist, go to docker hub to pull image and run.
+
+# Playground with docker
+# https://labs.play-with-docker.com, the below will pull the image we uploaded and run in playground.
+# docker run -dp 0.0.0.0:3000:3000 ghosert/getting-started
+
+
