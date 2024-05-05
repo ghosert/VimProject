@@ -112,7 +112,7 @@ EXPOSE 3000
 
 # Run your app with MySQL, host is set to 'mysql' network alias to connect mysql database
 #
-# docker run -dp 127.0.0.1:3000:3000 \
+# sudo docker run -dp 127.0.0.1:3000:3000 \
 # -w /app -v "$(pwd):/app" \
 # --network todo-app \
 # -e MYSQL_HOST=mysql \
@@ -122,4 +122,10 @@ EXPOSE 3000
 # node:18-alpine \
 # sh -c "yarn install && yarn run dev"
 
+# Run everything above in a sinple compose.yaml
+#
+# sudo docker compose up -d
+# sudo docker compose logs -f # to look at the logs, both app and mysql logs will be combined together in the log
+# sudo docker compose logs -f app # to view just app logs, or mysql to view just mysql logs
+# sudo docker compose down # to stop and remove the network, named volume will not be removed. add --volumes flag to remove volume as well.
 
