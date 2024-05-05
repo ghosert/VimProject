@@ -29,8 +29,14 @@ When you run exit to terminate the /bin/bash command, the container stops but is
 
 ```
 cd getting-started-app
-sudo docker build -t getting-started .
+sudo docker build -t ghosert/getting-started .
 ```
 
 Explanation for this sample project could be found in ./getting-started-app/Dockerfile
+
+```
+sudo docker volume create todo-db
+sudo docker run -dp 127.0.0.1:3000:3000 --mount type=volume,src=todo-db,target=/etc/todos ghosert/getting-started
+```
+Use the command above to persist data generated inside docker
 
