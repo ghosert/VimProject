@@ -13,3 +13,4 @@ tags
 .coverage
 .idea/
 out/
+node_modules/

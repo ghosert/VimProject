@@ -27,16 +27,27 @@ When you run exit to terminate the /bin/bash command, the container stops but is
 
 ## Run sample project in this repo
 
+Explanation for this sample project could be found in ./getting-started-app/Dockerfile
+
 ```
 cd getting-started-app
 sudo docker build -t ghosert/getting-started .
 ```
 
-Explanation for this sample project could be found in ./getting-started-app/Dockerfile
+Named volumes: Use the command below to persist data generated inside docker, docker decides host location to persist
 
 ```
 sudo docker volume create todo-db
 sudo docker run -dp 127.0.0.1:3000:3000 --mount type=volume,src=todo-db,target=/etc/todos ghosert/getting-started
 ```
-Use the command above to persist data generated inside docker
+
+Bind mounts: You decide host location to persist or mapping.
+
+"-w" /docker to set current working directory is /docker after login
+type=bind and src/target to set mapping folders between host and container
+
+```
+sudo docker run -it -w /docker --mount type=bind,src="$(pwd)",target=/docker ubuntu bash
+ls
+```
 

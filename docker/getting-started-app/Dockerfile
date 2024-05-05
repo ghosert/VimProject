@@ -56,3 +56,18 @@ EXPOSE 3000
 # sudo docker volume ls
 # sudo docker volume inspect todo-db
 # sudo docker run -dp 127.0.0.1:3000:3000 --mount type=volume,src=todo-db,target=/etc/todos ghosert/getting-started
+
+# Make sure you are in getting-started folder
+# sudo docker run -dp 127.0.0.1:3000:3000 \
+#   -w /app --mount type=bind,src="$(pwd)",target=/app \
+#   node:18-alpine \
+#   sh -c "yarn install && yarn run dev"
+#
+# 'yarn run dev' make sure it's a hot deployment in dev env, if any changes in getting-started folder, will be reflected to the container and causes nodejs restart. You can use this command to check logs while modifying js src files in host.
+#
+# sudo docker logs -f <container-id>
+#
+# Update your js src files in host machine, and refresh your browser on localhost:3000, you will see logs above change and changes are reflected because of the bind mount.
+# Stop the container and build a new image to consolidate your chages in the image:
+#
+# sudo docker build -t ghosert/getting-started .
