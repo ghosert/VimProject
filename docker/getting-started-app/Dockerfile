@@ -129,3 +129,60 @@ EXPOSE 3000
 # sudo docker compose logs -f app # to view just app logs, or mysql to view just mysql logs
 # sudo docker compose down # to stop and remove the network, named volume will not be removed. add --volumes flag to remove volume as well.
 
+
+# Image-building best practices: https://docs.docker.com/get-started/09_image_best/
+#
+# Run: sudo docker image history ghosert/getting-started
+# you will see details on size of each layer and diagnose large images
+#
+# FROM node:18-alpine             # layer 1
+# WORKDIR /app                    # layer 2
+# COPY . .                        # layer 3
+# RUN yarn install --production   # layer 4
+# CMD [ "node", "src/index.js" ]  # layer 5
+#
+#
+# Layer caching: Now that you've seen the layering in action, there's an important lesson to learn to help decrease build times for your container images. Once a layer changes, all downstream layers have to be recreated as well.
+#
+# So it doesn't make sense to run layer 4 above again, if we don't change package.json but just update src/*.js, so we restructure the file as below:
+#
+# FROM node:18-alpine             # layer 1
+# WORKDIR /app                    # layer 2
+# COPY package.json yar.lock ./   # layer 3
+# RUN yarn install --production   # layer 4
+# COPY . .                        # layer 5
+# CMD [ "node", "src/index.js" ]  # layer 6
+#
+# In this way, if you build this Dockerfile multiple times, RUN command above will be executed only when changes to package.json
+#
+# Also add .dockerignore with content below to avoid coping node_modules from host to container, since we need clean yarn install inside container.
+# node_modules
+#
+# Build twice and use 'sudo docker image history ghosert/getting-started' to see how many layers get cahced, which saves build time.
+# sudo docker build -t ghosert/getting-started .
+#
+#
+#
+# Multi-stage builds
+#
+# Multi-stage builds are an incredibly powerful tool to help use multiple stages to create an image. There are several advantages for them:
+#
+# Separate build-time dependencies from runtime dependencies
+# Reduce overall image size by shipping only what your app needs to run
+#
+# Maven/Tomcat example
+# When building Java-based applications, you need a JDK to compile the source code to Java bytecode. However, that JDK isn't needed in production. Also, you might be using tools like Maven or Gradle to help build the app. Those also aren't needed in your final image. Multi-stage builds help.
+#
+# FROM maven AS build
+# WORKDIR /app
+# COPY . .
+# RUN mvn package
+#
+# FROM tomcat
+# COPY --from=build /app/target/file.war /usr/local/tomcat/webapps 
+#
+# In this example, you use one stage (called build) to perform the actual Java build using Maven. In the second stage (starting at FROM tomcat), you copy in files from the build stage. The final image is only the last stage being created, which can be overridden using the --target flag.
+
+
+# Running containers in production is tough. You don't want to log into a machine and simply run a docker run or docker compose up. Why not? Well, what happens if the containers die? How do you scale across several machines? Container orchestration solves this problem. Tools like Kubernetes, Swarm, Nomad, and ECS all help solve this problem, all in slightly different ways.
+
