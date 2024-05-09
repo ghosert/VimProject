@@ -30,7 +30,7 @@
 
 ### Ubuntu tools
 
-- [ ]
+- [ ] lazydocker, fzf, httpie
 
 ### Overall Todos in my system.
 
