@@ -1,9 +1,11 @@
 package basic;
 
+import java.io.Closeable;
+import java.io.IOException;
 import java.util.*;
 
-public class TestMe {
-    public static void main(String[] args) {
+public class TestMe implements Cloneable {
+    public static void main(String[] args) throws CloneNotSupportedException {
         PriorityQueue<String> pq = new PriorityQueue<>((x, y) -> y.length() - x.length());
         String string = "aaaaaabbbbccc";
         int j = 0;
@@ -25,5 +27,9 @@ public class TestMe {
             k--;
         }
         System.out.println(result);
+
+        StringBuilder sb = new StringBuilder();
+        System.out.println(sb.toString().equals(""));
+        new TestMe().clone();
     }
 }
