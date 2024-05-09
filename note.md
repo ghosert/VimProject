@@ -13,14 +13,15 @@
 - [ ] Learn how to use OBS
 - [ ] Upload my first video
 
-### Zybuluo improvement
- 
-- [ ] dockerize the entirement runtime evn to docker based on Ubuntu 22.04
-
-
 ### Build Note taking system in neovim.
 
 - [ ] based on markdown, articles can have a link to jump
+- [ ] Move zybuluo TODOs to here.
+
+
+### Zybuluo improvement
+ 
+- [ ] dockerize the entirement runtime evn to docker based on Ubuntu 22.04
 
 
 ### Neovim improvement
