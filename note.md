@@ -40,8 +40,8 @@
 
 ### Neovim
 
-1. `:vspt` will open terminal inside neovim vertically.
-2. `:spt` will open terminal inside neovim horizontally.
+1. `:Vspt` will open terminal inside neovim vertically.
+2. `:Spt` will open terminal inside neovim horizontally.
 
 ## Tool Chains
 
