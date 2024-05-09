@@ -36,6 +36,13 @@
 
 - [ ] Search `TODO` keyword in the files I bookmarked in the neovim dashboard page.
 
+## Tips list
+
+### Neovim
+
+1. `:vspt` will open terminal inside neovim vertically.
+2. `:spt` will open terminal inside neovim horizontally.
+
 ## Tool Chains
 
 1. ChatGPT4 in neovim
