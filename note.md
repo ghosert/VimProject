@@ -2,14 +2,13 @@
 
 ## TODO list
 
-### Dockerize more on my development env setup
+### First thing TODO
 
-- [x] Make VimProject and productproject and company projects as bind volume to mount
-- [x] Check TODO in ~/docker/docker.sh and ~/docker/Dockerfile
-- [ ] Setup docker env in windows Laptop
+Open nvim and Press "o" to come to this ./note.md
 
 ### Build Note taking system in neovim.
 
+- [ ] Make neovim support markdown
 - [ ] based on markdown, articles can have a link to jump
 - [ ] Move zybuluo TODOs to here.
 
@@ -17,9 +16,11 @@
 
 - [ ] Search TODO in ~/.config/nvim/init.lua
 
-### Overall Todos in my system.
+### Dockerize more on my development env setup
 
-- [ ] Search `TODO` keyword in the files I bookmarked in the neovim dashboard page.
+- [x] Make VimProject and productproject and company projects as bind volume to mount
+- [x] Check TODO in ~/docker/docker.sh and ~/docker/Dockerfile
+- [ ] Setup docker env in windows Laptop
 
 ### Youtube Uploader
 
