@@ -20,7 +20,7 @@ Open nvim and Press "o" to come to this ./note.md
 
 - [x] Make VimProject and productproject and company projects as bind volume to mount
 - [x] Check TODO in ~/docker/docker.sh and ~/docker/Dockerfile
-- [ ] Setup docker env in windows Laptop
+- [ ] Setup docker env in windows Laptop, see how easy or hard it is to setup on a new machine.
 
 ### Youtube Uploader
 
