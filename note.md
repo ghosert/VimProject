@@ -4,37 +4,35 @@
 
 ### Dockerize more on my development env setup
 
-- [ ] Make VimProject and productproject and company projects as bind volume to mount
-- [ ] Check TODO in ~/docker/docker.sh and ~/docker/Dockerfile
+- [x] Make VimProject and productproject and company projects as bind volume to mount
+- [x] Check TODO in ~/docker/docker.sh and ~/docker/Dockerfile
 - [ ] Setup docker env in windows Laptop
-
-### Youtube Uploader
-
-- [ ] Learn how to use OBS
-- [ ] Upload my first video
 
 ### Build Note taking system in neovim.
 
 - [ ] based on markdown, articles can have a link to jump
 - [ ] Move zybuluo TODOs to here.
 
+### Neovim improvement
+
+- [ ] Search TODO in ~/.config/nvim/init.lua
+
+### Overall Todos in my system.
+
+- [ ] Search `TODO` keyword in the files I bookmarked in the neovim dashboard page.
+
+### Youtube Uploader
+
+- [ ] Learn how to use OBS
+- [ ] Upload my first video
 
 ### Zybuluo improvement
  
 - [ ] dockerize the entirement runtime evn to docker based on Ubuntu 22.04
 
-
-### Neovim improvement
-
-- [ ] Search TODO in ~/.config/nvim/init.lua
-
 ### Ubuntu tools
 
 - [ ] lazydocker, fzf, httpie
-
-### Overall Todos in my system.
-
-- [ ] Search `TODO` keyword in the files I bookmarked in the neovim dashboard page.
 
 ## Tips list
 
