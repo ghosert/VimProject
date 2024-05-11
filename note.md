@@ -44,9 +44,10 @@ Open nvim and Press "o" to come to this ./note.md
 3. `:Vsp newfile` will open newfile inside neovim vertically.
 5. `:Sp newfile` will open newfile inside neovim horizontally.
 6. `:tabnew newfile` to open a file in a new tab.
-7. `:Git 'any commnets'` to cd to current file location and run !git commit -a -m 'any comments'
-8. `<leader>.` to set file location as current working directory
-9. `:Alpha` to go back to dashboard page.
+7. `:Gc 'any commnets'` to cd to current file location and run !git commit -a -m 'any comments'
+8. `:Gs` for git status, `:Gh` for git push, `:Gl` for git pull
+9. `<leader>.` to set file location as current working directory
+10. `:Alpha` to go back to dashboard page.
 
 ## Tool Chains
 
