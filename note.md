@@ -41,7 +41,11 @@ Open nvim and Press "o" to come to this ./note.md
 
 1. `:Vspt` will open terminal inside neovim vertically.
 2. `:Spt` will open terminal inside neovim horizontally.
-3. `:Git 'any commnets'` to cd to current file location and run !git commit -a -m 'any comments'
+3. `:Vsp newfile` will open newfile inside neovim vertically.
+5. `:Sp newfile` will open newfile inside neovim horizontally.
+6. `:tabnew newfile` to open a file in a new tab.
+7. `:Git 'any commnets'` to cd to current file location and run !git commit -a -m 'any comments'
+8. `<leader>.` to set file location as current working directory
 
 ## Tool Chains
 
