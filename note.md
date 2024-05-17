@@ -34,7 +34,7 @@ Open nvim and Press "o" to come to this ./note.md
 
 ### Ubuntu tools
 
-- [ ] lazydocker, fzf, httpie
+- [ ] lazydocker, fzf, httpie, lazy git
 
 ### Dockerize more on my development env setup
 
