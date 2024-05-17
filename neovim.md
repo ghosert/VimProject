@@ -4,7 +4,7 @@ To check all the details in the neovim tutor:
 1. $ nv
 2. :Tutor
 
-## Tip for Marksman
+## Tips for Marksman
 
 Marksman plugin[reference]:
 
@@ -15,15 +15,28 @@ Marksman plugin[reference]:
 4. [[#Lesson 3 SUMMARY]] same to the first one.
 5. [sample project docker file](./docker/getting-started-app/Dockerfile) if the target file is not markdown, type "gf" to open
 
-## Tip for Terminal and Git
+## Tips for Terminal, Split
 
+0. `:Terminal` will open terminal.
 1. `:Vspt` will open terminal inside neovim vertically.
 2. `:Spt` will open terminal inside neovim horizontally.
-3. `:Gt 'any commnets'` to cd to current file location and run !git commit -a -m 'any comments'
-4. `:Gl` for git pull current folder
-5. `:Gf` for git diff current folder
-6. `:Gh` for git push current folder
-7. `:Gs` for git status current folder
+3. `:vsp newfile` will open newfile inside neovim vertically.
+4. `:sp newfile` will open newfile inside neovim horizontally.
+
+## Tips for Tab, WD and Dashboard
+
+1. `:tabnew newfile` to open a file in a new tab.
+2. gt -> next tab, gT -> previous tab, 2gt -> next 2 tab
+3. `<leader>.` to set file location as current working directory
+4. `:Alpha` to go back to dashboard page.
+
+## Tips for Git
+
+1. `:Gt 'any commnets'` to cd to current file location and run !git commit -a -m 'any comments'
+2. `:Gl` for git pull current folder
+3. `:Gf` for git diff current folder
+4. `:Gh` for git push current folder
+5. `:Gs` for git status current folder
 
 ## Lesson 2.3: ON OPERATORS AND MOTIONS
 
