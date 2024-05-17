@@ -13,7 +13,13 @@ Marksman plugin[reference]:
 2. [note todo list](/note.md#entertainment) can be used to go to any hash in another file by typing "gd" on it, "gr" for references.
 3. [[note-taking]] can be used to go to any md file by typing "gd" on it, "gr" for references.
 4. [[#Lesson 3 SUMMARY]] same to the first one.
-5. [sample project docker file](./docker/getting-started-app/Dockerfile) if the target file is not markdown, type "gf" to open
+
+## Tips for navigation
+1. "gd" on tagged keywords means go to the definition.
+2. "gr" on tagged keywords means go to the reference.
+3. "gf" on file or url under the cursor will open the file and html source.
+4. "gI" on tagged keywords means go to the implementation.
+5. "gx" on file or url under the cursor will open the file or html with default app like Note app or chrome browser.
 
 ## Tips for Terminal, Split
 
