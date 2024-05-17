@@ -8,7 +8,8 @@ Open nvim and Press "o" to come to this ./note.md
 
 ### Build Note taking system in neovim
 
-- [ ] Make neovim support markdown
+- [ ] mimic remember the milk or build my own note taking system.
+- [x] Make neovim support markdown
 - [x] based on markdown, articles can have a link to jump, check [[neovim-tips#Tips for Marksman]]
 - [ ] try obsidian.nvim
 - [ ] Move zybuluo TODOs to here.
@@ -25,12 +26,16 @@ Open nvim and Press "o" to come to this ./note.md
 - [ ] Learn how to use OBS
 - [ ] Upload my first video
 
-### Docker task
+### Improve zybuluo
 
 - [ ] dockerize the entirement runtime env to docker based on Ubuntu 22.04
+- [ ] Move productproject from bitbucket to github
+
+### Docker task
+
 - [ ] Move everything from my Ubuntu Desktop to docker container
 
-### Improve zybuluo
+### Reduce the file size of ~/VimProject
 
 ### Ubuntu tools
 
