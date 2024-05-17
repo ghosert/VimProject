@@ -6,15 +6,17 @@
 
 Open nvim and Press "o" to come to this ./note.md
 
-### Build Note taking system in neovim.
+### Build Note taking system in neovim
 
 - [ ] Make neovim support markdown
-- [ ] based on markdown, articles can have a link to jump
+- [x] based on markdown, articles can have a link to jump, check [[neovim-tips#Tip for Marksman]]
+- [ ] try obsidian.nvim
 - [ ] Move zybuluo TODOs to here.
 
 ### Neovim improvement
 
 - [ ] Search TODO in ~/.config/nvim/init.lua
+- [ ] Write a document for neovim shortcuts, tips [[neovim-tips]]
 
 ### Dockerize more on my development env setup
 
@@ -28,20 +30,12 @@ Open nvim and Press "o" to come to this ./note.md
 - [ ] Upload my first video
 
 ### Zybuluo improvement
- 
-- [ ] dockerize the entirement runtime evn to docker based on Ubuntu 22.04
+
+- [ ] dockerize the entirement runtime env to docker based on Ubuntu 22.04
 
 ### Ubuntu tools
 
 - [ ] lazydocker, fzf, httpie
-
-## Tips list
-
-### Neovim
-
-1. `:Vspt` will open terminal inside neovim vertically.
-2. `:Spt` will open terminal inside neovim horizontally.
-3. `:Git 'any commnets'` to cd to current file location and run !git commit -a -m 'any comments'
 
 ## Tool Chains
 
@@ -50,9 +44,8 @@ Open nvim and Press "o" to come to this ./note.md
 3. Stream Deck and Macro Deck
 4. ~/docker/docker.sh --run
 5. vi
-5. https://www.zybuluo.com/mdeditor
-6. https://pomofocus.io/app
-
+6. [zybuluo](https://www.zybuluo.com/mdeditor)
+7. [pomofocus](https://pomofocus.io/app)
 
 ## Entertainment
 
@@ -61,4 +54,6 @@ Open nvim and Press "o" to come to this ./note.md
 3. Games in Tablet
 4. Games in Mi Mix 3 and Samsung Galaxy Z Folder 5
 5. Games in Windows Laptop
+
+[reference]: https://github.com/artempyanykh/marksman "marksman"
 

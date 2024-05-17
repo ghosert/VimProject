@@ -1,8 +1,31 @@
+# Neovim Tips
+
 To check all the details in the neovim tutor:
 1. $ nv
 2. :Tutor
 
-# Lesson 2.3: ON OPERATORS AND MOTIONS
+## Tip for Marksman
+
+Marksman plugin[reference]:
+
+0. [reference] like above, "gd" or "gr" works.
+1. [lesson 3 summary](#lesson-3-summary) can be used to go to any hash inside this md by typing "gd" on it, "gr" for references.
+2. [note todo list](/note.md#entertainment) can be used to go to any hash in another file by typing "gd" on it, "gr" for references.
+3. [[note-taking]] can be used to go to any md file by typing "gd" on it, "gr" for references.
+4. [[#Lesson 3 SUMMARY]] same to the first one.
+5. [sample project docker file](./docker/getting-started-app/Dockerfile) if the target file is not markdown, type "gf" to open
+
+## Tip for Terminal and Git
+
+1. `:Vspt` will open terminal inside neovim vertically.
+2. `:Spt` will open terminal inside neovim horizontally.
+3. `:Gt 'any commnets'` to cd to current file location and run !git commit -a -m 'any comments'
+4. `:Gl` for git pull current folder
+5. `:Gf` for git diff current folder
+6. `:Gh` for git push current folder
+7. `:Gs` for git status current folder
+
+## Lesson 2.3: ON OPERATORS AND MOTIONS
 
 Many commands that change text are made from an operator and a motion.
 The format for a delete command with the [d](d) delete operator is as follows:
@@ -23,7 +46,7 @@ The format for a delete command with the [d](d) delete operator is as follows:
 NOTE:  Pressing just the motion while in Normal mode without an operator
        will move the cursor as specified.
 
-# Lesson 2.4: USING A COUNT FOR A MOTION
+## Lesson 2.4: USING A COUNT FOR A MOTION
 
 ** Typing a number before a motion repeats it that many times. **
 
@@ -37,7 +60,7 @@ NOTE:  Pressing just the motion while in Normal mode without an operator
 
  5. Repeat steps 2 and 3 with different numbers.
 
-# Lesson 2.5: USING A COUNT TO DELETE MORE
+## Lesson 2.5: USING A COUNT TO DELETE MORE
 
 ** Typing a number with an operator repeats it that many times. **
 
@@ -52,7 +75,7 @@ insert a count before the motion to delete more:
  3. Repeat steps 1 and 2 with a different count to delete the consecutive
     UPPER CASE words with one command
 
-# Lesson 2.7: THE UNDO COMMAND
+## Lesson 2.7: THE UNDO COMMAND
 
 ** Press u to undo the last commands, `U`{normal} to fix a whole line. **
 
@@ -72,7 +95,7 @@ insert a count before the motion to delete more:
 
 Fiix the errors oon thhis line and reeplace them witth undo.
 
-# Lesson 3 SUMMARY
+## Lesson 3 SUMMARY
 
  1. To put back text that has just been deleted, type [p](p). This puts the
     deleted text AFTER the cursor (if a line was deleted it will go on the
@@ -91,7 +114,7 @@ Fiix the errors oon thhis line and reeplace them witth undo.
 
 
 
-# Lesson 5.3: SELECTING TEXT TO WRITE
+## Lesson 5.3: SELECTING TEXT TO WRITE
 
 ** To save part of the file, type `v` motion `:w FILENAME`. **
 
@@ -123,7 +146,7 @@ NOTE: Pressing v starts [Visual selection](visual-mode). You can move the cursor
       make the selection bigger or smaller. Then you can use an operator to
       do something with the text. For example, `d` deletes the text.
 
-# Lesson 5.4: RETRIEVING AND MERGING FILES
+## Lesson 5.4: RETRIEVING AND MERGING FILES
 
 ** To retrieve the contents of a file, type `:r FILENAME`. **
 
@@ -149,7 +172,7 @@ NOTE: You can also read the output of an external command. For example,
       reads the output of the `ls` command and puts it below the cursor.
 
 
-# Lesson 7.1: GETTING HELP
+## Lesson 7.1: GETTING HELP
 
 ** Use the online help system. **
 
@@ -165,7 +188,7 @@ Type `<C-w><C-w>` to jump from one window to another.
 Type `:q` to close the help window.
 
 
-# Lesson 7.3: COMPLETION
+## Lesson 7.3: COMPLETION
 
 ** Command line completion with `<C-d>`{normal} and `<Tab>`{normal}. **
 
@@ -181,3 +204,4 @@ Type `:q` to close the help window.
 
  6. Press `<Tab>`{normal}. Neovim will complete the name ("FIL" -> "FILE", if it is unique).
 
+[reference]: https://github.com/artempyanykh/marksman "marksman"
