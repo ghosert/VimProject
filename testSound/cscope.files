@@ -1,5 +1,0 @@
-./include/pa_trace.h
-./include/portaudio.h
-./include/portmixer.h
-./include/sndfile.h
-./testPlay.c

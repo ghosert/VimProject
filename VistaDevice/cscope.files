@@ -1,4 +1,0 @@
-./audio-device.cpp
-./audio-device.h
-./audio-internal.h
-./test-audio-device.cpp
