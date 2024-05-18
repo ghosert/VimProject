@@ -26,6 +26,7 @@ Tips: Put immediately next actions here, deffered next actions to google cal or 
 ### Build Note taking system in neovim
 
 - [ ] Move zybuluo TODOs to here.
+- [ ] Build a note taking system by neovim(display pic by: https://github.com/3rd/image.nvim)
 - [x] mimic remember the milk or build my own note taking system
 - [x] Make neovim support markdown
 - [x] based on markdown, articles can have a link to jump, check [[neovim-tips#Tips for Marksman]]
@@ -51,10 +52,43 @@ neovim tips should be added to [[neovim-tips]]
 
 - [ ] dockerize the entirement runtime env to docker based on Ubuntu 22.04
 - [ ] Move productproject from bitbucket to github
+- [ ] sync ./note-taking to zybuluo.com
+- [ ] Integrate ChatGPT with Cmd Markdown
+- [ ] Integrate Markmap into Cmd Markdown
+- [ ] Check help doc link, Mermaid link is invalid for example
+- [ ] copy paste a vim guide for cmd markdown
+- [ ] Don't allow the customer to refresh the read count forever
+- [ ] production-uwsgi.ini and production-logging.ini are duplicated for most content. after that, search "production.ini" and "development.ini" in git repo to make sure they have been renamed to something like "production-uwsgi.ini"
+- [ ] There is a visible bar showing in preview area in chrome and edge, need to remove it.
+- [ ] check if celery keeps adding queues by running "sudo rabbitmqctl list_queues"
+- [ ] <font color="yellow">Upgrade new softwares based on docs on my local Ubuntu 20.04 and make sure https://locahost/ is able to start and reduce the deploy.py in my git repo for productproject</font>
+- [ ] <font color="yellow">Feature enhancement to detect bad note realtime and block too many registered users from the same ip to post too many notes</font>
+- [ ] <font color="yellow">window.applicationCache has been deprecated and zybuluo.com is showing js error due to this.</font>
+- [ ] <font color="yellow">clear up password auto-fill when publishing note</font>
+- [ ] <font color="yellow">Send emails to all the customer ask them to come back.</font>
+- [ ] Move Cmd Guide to about menu? Or refine about menu?
+- [ ] add Cmd Markdown formulate to official link (https://ericp.cn/cmd), ask permission from the original author.
+- [ ] How to show cmd desktop client and its version in google analytics?
+- [ ] Upgrade python2 to python3 and other libs like SQLAlchemy and Pyramid.
+- [ ] When updating the version of NW.js make sure it works in offline mode, this issue is reported here: https://github.com/nwjs/nw.js/issues/3361
+- [ ] buy baidu keywords and spread zybuluo anywhere
 
 ### Read books
 
 - [ ] <Core Java for the impatient 3rd version> 
+
+### Easy to use system
+
+- [ ] make remote desktop work on all my devices(Need to make this work in Ubuntu 22.04, hard to make it work for Ubuntu 20.04)
+- [ ] Each system should have some way to access share folder in another system at home.
+- [ ] Make local google driver and HOMENAS work in docker and windows and ubuntu
+- [ ] Make google chrome download work in Ubuntu, or we just don't use ubuntu desktop anymore? since we have docker now.
+- [ ] \\Desktop-2fdk56j\e
+
+### Cost saving
+
+- [ ] How to replace diigo to avoid anual fee or use it heavily
+- [ ] clean up bad data in ~/Downloads/test.csv(done) and figure out a way to save mysql disk space and money(zybuluo aws)
 
 ## Tool Chains
 
