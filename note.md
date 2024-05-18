@@ -10,7 +10,7 @@
 
 ## Route Tasks Daily
 
-- [>] Weekly Blog
+- [>] Weekly Blog (Think about the first blog first, and based on it create a vlog)
 - [>] Weekly Vlog
 - [>] Watch my YouTube Tech list
 
@@ -18,6 +18,7 @@
 
 Tips: Put immediately next actions here, deffered next actions to google cal or wechat reminder.
 
+- [ ] Update QiniuYun SSL.
 - [ ] Move zybuluo TODOs to here.
 
 ## Projects
