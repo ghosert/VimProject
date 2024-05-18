@@ -18,7 +18,6 @@
 
 Tips: Put immediately next actions here, deffered next actions to google cal or wechat reminder.
 
-- [ ] Update QiniuYun SSL.
 - [ ] Move zybuluo TODOs to here.
 
 ## Projects
@@ -45,6 +44,7 @@ neovim tips should be added to [[neovim-tips]]
 - [ ] lazydocker, httpie, lazy git
 - [ ] Search TODO in ~/.config/nvim/init.lua
 - [ ] Move everything from my Ubuntu Desktop to docker container
+- [ ] add more shortcut tips to [[neovim-tips]] by going through ~/.config/nvim/init.lua
 
 ## Someday/Maybe
 
@@ -61,17 +61,18 @@ neovim tips should be added to [[neovim-tips]]
 - [ ] production-uwsgi.ini and production-logging.ini are duplicated for most content. after that, search "production.ini" and "development.ini" in git repo to make sure they have been renamed to something like "production-uwsgi.ini"
 - [ ] There is a visible bar showing in preview area in chrome and edge, need to remove it.
 - [ ] check if celery keeps adding queues by running "sudo rabbitmqctl list_queues"
-- [ ] <font color="yellow">Upgrade new softwares based on docs on my local Ubuntu 20.04 and make sure https://locahost/ is able to start and reduce the deploy.py in my git repo for productproject</font>
-- [ ] <font color="yellow">Feature enhancement to detect bad note realtime and block too many registered users from the same ip to post too many notes</font>
-- [ ] <font color="yellow">window.applicationCache has been deprecated and zybuluo.com is showing js error due to this.</font>
-- [ ] <font color="yellow">clear up password auto-fill when publishing note</font>
-- [ ] <font color="yellow">Send emails to all the customer ask them to come back.</font>
+- [ ] Upgrade new softwares based on docs on my local Ubuntu 20.04 and make sure https://locahost/ is able to start and reduce the deploy.py in my git repo for productproject
+- [ ] Feature enhancement to detect bad note realtime and block too many registered users from the same ip to post too many notes
+- [ ] window.applicationCache has been deprecated and zybuluo.com is showing js error due to this.
+- [ ] clear up password auto-fill when publishing note
+- [ ] Send emails to all the customer ask them to come back.
 - [ ] Move Cmd Guide to about menu? Or refine about menu?
 - [ ] add Cmd Markdown formulate to official link (https://ericp.cn/cmd), ask permission from the original author.
 - [ ] How to show cmd desktop client and its version in google analytics?
 - [ ] Upgrade python2 to python3 and other libs like SQLAlchemy and Pyramid.
 - [ ] When updating the version of NW.js make sure it works in offline mode, this issue is reported here: https://github.com/nwjs/nw.js/issues/3361
 - [ ] buy baidu keywords and spread zybuluo anywhere
+- [ ] update appcache by making mdeditor js/css changes to update ssl validation date, read details in SETUP.markdown
 
 ### Read books
 
@@ -84,6 +85,7 @@ neovim tips should be added to [[neovim-tips]]
 - [ ] Make local google driver and HOMENAS work in docker and windows and ubuntu
 - [ ] Make google chrome download work in Ubuntu, or we just don't use ubuntu desktop anymore? since we have docker now.
 - [ ] \\Desktop-2fdk56j\e
+- [ ] Make NAS work in ubuntu and write down how to resolve startup problem on dual windows/linux system, sync nas to google drive
 
 ### Cost saving
 
@@ -109,8 +111,8 @@ neovim tips should be added to [[neovim-tips]]
 
 ## Entertainment
 
-1. Games in Quest3
-2. Games in PC
-3. Games in Tablet
-4. Games in Mi Mix 3 and Samsung Galaxy Z Folder 5
-5. Games in Windows Laptop
+1. Games in Quest3 (For NDS games)
+2. Games in PC (PC games, switch games, simulator games, I have two redeemed games by purchanse AMD rx6800xt)
+3. Games in Tablet (simulator games)
+4. Games in Mi Mix 3 and Samsung Galaxy Z Folder 5 (simulator games)
+5. Games in Windows Laptop (simulator games)
