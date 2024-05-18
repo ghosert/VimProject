@@ -25,9 +25,8 @@ Tips: Put immediately next actions here, deffered next actions to google cal or 
 
 ### Build Note taking system in neovim
 
-- [ ] mimic remember the milk or build my own note taking system, where to save ./neovim.md
-- [ ] try obsidian.nvim
 - [ ] Move zybuluo TODOs to here.
+- [x] mimic remember the milk or build my own note taking system
 - [x] Make neovim support markdown
 - [x] based on markdown, articles can have a link to jump, check [[neovim-tips#Tips for Marksman]]
 - [x] Reduce the file size of ~/VimProject
@@ -53,6 +52,10 @@ neovim tips should be added to [[neovim-tips]]
 - [ ] dockerize the entirement runtime env to docker based on Ubuntu 22.04
 - [ ] Move productproject from bitbucket to github
 
+### Read books
+
+- [ ] <Core Java for the impatient 3rd version> 
+
 ## Tool Chains
 
 1. ChatGPT4 in neovim
@@ -77,6 +80,3 @@ neovim tips should be added to [[neovim-tips]]
 3. Games in Tablet
 4. Games in Mi Mix 3 and Samsung Galaxy Z Folder 5
 5. Games in Windows Laptop
-
-[reference]: https://github.com/artempyanykh/marksman "marksman"
-
