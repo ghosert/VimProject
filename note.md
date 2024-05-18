@@ -18,8 +18,7 @@
 
 Tips: Put immediately next actions here, deffered next actions to google cal or wechat reminder.
 
-- [ ] Add pomo.nvim
-- [ ] Try fzf one more time
+- [ ] Move zybuluo TODOs to here.
 
 ## Projects
 
