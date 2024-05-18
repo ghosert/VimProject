@@ -9,11 +9,11 @@ Open nvim and Press "o" to come to this ./note.md
 ### Build Note taking system in neovim
 
 - [ ] mimic remember the milk or build my own note taking system.
-- [x] Make neovim support markdown
-- [x] based on markdown, articles can have a link to jump, check [[neovim-tips#Tips for Marksman]]
 - [ ] try obsidian.nvim
 - [ ] Move zybuluo TODOs to here.
-- [ ] Reduce the file size of ~/VimProject
+- [x] Make neovim support markdown
+- [x] based on markdown, articles can have a link to jump, check [[neovim-tips#Tips for Marksman]]
+- [x] Reduce the file size of ~/VimProject
 
 ### Neovim improvement
 
