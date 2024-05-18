@@ -8,7 +8,7 @@ Open nvim and Press "o" to come to this ./note.md
 
 ### Build Note taking system in neovim
 
-- [ ] mimic remember the milk or build my own note taking system.
+- [ ] mimic remember the milk or build my own note taking system, where to save ./neovim.md
 - [ ] try obsidian.nvim
 - [ ] Move zybuluo TODOs to here.
 - [x] Make neovim support markdown
