@@ -2,9 +2,26 @@
 
 ## TODO list
 
-### First thing TODO
+- [ ] TODO item
+- [x] DONE item
+- [>] FOLLOWUP item
+- [d] DEFERRED item
+- [~] CANCELED item
 
-Open nvim and Press "o" to come to this ./note.md
+## Route Tasks Daily
+
+- [>] Weekly Blog
+- [>] Weekly Vlog
+- [>] Watch my YouTube Tech list
+
+## Next Actions (To do)
+
+Tips: Put immediately next actions here, deffered next actions to google cal or wechat reminder.
+
+- [ ] Add pomo.nvim
+- [ ] Try fzf one more time
+
+## Projects
 
 ### Build Note taking system in neovim
 
@@ -15,36 +32,26 @@ Open nvim and Press "o" to come to this ./note.md
 - [x] based on markdown, articles can have a link to jump, check [[neovim-tips#Tips for Marksman]]
 - [x] Reduce the file size of ~/VimProject
 
-### Neovim improvement
-
-- [ ] Search TODO in ~/.config/nvim/init.lua
-- [ ] Write a document for neovim shortcuts, tips [[neovim-tips]]
-
-### Watch my YouTube Tech list
-
 ### Youtube Uploader
 
 - [ ] Learn how to use OBS
 - [ ] Upload my first video
 
+### Improve docker dev env
+
+Any ubuntu tool chains and neovim setup should be added into ~/docker and ~/.config/nvim/ and git push to persist
+neovim tips should be added to [[neovim-tips]]
+
+- [ ] lazydocker, httpie, lazy git
+- [ ] Search TODO in ~/.config/nvim/init.lua
+- [ ] Move everything from my Ubuntu Desktop to docker container
+
+## Someday/Maybe
+
 ### Improve zybuluo
 
 - [ ] dockerize the entirement runtime env to docker based on Ubuntu 22.04
 - [ ] Move productproject from bitbucket to github
-
-### Docker task
-
-- [ ] Move everything from my Ubuntu Desktop to docker container
-
-### Ubuntu tools
-
-- [ ] lazydocker, fzf, httpie, lazy git
-
-### Dockerize more on my development env setup
-
-- [x] Make VimProject and productproject and company projects as bind volume to mount
-- [x] Check TODO in ~/docker/docker.sh and ~/docker/Dockerfile
-- [x] Setup docker env in windows Laptop, see how easy or hard it is to setup on a new machine.
 
 ## Tool Chains
 
@@ -55,6 +62,13 @@ Open nvim and Press "o" to come to this ./note.md
 5. vi
 6. [zybuluo](https://www.zybuluo.com/mdeditor)
 7. [pomofocus](https://pomofocus.io/app)
+
+## Key files
+
+1. vi to open dashbard, listed important files.
+2. ~/VimProject is for notes, study projects, utilities.
+3. ~/docker is for universal dev env.
+4. ~/.config/nvim/ is for neovim setup.
 
 ## Entertainment
 
