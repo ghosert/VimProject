@@ -1,1 +1,0 @@
-void trace(char *format, ...);

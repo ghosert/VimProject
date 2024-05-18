@@ -13,6 +13,7 @@ Open nvim and Press "o" to come to this ./note.md
 - [x] based on markdown, articles can have a link to jump, check [[neovim-tips#Tips for Marksman]]
 - [ ] try obsidian.nvim
 - [ ] Move zybuluo TODOs to here.
+- [ ] Reduce the file size of ~/VimProject
 
 ### Neovim improvement
 
@@ -34,8 +35,6 @@ Open nvim and Press "o" to come to this ./note.md
 ### Docker task
 
 - [ ] Move everything from my Ubuntu Desktop to docker container
-
-### Reduce the file size of ~/VimProject
 
 ### Ubuntu tools
 
