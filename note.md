@@ -18,15 +18,11 @@
 
 Tips: Put immediately next actions here, deffered next actions to google cal or wechat reminder.
 
-- [>] Move zybuluo TODOs to here
+- [ ] First blog on Why linux / neovim
 
 ## Projects [[archived-projects]]
 
 Tips: Put multiple next actions into one project here(you may need dedicated folder or markdown).
-
-### Build Note taking system in neovim
-
-- [ ] Move zybuluo TODOs to here.
 
 ### Youtube Uploader
 
@@ -38,14 +34,22 @@ Tips: Put multiple next actions into one project here(you may need dedicated fol
 Any ubuntu tool chains and neovim setup should be added into ~/docker and ~/.config/nvim/ and git push to persist
 neovim tips should be added to [[neovim-tips]]
 
-- [ ] lazydocker, httpie, lazy git
+- [ ] Setup neovim for Python
+- [ ] Setup neovim for Java
 - [ ] Search TODO in ~/.config/nvim/init.lua
+- [ ] lazydocker, httpie, lazy git
 - [ ] Move everything from my Ubuntu Desktop to docker container
 - [ ] add more shortcut tips to [[neovim-tips]] by going through ~/.config/nvim/init.lua
 
 ### [[zybuluo-improvement#TODO Tasks]]
 
 ## Someday/Maybe
+
+### Blogs
+
+- [ ] neovim chatgpt introduction, could be applied to other tools
+- [ ] Introduce my note taking system
+- [ ] dockerize dev env
 
 ### Read books
 

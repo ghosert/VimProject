@@ -2,7 +2,7 @@
 
 ## TODO Tasks
 
-- [ ] dockerize the entirement runtime env to docker based on Ubuntu 22.04
+- [ ] dockerize the entirement runtime env to docker based on Ubuntu 22.04, handle [[#Fix Plan for Zybuluo]] below and unify them in a single doc somewhere.
 - [ ] Move productproject from bitbucket to github
 - [ ] sync ./note-taking to zybuluo.com
 - [ ] Integrate ChatGPT with Cmd Markdown
