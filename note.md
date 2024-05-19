@@ -18,16 +18,21 @@
 
 Tips: Put immediately next actions here, deffered next actions to google cal or wechat reminder.
 
-- [ ] First blog on Why linux / neovim
+- [ ] [[#First Vlog]]
+- [ ] [[#Improve docker dev env]]
 
 ## Projects [[archived-projects]]
 
 Tips: Put multiple next actions into one project here(you may need dedicated folder or markdown).
 
-### Youtube Uploader
+### First Vlog
 
-- [ ] Learn how to use OBS
-- [ ] Upload my first video
+- [ ] Write Blog first: Why linux/ neovim ?
+- [ ] Check saved 2 youtube videos on how to make videos.
+- [ ] Convert Blog to Vlog
+- [ ] Learn how to use Windows Carnac or OBS? 
+- [ ] Upload Blog to www.zybuluo.com, zhihu.com
+- [ ] Upload Vlog to Bilibili, Douyin, Youtube
 
 ### Improve docker dev env
 
@@ -48,6 +53,8 @@ neovim tips should be added to [[neovim-tips]]
 ### Blogs
 
 - [ ] neovim chatgpt introduction, could be applied to other tools
+- [ ] Linux skills
+- [ ] Neovim shortcut skills
 - [ ] Introduce my note taking system
 - [ ] dockerize dev env
 
