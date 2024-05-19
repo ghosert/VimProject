@@ -46,33 +46,9 @@ neovim tips should be added to [[neovim-tips]]
 - [ ] Move everything from my Ubuntu Desktop to docker container
 - [ ] add more shortcut tips to [[neovim-tips]] by going through ~/.config/nvim/init.lua
 
+### [[zybuluo-improvement#TODO Tasks]]
+
 ## Someday/Maybe
-
-### Improve zybuluo
-
-- [ ] dockerize the entirement runtime env to docker based on Ubuntu 22.04
-- [ ] Move productproject from bitbucket to github
-- [ ] sync ./note-taking to zybuluo.com
-- [ ] Integrate ChatGPT with Cmd Markdown
-- [ ] Integrate Markmap into Cmd Markdown
-- [ ] Check help doc link, Mermaid link is invalid for example
-- [ ] copy paste a vim guide for cmd markdown
-- [ ] Don't allow the customer to refresh the read count forever
-- [ ] production-uwsgi.ini and production-logging.ini are duplicated for most content. after that, search "production.ini" and "development.ini" in git repo to make sure they have been renamed to something like "production-uwsgi.ini"
-- [ ] There is a visible bar showing in preview area in chrome and edge, need to remove it.
-- [ ] check if celery keeps adding queues by running "sudo rabbitmqctl list_queues"
-- [ ] Upgrade new softwares based on docs on my local Ubuntu 20.04 and make sure https://locahost/ is able to start and reduce the deploy.py in my git repo for productproject
-- [ ] Feature enhancement to detect bad note realtime and block too many registered users from the same ip to post too many notes
-- [ ] window.applicationCache has been deprecated and zybuluo.com is showing js error due to this.
-- [ ] clear up password auto-fill when publishing note
-- [ ] Send emails to all the customer ask them to come back.
-- [ ] Move Cmd Guide to about menu? Or refine about menu?
-- [ ] add Cmd Markdown formulate to official link (https://ericp.cn/cmd), ask permission from the original author.
-- [ ] How to show cmd desktop client and its version in google analytics?
-- [ ] Upgrade python2 to python3 and other libs like SQLAlchemy and Pyramid.
-- [ ] When updating the version of NW.js make sure it works in offline mode, this issue is reported here: https://github.com/nwjs/nw.js/issues/3361
-- [ ] buy baidu keywords and spread zybuluo anywhere
-- [ ] update appcache by making mdeditor js/css changes to update ssl validation date, read details in SETUP.markdown
 
 ### Read books
 
