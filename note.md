@@ -98,7 +98,7 @@ neovim tips should be added to [[neovim-tips]]
 2. Copilot in browser
 3. Stream Deck and Macro Deck
 4. ~/docker/docker.sh --run
-5. vi
+5. vi and vimium chrome plugin
 6. [zybuluo](https://www.zybuluo.com/mdeditor)
 7. [pomofocus](https://pomofocus.io/app)
 
