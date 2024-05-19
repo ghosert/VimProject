@@ -18,7 +18,9 @@
 
 Tips: Put immediately next actions here, deffered next actions to google cal or wechat reminder.
 
-- [ ] Move zybuluo TODOs to here.
+- [>] Move zybuluo TODOs to here
+- [>] Find a black theme for windows.
+- [>] Installed zoxidie(z)
 
 ## Projects
 
