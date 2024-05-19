@@ -14,24 +14,19 @@
 - [>] Weekly Vlog
 - [>] Watch my YouTube Tech list
 
-## Next Actions (To do)
+## Next Actions (To do) [[archived-next-actions]]
 
 Tips: Put immediately next actions here, deffered next actions to google cal or wechat reminder.
 
 - [>] Move zybuluo TODOs to here
-- [>] Find a black theme for windows.
-- [>] Installed zoxidie(z)
 
-## Projects
+## Projects [[archived-projects]]
+
+Tips: Put multiple next actions into one project here(you may need dedicated folder or markdown).
 
 ### Build Note taking system in neovim
 
 - [ ] Move zybuluo TODOs to here.
-- [ ] Build a note taking system by neovim(display pic by: https://github.com/3rd/image.nvim)
-- [x] mimic remember the milk or build my own note taking system
-- [x] Make neovim support markdown
-- [x] based on markdown, articles can have a link to jump, check [[neovim-tips#Tips for Marksman]]
-- [x] Reduce the file size of ~/VimProject
 
 ### Youtube Uploader
 

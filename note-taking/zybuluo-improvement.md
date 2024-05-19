@@ -26,9 +26,129 @@
 - [ ] buy baidu keywords and spread zybuluo anywhere
 - [ ] update appcache by making mdeditor js/css changes to update ssl validation date, read details in SETUP.markdown
 
+
+## Fix Plan for Zybuluo
+
+Open SETUP.markdown ubuntu_install_guide.sh with this doc to restore zybuluo.com runtime environment.
+
+```
+Problem:
+ImportError: cannot import name_remove_dead_weakref
+Reason
+This is because the current Python installation is somehow screwed up. In my case the mess was caused by an upgrade from Ubuntu 16.04 to 18.04.
+
+Solution
+With Virtual Environment
+In the best case you were already using a virtual environment (this was my case). The solution here would be to recreate/setup your venv again (step-by-step):
+
+a. mv ~/devenv/ ~/devenv_backup
+b. virtualenv --no-site-packages devenv
+c. source ~/devenv/bin/activate
+d. cp ~/devenv_backup/lib/python2.7/site-packages/* ~/devenv/lib/python2.7/site-packages/
+```
+
+```
+Problem: Fix rabbitmq issue(fail to start for 18.04. For 20.04 just "sudo apt install rabbitmq-server")
+
+1. uninstall rabbitmq: sudo apt-get purge rabbitmq-server
+2. follow this link to install: https://medium.com/@thucnc/how-to-install-rabbitmq-on-ubuntu-18-04-d002a347764e
+
+If this solution works, add it to ubuntu_install_guide.sh
+```
+
+```
+Problem: Fix python mysql problem:
+
+source ~/devenv/bin/activate
+easy_install MySQL-python==1.2.5
+vi ~/devenv/local/lib/python2.7/site-packages/easy-install.pth, remove "MySQL-python"
+remove ~/devenv/local/lib/python2.7/site-packages/MySQL-python
+wget https://bootstrap.pypa.io/get-pip.py
+python get-pip.py
+pip install mysqlclient   (you may need to first `pip uninstall mysqlclient && sudo apt install default-libmysqlclient-dev`)
+
+For Ubuntu 20.04, Chinese character problem, go to ~/devenv/lib/python2.7/site-packages/MySQLdb/connections.py, update def set_character_set(self, charset) as below:
+
+def set_character_set(self, charset):
+    # jiawzhang changed for Ubuntu 20.04, https://github.com/PyMySQL/mysqlclient/issues/504
+    py_charset = _charset_to_encoding.get(charset, charset)
+    super(Connection, self).set_character_set(charset)
+    self.encoding = py_charset
+    
+    
+For MySql 8.0.36, SQLAlchemy 0.7.9 need to be updated like below:
+
+$ vi ~/devenv/local/lib/python2.7/site-packages/SQLAlchemy-0.7.9-py2.7-linux-x86_64.egg/sqlalchemy/dialects/mysql/base.py
+
+Search @@tx_isolation, replace it with @@transaction_isolation
+
+def get_isolation_level(self, connection):
+    cursor = connection.cursor()
+    # jiawzhang update this for mysql 8
+    # cursor.execute('SELECT @@tx_isolation')
+    cursor.execute('SELECT @@transaction_isolation')
+    val = cursor.fetchone()[0]
+    cursor.close()
+return val.upper().replace("-", " ")
+```
+
+```
+Problem: Fix ImportError: cannot import name _uuid_generate_random
+ pip uninstall Celery
+ pip uninstall amqp
+ pip uninstall kombu
+ pip install Celery=3.1.18
+```
+## Cost of Aliyun
+
+```
+280 RMB per month
+数据盘：普通云盘/dev/xvdb40GB
+实例：1核 4GB共享标准型 s1系列 I
+I/O 优化实例：非 I/O 优化实例
+系统盘：普通云盘/dev/xvda20GB
+带宽：5Mbps按固定带宽
+CPU：1核
+可用区：华东 1 可用区 G
+操作系统：Ubuntu 12.04 64位Linux64位
+内存：4GB
+地域：华东 1
+网络类型：专有网络
+```
+
+``` 
+420 RMB per month
+RDS规格：1 核 2GB（通用型）
+数据库类型：MySQL
+数据库版本号：5.5
+公网流量：按实际使用流量每日扣费
+系列：高可用版
+地域：华东 1（杭州）
+存储空间：200GB
+存储类型：本地SSD盘
+```
+
+## How to restore from aliyun mysql
+```
+https://help.aliyun.com/zh/rds/apsaradb-rds-for-mysql/restore-the-data-of-an-apsaradb-rds-for-mysql-instance-from-a-physical-backup-file-to-a-self-managed-mysql-database
+
+***.tar.gz is extracted to mysql_bkdata folder
+mysql_newdata is a new folder to store backup data from aliyun.(added this folder /home/jiawzhang/Downloads/zybuluo_mysql/mysql_newdata to /etc/mysql/my.cnf)
+
+
+helpful link while migration:
+https://askubuntu.com/questions/758898/mysql-wont-start-after-changing-the-datadir-14-04-mysql-5-7/795710#795710
+https://stackoverflow.com/questions/6288103/native-table-performance-schema-has-the-wrong-structure
+https://stackoverflow.com/questions/16556497/mysql-how-to-reset-or-change-the-mysql-root-password
+https://docs.rackspace.com/docs/reset-a-mysql-root-password
+
+```
+
 ## Done Tasks
 
 ### Restore Zybuluo
+
+#### 2024-03-05
 
 - [x] install mysql client based on 8.0.36 and update doc
 - [x] Upgrade local Ubuntu to 20.04
