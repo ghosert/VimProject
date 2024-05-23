@@ -27,12 +27,12 @@ Tips: Put multiple next actions into one project here(you may need dedicated fol
 
 ### First Vlog
 
-- [ ] Write Blog first: [[抛弃gui基于文本和命令行最大化编程效率]]
+- [ ] Learn how to use Windows Carnac or OBS? 
 - [ ] Check saved 2 youtube videos on how to make videos.
 - [ ] Convert Blog to Vlog
-- [ ] Learn how to use Windows Carnac or OBS? 
 - [ ] Upload Blog to www.zybuluo.com, zhihu.com
 - [ ] Upload Vlog to Bilibili, Douyin, Youtube
+- [x] Write Blog first: [[抛弃gui基于文本和命令行最大化编程效率]]
 
 ### Improve docker dev env
 
