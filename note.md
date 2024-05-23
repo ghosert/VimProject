@@ -27,7 +27,7 @@ Tips: Put multiple next actions into one project here(you may need dedicated fol
 
 ### First Vlog
 
-- [ ] Write Blog first: Why linux/ neovim ?
+- [ ] Write Blog first: [[抛弃gui基于文本和命令行最大化编程效率]]
 - [ ] Check saved 2 youtube videos on how to make videos.
 - [ ] Convert Blog to Vlog
 - [ ] Learn how to use Windows Carnac or OBS? 
@@ -45,6 +45,7 @@ neovim tips should be added to [[neovim-tips]]
 - [ ] lazydocker, httpie, lazy git
 - [ ] Move everything from my Ubuntu Desktop to docker container
 - [ ] add more shortcut tips to [[neovim-tips]] by going through ~/.config/nvim/init.lua
+- [ ] Looks like you can customize chatgpt plugin in neovim to create more prompts for new features.
 
 ### [[zybuluo-improvement#TODO Tasks]]
 
