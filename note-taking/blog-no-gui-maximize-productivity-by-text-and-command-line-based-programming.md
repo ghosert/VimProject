@@ -1,6 +1,6 @@
 # 抛弃GUI，基于文本和命令行最大化编程效率
 
-Tags: command-line, text, productivity, programming
+Tags: blog command-line text productivity programming
 
 ---
 
@@ -70,15 +70,41 @@ echo "There are $TXT_COUNT text files in the directory $DIRECTORY."
 5. 命令行程序通过指定参数和选项，有更丰富的排列组合来给出运算结果
 
 ```bash
+# 在当前目录下搜索 TODO 关键字，大小写敏感
 $ grep TODO *
+# 在当前目录和子目录下搜索 TODO 关键字，大小写敏感
 $ grep TODO * -r 
+# 在当前目录和子目录下搜索 TODO 关键字，大小写不敏感
 $ grep TODO * -ri
-$ grep TODO * -rv
+# 在当前目录下搜索不包含 TODO 关键字，大小写敏感
+$ grep TODO * -v
 ```
 
 6. 命令行程序更适合远程执行
 
+作为运行程序代码的应用服务器或者数据库服务器本身就因为稳定性，高性能以及安全性问题一般不安装GUI界面，所以从本地连接远程服务器只能通过本地的SSH用命令行的方式操作服务器。
 
+## 抛弃 GUI 编程的准备工作
+
+0. 抛弃 GUI，包括 IDE 
+1. 一台可以工作的电脑，无论预装 Windows, MacOS, Linux
+2. 选择一个文本终端：
+  a) Windows: 使用 Windows Terminal 安装 WSL2
+  b) MacOS: iTerm2
+  c) Linux: Gnome Terminal
+3. 选择一种shell：bash, zsh, ksh
+4. 安装编辑器 Vim Neovim Emacs
+5. 搭建开发环境 Python，Java，NodeJS，Go，Lua
+
+## 小结
+
+总结一下以上内容：
+
+1. 使用命令行的效率高于GUI
+2. 使用键盘的效率远超鼠标
+3. 非 GUI 编程的准备工作
+
+提升效率能让每个人在单位时间有更高的产出，尤其是开发者，我们天生有能力通过优化自己的工具链，操作习惯，编码方式和思维模式来提高生产力，如果大家对这个话题感兴趣，请点赞、评论转发鼓励我继续创作，在这个开篇视频开宗明义之后，我会在以后的节目中陆续介绍 Linux，Vim，代码技巧等主题，敬请期待。
 
 
 
