@@ -19,3 +19,6 @@
 ## 2024-05-26
 
 - [x] Learn leap.nvim
+- [x] Complete python virtualenv setup in docker
+- [x] Complete todo inside ~/docker/docker.sh
+- [x] apply the same python setup to host

@@ -18,8 +18,6 @@
 
 Tips: Put immediately next actions here, deffered next actions to google cal or wechat reminder.
 
-- [ ] Complete todo inside ~/docker/docker.sh
-- [ ] apply the same python setup to host?
 - [ ] [[#First Vlog]]
 - [ ] [[#Improve docker dev env]]
 
