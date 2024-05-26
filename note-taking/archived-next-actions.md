@@ -15,3 +15,7 @@
 - [x] Learn how to use Windows Carnac or OBS? 
 - [x] Check saved 2 youtube videos on how to make videos.
 - [x] Convert Blog to Vlog
+
+## 2024-05-26
+
+- [x] Learn leap.nvim

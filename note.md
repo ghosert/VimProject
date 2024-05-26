@@ -18,7 +18,7 @@
 
 Tips: Put immediately next actions here, deffered next actions to google cal or wechat reminder.
 
-- [ ] Learn leap.nvim
+- [ ] Complete todo inside ~/docker/docker.sh
 - [ ] [[#First Vlog]]
 - [ ] [[#Improve docker dev env]]
 
