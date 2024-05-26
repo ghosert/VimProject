@@ -18,6 +18,7 @@
 
 Tips: Put immediately next actions here, deffered next actions to google cal or wechat reminder.
 
+- [ ] Learn leap.nvim
 - [ ] [[#First Vlog]]
 - [ ] [[#Improve docker dev env]]
 
