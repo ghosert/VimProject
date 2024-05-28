@@ -19,6 +19,7 @@
 Tips: Put immediately next actions here, deffered next actions to google cal or wechat reminder.
 
 - [ ] try coc-python in neovim see if it supports both python2.7 and python3
+- [ ] restore host python setup after figure out coc-python above
 - [ ] [[#First Vlog]]
 - [ ] [[#Improve docker dev env]]
 
