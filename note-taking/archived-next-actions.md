@@ -22,3 +22,8 @@
 - [x] Complete python virtualenv setup in docker
 - [x] Complete todo inside ~/docker/docker.sh
 - [x] apply the same python setup to host
+
+## 2024-05-27
+
+- [x] pyright, black, isort plugins are not supporting python2.7
+- [x] refine python virtual env for docker
