@@ -19,6 +19,7 @@
 Tips: Put immediately next actions here, deffered next actions to google cal or wechat reminder.
 
 - [ ] try coc-python in neovim see if it supports both python2.7 and python3
+- [ ] mini-home-pc in docker env ./config is root:root, check laptop, if the same thing happens and if we need to update it to jiawzhang:jiawzhang in docker.sh
 - [ ] restore host python setup after figure out coc-python above
 - [ ] [[#First Vlog]]
 - [ ] [[#Improve docker dev env]]
