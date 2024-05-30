@@ -33,3 +33,4 @@
 - [x] try coc-python in neovim see if it supports both python2.7 and python3: the answer is yes
 - [x] mini-home-pc in docker env ./config is root:root, check laptop, if the same thing happens and if we need to update it to jiawzhang:jiawzhang in docker.sh
 - [x] restore host python setup after figure out coc-python above
+- [x] python debug feature in neovim
