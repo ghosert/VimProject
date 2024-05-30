@@ -18,9 +18,7 @@
 
 Tips: Put immediately next actions here, deffered next actions to google cal or wechat reminder.
 
-- [ ] try coc-python in neovim see if it supports both python2.7 and python3
-- [ ] mini-home-pc in docker env ./config is root:root, check laptop, if the same thing happens and if we need to update it to jiawzhang:jiawzhang in docker.sh
-- [ ] restore host python setup after figure out coc-python above
+- [ ] Finishing watching tech video on how to setup python and java in neovim
 - [ ] [[#First Vlog]]
 - [ ] [[#Improve docker dev env]]
 
@@ -42,13 +40,13 @@ Tips: Put multiple next actions into one project here(you may need dedicated fol
 Any ubuntu tool chains and neovim setup should be added into ~/docker and ~/.config/nvim/ and git push to persist
 neovim tips should be added to [[neovim-tips]]
 
-- [ ] Setup neovim for Python
+- [ ] Move everything from my Ubuntu Desktop to docker container
 - [ ] Setup neovim for Java
 - [ ] Search TODO in ~/.config/nvim/init.lua
 - [ ] lazydocker, httpie, lazy git
-- [ ] Move everything from my Ubuntu Desktop to docker container
 - [ ] add more shortcut tips to [[neovim-tips]] by going through ~/.config/nvim/init.lua
 - [ ] Looks like you can customize chatgpt plugin in neovim to create more prompts for new features.
+- [x] Setup neovim for Python
 
 ### [[zybuluo-improvement#TODO Tasks]]
 
