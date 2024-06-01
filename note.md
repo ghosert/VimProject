@@ -18,6 +18,7 @@
 
 Tips: Put immediately next actions here, deffered next actions to google cal or wechat reminder.
 
+- [ ] Install java in docker, setup neovim for java
 - [ ] install youtube blocker plugin in edge browser: "ADGUARD"
 - [ ] Finishing watching tech video on how to setup python and java in neovim
 - [ ] [[#Improve docker dev env]]
