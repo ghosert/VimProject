@@ -18,6 +18,7 @@
 
 Tips: Put immediately next actions here, deffered next actions to google cal or wechat reminder.
 
+- [ ] Install jdk in host pc and leap.nvim "s" key has conflicts in docker env, type :healthcheck to see key conflicts
 - [ ] Install java in docker, setup neovim for java
 - [ ] install youtube blocker plugin in edge browser: "ADGUARD"
 - [ ] Finishing watching tech video on how to setup python and java in neovim
