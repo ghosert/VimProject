@@ -11,3 +11,15 @@
 - [x] Reduce the file size of ~/VimProject
 - [~] Build a note taking system by neovim(display pic by: https://github.com/3rd/image.nvim)
 
+
+## First Vlog
+
+### 2024-05-31
+
+- [x] Write Blog first: [[抛弃gui基于文本和命令行最大化编程效率]]
+- [x] Learn how to use Windows Carnac or OBS? 
+- [x] Check saved 2 youtube videos on how to make videos.
+- [x] Convert Blog to Vlog
+- [x] Upload Vlog to Bilibili, Youtube
+- [x] Upload Blog to www.zybuluo.com, zhihu.com
+

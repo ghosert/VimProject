@@ -34,3 +34,13 @@
 - [x] mini-home-pc in docker env ./config is root:root, check laptop, if the same thing happens and if we need to update it to jiawzhang:jiawzhang in docker.sh
 - [x] restore host python setup after figure out coc-python above
 - [x] python debug feature in neovim
+
+## 2024-05-30
+
+- [x] Upload Vlog to Bilibili, Youtube
+
+## 2024-05-31
+
+- [x] coc.lua breaks lua auto completion, resolved by adding enable/disable coc when editing python
+- [x] coc-python <c-space> has conflicts with nvim-cmp, resolved by change it to <c-j> in coc.lua
+- [x] 'go to definition or reference' in coc-python reports error when applying on new changes without saving, resolved by saving before applying

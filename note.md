@@ -18,32 +18,21 @@
 
 Tips: Put immediately next actions here, deffered next actions to google cal or wechat reminder.
 
-- [ ] coc.lua breaks lua auto completion
 - [ ] install youtube blocker plugin in edge browser: "ADGUARD"
 - [ ] Finishing watching tech video on how to setup python and java in neovim
-- [ ] [[#First Vlog]]
 - [ ] [[#Improve docker dev env]]
 
 ## Projects [[archived-projects]]
 
 Tips: Put multiple next actions into one project here(you may need dedicated folder or markdown).
 
-### First Vlog
-
-- [ ] Upload Blog to www.zybuluo.com, zhihu.com
-- [ ] Upload Vlog to Bilibili, Douyin, Youtube
-- [x] Write Blog first: [[抛弃gui基于文本和命令行最大化编程效率]]
-- [x] Learn how to use Windows Carnac or OBS? 
-- [x] Check saved 2 youtube videos on how to make videos.
-- [x] Convert Blog to Vlog
-
 ### Improve docker dev env
 
 Any ubuntu tool chains and neovim setup should be added into ~/docker and ~/.config/nvim/ and git push to persist
 neovim tips should be added to [[neovim-tips]]
 
-- [ ] Move everything from my Ubuntu Desktop to docker container
 - [ ] Setup neovim for Java
+- [ ] Move everything from my Ubuntu Desktop to docker container
 - [ ] Search TODO in ~/.config/nvim/init.lua
 - [ ] lazydocker, httpie, lazy git
 - [ ] add more shortcut tips to [[neovim-tips]] by going through ~/.config/nvim/init.lua
