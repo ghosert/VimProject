@@ -18,9 +18,16 @@
 
 Tips: Put immediately next actions here, deffered next actions to google cal or wechat reminder.
 
-- [ ] Install jdk in host pc and leap.nvim "s" key has conflicts in docker env, type :healthcheck to see key conflicts
-- [ ] Install java in docker, setup neovim for java
-- [ ] install youtube blocker plugin in edge browser: "ADGUARD"
+- [ ] Install jdk in host pc
+- [ ] Setup neovim for java: open 3rd party class doesn't work now
+- [ ] Install youtube blocker plugin in edge browser: "ADGUARD"
+- [ ] keynav.rc install for laptop pc
+    ```
+    # XXX: add by jiawzhang
+    f warp,click 1,end
+    d warp,doubleclick 1,end
+    r warp,click 3,end
+    ```
 - [ ] Finishing watching tech video on how to setup python and java in neovim
 - [ ] [[#Improve docker dev env]]
 

@@ -44,3 +44,8 @@
 - [x] coc.lua breaks lua auto completion, resolved by adding enable/disable coc when editing python
 - [x] coc-python <c-space> has conflicts with nvim-cmp, resolved by change it to <c-j> in coc.lua
 - [x] 'go to definition or reference' in coc-python reports error when applying on new changes without saving, resolved by saving before applying
+
+## 2024-06-01
+
+- [x] Install java in docker
+- [x] replace leap.nvim with flash.nvim to avoid highlighting issue in docker env and more features.
