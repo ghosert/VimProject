@@ -18,7 +18,6 @@
 
 Tips: Put immediately next actions here, deffered next actions to google cal or wechat reminder.
 
-- [ ] Install jdk in host pc
 - [ ] Setup neovim for java: open 3rd party class doesn't work now
 - [ ] Install youtube blocker plugin in edge browser: "ADGUARD"
 - [ ] keynav.rc install for laptop pc

@@ -49,3 +49,4 @@
 
 - [x] Install java in docker
 - [x] replace leap.nvim with flash.nvim to avoid highlighting issue in docker env and more features.
+- [x] Install jdk in host pc
