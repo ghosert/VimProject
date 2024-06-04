@@ -51,3 +51,8 @@
 - [x] replace leap.nvim with flash.nvim to avoid highlighting issue in docker env and more features.
 - [x] Install jdk in host pc
 - [x] add java sample project
+
+## 2024-06-03
+
+- [x] Setup neovim for java in linux: https://www.youtube.com/watch?v=TryxysOh-fI
+- [x] Finishing watching tech video on how to setup python and java in neovim

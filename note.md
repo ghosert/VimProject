@@ -18,7 +18,7 @@
 
 Tips: Put immediately next actions here, deffered next actions to google cal or wechat reminder.
 
-- [ ] Setup neovim for java: open 3rd party class doesn't work now
+- [ ] Make neovim java works in MacOS and laptop
 - [ ] Install youtube blocker plugin in edge browser: "ADGUARD"
 - [ ] keynav.rc install for laptop pc
     ```
@@ -27,7 +27,6 @@ Tips: Put immediately next actions here, deffered next actions to google cal or 
     d warp,doubleclick 1,end
     r warp,click 3,end
     ```
-- [ ] Finishing watching tech video on how to setup python and java in neovim
 - [ ] [[#Improve docker dev env]]
 
 ## Projects [[archived-projects]]
@@ -39,9 +38,9 @@ Tips: Put multiple next actions into one project here(you may need dedicated fol
 Any ubuntu tool chains and neovim setup should be added into ~/docker and ~/.config/nvim/ and git push to persist
 neovim tips should be added to [[neovim-tips]]
 
-- [ ] Setup neovim for Java
-- [ ] Move everything from my Ubuntu Desktop to docker container
+- [ ] Setup neovim for Java(linux, mac): https://www.youtube.com/watch?v=TryxysOh-fI
 - [ ] Search TODO in ~/.config/nvim/init.lua
+- [ ] Move everything from my Ubuntu Desktop to docker container
 - [ ] lazydocker, httpie, lazy git
 - [ ] add more shortcut tips to [[neovim-tips]] by going through ~/.config/nvim/init.lua
 - [ ] Looks like you can customize chatgpt plugin in neovim to create more prompts for new features.
