@@ -40,11 +40,15 @@ Marksman plugin[reference]:
 
 ## Tips for Git
 
-1. `:Gt 'any commnets'` to cd to current file location and run !git commit -a -m 'any comments'
+1. `:Gc 'any commnets'` to cd to current file location and run !git commit -a -m 'any comments'
 2. `:Gl` for git pull current folder
-3. `:Gf` for git diff current folder
-4. `:Gh` for git push current folder
-5. `:Gs` for git status current folder
+3. `:Gd` for git diff current folder
+4. `:Gp` for git push current folder
+5. `:Gst` for git status current folder
+
+## Tips for nvim-cmp
+
+1. Once snippet is activated, <C-l> & <C-h> can move cursor to next parameter
 
 ## Lesson 2.3: ON OPERATORS AND MOTIONS
 

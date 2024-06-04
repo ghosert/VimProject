@@ -56,3 +56,18 @@
 
 - [x] Setup neovim for java in linux: https://www.youtube.com/watch?v=TryxysOh-fI
 - [x] Finishing watching tech video on how to setup python and java in neovim
+
+## 2024-06-04
+
+- [x] Make neovim java works in MacOS and laptop
+- [x] keynav.rc install for laptop pc
+    ```
+    # XXX: add by jiawzhang
+    f warp,click 1,end
+    d warp,doubleclick 1,end
+    r warp,click 3,end
+    ```
+- [x] Install youtube blocker plugin in edge browser: "ADGUARD"
+
+
+
