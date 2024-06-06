@@ -70,4 +70,6 @@
 - [x] Install youtube blocker plugin in edge browser: "ADGUARD"
 
 
+## 2024-06-05
 
+- [x] completed most TODOs in neovim init.lua

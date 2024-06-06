@@ -29,11 +29,11 @@ Tips: Put multiple next actions into one project here(you may need dedicated fol
 Any ubuntu tool chains and neovim setup should be added into ~/docker and ~/.config/nvim/ and git push to persist
 neovim tips should be added to [[neovim-tips]]
 
-- [ ] Search TODO in ~/.config/nvim/init.lua
-- [ ] lazydocker, httpie, lazy git
-- [ ] Move everything from my Ubuntu Desktop to docker container
 - [ ] add more shortcut tips to [[neovim-tips]] by going through ~/.config/nvim/init.lua
+- [ ] Move everything from my Ubuntu Desktop to docker container
+- [ ] lazydocker, httpie, lazy git
 - [ ] Looks like you can customize chatgpt plugin in neovim to create more prompts for new features.
+- [x] Search TODO in ~/.config/nvim/init.lua
 - [x] Setup neovim for Java(linux, mac): https://www.youtube.com/watch?v=TryxysOh-fI
 - [x] Setup neovim for Python
 
