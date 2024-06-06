@@ -23,3 +23,11 @@
 - [x] Upload Vlog to Bilibili, Youtube
 - [x] Upload Blog to www.zybuluo.com, zhihu.com
 
+
+## Improve docker dev env
+
+### 2024-06-05
+
+- [x] Search TODO in ~/.config/nvim/init.lua
+- [x] Setup neovim for Java(linux, mac): https://www.youtube.com/watch?v=TryxysOh-fI
+- [x] Setup neovim for Python
