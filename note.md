@@ -18,6 +18,7 @@
 
 Tips: Put immediately next actions here, deffered next actions to google cal or wechat reminder.
 
+- [ ] Move productproject from bitbucket to github
 - [ ] dockerize the entirement runtime env to docker based on Ubuntu 22.04, handle [[zybuluo-improvement#Fix Plan for Zybuluo]] below and unify them in a single doc somewhere.
 - [ ] Move everything from my Ubuntu Desktop to docker container
 - [ ] [[zybuluo-improvement#TODO Tasks]]
@@ -46,6 +47,8 @@ neovim tips should be added to [[neovim-tips]]
 - [ ] Neovim shortcut skills
 - [ ] Introduce my note taking system
 - [ ] dockerize dev env
+
+### Learn Python3
 
 ### Read books
 
