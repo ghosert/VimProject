@@ -73,3 +73,10 @@
 ## 2024-06-05
 
 - [x] completed most TODOs in neovim init.lua
+
+## 2024-06-07
+
+- [x] Move productproject from bitbucket to github
+
+
+
