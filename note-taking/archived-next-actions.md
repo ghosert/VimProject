@@ -82,3 +82,7 @@
 ## 2024-06-09
 
 - [x] dockerized mysql
+
+## 2024-06-10
+
+- [x] git clone again productproject from github on mac(done) and homepc(done) and minipc(done), retiring bitbucket.org

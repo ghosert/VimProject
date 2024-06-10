@@ -4,7 +4,7 @@
 
 - [ ] Move everything from my Ubuntu Desktop to docker container
 - [ ] dockerize the entirement runtime env to docker based on Ubuntu 22.04, handle [[#Fix Plan for Zybuluo]] below and unify them in a single doc somewhere.
-- [ ] Move productproject from bitbucket to github
+- [ ] git clone again productproject from github in production.
 - [ ] Check help doc link, Mermaid link is invalid for example
 - [ ] Feature enhancement to detect bad note realtime and block too many registered users from the same ip to post too many notes
 - [ ] clear up password auto-fill when publishing note
@@ -26,6 +26,7 @@
 - [ ] Upgrade new softwares based on docs on my local Ubuntu 20.04 and make sure https://locahost/ is able to start and reduce the deploy.py in my git repo for productproject
 - [ ] Upgrade python2 to python3 and other libs like SQLAlchemy and Pyramid.
 - [ ] When updating the version of NW.js make sure it works in offline mode, this issue is reported here: https://github.com/nwjs/nw.js/issues/3361
+- [x] Move productproject from bitbucket to github
 
 
 ## Fix Plan for Zybuluo
