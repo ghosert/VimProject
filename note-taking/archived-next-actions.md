@@ -79,4 +79,6 @@
 - [x] Move productproject from bitbucket to github
 
 
+## 2024-06-09
 
+- [x] dockerized mysql
