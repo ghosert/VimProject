@@ -32,7 +32,7 @@
 ## Fix Plan for Zybuluo
 
 Open ~/productproject/SETUP.markdown ~/productproject/ubuntu_install_guide.sh with this doc to restore zybuluo.com runtime environment.
-~/productproject/devenv.tar.gz contains everything for virtualenv
+~/docker/devenv.tar.gz contains everything for virtualenv
 
 ```
 Problem:
