@@ -86,3 +86,8 @@
 ## 2024-06-10
 
 - [x] git clone again productproject from github on mac(done) and homepc(done) and minipc(done), retiring bitbucket.org
+
+## 2024-06-11
+
+- [x] make nginx/uwsgi work in docker
+
