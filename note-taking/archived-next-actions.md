@@ -91,3 +91,7 @@
 
 - [x] make nginx/uwsgi work in docker
 
+## 2024-06-12
+
+- [x] setup rabbitmq and celery into docker
+
