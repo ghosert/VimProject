@@ -95,3 +95,7 @@
 
 - [x] setup rabbitmq and celery into docker
 
+## 2024-06-13
+
+- [x] add pdf support
+
