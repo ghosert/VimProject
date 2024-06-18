@@ -35,6 +35,7 @@ Any ubuntu tool chains and neovim setup should be added into ~/docker and ~/.con
 neovim tips should be added to [[neovim-tips]]
 
 - [ ] lazydocker, httpie, lazy git
+- [ ] learn dotfile to manage all the dot files across the instances
 - [ ] add more shortcut tips to [[neovim-tips]] by going through ~/.config/nvim/init.lua
 - [ ] Looks like you can customize chatgpt plugin in neovim to create more prompts for new features.
 
