@@ -73,7 +73,8 @@ neovim tips should be added to [[neovim-tips]]
 ### Cost saving
 
 - [ ] How to replace diigo to avoid anual fee or use it heavily
-- [ ] clean up bad data in ~/Downloads/test.csv(done) and figure out a way to save mysql disk space and money(zybuluo aws)
+- [ ] clean up bad data in ~/Downloads/test.csv(done)
+- [ ] figure out a way to save mysql disk space and money(zybuluo aws)
 
 ## Tool Chains
 

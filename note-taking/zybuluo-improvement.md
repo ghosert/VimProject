@@ -3,6 +3,7 @@
 ## TODO Tasks
 
 - [ ] Move everything from my Ubuntu Desktop to docker container
+- [ ] database in mysql docker takes 130GB now, the data is coming from production. if we need that much data, can we re-use the small dataset in home-pc
 - [ ] dockerize the entirement runtime env to docker based on Ubuntu 22.04, handle [[#Fix Plan for Zybuluo]] below and unify them in a single doc somewhere.
 - [ ] git clone again productproject from github in production.
 - [ ] Check help doc link, Mermaid link is invalid for example
