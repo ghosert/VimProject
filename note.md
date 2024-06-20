@@ -29,6 +29,12 @@ Tips: Put immediately next actions here, deffered next actions to google cal or 
 
 Tips: Put multiple next actions into one project here(you may need dedicated folder or markdown).
 
+### Setup new mini-pc m6
+
+- [ ] setup Proxmox VE on mini-pc
+- [ ] move my docker and dev env to this Proxmox VE system.
+- [ ] install some other systems onto this PVE
+
 ### Improve docker dev env
 
 Any ubuntu tool chains and neovim setup should be added into ~/docker and ~/.config/nvim/ and git push to persist
