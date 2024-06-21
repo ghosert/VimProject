@@ -22,7 +22,7 @@
 - [ ] Integrate ChatGPT with Cmd Markdown
 - [ ] Integrate Markmap into Cmd Markdown
 - [ ] sync ./note-taking to zybuluo.com
-- [ ] production-uwsgi.ini and production-logging.ini are duplicated for most content. after that, search "production.ini" and "development.ini" in git repo to make sure they have been renamed to something like "production-uwsgi.ini"
+- [ ] production-uwsgi.ini and production-logging.ini are duplicated for most content. after that, search "production.ini" and "development.ini" in git repo to make sure they have been renamed to something like "production-uwsgi.ini", also for development-uwsgi.ini and development-logging.ini
 - [ ] There is a visible bar showing in preview area in chrome and edge, need to remove it.
 - [ ] Upgrade new softwares based on docs on my local Ubuntu 20.04 and make sure https://locahost/ is able to start and reduce the deploy.py in my git repo for productproject
 - [ ] Upgrade python2 to python3 and other libs like SQLAlchemy and Pyramid.
