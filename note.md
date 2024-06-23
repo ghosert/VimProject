@@ -18,7 +18,7 @@
 
 Tips: Put immediately next actions here, deffered next actions to google cal or wechat reminder.
 
-- [ ] [SD: 2024-06-07] dockerize the entirement runtime env to docker based on Ubuntu 22.04
+- [ ] [SD: 2024-06-07] dockerize the entirement runtime env to docker based on Ubuntu 22.04, verify all features and make sure it works no issue.
 - [ ] handle [[zybuluo-improvement#Fix Plan for Zybuluo]] and unify them in a single doc somewhere.
 - [ ] Move everything from my Ubuntu Desktop to docker container
 - [ ] [[zybuluo-improvement#TODO Tasks]]
