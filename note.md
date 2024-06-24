@@ -18,6 +18,7 @@
 
 Tips: Put immediately next actions here, deffered next actions to google cal or wechat reminder.
 
+- [ ] try orbstack on macbook to replace docker desktop
 - [ ] [[#Dockerize zybuluo on Ubuntu 22.04 %5BSD: 2024-06-07%5D]]
 - [ ] handle [[zybuluo-improvement#Fix Plan for Zybuluo]] and unify them in a single doc somewhere.
 - [ ] Move everything from my Ubuntu Desktop to docker container
@@ -38,6 +39,7 @@ Tips: Put multiple next actions into one project here(you may need dedicated fol
 
 ### Setup new mini-pc m6
 
+- [ ] setup Proxmox VE first on virtual machine in windows
 - [ ] setup Proxmox VE on mini-pc
 - [ ] move my docker and dev env to this Proxmox VE system.
 - [ ] install some other systems onto this PVE
