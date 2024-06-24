@@ -99,3 +99,11 @@
 
 - [x] add pdf support
 
+## 2024-06-22
+
+- [x] Make docker with Ubuntu22.04 work for zybuluo
+
+## 2024-06-23
+
+- [x] how to ssh to wsl2 from another machine [ssh-to-wsl-solution](https://bonguides.com/how-to-ssh-access-to-a-wsl-distro-from-a-remote-computer/)
+
