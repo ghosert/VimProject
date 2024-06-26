@@ -107,3 +107,7 @@
 
 - [x] how to ssh to wsl2 from another machine [ssh-to-wsl-solution](https://bonguides.com/how-to-ssh-access-to-a-wsl-distro-from-a-remote-computer/)
 
+## 2024-06-25
+
+- [x] clean up bad notes and uploaded file which caused huge traffic and cost
+
