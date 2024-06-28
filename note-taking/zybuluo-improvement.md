@@ -36,40 +36,7 @@ Open ~/productproject/SETUP.markdown ~/productproject/ubuntu_install_guide.sh wi
 ~/docker/zybuluo/devenv.tar.gz contains everything for virtualenv
 
 ```
-Problem:
-ImportError: cannot import name_remove_dead_weakref
-Reason
-This is because the current Python installation is somehow screwed up. In my case the mess was caused by an upgrade from Ubuntu 16.04 to 18.04.
-
-Solution
-With Virtual Environment
-In the best case you were already using a virtual environment (this was my case). The solution here would be to recreate/setup your venv again (step-by-step):
-
-a. mv ~/devenv/ ~/devenv_backup
-b. virtualenv --no-site-packages devenv
-c. source ~/devenv/bin/activate
-d. cp ~/devenv_backup/lib/python2.7/site-packages/* ~/devenv/lib/python2.7/site-packages/
-```
-
-```
-Problem: Fix rabbitmq issue(fail to start for 18.04. For 20.04 just "sudo apt install rabbitmq-server")
-
-1. uninstall rabbitmq: sudo apt-get purge rabbitmq-server
-2. follow this link to install: https://medium.com/@thucnc/how-to-install-rabbitmq-on-ubuntu-18-04-d002a347764e
-
-If this solution works, add it to ubuntu_install_guide.sh
-```
-
-```
 Problem: Fix python mysql problem:
-
-source ~/devenv/bin/activate
-easy_install MySQL-python==1.2.5
-vi ~/devenv/local/lib/python2.7/site-packages/easy-install.pth, remove "MySQL-python"
-remove ~/devenv/local/lib/python2.7/site-packages/MySQL-python
-wget https://bootstrap.pypa.io/get-pip.py
-python get-pip.py
-pip install mysqlclient   (you may need to first `pip uninstall mysqlclient && sudo apt install default-libmysqlclient-dev`)
 
 For Ubuntu 20.04, Chinese character problem, go to ~/devenv/lib/python2.7/site-packages/MySQLdb/connections.py, update def set_character_set(self, charset) as below:
 
@@ -96,13 +63,6 @@ def get_isolation_level(self, connection):
 return val.upper().replace("-", " ")
 ```
 
-```
-Problem: Fix ImportError: cannot import name _uuid_generate_random
- pip uninstall Celery
- pip uninstall amqp
- pip uninstall kombu
- pip install Celery=3.1.18
-```
 ## Cost of Aliyun
 
 ```

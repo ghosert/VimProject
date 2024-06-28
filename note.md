@@ -34,7 +34,7 @@ Tips: Put multiple next actions into one project here(you may need dedicated fol
 
 - [ ] verify all features and make sure it works no issue
 - [ ] check all TODO under ~/docker
-- [ ] combine app & mysql docker files to one composite file.
+- [~] combine app & mysql docker files to one composite file.
 - [x] dockerize the entirement runtime env to docker based on Ubuntu 22.04
 
 ### Setup new mini-pc m6
