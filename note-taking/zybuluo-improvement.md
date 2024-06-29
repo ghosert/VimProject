@@ -36,18 +36,7 @@ Open ~/productproject/SETUP.markdown ~/productproject/ubuntu_install_guide.sh wi
 ~/docker/zybuluo/devenv.tar.gz contains everything for virtualenv
 
 ```
-Problem: Fix python mysql problem:
-
-For Ubuntu 20.04, Chinese character problem, go to ~/devenv/lib/python2.7/site-packages/MySQLdb/connections.py, update def set_character_set(self, charset) as below:
-
-def set_character_set(self, charset):
-    # jiawzhang changed for Ubuntu 20.04, https://github.com/PyMySQL/mysqlclient/issues/504
-    py_charset = _charset_to_encoding.get(charset, charset)
-    super(Connection, self).set_character_set(charset)
-    self.encoding = py_charset
-    
-    
-For MySql 8.0.36, SQLAlchemy 0.7.9 need to be updated like below:
+Problem: For MySql 8.0.36, SQLAlchemy 0.7.9 need to be updated like below:
 
 $ vi ~/devenv/local/lib/python2.7/site-packages/SQLAlchemy-0.7.9-py2.7-linux-x86_64.egg/sqlalchemy/dialects/mysql/base.py
 

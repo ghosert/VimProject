@@ -111,3 +111,6 @@
 
 - [x] clean up bad notes and uploaded file which caused huge traffic and cost
 
+## 2024-06-28
+
+- [x] verify and clean up mysql problem
