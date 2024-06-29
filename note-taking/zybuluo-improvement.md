@@ -1,8 +1,12 @@
 # Zybuluo Improvement
 
+## NOTE: Check ~/docker/zybuluo/ for setup 
+
 ## TODO Tasks
 
 - [ ] Move everything from my Ubuntu Desktop to docker container
+- [ ] Retire ~/productproject/SETUP.markdown
+- [ ] Retire ~/productproject/ubuntu_install_guide.sh
 - [ ] database in mysql docker takes 130GB now, the data is coming from production. if we need that much data, can we re-use the small dataset in home-pc
 - [ ] dockerize the entirement runtime env to docker based on Ubuntu 22.04, handle [[#Fix Plan for Zybuluo]] below and unify them in a single doc somewhere.
 - [ ] git clone again productproject from github in production.
@@ -31,9 +35,6 @@
 
 
 ## Fix Plan for Zybuluo
-
-Open ~/productproject/SETUP.markdown ~/productproject/ubuntu_install_guide.sh with this doc to restore zybuluo.com runtime environment.
-~/docker/zybuluo/devenv.tar.gz contains everything for virtualenv
 
 ```
 Problem: For MySql 8.0.36, SQLAlchemy 0.7.9 need to be updated like below:
