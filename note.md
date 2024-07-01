@@ -42,6 +42,7 @@ Tips: Put multiple next actions into one project here(you may need dedicated fol
 - [ ] setup Proxmox VE first on virtual machine in windows
 - [ ] setup Proxmox VE on mini-pc
 - [ ] move my docker and dev env to this Proxmox VE system.
+- [ ] video card pass through for windows in PVE and make sure you can run Ubuntu simultaneously at least for server version.
 - [ ] install some other systems onto this PVE
 
 ### Improve docker dev env
