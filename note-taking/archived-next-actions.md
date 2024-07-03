@@ -114,3 +114,9 @@
 ## 2024-06-28
 
 - [x] verify and clean up mysql problem
+
+## 2024-07-02
+
+- [x] refine ubuntu_install_guide.sh
+
+

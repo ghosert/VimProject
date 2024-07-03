@@ -50,6 +50,12 @@ Marksman plugin[reference]:
 
 1. Once snippet is activated, <C-l> & <C-h> can move cursor to next parameter
 
+## Tips for diff
+
+```bash
+vi -d test1 test2
+```
+
 ## Lesson 2.3: ON OPERATORS AND MOTIONS
 
 Many commands that change text are made from an operator and a motion.
