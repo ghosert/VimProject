@@ -119,4 +119,10 @@
 
 - [x] refine ubuntu_install_guide.sh
 
+## 2024-07-09
 
+- [x] Setup dev env for gmk Ubuntu mini pc and Switch games on gmk Ubuntu
+
+## 2024-07-10
+
+- [x] Install orbstack on macbook to replace docker desktop, proved better than Docker Desktop
