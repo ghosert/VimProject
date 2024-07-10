@@ -38,14 +38,6 @@ Tips: Put multiple next actions into one project here(you may need dedicated fol
 - [~] combine app & mysql docker files to one composite file.
 - [x] dockerize the entirement runtime env to docker based on Ubuntu 22.04
 
-### Setup new mini-pc m6
-
-- [ ] setup Proxmox VE first on virtual machine in windows
-- [ ] setup Proxmox VE on mini-pc
-- [ ] move my docker and dev env to this Proxmox VE system.
-- [ ] video card pass through for windows in PVE and make sure you can run Ubuntu simultaneously at least for server version.
-- [ ] install some other systems onto this PVE
-
 ### Improve docker dev env
 
 Any ubuntu tool chains and neovim setup should be added into ~/docker and ~/.config/nvim/ and git push to persist

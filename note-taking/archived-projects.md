@@ -31,3 +31,15 @@
 - [x] Search TODO in ~/.config/nvim/init.lua
 - [x] Setup neovim for Java(linux, mac): https://www.youtube.com/watch?v=TryxysOh-fI
 - [x] Setup neovim for Python
+
+## Setup new gmk-m6
+
+### 2024-07-10
+
+- [~] setup Proxmox VE on gmk-m6
+- [~] video card pass through for windows in PVE and make sure you can run Ubuntu simultaneously at least for server version.
+- [~] install some other systems onto this PVE
+- [x] Install Ubuntu 24.04 on gmk-m6
+- [x] move my docker and dev env to gmk-m6
+- [x] Installed switch games into Ubuntu 24.04
+
