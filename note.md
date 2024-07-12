@@ -22,6 +22,7 @@ Tips: Put immediately next actions here, deffered next actions to google cal or 
 - [ ] [[#Dockerize zybuluo on Ubuntu 22.04 %5BSD: 2024-06-07%5D]]
 - [ ] handle [[zybuluo-improvement#Fix Plan for Zybuluo]] and unify them in a single doc somewhere.
 - [ ] Move everything from my Ubuntu Desktop to docker container
+- [ ] try i3wm titled window manager on ubuntu desktop in gmk-ubuntu
 - [ ] [[zybuluo-improvement#TODO Tasks]]
 - [ ] [[#Improve docker dev env]]
 
