@@ -18,7 +18,7 @@
 
 Tips: Put immediately next actions here, deffered next actions to google cal or wechat reminder.
 
-- [ ] Investigate titling windows manager in Win11.
+- [ ] Investigate titling windows manager in Win11 [Komorebi](https://github.com/LGUG2Z/komorebi).
 - [ ] Setup/familiar with my new keyboard. Use http://usevia.app to use the online, VIA software to remap the keys.
 - [ ] [[#Dockerize zybuluo on Ubuntu 22.04 %5BSD: 2024-06-07%5D]]
 - [ ] handle [[zybuluo-improvement#Fix Plan for Zybuluo]] and unify them in a single doc somewhere.
@@ -71,7 +71,7 @@ neovim tips should be added to [[neovim-tips]]
 - [ ] Each system should have some way to access share folder in another system at home.
 - [ ] Make local google driver and HOMENAS work in docker and windows and ubuntu
 - [ ] Make google chrome download work in Ubuntu, or we just don't use ubuntu desktop anymore? since we have docker now.
-- [ ] \\Desktop-2fdk56j\e
+- [ ] \\mini-pc\e
 - [ ] Make NAS work in ubuntu and write down how to resolve startup problem on dual windows/linux system, sync nas to google drive
 
 ### Cost saving
