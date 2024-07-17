@@ -126,3 +126,9 @@
 ## 2024-07-10
 
 - [x] Install orbstack on macbook to replace docker desktop, proved better than Docker Desktop
+
+## 2024-07-16
+
+- [x] Investigate titling windows manager in Win11 [Komorebi](https://github.com/LGUG2Z/komorebi).
+
+
