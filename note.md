@@ -18,7 +18,6 @@
 
 Tips: Put immediately next actions here, deffered next actions to google cal or wechat reminder.
 
-- [ ] Update neovim plugins to the latest version causing issue, but I have ~/.config/nvim/lazy-lock.json to make sure everything is good. Update init.lua to make lazy latest versions work again.
 - [ ] Setup/familiar with my new keyboard. Use http://usevia.app to use the online, VIA software to remap the keys.
 - [ ] [[#Dockerize zybuluo on Ubuntu 22.04 %5BSD: 2024-06-07%5D]]
 - [ ] handle [[zybuluo-improvement#Fix Plan for Zybuluo]] and unify them in a single doc somewhere.

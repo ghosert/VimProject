@@ -131,4 +131,7 @@
 
 - [x] Investigate titling windows manager in Win11 [Komorebi](https://github.com/LGUG2Z/komorebi).
 
+## 2024-07-18
+
+- [x] Update neovim plugins to the latest version causing issue, but I have ~/.config/nvim/lazy-lock.json to make sure everything is good. Update init.lua to make lazy latest versions work again.
 
