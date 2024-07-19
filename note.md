@@ -18,13 +18,13 @@
 
 Tips: Put immediately next actions here, deffered next actions to google cal or wechat reminder.
 
-- [ ] Setup/familiar with my new keyboard. Use http://usevia.app to use the online, VIA software to remap the keys.
 - [ ] [[#Dockerize zybuluo on Ubuntu 22.04 %5BSD: 2024-06-07%5D]]
 - [ ] handle [[zybuluo-improvement#Fix Plan for Zybuluo]] and unify them in a single doc somewhere.
 - [ ] Move everything from my Ubuntu Desktop to docker container
 - [ ] try i3wm titled window manager on ubuntu desktop in gmk-ubuntu
 - [ ] [[zybuluo-improvement#TODO Tasks]]
 - [ ] [[#Improve docker dev env]]
+- [ ] Setup/familiar with my new keyboard. Use http://usevia.app to use the online, VIA software to remap the keys.
 
 
 ## Projects [[archived-projects]]
@@ -33,8 +33,9 @@ Tips: Put multiple next actions into one project here(you may need dedicated fol
 
 ### Dockerize zybuluo on Ubuntu 22.04 [SD: 2024-06-07]
 
-- [ ] verify all features and make sure it works no issue
 - [ ] check all TODO under ~/docker
+- [x] move more stuff from ~/productproject/ to ~/docker/zybuluo/
+- [x] verify all features and make sure it works no issue
 - [~] combine app & mysql docker files to one composite file.
 - [x] dockerize the entirement runtime env to docker based on Ubuntu 22.04
 
