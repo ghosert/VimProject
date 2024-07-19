@@ -119,6 +119,10 @@
 
 - [x] refine ubuntu_install_guide.sh
 
+## 2024-07-04
+
+- [x] handle [[zybuluo-improvement#Fix Plan for Zybuluo]] and unify them in a single doc somewhere.
+
 ## 2024-07-09
 
 - [x] Setup dev env for gmk Ubuntu mini pc and Switch games on gmk Ubuntu
@@ -131,7 +135,12 @@
 
 - [x] Investigate titling windows manager in Win11 [Komorebi](https://github.com/LGUG2Z/komorebi).
 
+## 2024-07-17
+
+- [x] try i3wm titled window manager on ubuntu desktop in gmk-ubuntu
+- [x] Update neovim plugins to the latest version causing issue, but I have ~/.config/nvim/lazy-lock.json to make sure everything is good. Update init.lua to make lazy latest versions work again.
+
 ## 2024-07-18
 
-- [x] Update neovim plugins to the latest version causing issue, but I have ~/.config/nvim/lazy-lock.json to make sure everything is good. Update init.lua to make lazy latest versions work again.
+- [x] [[archived-projects#Dockerize zybuluo on Ubuntu 22.04 %5BBD: 2024-06-07 CD: 2024-07-18%5D]]
 

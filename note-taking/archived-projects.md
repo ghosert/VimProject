@@ -43,3 +43,11 @@
 - [x] move my docker and dev env to gmk-m6
 - [x] Installed switch games into Ubuntu 24.04
 
+## Dockerize zybuluo on Ubuntu 22.04 [BD: 2024-06-07 CD: 2024-07-18]
+
+- [x] check all TODO under ~/docker
+- [x] move more stuff from ~/productproject/ to ~/docker/zybuluo/
+- [x] verify all features and make sure it works no issue
+- [~] combine app & mysql docker files to one composite file.
+- [x] dockerize the entirement runtime env to docker based on Ubuntu 22.04
+

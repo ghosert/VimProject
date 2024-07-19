@@ -18,26 +18,21 @@
 
 Tips: Put immediately next actions here, deffered next actions to google cal or wechat reminder.
 
-- [ ] [[#Dockerize zybuluo on Ubuntu 22.04 %5BSD: 2024-06-07%5D]]
-- [ ] handle [[zybuluo-improvement#Fix Plan for Zybuluo]] and unify them in a single doc somewhere.
 - [ ] Move everything from my Ubuntu Desktop to docker container
-- [ ] try i3wm titled window manager on ubuntu desktop in gmk-ubuntu
+- [ ] [[#Optimize zybuluo production %5BBD: 2024-07-19 CD: %5D]]
 - [ ] [[zybuluo-improvement#TODO Tasks]]
 - [ ] [[#Improve docker dev env]]
 - [ ] Setup/familiar with my new keyboard. Use http://usevia.app to use the online, VIA software to remap the keys.
-
 
 ## Projects [[archived-projects]]
 
 Tips: Put multiple next actions into one project here(you may need dedicated folder or markdown).
 
-### Dockerize zybuluo on Ubuntu 22.04 [SD: 2024-06-07]
+### Optimize zybuluo production [BD: 2024-07-19 CD: ]
 
-- [ ] check all TODO under ~/docker
-- [x] move more stuff from ~/productproject/ to ~/docker/zybuluo/
-- [x] verify all features and make sure it works no issue
-- [~] combine app & mysql docker files to one composite file.
-- [x] dockerize the entirement runtime env to docker based on Ubuntu 22.04
+- [ ] deploy docker to amazon production
+- [ ] database in mysql docker takes 130GB now, the data is coming from production. if we need that much data, can we re-use the small dataset in home-pc
+- [ ] git clone again productproject from github in production.
 
 ### Improve docker dev env
 
@@ -105,3 +100,6 @@ neovim tips should be added to [[neovim-tips]]
 3. Games in Tablet (simulator games)
 4. Games in Mi Mix 3 and Samsung Galaxy Z Folder 5 (simulator games)
 5. Games in Windows Laptop (simulator games)
+6. Games in gmk-ubuntu (switch, steam, simulator, streaming games)
+7. Games in NVIDA shield tv box (streaming games)
+
