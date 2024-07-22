@@ -144,3 +144,7 @@
 
 - [x] [[archived-projects#Dockerize zybuluo on Ubuntu 22.04 %5BBD: 2024-06-07 CD: 2024-07-18%5D]]
 
+## 2024-07-21
+
+- [x] switch key binding from whkd for ahk for komorebic
+
