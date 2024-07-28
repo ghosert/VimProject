@@ -30,12 +30,13 @@ Tips: Put multiple next actions into one project here(you may need dedicated fol
 
 ### Optimize zybuluo production [BD: 2024-07-19 CD: ]
 
-- [ ] deploy docker to amazon production
-    - [ ] build an image for amazon production and pull it from reserved amazon instance
-    - [ ] check how to call amazon rds from docker container
-    - [ ] run docker image and expose 443 to host from container
+- [x] deploy docker to amazon production
+    - [x] build an image for amazon production and pull it from reserved amazon instance
+    - [x] check how to call amazon rds from docker container
+    - [x] run docker image and expose 443 to host from container
+- [x] git clone again productproject from github in production.
 - [ ] database in mysql docker takes 130GB now, the data is coming from production. if we need that much data, can we re-use the small dataset in home-pc
-- [ ] git clone again productproject from github in production.
+- [ ] clean up amazon prod home folder
 
 ### Improve docker dev env
 
