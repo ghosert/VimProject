@@ -148,3 +148,9 @@
 
 - [x] switch key binding from whkd for ahk for komorebic
 
+## 2024-07-27
+
+- [x] Make zybuluo docker work in prod
+- [x] publish a vlog to explain zybuluo docker
+
+
