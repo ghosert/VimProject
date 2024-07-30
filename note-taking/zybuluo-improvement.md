@@ -4,6 +4,7 @@
 
 ## TODO Tasks
 
+- [ ] not allowing qiniu referer empty blocks the traffic to download installation files, but it also makess pictures blocked in downloaded pdf.
 - [ ] Move everything from my Ubuntu Desktop to docker container
 - [ ] database in mysql docker takes 130GB now, the data is coming from production. if we need that much data, can we re-use the small dataset in home-pc
 - [ ] Check help doc link, Mermaid link is invalid for example
