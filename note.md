@@ -18,6 +18,7 @@
 
 Tips: Put immediately next actions here, deffered next actions to google cal or wechat reminder.
 
+- [ ] production docker --stop and --start doesn't work, have to use --remove and --run
 - [ ] Move everything from my Ubuntu Desktop to docker container
 - [ ] [[#Optimize zybuluo production %5BBD: 2024-07-19 CD: %5D]]
 - [ ] [[zybuluo-improvement#TODO Tasks]]
