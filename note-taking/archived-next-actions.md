@@ -153,4 +153,7 @@
 - [x] Make zybuluo docker work in prod
 - [x] publish a vlog to explain zybuluo docker
 
+## 2024-07-31
+
+- [x] introduce client.zybuluo.com in qiniu to block spike download traffic on cmd markdown apps.
 
