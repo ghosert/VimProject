@@ -156,4 +156,4 @@
 ## 2024-07-31
 
 - [x] introduce client.zybuluo.com in qiniu to block spike download traffic on cmd markdown apps.
-
+- [x] production docker --stop and --start doesn't work, have to use --remove and --run
