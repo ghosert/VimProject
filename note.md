@@ -19,7 +19,6 @@
 Tips: Put immediately next actions here, deffered next actions to google cal or wechat reminder.
 
 - [ ] Move everything from my Ubuntu Desktop to docker container
-- [ ] [[#Optimize zybuluo production %5BBD: 2024-07-19 CD: 2024-08-01%5D]]
 - [ ] [[zybuluo-improvement#TODO Tasks]]
 - [ ] [[#Improve docker dev env]]
 - [ ] Setup/familiar with my new keyboard. Use http://usevia.app to use the online, VIA software to remap the keys.

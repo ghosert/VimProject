@@ -157,3 +157,8 @@
 
 - [x] introduce client.zybuluo.com in qiniu to block spike download traffic on cmd markdown apps.
 - [x] production docker --stop and --start doesn't work, have to use --remove and --run
+
+## 2024-08-01
+
+- [x] [[archived-projects#Optimize zybuluo production %5BBD: 2024-07-19 CD: 2024-08-01%5D]]
+
