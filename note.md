@@ -19,7 +19,7 @@
 Tips: Put immediately next actions here, deffered next actions to google cal or wechat reminder.
 
 - [ ] Move everything from my Ubuntu Desktop to docker container
-- [ ] [[#Optimize zybuluo production %5BBD: 2024-07-19 CD: %5D]]
+- [ ] [[#Optimize zybuluo production %5BBD: 2024-07-19 CD: 2024-08-01%5D]]
 - [ ] [[zybuluo-improvement#TODO Tasks]]
 - [ ] [[#Improve docker dev env]]
 - [ ] Setup/familiar with my new keyboard. Use http://usevia.app to use the online, VIA software to remap the keys.
@@ -27,16 +27,6 @@ Tips: Put immediately next actions here, deffered next actions to google cal or 
 ## Projects [[archived-projects]]
 
 Tips: Put multiple next actions into one project here(you may need dedicated folder or markdown).
-
-### Optimize zybuluo production [BD: 2024-07-19 CD: ]
-
-- [x] deploy docker to amazon production
-    - [x] build an image for amazon production and pull it from reserved amazon instance
-    - [x] check how to call amazon rds from docker container
-    - [x] run docker image and expose 443 to host from container
-- [x] git clone again productproject from github in production.
-- [x] database in mysql docker takes 130GB now, the data is coming from production. if we need that much data, can we re-use the small dataset in home-pc [we have bigger disk now and also we have solution for small dataset]
-- [ ] clean up amazon prod home folder
 
 ### Improve docker dev env
 

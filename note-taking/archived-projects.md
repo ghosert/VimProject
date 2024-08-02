@@ -51,3 +51,13 @@
 - [~] combine app & mysql docker files to one composite file.
 - [x] dockerize the entirement runtime env to docker based on Ubuntu 22.04
 
+## Optimize zybuluo production [BD: 2024-07-19 CD: 2024-08-01]
+
+- [x] deploy docker to amazon production
+    - [x] build an image for amazon production and pull it from reserved amazon instance
+    - [x] check how to call amazon rds from docker container
+    - [x] run docker image and expose 443 to host from container
+- [x] git clone again productproject from github in production.
+- [x] database in mysql docker takes 130GB now, the data is coming from production. if we need that much data, can we re-use the small dataset in home-pc [we have bigger disk now and also we have solution for small dataset]
+- [x] clean up amazon prod home folder
+
