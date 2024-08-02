@@ -5,7 +5,6 @@
 ## TODO Tasks
 
 - [ ] Move everything from my Ubuntu Desktop to docker container
-- [ ] database in mysql docker takes 130GB now, the data is coming from production. if we need that much data, can we re-use the small dataset in home-pc
 - [ ] Check help doc link, Mermaid link is invalid for example
 - [ ] Feature enhancement to detect bad note realtime and block too many registered users from the same ip to post too many notes
 - [ ] clear up password auto-fill when publishing note
@@ -33,6 +32,7 @@
 - [x] dockerize the entirement runtime env to docker based on Ubuntu 22.04, handle [[#Fix Plan for Zybuluo]] below and unify them in a single doc somewhere.
 - [x] git clone again productproject from github in production.
 - [x] not allowing qiniu referer empty blocks the traffic to download installation files, but it also makess pictures blocked in downloaded pdf, resolve this by introduce client.zybuluo.com which does not allow empty referer anymore.
+- [x] database in mysql docker takes 130GB now, the data is coming from production. if we need that much data, can we re-use the small dataset in home-pc
 
 
 ## Fix Plan for Zybuluo

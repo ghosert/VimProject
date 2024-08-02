@@ -35,7 +35,7 @@ Tips: Put multiple next actions into one project here(you may need dedicated fol
     - [x] check how to call amazon rds from docker container
     - [x] run docker image and expose 443 to host from container
 - [x] git clone again productproject from github in production.
-- [ ] database in mysql docker takes 130GB now, the data is coming from production. if we need that much data, can we re-use the small dataset in home-pc
+- [x] database in mysql docker takes 130GB now, the data is coming from production. if we need that much data, can we re-use the small dataset in home-pc [we have bigger disk now and also we have solution for small dataset]
 - [ ] clean up amazon prod home folder
 
 ### Improve docker dev env
