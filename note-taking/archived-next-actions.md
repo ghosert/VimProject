@@ -162,3 +162,7 @@
 
 - [x] [[archived-projects#Optimize zybuluo production %5BBD: 2024-07-19 CD: 2024-08-01%5D]]
 
+## 2024-08-03
+
+- [x] reinstall Ubuntu24.04 to resolve the terminal input delay issue. not sure why it happened, maybe after i use mysqldump and mysql to export and import data for more than 7 hours, some disk issue inside, format and reinstall ubuntu to resolve this issue.
+
