@@ -26,6 +26,7 @@
 - [ ] Upgrade new softwares based on docs on my local Ubuntu 20.04 and make sure https://locahost/ is able to start and reduce the deploy.py in my git repo for productproject
 - [ ] Upgrade python2 to python3 and other libs like SQLAlchemy and Pyramid.
 - [ ] When updating the version of NW.js make sure it works in offline mode, this issue is reported here: https://github.com/nwjs/nw.js/issues/3361
+- [x] Complete to support flowchart.js 1.18.0
 - [x] Move productproject from bitbucket to github
 - [x] Retire ~/docker/ubuntu_install_guide.sh
 - [x] Retire ~/productproject/SETUP.markdown

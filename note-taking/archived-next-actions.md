@@ -166,3 +166,6 @@
 
 - [x] reinstall Ubuntu24.04 to resolve the terminal input delay issue. not sure why it happened, maybe after i use mysqldump and mysql to export and import data for more than 7 hours, some disk issue inside, format and reinstall ubuntu to resolve this issue.
 
+## 2024-08-04
+
+- [x] Complete to support flowchart.js 1.18.0
