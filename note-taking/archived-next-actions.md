@@ -169,3 +169,8 @@
 ## 2024-08-04
 
 - [x] Complete to support flowchart.js 1.18.0
+
+## 2024-08-05
+
+- [x] Deployed flowchart.js v1.18.0 to prod along with its mdeditor html
+
