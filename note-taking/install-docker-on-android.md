@@ -23,6 +23,14 @@ Get android device IP address: 192.168.31.245 for example and run below from rem
 ssh -p 8022 192.168.31.245
 ```
 
+## If you want to just install Ubuntu inside Termux
+
+```bash
+pkg install proot-distro
+pd install ubuntu
+pd login ubuntu
+```
+
 ## Make android, wifi, Termux awake when screen is off
 
 1. Start Termux app with "wake lock", this can be set inside notifications after running Termux.
