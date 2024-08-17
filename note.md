@@ -81,6 +81,7 @@ neovim tips should be added to [[neovim-tips]]
 6. [zybuluo](https://www.zybuluo.com/mdeditor)
 7. [pomofocus](https://pomofocus.io/app)
 8. [[tiling-window-manager]]
+9. [[install-docker-on-android]]
 
 ## Key files
 
