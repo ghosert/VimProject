@@ -71,4 +71,4 @@ pd login ubuntu
 
 1. Start Termux app with "wake lock", this can be set inside notifications after running Termux.
 2. Allow Termux to use unrestricted wifi data, unrestricted battery usage
-3. Enable wifi hotspot and disable "turn off hotspot automatically" (otherwise, ssh is slow when android screen is off)
+3. Enable wifi hotspot and disable "turn off hotspot automatically" (otherwise, ssh is slow when android screen is off, restarting wifi hotspot also helps most time)
