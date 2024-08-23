@@ -37,6 +37,8 @@ pd login ubuntu
 
        https://www.xda-developers.com/how-to-unlock-bootloader-root-magisk-google-pixel-6a/
 
+       Inside magisk app, import unlock_kvm_magisk_v2.zip as a module, this will be used to stable limbo_tensor app below looks like.
+
     b. Install and follow readme carefully with this app
 
        https://github.com/wasdwasd0105/limbo_tensor/releases (limbo-kvm-release-0.5.0.apk)
@@ -72,3 +74,4 @@ pd login ubuntu
 1. Start Termux app with "wake lock", this can be set inside notifications after running Termux.
 2. Allow Termux to use unrestricted wifi data, unrestricted battery usage
 3. Enable wifi hotspot and disable "turn off hotspot automatically" (otherwise, ssh is slow when android screen is off, restarting wifi hotspot also helps most time)
+4. keep limbo_tensor open on the screen looks like also make linux/docker system stable? especially for neovim editing, i saw neovim crash sometimes.
