@@ -46,7 +46,7 @@ pd login ubuntu
 
        Before starting this limbo_tensor app"
 
-       enable kvm option to get native performance, also enable UEFI to boot linux from iso file, set cpu number = 2 looks more stable
+       enable kvm option to get native performance, also enable UEFI to boot linux from iso file
        set forward network like "tcp:2222:22", Network: User, NIC Card: e1000, so that after installing openssh, you can "ssh -p 2222 192.168.31.132" instead of vnc
        Boot linux with CD-ROM loaded with iso first to install the system to QCOW2 hard disk
        Remove CD-ROM and boot from hard disk
@@ -58,7 +58,17 @@ pd login ubuntu
        Go with docker
        Install other linux distro like Ubuntu desktop by repeating steps above for limbo_tensor app on a separate QCOW2 hard disk
 
-    d. Other resources:
+    d. Rebuild neovim 0.9.5 from source inside docker env for ARM64 to replace the unstable version in Dockerfile, which looks like more stable, avoid neovim crashing.
+
+       sudo apt-get install ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl doxygen
+       git clone https://github.com/neovim/neovim.git
+       cd neovim
+       git checkout v0.9.5
+       make CMAKE_BUILD_TYPE=Release
+       sudo make install
+       nvim --version
+
+    e. Other resources:
 
        https://xdaforums.com/t/root-virtual-machine-with-kvm-acceleration-for-tensor-chips.4501665/
        https://www.esper.io/blog/android-dessert-bites-13-virtualization-on-pixel-6-379185
