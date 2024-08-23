@@ -46,7 +46,7 @@ pd login ubuntu
 
        Before starting this limbo_tensor app"
 
-       enable kvm option to get native performance, also enable UEFI to boot linux from iso file
+       enable kvm option to get native performance, also enable UEFI to boot linux from iso file, set 4 CPUs with 4096GB memory
        set forward network like "tcp:2222:22", Network: User, NIC Card: e1000, so that after installing openssh, you can "ssh -p 2222 192.168.31.132" instead of vnc
        Boot linux with CD-ROM loaded with iso first to install the system to QCOW2 hard disk
        Remove CD-ROM and boot from hard disk
