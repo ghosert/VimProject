@@ -42,7 +42,7 @@ pd login ubuntu
        https://github.com/wasdwasd0105/limbo_tensor/releases (limbo-kvm-release-0.5.0.apk)
        https://github.com/wasdwasd0105/limbo_tensor 
 
-       Before starting this limo_tensor app"
+       Before starting this limbo_tensor app"
 
        enable kvm option to get native performance, also enable UEFI to boot linux from iso file
        set forward network like "tcp:2222:22", Network: User, NIC Card: e1000, so that after installing openssh, you can "ssh -p 2222 192.168.31.132" instead of vnc
@@ -54,7 +54,7 @@ pd login ubuntu
        Use an VNC app or VNC viewer desktop to connect 192.168.31.132:5900
        After install ssh inside linux: ssh -p 2222 192.168.31.132 without VNC
        Go with docker
-       Install other linux distro like Ubuntu desktop by repeating steps above for limo_tensor app on a separate QCOW2 hard disk
+       Install other linux distro like Ubuntu desktop by repeating steps above for limbo_tensor app on a separate QCOW2 hard disk
 
     d. Other resources:
 
