@@ -31,7 +31,7 @@ pd install ubuntu
 pd login ubuntu
 ```
 
-4. Native docker on Pixel 6a
+4. Native Linux and docker on Pixel 6a
 
     a. Follow this to unlock the bootloader and root Pixel 6a
 
@@ -42,7 +42,21 @@ pd login ubuntu
        https://github.com/wasdwasd0105/limbo_tensor/releases (limbo-kvm-release-0.5.0.apk)
        https://github.com/wasdwasd0105/limbo_tensor 
 
-    c. Other resources:
+       Before starting this limo_tensor app"
+
+       enable kvm option to get native performance, also enable UEFI to boot linux from iso file
+       set forward network like "tcp:2222:22", Network: User, NIC Card: e1000, so that after installing openssh, you can "ssh -p 2222 192.168.31.132" instead of vnc
+       Boot linux with CD-ROM loaded with iso first to install the system to QCOW2 hard disk
+       Remove CD-ROM and boot from hard disk
+
+    c. Connect to native linux and docker
+
+       Use an VNC app or VNC viewer desktop to connect 192.168.31.132:5900
+       After install ssh inside linux: ssh -p 2222 192.168.31.132 without VNC
+       Go with docker
+       Install other linux distro like Ubuntu desktop by repeating steps above for limo_tensor app on a separate QCOW2 hard disk
+
+    d. Other resources:
 
        https://xdaforums.com/t/root-virtual-machine-with-kvm-acceleration-for-tensor-chips.4501665/
        https://www.esper.io/blog/android-dessert-bites-13-virtualization-on-pixel-6-379185
