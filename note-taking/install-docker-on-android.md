@@ -58,15 +58,17 @@ pd login ubuntu
        Go with docker
        Install other linux distro like Ubuntu desktop by repeating steps above for limbo_tensor app on a separate QCOW2 hard disk
 
-    d. Rebuild neovim 0.9.5 from source inside docker env for ARM64 to replace the unstable version in Dockerfile, which looks like more stable, avoid neovim crashing.
+    d. Rebuild neovim v0.10.0 from source inside docker env for ARM64 to replace the unstable version in Dockerfile, which looks like more stable, avoid neovim crashing.
 
        sudo apt-get install ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl doxygen
        git clone https://github.com/neovim/neovim.git
        cd neovim
-       git checkout v0.9.5
+       git checkout v0.10.0
        make CMAKE_BUILD_TYPE=Release
        sudo make install
        nvim --version
+
+       # To Uninstall: sudo make uninstall && sudo make distclean
 
     e. Other resources:
 
