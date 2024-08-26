@@ -78,6 +78,10 @@ pd login ubuntu
        https://gist.github.com/FreddieOliveira/efe850df7ff3951cb62d74bd770dce27#41-kernel-patches
        https://medium.com/@kumargaurav.pandey/docker-on-mobile-that-too-without-root-how-7b0848833c42
 
+    e. Zybuluo:
+
+       [天命人没苦硬吃，在手机上安装完全体 Linux 和 Docker](https://www.zybuluo.com/ghosert/note/2559550)
+
 
 ## Make android, wifi, Termux awake when screen is off
 
