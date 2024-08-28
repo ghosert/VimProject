@@ -174,3 +174,6 @@
 
 - [x] Deployed flowchart.js v1.18.0 to prod along with its mdeditor html
 
+## 2024-08-27
+
+- [x] try to rebuld v0.10.0 neovim on MacOS and see if it resolves the crash issue.

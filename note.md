@@ -18,7 +18,6 @@
 
 Tips: Put immediately next actions here, deffered next actions to google cal or wechat reminder.
 
-- [ ] try to rebuld 0.9.5 neovim on MacOS and see if it resolves the crash issue.
 - [ ] update mermaid to latest version and update ~/productproject/ZuoYeProject/zuoyeproject/static/editor/md-help.markdown
 - [ ] make a new mdeditor.html after mermaid and flowchart changes
 - [ ] deploy mermaid changes to prod
