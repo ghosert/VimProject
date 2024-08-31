@@ -18,7 +18,9 @@
 
 Tips: Put immediately next actions here, deffered next actions to google cal or wechat reminder.
 
-- [ ] update mermaid to latest version and update ~/productproject/ZuoYeProject/zuoyeproject/static/editor/md-help.markdown
+- [x] update mermaid to latest version from 6.0.0 to 10.9.1
+- [ ] Make pdf download work for latest mermaid charts
+- [ ] update ~/productproject/ZuoYeProject/zuoyeproject/static/editor/md-help.markdown
 - [ ] make a new mdeditor.html after mermaid and flowchart changes
 - [ ] deploy mermaid changes to prod
 - [ ] Move everything from my Ubuntu Desktop to docker container
