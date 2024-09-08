@@ -1,8 +1,6 @@
 # Archived Projects
 
-## Build Note taking system in neovim
-
-### 2024-05-19
+## Build Note taking system in neovim [CD: 2024-05-19]
 
 - [x] Move zybuluo TODOs to here.
 - [x] mimic remember the milk or build my own note taking system
@@ -12,9 +10,7 @@
 - [~] Build a note taking system by neovim(display pic by: https://github.com/3rd/image.nvim)
 
 
-## First Vlog
-
-### 2024-05-31
+## First Vlog [CD: 2024-05-31]
 
 - [x] Write Blog first: [[抛弃gui基于文本和命令行最大化编程效率]]
 - [x] Learn how to use Windows Carnac or OBS? 
@@ -24,17 +20,13 @@
 - [x] Upload Blog to www.zybuluo.com, zhihu.com
 
 
-## Improve docker dev env
-
-### 2024-06-05
+## Improve docker dev env [CD: 2024-06-05]
 
 - [x] Search TODO in ~/.config/nvim/init.lua
 - [x] Setup neovim for Java(linux, mac): https://www.youtube.com/watch?v=TryxysOh-fI
 - [x] Setup neovim for Python
 
-## Setup new gmk-m6
-
-### 2024-07-10
+## Setup new gmk-m6 [CD: 2024-07-10]
 
 - [~] setup Proxmox VE on gmk-m6
 - [~] video card pass through for windows in PVE and make sure you can run Ubuntu simultaneously at least for server version.
@@ -61,3 +53,6 @@
 - [x] database in mysql docker takes 130GB now, the data is coming from production. if we need that much data, can we re-use the small dataset in home-pc [we have bigger disk now and also we have solution for small dataset]
 - [x] clean up amazon prod home folder
 
+## Install linux and docker on pixel6a phone [CD: 2024-08-29]
+
+- [x] [[install-docker-on-android]]

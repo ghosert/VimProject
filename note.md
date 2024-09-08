@@ -18,11 +18,7 @@
 
 Tips: Put immediately next actions here, deffered next actions to google cal or wechat reminder.
 
-- [x] update mermaid to latest version from 6.0.0 to 10.9.1
-- [ ] Make pdf download work for latest mermaid charts
-- [ ] update ~/productproject/ZuoYeProject/zuoyeproject/static/editor/md-help.markdown
-- [ ] make a new mdeditor.html after mermaid and flowchart changes
-- [ ] deploy mermaid changes to prod
+- [ ] [[#Make the latest mermaid work on zybuluo %5BBD: 2024-08-30 CD: unknown%5D]]
 - [ ] Move everything from my Ubuntu Desktop to docker container
 - [ ] [[zybuluo-improvement#TODO Tasks]]
 - [ ] [[#Improve docker dev env]]
@@ -32,9 +28,19 @@ Tips: Put immediately next actions here, deffered next actions to google cal or 
 
 Tips: Put multiple next actions into one project here(you may need dedicated folder or markdown).
 
+### Make the latest mermaid work on zybuluo [BD: 2024-08-30 CD: unknown]
+
+- [x] update mermaid to latest version from 6.0.0 to 10.9.1, work for web page.
+- [x] Make pdf download work for latest mermaid charts, change docker file and codes to support `puppeteer` to convert html to pdf server side
+- [ ] update ~/productproject/ZuoYeProject/zuoyeproject/static/editor/md-help.markdown
+- [ ] search `TODO:` in ~/productproject/
+- [ ] mermaid js is not owned by zybuluo if we need to own it. what's the speed of the CDN for mermaid?
+- [ ] make a new mdeditor.html after mermaid and flowchart changes
+- [ ] deploy mermaid changes to prod
+
 ### Improve docker dev env
 
-Any ubuntu tool chains and neovim setup should be added into ~/docker and ~/.config/nvim/ and git push to persist
+Tips: Any ubuntu tool chains and neovim setup should be added into ~/docker and ~/.config/nvim/ and git push to persist
 neovim tips should be added to [[neovim-tips]]
 
 - [ ] lazydocker, httpie, lazy git
@@ -45,6 +51,8 @@ neovim tips should be added to [[neovim-tips]]
 ## Someday/Maybe
 
 ### Blogs
+
+Tips: Search file name contains 'note-taking/blog-'
 
 - [ ] neovim chatgpt introduction, could be applied to other tools
 - [ ] Linux skills

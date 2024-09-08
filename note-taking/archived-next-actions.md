@@ -177,3 +177,17 @@
 ## 2024-08-27
 
 - [x] try to rebuld v0.10.0 neovim on MacOS and see if it resolves the crash issue.
+
+## 2024-08-29
+
+- [x] Make pixel 6a work for linux and android
+- [x] Write blog [[天命人没苦硬吃在手机上安装完全体-linux-和-docker]]
+
+## 2024-08-31
+
+- [x] update mermaid to latest version from 6.0.0 to 10.9.1
+
+## 2024-09-07
+
+- [x] Make pdf download work for latest mermaid charts, change docker file and codes to support `puppeteer` to convert html to pdf server side
+
