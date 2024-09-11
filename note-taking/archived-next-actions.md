@@ -191,3 +191,7 @@
 
 - [x] Make pdf download work for latest mermaid charts, change docker file and codes to support `puppeteer` to convert html to pdf server side
 
+## 2024-09-11
+
+- [x] Host mermaid.min.js to zybuluo instead of cdn, cdn may be blocked in China
+
