@@ -32,8 +32,9 @@ Tips: Put multiple next actions into one project here(you may need dedicated fol
 
 - [x] update mermaid to latest version from 6.0.0 to 10.9.1, work for web page.
 - [x] Make pdf download work for latest mermaid charts, change docker file and codes to support `puppeteer` to convert html to pdf server side
+- [x] search `TODO:` in ~/productproject/
+- [ ] remove pdfkit and wkhtmltopdf,since we are now using puppeteer to replace it to convert html to pdf
 - [ ] update ~/productproject/ZuoYeProject/zuoyeproject/static/editor/md-help.markdown
-- [ ] search `TODO:` in ~/productproject/
 - [ ] mermaid js is not owned by zybuluo if we need to own it. what's the speed of the CDN for mermaid?
 - [ ] make a new mdeditor.html after mermaid and flowchart changes
 - [ ] deploy mermaid changes to prod
