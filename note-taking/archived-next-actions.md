@@ -195,3 +195,9 @@
 
 - [x] Host mermaid.min.js to zybuluo instead of cdn, cdn may be blocked in China
 
+## 2024-09-12
+
+- [x] add version to mermaid.min.js to avoid cache in client
+- [x] fix mermaid graph issue in published note
+- [x] fix wrongly counting characters on notes containing mermaid graph 
+
