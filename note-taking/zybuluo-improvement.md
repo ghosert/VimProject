@@ -18,6 +18,7 @@
 - [ ] Move Cmd Guide to about menu? Or refine about menu?
 - [ ] add Cmd Markdown formulate to official link (https://ericp.cn/cmd), ask permission from the original author.
 - [ ] How to show cmd desktop client and its version in google analytics?
+- [ ] Upgrade latest ACE editor which can support Mermaid syntax like https://mermaid.live
 - [ ] Integrate ChatGPT with Cmd Markdown
 - [ ] Integrate Markmap into Cmd Markdown
 - [ ] sync ./note-taking to zybuluo.com

@@ -201,3 +201,8 @@
 - [x] fix mermaid graph issue in published note
 - [x] fix wrongly counting characters on notes containing mermaid graph 
 
+## 2024-09-13
+
+- [x] upgrade mermaid from v10.9.1 to v11.0.2 to support more diagrams
+- [x] fix all the bugs introduced by new mermaid integration
+
