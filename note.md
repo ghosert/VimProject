@@ -33,6 +33,7 @@ Tips: Put multiple next actions into one project here(you may need dedicated fol
 - [x] update mermaid to latest version from 6.0.0 to 10.9.1, work for web page.
 - [x] Make pdf download work for latest mermaid charts, change docker file and codes to support `puppeteer` to convert html to pdf server side
 - [x] search `TODO:` in ~/productproject/
+- [x] Release notes on the 15th update for Cmd Markdown
 - [ ] remove pdfkit and wkhtmltopdf,since we are now using puppeteer to replace it to convert html to pdf
 - [ ] update ~/productproject/ZuoYeProject/zuoyeproject/static/editor/md-help.markdown
 - [ ] mermaid js is not owned by zybuluo if we need to own it. what's the speed of the CDN for mermaid?
@@ -44,6 +45,8 @@ Tips: Put multiple next actions into one project here(you may need dedicated fol
 Tips: Any ubuntu tool chains and neovim setup should be added into ~/docker and ~/.config/nvim/ and git push to persist
 neovim tips should be added to [[neovim-tips]]
 
+- [ ] Investigate new neovim plugin for the feature of Cursor AI IDE
+- [ ] Investigate new API model CHATGPT o1, it's able to replace chatgpt 4o?
 - [ ] lazydocker, httpie, lazy git
 - [ ] learn dotfile to manage all the dot files across the instances
 - [ ] add more shortcut tips to [[neovim-tips]] by going through ~/.config/nvim/init.lua
