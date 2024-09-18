@@ -36,8 +36,8 @@ Tips: Put multiple next actions into one project here(you may need dedicated fol
 - [x] Release notes on the 15th update for Cmd Markdown
 - [x] update ~/productproject/ZuoYeProject/zuoyeproject/static/editor/md-help.markdown
 - [x] mermaid js is not owned by zybuluo if we need to own it. what's the speed of the CDN for mermaid? (it's now owned by zybuluo)
+- [x] remove pdfkit and wkhtmltopdf,since we are now using puppeteer to replace it to convert html to pdf
 - [ ] update ~/productproject/ZuoYeProject/zuoyeproject/static/editor/welcome-cmd.markdown
-- [ ] remove pdfkit and wkhtmltopdf,since we are now using puppeteer to replace it to convert html to pdf
 - [ ] make a new mdeditor.html after mermaid and flowchart changes
 - [ ] deploy mermaid changes to prod
 
