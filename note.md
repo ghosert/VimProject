@@ -30,7 +30,7 @@ Tips: Put multiple next actions into one project here(you may need dedicated fol
 
 ### Make the latest mermaid work on zybuluo [BD: 2024-08-30 CD: unknown]
 
-- [x] update mermaid to latest version from 6.0.0 to 10.9.1, work for web page.
+- [x] update mermaid to latest version from 6.0.0 to 11.2.0, work for web page.
 - [x] Make pdf download work for latest mermaid charts, change docker file and codes to support `puppeteer` to convert html to pdf server side
 - [x] search `TODO:` in ~/productproject/
 - [x] Release notes on the 15th update for Cmd Markdown
