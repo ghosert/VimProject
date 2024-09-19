@@ -9,7 +9,6 @@
 - [x] Reduce the file size of ~/VimProject
 - [~] Build a note taking system by neovim(display pic by: https://github.com/3rd/image.nvim)
 
-
 ## First Vlog [CD: 2024-05-31]
 
 - [x] Write Blog first: [[抛弃gui基于文本和命令行最大化编程效率]]
@@ -18,7 +17,6 @@
 - [x] Convert Blog to Vlog
 - [x] Upload Vlog to Bilibili, Youtube
 - [x] Upload Blog to www.zybuluo.com, zhihu.com
-
 
 ## Improve docker dev env [CD: 2024-06-05]
 
@@ -56,3 +54,16 @@
 ## Install linux and docker on pixel6a phone [CD: 2024-08-29]
 
 - [x] [[install-docker-on-android]]
+
+## Make the latest mermaid work on zybuluo [BD: 2024-08-30 CD: 2024-09-19]
+
+- [x] update mermaid to latest version from 6.0.0 to 11.2.0, work for web page.
+- [x] Make pdf download work for latest mermaid charts, change docker file and codes to support `puppeteer` to convert html to pdf server side
+- [x] search `TODO:` in ~/productproject/
+- [x] Release notes on the 15th update for Cmd Markdown
+- [x] update ~/productproject/ZuoYeProject/zuoyeproject/static/editor/md-help.markdown
+- [x] mermaid js is not owned by zybuluo if we need to own it. what's the speed of the CDN for mermaid? (it's now owned by zybuluo)
+- [x] remove pdfkit and wkhtmltopdf,since we are now using puppeteer to replace it to convert html to pdf
+- [x] update ~/productproject/ZuoYeProject/zuoyeproject/static/editor/welcome-cmd.markdown
+- [x] make a new mdeditor.html after mermaid and flowchart changes
+- [x] deploy mermaid changes to prod

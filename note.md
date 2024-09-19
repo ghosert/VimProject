@@ -18,7 +18,6 @@
 
 Tips: Put immediately next actions here, deffered next actions to google cal or wechat reminder.
 
-- [ ] [[#Make the latest mermaid work on zybuluo %5BBD: 2024-08-30 CD: unknown%5D]]
 - [ ] Move everything from my Ubuntu Desktop to docker container
 - [ ] [[zybuluo-improvement#TODO Tasks]]
 - [ ] [[#Improve docker dev env]]
@@ -27,19 +26,6 @@ Tips: Put immediately next actions here, deffered next actions to google cal or 
 ## Projects [[archived-projects]]
 
 Tips: Put multiple next actions into one project here(you may need dedicated folder or markdown).
-
-### Make the latest mermaid work on zybuluo [BD: 2024-08-30 CD: unknown]
-
-- [x] update mermaid to latest version from 6.0.0 to 11.2.0, work for web page.
-- [x] Make pdf download work for latest mermaid charts, change docker file and codes to support `puppeteer` to convert html to pdf server side
-- [x] search `TODO:` in ~/productproject/
-- [x] Release notes on the 15th update for Cmd Markdown
-- [x] update ~/productproject/ZuoYeProject/zuoyeproject/static/editor/md-help.markdown
-- [x] mermaid js is not owned by zybuluo if we need to own it. what's the speed of the CDN for mermaid? (it's now owned by zybuluo)
-- [x] remove pdfkit and wkhtmltopdf,since we are now using puppeteer to replace it to convert html to pdf
-- [ ] update ~/productproject/ZuoYeProject/zuoyeproject/static/editor/welcome-cmd.markdown
-- [ ] make a new mdeditor.html after mermaid and flowchart changes
-- [ ] deploy mermaid changes to prod
 
 ### Improve docker dev env
 
