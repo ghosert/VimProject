@@ -210,3 +210,6 @@
 
 - [x] [[archived-projects#Make the latest mermaid work on zybuluo %5BBD: 2024-08-30 CD: 2024-09-19%5D]]
 
+## 2024-09-30
+
+- [x] Make zybuluo work on MacOS arm64
