@@ -5,7 +5,6 @@
 ## TODO Tasks
 
 - [ ] Move everything from my Ubuntu Desktop to docker container
-- [ ] Check help doc link, Mermaid link is invalid for example
 - [ ] Feature enhancement to detect bad note realtime and block too many registered users from the same ip to post too many notes
 - [ ] clear up password auto-fill when publishing note
 - [ ] update appcache by making mdeditor js/css changes to update ssl validation date, read details in SETUP.markdown
@@ -18,7 +17,7 @@
 - [ ] Move Cmd Guide to about menu? Or refine about menu?
 - [ ] add Cmd Markdown formulate to official link (https://ericp.cn/cmd), ask permission from the original author.
 - [ ] How to show cmd desktop client and its version in google analytics?
-- [ ] Upgrade latest ACE editor which can support Mermaid syntax like https://mermaid.live
+- [ ] Upgrade latest ACE editor
 - [ ] Integrate ChatGPT with Cmd Markdown
 - [ ] Integrate Markmap into Cmd Markdown
 - [ ] sync ./note-taking to zybuluo.com
@@ -27,6 +26,8 @@
 - [ ] Upgrade new softwares based on docs on my local Ubuntu 20.04 and make sure https://locahost/ is able to start and reduce the deploy.py in my git repo for productproject
 - [ ] Upgrade python2 to python3 and other libs like SQLAlchemy and Pyramid.
 - [ ] When updating the version of NW.js make sure it works in offline mode, this issue is reported here: https://github.com/nwjs/nw.js/issues/3361
+- [x] Support latest Mermaid syntax like https://mermaid.live
+- [x] Check help doc link, Mermaid link is invalid for example
 - [x] Complete to support flowchart.js 1.18.0
 - [x] Move productproject from bitbucket to github
 - [x] Retire ~/docker/ubuntu_install_guide.sh
