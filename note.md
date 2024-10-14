@@ -18,7 +18,6 @@
 
 Tips: Put immediately next actions here, deffered next actions to google cal or wechat reminder.
 
-- [ ] mermaid rendering is overlapped on MacOS chrome/safari browser, test with <Cmd Markdown 15th release> doc
 - [ ] Move everything from my Ubuntu Desktop to docker container
 - [ ] [[zybuluo-improvement#TODO Tasks]]
 - [ ] [[#Improve docker dev env]]

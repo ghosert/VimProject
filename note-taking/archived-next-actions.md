@@ -213,3 +213,8 @@
 ## 2024-09-30
 
 - [x] Make zybuluo work on MacOS arm64
+
+## 2024-10-10
+
+- [x] mermaid rendering is overlapped on MacOS chrome/safari browser, test with <Cmd Markdown 15th release> doc
+
