@@ -218,3 +218,7 @@
 
 - [x] mermaid rendering is overlapped on MacOS chrome/safari browser, test with <Cmd Markdown 15th release> doc
 
+## 2024-10-19
+
+- [x] Move everything from my Ubuntu Desktop to docker container
+
