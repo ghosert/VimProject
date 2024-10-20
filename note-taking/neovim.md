@@ -3,8 +3,10 @@
 To check all the details in the neovim tutor:
 1. $ nv
 2. :Tutor
-3. ~/.config/nvim/sample/ contains every programming language sample you can try.
-4. ~/.config/nvim/init.lua is the main entry of the nvim config.
+3. :checkhealth to make sure plugins are good and follow tips to fix errors
+4. :Lazy to update plugins
+5. ~/.config/nvim/sample/ contains every programming language sample you can try.
+6. ~/.config/nvim/init.lua is the main entry of the nvim config.
 
 ## Tips for Marksman
 
