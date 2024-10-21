@@ -18,6 +18,8 @@
 
 Tips: Put immediately next actions here, deffered next actions to google cal or wechat reminder.
 
+- [ ] Investigate new neovim plugin for the feature of Cursor AI IDE (avante.nvim)
+    - [ ] customize more shortcuts for avante.nvim like chatgpt.nvim
 - [ ] [[zybuluo-improvement#TODO Tasks]]
 - [ ] [[#Improve docker dev env]]
 - [ ] Setup/familiar with my new keyboard. Use http://usevia.app to use the online, VIA software to remap the keys.
@@ -31,7 +33,6 @@ Tips: Put multiple next actions into one project here(you may need dedicated fol
 Tips: Any ubuntu tool chains and neovim setup should be added into ~/docker and ~/.config/nvim/ and git push to persist
 neovim tips should be added to [[neovim-tips]]
 
-- [ ] Investigate new neovim plugin for the feature of Cursor AI IDE
 - [ ] Investigate new API model CHATGPT o1, it's able to replace chatgpt 4o?
 - [ ] lazydocker, httpie, lazy git
 - [ ] learn dotfile to manage all the dot files across the instances
@@ -73,7 +74,7 @@ Tips: Search file name contains 'note-taking/blog-'
 
 ## Tool Chains
 
-1. ChatGPT4 in neovim
+1. ChatGPT4.nvim / Avante.nvim in neovim
 2. Copilot in browser
 3. Stream Deck and Macro Deck
 4. ~/docker/docker.sh --run
