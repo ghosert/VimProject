@@ -19,7 +19,12 @@
 Tips: Put immediately next actions here, deffered next actions to google cal or wechat reminder.
 
 - [ ] Investigate new neovim plugin for the feature of Cursor AI IDE (avante.nvim)
-    - [ ] customize more shortcuts for avante.nvim like chatgpt.nvim
+    - [x] customize more shortcuts for avante.nvim like chatgpt.nvim
+    - [ ] how to quickly switch models between local and remote
+- [ ] Learn aider and write down skills/tips, write some in [[neovim-tips#Tips for AI Plugins]]
+    - [ ] Watch youtube to learn
+    - [ ] use local model instead of remote claude-3.5-sonnect
+    - [ ] how to quickly switch models between local and remote
 - [ ] [[zybuluo-improvement#TODO Tasks]]
 - [ ] [[#Improve docker dev env]]
 - [ ] Setup/familiar with my new keyboard. Use http://usevia.app to use the online, VIA software to remap the keys.
@@ -74,7 +79,7 @@ Tips: Search file name contains 'note-taking/blog-'
 
 ## Tool Chains
 
-1. ChatGPT4.nvim / Avante.nvim in neovim
+1. [[neovim-tips#Tips for AI Plugins]] ChatGPT4.nvim, Avante.nvim and aider in neovim
 2. Copilot in browser
 3. Stream Deck and Macro Deck
 4. ~/docker/docker.sh --run

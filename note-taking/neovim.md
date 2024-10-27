@@ -58,6 +58,12 @@ Marksman plugin[reference]:
 vi -d test1 test2
 ```
 
+## Tips for AI Plugins
+
+1. Run with `aider --vim --code-theme monokai` and then type `/help question` on how to use aider, type `/ask question` on chat mode
+2. aider can be started by `viva` in a neovim terminal(easy to share clipboard across neovim) in separate tmux window(easy to resize window), `viva` is defined inside ~/docker/.zshrc
+3. avante.nvim is for single file AI modification, customized shortcuts inside ~/.config/nvim/lua/avante/config.lua
+
 ## Lesson 2.3: ON OPERATORS AND MOTIONS
 
 Many commands that change text are made from an operator and a motion.
