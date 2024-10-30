@@ -222,3 +222,9 @@
 
 - [x] Move everything from my Ubuntu Desktop to docker container
 
+## 2024-10-30
+
+- [x] Investigate new neovim plugin for the feature of Cursor AI IDE (avante.nvim)
+    - [x] customize more shortcuts for avante.nvim like chatgpt.nvim
+    - [x] how to quickly switch models between local and remote
+
