@@ -4,8 +4,9 @@
 
 ## TODO Tasks
 
-- [ ] Feature enhancement to detect bad note realtime and block too many registered users from the same ip to post too many notes
 - [ ] clear up password auto-fill when publishing note
+- [ ] [[#Integrate Chatgpt to detect and block bad note when publishing]]
+- [ ] block too many registered users from the same ip to post too many notes
 - [ ] update appcache by making mdeditor js/css changes to update ssl validation date, read details in SETUP.markdown
 - [ ] copy paste a vim guide for cmd markdown
 - [ ] Don't allow the customer to refresh the read count forever
@@ -36,6 +37,12 @@
 - [x] git clone again productproject from github in production.
 - [x] not allowing qiniu referer empty blocks the traffic to download installation files, but it also makess pictures blocked in downloaded pdf, resolve this by introduce client.zybuluo.com which does not allow empty referer anymore.
 - [x] database in mysql docker takes 130GB now, the data is coming from production. if we need that much data, can we re-use the small dataset in home-pc
+
+## Integrate Chatgpt to detect and block bad note when publishing
+
+- [ ] Integrate Chatgpt API
+- [ ] build a prompt file system to store all kinds of prompt including the one to detect and block the bad note
+- [ ] When publishing note, call Chatgpt API with prompt to detect and block the bad note, also mark the note and in some way warn me to review
 
 
 ## Fix Plan for Zybuluo
