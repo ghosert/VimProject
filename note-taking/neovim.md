@@ -60,9 +60,11 @@ vi -d test1 test2
 
 ## Tips for AI Plugins
 
-1. Run with `aider --vim --code-theme monokai` and then type `/help question` on how to use aider, type `/ask question` on chat mode
+1. Run with `aider --no-auto-commits --vim --code-theme monokai` and then type `/help question` on how to use aider, type `/ask question` on chat mode
 2. aider can be started by `viai` and `viail` in a neovim terminal(easy to share clipboard across neovim) in separate tmux window(easy to resize window), `viai` and `viail` are both defined inside ~/docker/.zshrc
-3. avante.nvim is for single file AI modification, customized shortcuts inside ~/.config/nvim/lua/avante/config.lua, start avante.nvim by SPACE + v in neovim
+3. ask aider to do one task at a time instead of doing too much with one prompt, using aider iteratively
+4. before telling aider to do what you want, use `/ask` to discuss your requirement with aider first, review and then tell aider to make changes.
+5. avante.nvim is for single file AI modification, customized shortcuts inside ~/.config/nvim/lua/avante/config.lua, start avante.nvim by SPACE + v in neovim
 
 ## Lesson 2.3: ON OPERATORS AND MOTIONS
 
