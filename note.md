@@ -18,10 +18,6 @@
 
 Tips: Put immediately next actions here, deffered next actions to google cal or wechat reminder.
 
-- [ ] Learn aider and write down skills/tips, write some in [[neovim-tips#Tips for AI Plugins]]
-    - [ ] Watch youtube to learn
-    - [x] use local model instead of remote claude-3.5-sonnect
-    - [x] how to quickly switch models between local and remote
 - [ ] [[zybuluo-improvement#TODO Tasks]]
 - [ ] [[#Improve docker dev env]]
 - [ ] Setup/familiar with my new keyboard. Use http://usevia.app to use the online, VIA software to remap the keys.

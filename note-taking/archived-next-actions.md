@@ -228,3 +228,10 @@
     - [x] customize more shortcuts for avante.nvim like chatgpt.nvim
     - [x] how to quickly switch models between local and remote
 
+## 2024-11-07
+
+- [x] Learn aider and write down skills/tips, write some in [[neovim-tips#Tips for AI Plugins]]
+    - [x] Watch youtube to learn
+    - [x] use local model instead of remote claude-3.5-sonnect
+    - [x] how to quickly switch models between local and remote
+
