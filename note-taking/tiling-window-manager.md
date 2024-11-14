@@ -30,7 +30,7 @@ https://lgug2z.github.io/komorebi/installation.html
     ~\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1
 
     if (-not (Get-Process -Name "komorebi" -ErrorAction SilentlyContinue)) {
-        Start-Process "komorebic" -ArgumentList "start --ahk"
+        Start-Process "komorebic" -ArgumentList "start --ahk --bar"
     }
     ssh jiawzhang@gmk-ubuntu
 ```
