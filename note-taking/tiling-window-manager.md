@@ -25,13 +25,10 @@ https://lgug2z.github.io/komorebi/installation.html
 
 1. config file: ~/komorebi.json
 2. shortcut file: ~/.config/whkdrc or ~/komorebi.ahk
-3. I created powershell rc file like .zshrc to start komorebi whenever start powershell
+3. I created powershell rc file like .zshrc to start komorebi whenever start powershell, create file below to $PROFILE/Microsoft.PowerShell_profile.ps1
 ```bash
-    ~\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1
-
     if (-not (Get-Process -Name "komorebi" -ErrorAction SilentlyContinue)) {
         Start-Process "komorebic" -ArgumentList "start --ahk --bar"
     }
     ssh jiawzhang@gmk-ubuntu
 ```
-
