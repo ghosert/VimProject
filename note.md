@@ -51,6 +51,8 @@ Tips: Search file name contains 'note-taking/blog-'
 
 ### Learn Python3
 
+### Use AI to create a similar app like Diigo
+
 ### Read books
 
 - [ ] <Core Java for the impatient 3rd version> 

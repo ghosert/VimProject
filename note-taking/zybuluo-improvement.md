@@ -26,6 +26,7 @@
 - [ ] Upgrade new softwares based on docs on my local Ubuntu 20.04 and make sure https://locahost/ is able to start and reduce the deploy.py in my git repo for productproject
 - [ ] Upgrade python2 to python3 and other libs like SQLAlchemy and Pyramid.
 - [ ] When updating the version of NW.js make sure it works in offline mode, this issue is reported here: https://github.com/nwjs/nw.js/issues/3361
+- [ ] Mobile app for zybuluo.com
 - [x] Move everything from my Ubuntu Desktop to docker container
 - [x] Support latest Mermaid syntax like https://mermaid.live
 - [x] Check help doc link, Mermaid link is invalid for example
