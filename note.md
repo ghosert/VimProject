@@ -31,8 +31,9 @@ Tips: Put multiple next actions into one project here(you may need dedicated fol
 Tips: Any ubuntu tool chains and neovim setup should be added into ~/docker and ~/.config/nvim/ and git push to persist
 neovim tips should be added to [[neovim-tips]]
 
+- [ ] Convert company postman script to rest.nvim recognized http spec
 - [ ] Investigate new API model CHATGPT o1, it's able to replace chatgpt 4o?
-- [ ] lazydocker, httpie, lazy git
+- [ ] lazydocker, lazy git
 - [ ] learn dotfile to manage all the dot files across the instances, [sample link](https://github.com/yuchanns/dotfiles)
 - [ ] add more shortcut tips to [[neovim-tips]] by going through ~/.config/nvim/init.lua
 - [ ] Looks like you can customize chatgpt plugin in neovim to create more prompts for new features.

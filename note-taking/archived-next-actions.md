@@ -235,3 +235,11 @@
     - [x] use local model instead of remote claude-3.5-sonnect
     - [x] how to quickly switch models between local and remote
 
+## 2024-11-29
+
+- [x] complete setup vim-dadbod-ui to access database like mysql/azuresql in neovim
+
+## 2024-11-30
+
+- [x] complete setup rest.nvim to replace postman in neovim
+
