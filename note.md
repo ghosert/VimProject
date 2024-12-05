@@ -18,6 +18,7 @@
 
 Tips: Put immediately next actions here, deffered next actions to google cal or wechat reminder.
 
+- [ ] Sell egpu docker on ebay.com
 - [ ] Setup new small keyboard and re-setup stream dock
 - [ ] Check if nvidia 4070 ti super has better performance for local ollama to replace M3 Pro
 - [ ] [[zybuluo-improvement#TODO Tasks]]
