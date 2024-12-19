@@ -22,6 +22,7 @@ Tips: Put immediately next actions here, deffered next actions to google cal or 
 - [ ] Setup new small keyboard and re-setup stream dock
 - [ ] Check if nvidia 4070 ti super has better performance for local ollama to replace M3 Pro
 - [ ] [[zybuluo-improvement#TODO Tasks]]
+- [ ] select count(1) from user_notes limit 100 and date range is slow in prod. this impacts /admin/user_notes page, timeout issue. check how to enhance timeout and make sql faster
 - [ ] [[#Improve docker dev env]]
 - [ ] Setup/familiar with my new keyboard. Use http://usevia.app to use the online, VIA software to remap the keys.
 
