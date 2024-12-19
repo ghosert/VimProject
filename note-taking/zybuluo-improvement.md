@@ -20,6 +20,7 @@
 - [ ] Upgrade latest ACE editor
 - [ ] Integrate ChatGPT with Cmd Markdown
 - [ ] Integrate Markmap into Cmd Markdown
+- [ ] Integrate https://github.com/microsoft/markitdown
 - [ ] sync ./note-taking to zybuluo.com
 - [ ] production-uwsgi.ini and production-logging.ini are duplicated for most content. after that, search "production.ini" and "development.ini" in git repo to make sure they have been renamed to something like "production-uwsgi.ini", also for development-uwsgi.ini and development-logging.ini
 - [ ] There is a visible bar showing in preview area in chrome and edge, need to remove it.
