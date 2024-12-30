@@ -4,8 +4,9 @@
 
 ## TODO Tasks
 
-- [ ] clear up password auto-fill when publishing note
-- [ ] [[#Integrate Chatgpt to detect and block bad note when publishing]]
+- [ ] [[#Integrate AI to Cmd Markdown]]
+- [ ] Use local LLM to detect bad notes/users and delete them in both local and prod database
+- [ ] select count(1) from user_notes limit 100 and date range is slow in prod. this impacts /admin/user_notes page, timeout issue. check how to enhance timeout and make sql faster
 - [ ] block too many registered users from the same ip to post too many notes
 - [ ] update appcache by making mdeditor js/css changes to update ssl validation date, read details in SETUP.markdown
 - [ ] copy paste a vim guide for cmd markdown
@@ -28,6 +29,9 @@
 - [ ] Upgrade python2 to python3 and other libs like SQLAlchemy and Pyramid.
 - [ ] When updating the version of NW.js make sure it works in offline mode, this issue is reported here: https://github.com/nwjs/nw.js/issues/3361
 - [ ] Mobile app for zybuluo.com
+- [x] [[#Integrate Chatgpt to detect and block bad note when publishing]]
+- [x] [[#Make the latest mermaid work on zybuluo]]
+- [x] clear up password auto-fill when publishing note
 - [x] Move everything from my Ubuntu Desktop to docker container
 - [x] Support latest Mermaid syntax like https://mermaid.live
 - [x] Check help doc link, Mermaid link is invalid for example
@@ -40,11 +44,31 @@
 - [x] not allowing qiniu referer empty blocks the traffic to download installation files, but it also makess pictures blocked in downloaded pdf, resolve this by introduce client.zybuluo.com which does not allow empty referer anymore.
 - [x] database in mysql docker takes 130GB now, the data is coming from production. if we need that much data, can we re-use the small dataset in home-pc
 
-## Integrate Chatgpt to detect and block bad note when publishing
+## Integrate AI to Cmd Markdown
 
-- [ ] Integrate Chatgpt API
-- [ ] build a prompt file system to store all kinds of prompt including the one to detect and block the bad note
-- [ ] When publishing note, call Chatgpt API with prompt to detect and block the bad note, also mark the note and in some way warn me to review
+### BD: 2024-12-22
+
+- [ ] A workable AI popup and available dropdown when pressing space in ACE editor
+- [ ] Integrate with gpt-4o-mini for questions asked from AI popup in ACE editor, insert answer to current cursor position in the ACE editor
+- [ ] Complete ai-dropdown menu items
+    - [ ] Complete Writing
+    - [ ] Complete Summary
+    - [ ] Complete Diagram
+    - [ ] Complete Table
+    - [ ] Complete Coding
+    - [ ] Complete Formula
+    - [ ] Complete Draft Email
+    - [ ] Complete Draft Outline
+    - [ ] Complete Draft Meeting
+    - [ ] Complete Draft anything
+    - [ ] Complete Act as Translator
+    - [ ] Complete Act as Code Analysis
+    - [ ] Complete Act as Linux Termminal
+    - [ ] Complete Act as Math Teacher
+    - [ ] Complete Act as anything
+    - [ ] Complete Recent
+- [ ] A sub system to check question history and count tokens for each question, set threshold for AI calls
+- [ ] A new chat-mode page, and result can be easily added to ace editor
 
 
 ## Fix Plan for Zybuluo
@@ -112,6 +136,30 @@ https://docs.rackspace.com/docs/reset-a-mysql-root-password
 ```
 
 ## Done Tasks
+
+### Integrate Chatgpt to detect and block bad note when publishing
+
+#### BD: 2024-11-22 CD: 2024-12-27
+
+- [x] Integrate Chatgpt API
+- [x] build a prompt file system to store all kinds of prompt including the one to detect and block the bad note
+- [x] When publishing note, call Chatgpt API with prompt to detect and block the bad note, also mark the note and in some way warn me to review
+- [x] A uesr notes management system to review and approve bad notes manually
+
+### Make the latest mermaid work on zybuluo
+
+#### BD: 2024-08-30 CD: 2024-09-19
+
+- [x] update mermaid to latest version from 6.0.0 to 11.2.0, work for web page.
+- [x] Make pdf download work for latest mermaid charts, change docker file and codes to support `puppeteer` to convert html to pdf server side
+- [x] search `TODO:` in ~/productproject/
+- [x] Release notes on the 15th update for Cmd Markdown
+- [x] update ~/productproject/ZuoYeProject/zuoyeproject/static/editor/md-help.markdown
+- [x] mermaid js is not owned by zybuluo if we need to own it. what's the speed of the CDN for mermaid? (it's now owned by zybuluo)
+- [x] remove pdfkit and wkhtmltopdf,since we are now using puppeteer to replace it to convert html to pdf
+- [x] update ~/productproject/ZuoYeProject/zuoyeproject/static/editor/welcome-cmd.markdown
+- [x] make a new mdeditor.html after mermaid and flowchart changes
+- [x] deploy mermaid changes to prod
 
 ### Restore Zybuluo
 

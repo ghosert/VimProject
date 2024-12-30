@@ -18,12 +18,9 @@
 
 Tips: Put immediately next actions here, deffered next actions to google cal or wechat reminder.
 
-- [ ] Sell egpu docker on ebay.com
 - [ ] Setup new small keyboard and re-setup stream dock
 - [ ] Check if nvidia 4070 ti super has better performance for local ollama to replace M3 Pro
 - [ ] [[zybuluo-improvement#TODO Tasks]]
-- [ ] select count(1) from user_notes limit 100 and date range is slow in prod. this impacts /admin/user_notes page, timeout issue. check how to enhance timeout and make sql faster
-- [ ] Use local LLM to detect bad notes/users and delete them in both local and prod database
 - [ ] [[#Improve docker dev env]]
 - [ ] Setup/familiar with my new keyboard. Use http://usevia.app to use the online, VIA software to remap the keys.
 
@@ -38,7 +35,7 @@ neovim tips should be added to [[neovim-tips]]
 
 - [ ] Convert company postman script to rest.nvim recognized http spec
 - [ ] Investigate new API model CHATGPT o1, it's able to replace chatgpt 4o?
-- [ ] lazydocker, lazy git
+- [ ] lazydocker
 - [ ] learn dotfile to manage all the dot files across the instances, [sample link](https://github.com/yuchanns/dotfiles)
 - [ ] add more shortcut tips to [[neovim-tips]] by going through ~/.config/nvim/init.lua
 - [ ] Looks like you can customize chatgpt plugin in neovim to create more prompts for new features.

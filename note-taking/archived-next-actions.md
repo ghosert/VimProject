@@ -243,3 +243,15 @@
 
 - [x] complete setup rest.nvim to replace postman in neovim
 
+## 2024-12-01
+
+- [x] Make rest.nvim work in my flow for rest http calls like postman in neovim
+- [x] Make vim-dadbod-ui work in my flow for database client
+
+## 2024-12-10
+
+- [x] Sell egpu docker on ebay.com
+
+## 2024-12-13
+
+- [x] Make lazygit work in my work flow
