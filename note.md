@@ -18,7 +18,7 @@
 
 Tips: Put immediately next actions here, deffered next actions to google cal or wechat reminder.
 
-- [ ] `git config --global diff.tool nvimdiff` set this into dev Dockerfile
+- [ ] `git config --global diff.tool nvimdiff` set this into dev Dockerfile, it won't work by default, maybe need to start nvim once before this command.
 - [ ] Setup new small keyboard and re-setup stream dock
 - [ ] Check if nvidia 4070 ti super has better performance for local ollama to replace M3 Pro
 - [ ] [[zybuluo-improvement#TODO Tasks]]
