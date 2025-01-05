@@ -18,6 +18,7 @@
 
 Tips: Put immediately next actions here, deffered next actions to google cal or wechat reminder.
 
+- [ ] `git config --global diff.tool nvimdiff` set this into dev Dockerfile
 - [ ] Setup new small keyboard and re-setup stream dock
 - [ ] Check if nvidia 4070 ti super has better performance for local ollama to replace M3 Pro
 - [ ] [[zybuluo-improvement#TODO Tasks]]
@@ -34,6 +35,7 @@ Tips: Any ubuntu tool chains and neovim setup should be added into ~/docker and 
 neovim tips should be added to [[neovim-tips]]
 
 - [ ] Convert company postman script to rest.nvim recognized http spec
+- [ ] Watch youtube to make markdown note cleaner
 - [ ] Investigate new API model CHATGPT o1, it's able to replace chatgpt 4o?
 - [ ] lazydocker
 - [ ] learn dotfile to manage all the dot files across the instances, [sample link](https://github.com/yuchanns/dotfiles)
