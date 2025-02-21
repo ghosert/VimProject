@@ -48,6 +48,13 @@
 
 ### BD: 2024-12-22
 
+- [ ] release steps for new tables:
+    - [ ]source ~/devenv/bin/activate
+    - [ ] cd ~/productproject/ZuoYeProject
+    - [ ] python setup.py develop (optional: if your virtualenv is not up to date, run this)
+    - [ ] initialize_ZuoYeProject_db development-uwsgi.ini (optional: for creating new table `user-ai-tokens` table here) or replace it with production-uwsgi.ini for production
+    - [ ] for local: backup mysql-data.tar.gz one more time to include new tables created above.
+
 - [ ] A workable AI popup and available dropdown when pressing space in ACE editor
 - [ ] Integrate with gpt-4o-mini for questions asked from AI popup in ACE editor, insert answer to current cursor position in the ACE editor
 - [ ] Complete ai-dropdown menu items
