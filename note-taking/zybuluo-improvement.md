@@ -49,6 +49,7 @@
 ### BD: 2024-12-22
 
 - [ ] release steps for new tables:
+    - [ ] alter `users table` to add new columns: check ~/docker/nvim_db_ui/mysql-dev/maintenance.ddl
     - [ ]source ~/devenv/bin/activate
     - [ ] cd ~/productproject/ZuoYeProject
     - [ ] python setup.py develop (optional: if your virtualenv is not up to date, run this)
