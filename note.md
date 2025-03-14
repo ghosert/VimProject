@@ -20,6 +20,7 @@ Tips: Put immediately next actions here, deffered next actions to google cal or 
 
 - [ ] `git config --global diff.tool nvimdiff` set this into dev Dockerfile, it won't work by default, maybe need to start nvim once before this command.
 - [ ] Setup new small keyboard and re-setup stream dock
+- [ ] upgrade nvim ai: avante.nvim, claude 3.7, local ollama for new model?
 - [ ] Check if nvidia 4070 ti super has better performance for local ollama to replace M3 Pro
 - [ ] [[zybuluo-improvement#TODO Tasks]]
 - [ ] [[#Improve docker dev env]]
