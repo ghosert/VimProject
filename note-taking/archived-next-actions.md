@@ -255,3 +255,8 @@
 ## 2024-12-13
 
 - [x] Make lazygit work in my work flow
+
+## 2025-09-16
+
+- [x] Upgrade nvim avante LLM to claude sonnect 4 from 3.5
+
