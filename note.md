@@ -18,6 +18,7 @@
 
 Tips: Put immediately next actions here, deffered next actions to google cal or wechat reminder.
 
+- [ ] practice again neovim, start picking up [[zybuluo-improvement#TODO Tasks]]
 - [ ] Learn ai agent like claude code, and evaluate premium subscription plan. Compare claude code with open code, aider, avante etc.
 - [ ] `git config --global diff.tool nvimdiff` set this into dev Dockerfile, it won't work by default, maybe need to start nvim once before this command.
 - [ ] Setup new small keyboard and re-setup stream dock
