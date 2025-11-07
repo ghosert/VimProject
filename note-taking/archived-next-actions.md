@@ -260,3 +260,6 @@
 
 - [x] Upgrade nvim avante LLM to claude sonnect 4 from 3.5
 
+## 2025-11-06
+
+- [x] practice again neovim, practice [mini.nvim](~/.config/nvim/init.lua) and [[neovim-tips]]
