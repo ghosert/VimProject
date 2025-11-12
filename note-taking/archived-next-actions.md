@@ -1,5 +1,10 @@
 # Archived Next Actions
 
+## 2025-11-12
+
+- [x] Introducing gemini-cli to docker
+- [x] Introducing vigem to .zshrc
+
 ## 2025-11-06
 
 - [x] practice again neovim, practice [mini.nvim](~/.config/nvim/init.lua) and [[neovim-tips]]
