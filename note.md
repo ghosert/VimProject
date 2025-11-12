@@ -19,9 +19,9 @@
 Tips: Put immediately next actions here, deffered next actions to google cal or wechat reminder.
 
 - [ ] upgrade nvim ai: avante.nvim, local ollama for new model?
+- [ ] Learn ai agent like claude code, and evaluate premium subscription plan. Compare claude code with open code, aider, avante, gemini cli etc.
 - [ ] check open ai, claude, qwen leftover balance
 - [ ] remove chatgpt nvim plugin and assign new shortcut to avante? check ~/.config/nvim/lua/avante/config.lua
-- [ ] Learn ai agent like claude code, and evaluate premium subscription plan. Compare claude code with open code, aider, avante, gemini cli etc.
 - [ ] upgrade and test neovim plugins to latest version
 - [ ] `git config --global diff.tool nvimdiff` set this into dev Dockerfile, it won't work by default, maybe need to start nvim once before this command.
 - [ ] Setup new small keyboard and re-setup stream dock
