@@ -1,5 +1,10 @@
 # Archived Next Actions
 
+## 2025-11-14
+
+- [x] upgrade avante.nvim to the latest version
+- [x] Upgrade new local model to qwen3-coder:30b for ollama, smarter and quicker model for local
+
 ## 2025-11-12
 
 - [x] Introducing gemini-cli to docker
