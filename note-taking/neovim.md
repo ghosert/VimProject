@@ -14,7 +14,7 @@ Marksman plugin[reference]:
 
 0. [reference] like above, "gd" or "gr" works.
 1. [lesson 3 summary](#lesson-3-summary) can be used to go to any hash inside this md by typing "gd" on it, "gr" for references.
-2. [note todo list](/note.md#entertainment) can be used to go to any hash in another file by typing "gd" on it, "gr" for references.
+2. [note todo list](/note-taking/note.md#entertainment) can be used to go to any hash in another file by typing "gd" on it, "gr" for references.
 3. [[note-taking]] can be used to go to any md file by typing "gd" on it, "gr" for references.
 4. [[#Lesson 3 SUMMARY]] same to the first one.
 
