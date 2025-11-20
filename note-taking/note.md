@@ -18,13 +18,10 @@
 
 Tips: Put immediately next actions here, deffered next actions to google cal or wechat reminder.
 
-- [ ] remove avante from my systems including dev, macos and blk-ubuntu
-- [ ] remove chatgpt nvim plugin and assign new shortcut to claudecode.nvim? check ~/.config/nvim/lua/avante/config.lua
-- [ ] add opencode for local LLM and claude code max subscription
-- [ ] Learn ai agent like claude code, and evaluate premium subscription plan. Compare claude code with open code, aider, avante, gemini cli etc.
+- [ ] opencode.nvim adding more shortcut like `<leader>oe`
 - [ ] check open ai, claude, qwen leftover balance
-- [ ] refine [[ai-features]]
 - [ ] upgrade and test neovim plugins to latest version
+- [ ] run podman on phone android for docker environment
 - [ ] `git config --global diff.tool nvimdiff` set this into dev Dockerfile, it won't work by default, maybe need to start nvim once before this command.
 - [ ] Setup new small keyboard and re-setup stream dock
 - [ ] Check if nvidia 4070 ti super has better performance for local ollama to replace M3 Pro
@@ -39,8 +36,8 @@ Tips: Put multiple next actions into one project here(you may need dedicated fol
 ### Improve docker dev env
 
 Tips: Any ubuntu tool chains and neovim setup should be added into ~/docker and ~/.config/nvim/ and git push to persist
-neovim tips should be added to [[neovim-tips]]
-ai tips should be added to [[ai-features]]
+neovim tips: [[neovim-tips]]
+ai tips: [[ai-features]]
 
 - [ ] Convert company postman script to rest.nvim recognized http spec
 - [ ] Watch youtube to make markdown note cleaner

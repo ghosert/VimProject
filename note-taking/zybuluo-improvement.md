@@ -5,6 +5,8 @@
 ## TODO Tasks
 
 - [ ] [[#Integrate AI to Cmd Markdown]]
+- [ ] Upgrade zybuluo AI model to the latest version
+- [ ] check all the zybuluo changes at zybuluo.com my notes.
 - [ ] Use local LLM to detect bad notes/users and delete them in both local and prod database
 - [ ] select count(1) from user_notes limit 100 and date range is slow in prod. this impacts /admin/user_notes page, timeout issue. check how to enhance timeout and make sql faster
 - [ ] block too many registered users from the same ip to post too many notes

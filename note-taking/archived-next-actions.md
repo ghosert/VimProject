@@ -1,5 +1,14 @@
 # Archived Next Actions
 
+## 2025-11-19
+
+- [x] remove aider from my systems including dev, macos and blk-ubuntu
+- [x] remove chatgpt nvim plugin and assign new shortcut to claudecode.nvim
+- [x] add opencode for local LLM and claude code max subscription
+- [x] Learn ai agent like claude code, and evaluate premium subscription plan. Compare claude code with open code, aider, avante, gemini cli etc.
+- [x] introducing opencode.nvim and claudecode.nvim
+- [x] create and refine [[ai-features]]
+
 ## 2025-11-14
 
 - [x] upgrade avante.nvim to the latest version
