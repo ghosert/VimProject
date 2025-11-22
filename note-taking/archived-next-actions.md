@@ -1,5 +1,10 @@
 # Archived Next Actions
 
+## 2025-11-21
+
+- [x] upgrade jdk17 to jdk21 to resolve jdtls issue inside neovim
+- [x] fix a bug to fetch wrong cpu from docker ubuntu inside macos m3 pro, arm based chip.
+
 ## 2025-11-19
 
 - [x] remove aider from my systems including dev, macos and blk-ubuntu
