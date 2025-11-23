@@ -1,5 +1,13 @@
 # Archived Next Actions
 
+
+## 2025-11-22
+
+- [x] Replace gemini with api key and see if it's quicker than google account
+- [x] Fix issue: space key caused delay in neovim terminal
+- [x] Fix issue: use <C-q> to quit terminal instead of <Esc><Esc>
+- [x] Avoid harmless error when typing <leader>ox to open opencode panel in x86-64 cpu, this is not a issue in arm64. Submitted PR to upstream.
+
 ## 2025-11-21
 
 - [x] upgrade jdk17 to jdk21 to resolve jdtls issue inside neovim
