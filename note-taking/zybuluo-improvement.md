@@ -5,7 +5,11 @@
 ## TODO Tasks
 
 - [ ] [[#Integrate AI to Cmd Markdown]]
-- [ ] Upgrade zybuluo AI model to the latest version
+- [ ] latest release
+    - [ ] Upgrade zybuluo AI model to the latest version
+        - [ ] alter user_ai_tokens table to update the length of model_name from 20 to 50, check query.sql inside ~/docker
+    - [ ] disalbe searched keywords from search bar in file manager menu, otherwise I can't use arrow down/up to select markdown files.
+    - [ ] redirect zybuluo.com to zybuluo.com/cmd instead of /mdeditor for google seo and advertise
 - [ ] check all the zybuluo changes at zybuluo.com my notes.
 - [ ] Use local LLM to detect bad notes/users and delete them in both local and prod database
 - [ ] select count(1) from user_notes limit 100 and date range is slow in prod. this impacts /admin/user_notes page, timeout issue. check how to enhance timeout and make sql faster
