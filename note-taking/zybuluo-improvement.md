@@ -6,9 +6,6 @@
 
 - [ ] [[#Integrate AI to Cmd Markdown]]
 - [ ] latest release
-    - [ ] Upgrade zybuluo AI model to the latest version
-        - [ ] alter user_ai_tokens table to update the length of model_name from 20 to 50, check query.sql inside ~/docker
-    - [ ] disalbe searched keywords from search bar in file manager menu, otherwise I can't use arrow down/up to select markdown files.
     - [ ] redirect zybuluo.com to zybuluo.com/cmd instead of /mdeditor for google seo and advertise
 - [ ] figure out why amazon fee is still high
 - [ ] check all the zybuluo changes at zybuluo.com my notes.
@@ -151,6 +148,14 @@ https://docs.rackspace.com/docs/reset-a-mysql-root-password
 ```
 
 ## Done Tasks
+
+### Small fixes
+
+- [x] Upgrade zybuluo AI model to the latest version
+    - [x] alter user_ai_tokens table to update the length of model_name from 20 to 50, check query.sql inside ~/docker
+    - [x] added thinking mode
+    - [x] be able to select AI models from popup menu
+- [x] disalbe searched keywords from search bar in file manager menu, otherwise I can't use arrow down/up to select markdown files.
 
 ### Integrate Chatgpt to detect and block bad note when publishing
 
