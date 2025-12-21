@@ -54,3 +54,5 @@ Best practice:
 4. Use avante.nvim when offline for ollama qwen3-coder:30b, since avante does not support claude max plan rightnow, claude api key costs)
 5. Use opencode when offline for ollama gpt-oss:latest (test if this is really working and update ./ai-features.png if it's not the truth)
 6. Use ollama run model-name for any other local models, run it in neovim terminal
+
+![ai-features](./ai-features.png)
