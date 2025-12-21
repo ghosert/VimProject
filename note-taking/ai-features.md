@@ -49,8 +49,8 @@ The `.zshrc` file contains aliases and environment variables for interacting wit
 Best practice:
 
 1. Use claude code for vibe coding, no neovim, paid
-2. Use gemini for everyting else but slow with paid Gemini AI Pro plan
+2. Use gemini for everyting else with paid Gemini AI Pro plan
 3. Use opencode.nvim(claude, gemini), claudecode.nvim for pair programming in neovim
 4. Use avante.nvim when offline for ollama qwen3-coder:30b, since avante does not support claude max plan rightnow, claude api key costs)
-5. Use opencode when offline for ollama gpt-oss:latest
+5. Use opencode when offline for ollama gpt-oss:latest (test if this is really working and update ./ai-features.png if it's not the truth)
 6. Use ollama run model-name for any other local models, run it in neovim terminal
