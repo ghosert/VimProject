@@ -18,7 +18,6 @@
 
 Tips: Put immediately next actions here, deffered next actions to google cal or wechat reminder.
 
-- [ ] dockerize drop-shopping project, how to manager multiple dockers locally
 - [ ] Recreate dev-docker and see what default google auth i'm using, api or account, I should switch to account and start to subscribe gemini ai pro plan $19.99 per month
 - [ ] opencode.nvim adding more shortcut like `<leader>oe`
 - [ ] check open ai, claude, qwen leftover balance
