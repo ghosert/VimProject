@@ -39,7 +39,7 @@ The `.zshrc` file contains aliases and environment variables for interacting wit
 ## summary
 
 1. claude or vicla (claude code, max plan subscription)
-2. gemini or vigem (Gemini 2.5 pro, personal google account)
+2. gemini or vigem (Gemini 3 pro, personal google account)
 3. opencode or viopen for claude max plan, gemeni and local ollama gpt-oss:latest (qwen3-coder:30b is not working well with opencode right now)
 4. avante.nvim (claude API usage[COSTING MONEY, how to replace it with max plan], gemini?, ollama qwen3-coder:30b)
 5. claudecode.nvim for claude code.
@@ -49,7 +49,7 @@ The `.zshrc` file contains aliases and environment variables for interacting wit
 Best practice:
 
 1. Use claude code for vibe coding, no neovim, paid
-2. Use gemini for everyting else but slow with free plan
+2. Use gemini for everyting else but slow with paid Gemini AI Pro plan
 3. Use opencode.nvim(claude, gemini), claudecode.nvim for pair programming in neovim
 4. Use avante.nvim when offline for ollama qwen3-coder:30b, since avante does not support claude max plan rightnow, claude api key costs)
 5. Use opencode when offline for ollama gpt-oss:latest
