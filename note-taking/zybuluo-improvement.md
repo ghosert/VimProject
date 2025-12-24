@@ -86,6 +86,11 @@
 
 ### Stop abusing on zybuluo
 
+#### BD: 2025-12-24 CD: 2025-12-24
+
+- [x] Revert 5-minute rate limit between note creations
+- [x] Increase daily note creation limit to 20 notes per 24 hours (from 10) per user
+
 #### BD: 2025-12-22 CD: 2025-12-23
 
 - [x] Block IP signup when 5+ registrations in 24 hours
