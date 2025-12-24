@@ -1,6 +1,10 @@
 # Archived Next Actions
 
 
+## 2025-12-24
+
+- [x] Recreate dev-docker and see what default google auth i'm using, api or account, I should switch to account and start to subscribe gemini ai pro plan $19.99 per month
+
 ## 2025-11-22
 
 - [x] Replace gemini with api key and see if it's quicker than google account

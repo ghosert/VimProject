@@ -18,9 +18,8 @@
 
 Tips: Put immediately next actions here, deffered next actions to google cal or wechat reminder.
 
-- [ ] Recreate dev-docker and see what default google auth i'm using, api or account, I should switch to account and start to subscribe gemini ai pro plan $19.99 per month
-- [ ] opencode.nvim adding more shortcut like `<leader>oe`
 - [ ] check open ai, claude, qwen leftover balance
+- [ ] opencode.nvim adding more shortcut like `<leader>oe`
 - [ ] upgrade and test neovim plugins to latest version
 - [ ] run podman on phone android for docker environment
 - [ ] `git config --global diff.tool nvimdiff` set this into dev Dockerfile, it won't work by default, maybe need to start nvim once before this command.

@@ -7,11 +7,10 @@
 - [ ] [[#Integrate AI to Cmd Markdown]]
 - [ ] latest release
     - [ ] redirect zybuluo.com to zybuluo.com/cmd instead of /mdeditor for google seo and advertise
-- [ ] figure out why amazon fee is still high
+- [ ] figure out why amazon fee is still high, use ai to analize the access.log for cost
 - [ ] check all the zybuluo changes at zybuluo.com my notes.
 - [ ] Use local LLM to detect bad notes/users and delete them in both local and prod database
 - [ ] select count(1) from user_notes limit 100 and date range is slow in prod. this impacts /admin/user_notes page, timeout issue. check how to enhance timeout and make sql faster
-- [ ] block too many registered users from the same ip to post too many notes
 - [ ] update appcache by making mdeditor js/css changes to update ssl validation date, read details in SETUP.markdown
 - [ ] copy paste a vim guide for cmd markdown
 - [ ] Don't allow the customer to refresh the read count forever
@@ -83,6 +82,75 @@
 - [ ] A new chat-mode page, and result can be easily added to ace editor
 
 
+## Done Tasks
+
+### Stop abusing on zybuluo
+
+#### BD: 2025-12-22 CD: 2025-12-23
+
+- [x] Block IP signup when 5+ registrations in 24 hours
+- [x]  Limit note creation to 10 notes per 24 hours per user
+-  [x] Add 5-minute rate limit between note creations
+-  [x] Block users with 3+ bad notes (PUBLIC_AUDIT) from creating/publishing for 24 hours
+-  [x] Require email verification before publishing notes
+
+### Small fixes
+
+- [x] Upgrade zybuluo AI model to the latest version
+    - [x] alter user_ai_tokens table to update the length of model_name from 20 to 50, check query.sql inside ~/docker
+    - [x] added thinking mode
+    - [x] be able to select AI models from popup menu
+- [x] disalbe searched keywords from search bar in file manager menu, otherwise I can't use arrow down/up to select markdown files.
+
+### Integrate Chatgpt to detect and block bad note when publishing
+
+#### BD: 2024-11-22 CD: 2024-12-27
+
+- [x] Integrate Chatgpt API
+- [x] build a prompt file system to store all kinds of prompt including the one to detect and block the bad note
+- [x] When publishing note, call Chatgpt API with prompt to detect and block the bad note, also mark the note and in some way warn me to review
+- [x] A uesr notes management system to review and approve bad notes manually
+
+### Make the latest mermaid work on zybuluo
+
+#### BD: 2024-08-30 CD: 2024-09-19
+
+- [x] update mermaid to latest version from 6.0.0 to 11.2.0, work for web page.
+- [x] Make pdf download work for latest mermaid charts, change docker file and codes to support `puppeteer` to convert html to pdf server side
+- [x] search `TODO:` in ~/productproject/
+- [x] Release notes on the 15th update for Cmd Markdown
+- [x] update ~/productproject/ZuoYeProject/zuoyeproject/static/editor/md-help.markdown
+- [x] mermaid js is not owned by zybuluo if we need to own it. what's the speed of the CDN for mermaid? (it's now owned by zybuluo)
+- [x] remove pdfkit and wkhtmltopdf,since we are now using puppeteer to replace it to convert html to pdf
+- [x] update ~/productproject/ZuoYeProject/zuoyeproject/static/editor/welcome-cmd.markdown
+- [x] make a new mdeditor.html after mermaid and flowchart changes
+- [x] deploy mermaid changes to prod
+
+### Restore Zybuluo
+
+#### 2024-03-05
+
+- [x] install mysql client based on 8.0.36 and update doc
+- [x] Upgrade local Ubuntu to 20.04
+- [x] restore prod mysql data to local mysql and upgrade local mysql to 8.0.36
+- [x] Upgrade EC2 to t3a.medium and convert on demand instance to reserved instance(t3a.medium) to save cost (\$243 per year)
+- [x] Your PostgreSQL 11 and MySQL 5.7 databases will be automatically enrolled into RDS Extended Support on February 29, 2024. To avoid the increase in charges due to RDS Extended Support, we recommend upgrading your databases to a newer major engine version before February 29, 2024.
+- [x] Upgrade RDS mysql 5.7.44 to 8.0.36 and t3.small to t3.medium (requires code changes) and purchase reserved instance(\$670 per year)
+- [x] make sure 'grunt -version' is same for both local and ec2 server, so that *.min.js have the same version after run grunt in mdeditor.html.
+- [x] Make desktop version work
+- [x] replace support@zybuluo.com and sales@zybuluo.com with ghosert@gmail.com
+- [x] make fullscreen work when client starts up
+- [x] clicking on link with target=_blank to open default browser, especially for download file. (https://github.com/nwjs/nw.js/issues/6506)
+- [x] loading pictures
+- [x] uploading pictures
+- [x] add new google analitics
+- [x] export PDF
+- [x] email to find back password
+- [x] chinese character is not working? check create ddl in SETUP.markdown
+- [x] make sure no errors in backend logs.
+- [x] make https work
+- [x] make fontawesome-webfont.woff work
+
 ## Fix Plan for Zybuluo
 
 ```
@@ -147,61 +215,3 @@ https://docs.rackspace.com/docs/reset-a-mysql-root-password
 
 ```
 
-## Done Tasks
-
-### Small fixes
-
-- [x] Upgrade zybuluo AI model to the latest version
-    - [x] alter user_ai_tokens table to update the length of model_name from 20 to 50, check query.sql inside ~/docker
-    - [x] added thinking mode
-    - [x] be able to select AI models from popup menu
-- [x] disalbe searched keywords from search bar in file manager menu, otherwise I can't use arrow down/up to select markdown files.
-
-### Integrate Chatgpt to detect and block bad note when publishing
-
-#### BD: 2024-11-22 CD: 2024-12-27
-
-- [x] Integrate Chatgpt API
-- [x] build a prompt file system to store all kinds of prompt including the one to detect and block the bad note
-- [x] When publishing note, call Chatgpt API with prompt to detect and block the bad note, also mark the note and in some way warn me to review
-- [x] A uesr notes management system to review and approve bad notes manually
-
-### Make the latest mermaid work on zybuluo
-
-#### BD: 2024-08-30 CD: 2024-09-19
-
-- [x] update mermaid to latest version from 6.0.0 to 11.2.0, work for web page.
-- [x] Make pdf download work for latest mermaid charts, change docker file and codes to support `puppeteer` to convert html to pdf server side
-- [x] search `TODO:` in ~/productproject/
-- [x] Release notes on the 15th update for Cmd Markdown
-- [x] update ~/productproject/ZuoYeProject/zuoyeproject/static/editor/md-help.markdown
-- [x] mermaid js is not owned by zybuluo if we need to own it. what's the speed of the CDN for mermaid? (it's now owned by zybuluo)
-- [x] remove pdfkit and wkhtmltopdf,since we are now using puppeteer to replace it to convert html to pdf
-- [x] update ~/productproject/ZuoYeProject/zuoyeproject/static/editor/welcome-cmd.markdown
-- [x] make a new mdeditor.html after mermaid and flowchart changes
-- [x] deploy mermaid changes to prod
-
-### Restore Zybuluo
-
-#### 2024-03-05
-
-- [x] install mysql client based on 8.0.36 and update doc
-- [x] Upgrade local Ubuntu to 20.04
-- [x] restore prod mysql data to local mysql and upgrade local mysql to 8.0.36
-- [x] Upgrade EC2 to t3a.medium and convert on demand instance to reserved instance(t3a.medium) to save cost (\$243 per year)
-- [x] Your PostgreSQL 11 and MySQL 5.7 databases will be automatically enrolled into RDS Extended Support on February 29, 2024. To avoid the increase in charges due to RDS Extended Support, we recommend upgrading your databases to a newer major engine version before February 29, 2024.
-- [x] Upgrade RDS mysql 5.7.44 to 8.0.36 and t3.small to t3.medium (requires code changes) and purchase reserved instance(\$670 per year)
-- [x] make sure 'grunt -version' is same for both local and ec2 server, so that *.min.js have the same version after run grunt in mdeditor.html.
-- [x] Make desktop version work
-- [x] replace support@zybuluo.com and sales@zybuluo.com with ghosert@gmail.com
-- [x] make fullscreen work when client starts up
-- [x] clicking on link with target=_blank to open default browser, especially for download file. (https://github.com/nwjs/nw.js/issues/6506)
-- [x] loading pictures
-- [x] uploading pictures
-- [x] add new google analitics
-- [x] export PDF
-- [x] email to find back password
-- [x] chinese character is not working? check create ddl in SETUP.markdown
-- [x] make sure no errors in backend logs.
-- [x] make https work
-- [x] make fontawesome-webfont.woff work
