@@ -8,6 +8,7 @@
 - [ ] latest release
     - [ ] redirect zybuluo.com to zybuluo.com/cmd instead of /mdeditor for google seo and advertise
 - [ ] figure out why amazon fee is still high, use ai to analize the access.log for cost
+- [ ] performance issue to load users notes on admin page, performance on loading publish notes on admin page is good now.
 - [ ] check all the zybuluo changes at zybuluo.com my notes.
 - [ ] Use local LLM to detect bad notes/users and delete them in both local and prod database
 - [ ] select count(1) from user_notes limit 100 and date range is slow in prod. this impacts /admin/user_notes page, timeout issue. check how to enhance timeout and make sql faster
@@ -86,10 +87,16 @@
 
 ### Stop abusing on zybuluo
 
-#### BD: 2025-12-24 CD: 2025-12-24
+#### BD: 2025-12-24 CD: 2025-12-26
 
 - [x] Revert 5-minute rate limit between note creations
 - [x] Increase daily note creation limit to 20 notes per 24 hours (from 10) per user
+- [x] AI & Content Control: Updated the bad note detection prompt, switched to Gemini, and implemented language restrictions (disallowing Vietnamese, Hindi, etc.).
+- [x] Admin Page Enhancements:
+  - [x] Added author name and note title hover previews.
+  - [x] Implemented row highlighting/selection for common authors and batch author deletion.
+  - [x] Fixed author filter bugs and optimized pagination performance.
+  - [x] Anti-Abuse & Limits: Increased the daily note limit to 20, removed the 5-minute rate limit, and externalized anti-abuse thresholds to properties.py
 
 #### BD: 2025-12-22 CD: 2025-12-23
 
