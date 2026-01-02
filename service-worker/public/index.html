@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Worker Demo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Service Worker Demo</h1>
+        <p>Current App Version: <strong id="app-version">v1.0.0</strong></p>
+        
+        <div class="status-box">
+            <p>Connection Status: <span id="connection-status">Checking...</span></p>
+        </div>
+
+        <p class="instructions">
+            <strong>How to test:</strong>
+            <ol>
+                <li>Start the server and load this page.</li>
+                <li><strong>Offline Test:</strong> Stop the server or toggle "Offline" in DevTools > Network. Refresh. The page should still load!</li>
+                <li><strong>Update Test:</strong> 
+                    <ul>
+                        <li>Change the version in <code>public/index.html</code> (e.g., to v1.0.1).</li>
+                        <li>Update the <code>CACHE_NAME</code> in <code>public/sw.js</code>.</li>
+                        <li>Refresh this page. You should see the "New version available" banner below.</li>
+                    </ul>
+                </li>
+            </ol>
+        </p>
+
+        <!-- Notification Banner (Hidden by default) -->
+        <div id="update-notification" class="notification hidden">
+            <span>A new version is available!</span>
+            <button id="update-btn">Refresh to Update</button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
