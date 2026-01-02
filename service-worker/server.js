@@ -31,14 +31,15 @@ const server = http.createServer((req, res) => {
         res.end(`Server Error: ${err.code}`);
       }
     } else {
-      // Important: Do not cache the service worker file locally
+      // Important: Do not cache sw.js or html files locally
       // to ensure the browser always checks for updates.
-      if (req.url === '/sw.js') {
+      // Without this, cache.addAll() in sw.js will use stale HTTP-cached files.
+      if (req.url === '/sw.js' || extname === '.html') {
         res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
         res.setHeader('Pragma', 'no-cache');
         res.setHeader('Expires', '0');
       } else {
-        // Cache other assets for a bit to demonstrate SW caching vs HTTP caching
+        // Cache other assets (CSS, JS) for a bit
         res.setHeader('Cache-Control', 'max-age=3600');
       }
       
