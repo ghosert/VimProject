@@ -1,5 +1,8 @@
 # Archived Next Actions
 
+## 2026-01-01
+
+- [x] there is a partial refund i need to handle, enhance my ebay seller trackere app for it.
 
 ## 2025-12-21
 

@@ -8,7 +8,7 @@
 - [ ] latest release
     - [ ] redirect zybuluo.com to zybuluo.com/cmd instead of /mdeditor for google seo and advertise
 - [ ] figure out why amazon fee is still high, use ai to analize the access.log for cost
-- [ ] performance issue to load users notes on admin page, performance on loading publish notes on admin page is good now.
+- [ ] make zybuluo.com work for offline and update notification for both cmd markdown app and website by introducing service-worker to replace application cache.
 - [ ] check all the zybuluo changes at zybuluo.com my notes.
 - [ ] Use local LLM to detect bad notes/users and delete them in both local and prod database
 - [ ] select count(1) from user_notes limit 100 and date range is slow in prod. this impacts /admin/user_notes page, timeout issue. check how to enhance timeout and make sql faster
