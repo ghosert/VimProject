@@ -25,11 +25,20 @@
 
 ### Update/Change Font
 
-1. git clone https://github.com/adi1090x/termux-style
-2. cd termux-style
-3. ./install
-After installation, just type termux-style to get an interactive menu to change both fonts and color schemes.
+```bash
+cp ~/docker/HackNerdFont-Regular.ttf ~/.termux/font.ttf
+termux-reload-settings
+```
 
+### Grant storage permission if needed
+
+```bash
+# Grant storage permission if needed
+termux-setup-storage
+
+# Copy and rename (replace 'MyFont.ttf' with your file)
+cp /sdcard/Download/HackNerdFont-Regular.ttf ~/.termux/font.ttf
+```
 
 ### Hide/Show Shortcut Bar (Extra Keys)
 
