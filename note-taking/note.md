@@ -18,6 +18,7 @@
 
 Tips: Put immediately next actions here, deffered next actions to google cal or wechat reminder.
 
+- [ ] how to play 3A games in oppo
 - [ ] sell my xiaomi phone, google phone and test if this phone market is good enough at ebay, re-take the pictures of my current items and update corresponding descriptions/pcitures, and check if selling second-hand xiaomi 15 ultra is a good idea to go.
 - [ ] ebay holds on my fund, check the status.
 - [ ] build a new idea to make something useful and sell at eBay by my coding and customization ability.
