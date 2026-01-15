@@ -78,7 +78,7 @@ if ('serviceWorker' in navigator) {
             });
         // Scenarios:
         // 1. Very first time to visit the page, line 70 runs.
-        // 2. Refresh the page without sw.js changes, line 49 runs, but nothing else will run
+        // 2. Refresh the page without sw.js changes, start with line 49, but nothing else will run
         // 3. Refresh the page with sw.js changes, line 66 runs
         // 4. in step 3 above, if you don't click on update button, and refresh again, line 53 runs
     });
