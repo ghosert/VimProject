@@ -182,8 +182,19 @@ This demo uses `skipWaiting()` for a better user experience:
 
 The relevant code:
 
-- **`app.js:98`** - Sends the message: `worker.postMessage({ type: 'SKIP_WAITING' })`
-- **`sw.js:87-91`** - Receives and calls `self.skipWaiting()` to force activation
+**`app.js`** - Sends the message when user clicks "Update":
+```javascript
+registration.waiting.postMessage({ type: 'SKIP_WAITING' });
+```
+
+**`sw.js`** - Receives the message and calls `skipWaiting()`:
+```javascript
+self.addEventListener('message', event => {
+    if (event.data && event.data.type === 'SKIP_WAITING') {
+        self.skipWaiting();
+    }
+});
+```
 
 Without this mechanism, users would have to close all tabs and reopen the site to get the update.
 
@@ -219,7 +230,17 @@ When user clicks "Update" in one tab, **all tabs** get updated automatically:
 └─────────────┘  └─────────────┘  └─────────────┘
 ```
 
-Every tab listens for the `controllerchange` event (`app.js:81-87`). When the new SW takes control, the browser fires this event to **all tabs**, and each tab reloads itself automatically.
+Every tab listens for the `controllerchange` event. When the new SW takes control, the browser fires this event to **all tabs**, and each tab reloads itself automatically.
+
+**`app.js`** - Listens for controller change and reloads:
+```javascript
+navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (!refreshing) {
+        window.location.reload();
+        refreshing = true;
+    }
+});
+```
 
 ### Server Configuration
 

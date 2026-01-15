@@ -50,7 +50,7 @@ if ('serviceWorker' in navigator) {
 
                 // Check if there's already a service worker waiting: if there are sw.js changes when user visited the page before, a new SW was installed, but never got refreshed.
                 if (registration.waiting) {
-                    showUpdateNotification(registration.waiting);
+                    showUpdateNotification(registration);
                     return;
                 }
 
@@ -64,7 +64,7 @@ if ('serviceWorker' in navigator) {
                             if (navigator.serviceWorker.controller) { // a previous SW is already controlling the page (meaning this is an update, not a first-time install)
                                 // New update available
                                 console.log('New content is available; please refresh.');
-                                showUpdateNotification(newWorker);
+                                showUpdateNotification(registration);
                             } else { // no previous SW exists, means this is first-time install, actually very first time to visit this page, also means content is cached for offline.
                                 // Content is cached for the first time
                                 console.log('Content is cached for offline use.');
@@ -94,15 +94,37 @@ if ('serviceWorker' in navigator) {
 }
 
 // Show the "Update" notification
-function showUpdateNotification(worker) {
+function showUpdateNotification(registration) {
     const notification = document.getElementById('update-notification');
     notification.classList.remove('hidden');
 
     const updateBtn = document.getElementById('update-btn');
-    updateBtn.onclick = () => {
-        // Send message to SW to skip waiting and activate immediately
-        worker.postMessage({ type: 'SKIP_WAITING' });
-        
+    updateBtn.onclick = async () => {
+        // Check for any newer version before activating.
+        // This handles the case where v3 was deployed while the v2 notification was showing.
+        try {
+            await registration.update();
+        } catch (e) {
+            // Update check failed (e.g., offline), proceed with current waiting SW
+        }
+
+        // If a new SW is installing, wait for it to finish
+        if (registration.installing) {
+            await new Promise(resolve => {
+                registration.installing.addEventListener('statechange', function handler(e) {
+                    if (e.target.state === 'installed' || e.target.state === 'redundant') {
+                        e.target.removeEventListener('statechange', handler);
+                        resolve();
+                    }
+                });
+            });
+        }
+
+        // Now activate the latest waiting SW
+        if (registration.waiting) {
+            registration.waiting.postMessage({ type: 'SKIP_WAITING' });
+        }
+
         // Hide notification
         notification.classList.add('hidden');
     };
