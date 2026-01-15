@@ -112,22 +112,49 @@ The service worker is essentially a **programmable network proxy** that lives in
 
 ### Fetch Interception (Cache-First Strategy)
 
+
 ```
    Browser Request
         │
         ▼
-   ┌─────────┐     YES    ┌─────────────┐
-   │ In      │ ─────────► │ Return from │
-   │ Cache?  │            │ Cache       │
-   └─────────┘            └─────────────┘
-        │
-        │ NO
-        ▼
-   ┌─────────────┐
-   │ Fetch from  │
-   │ Network     │
-   └─────────────┘
+┌───────────────────────────────────────────────────────────────────┐
+│                     SERVICE WORKER                                │
+│                                                                   │
+│   ┌──────────────┐     YES    ┌────────────────────────────────┐  │
+│   │ In Cache     │ ─────────► │ Return from Cache Storage      │  │
+│   │ Storage?     │            │ (Works offline!)               │  │
+│   └──────────────┘            └────────────────────────────────┘  │
+│          │                                                        │
+│          │ NO                                                     │
+│          ▼                                                        │
+│   ┌──────────────┐                                                │
+│   │ fetch()      │ ─────────────────────────────┐                 │
+│   └──────────────┘                              │                 │
+│                                                 │                 │
+└─────────────────────────────────────────────────┼─────────────────┘
+                                                  │
+                                                  ▼
+                                    ┌──────────────────────────┐
+                                    │       HTTP CACHE         │
+                                    │   (Browser Cache)        │
+                                    │                          │
+                                    │  ┌──────────┐    YES     │
+                                    │  │ Valid    │ ─────────► │ Return cached
+                                    │  │ cached   │            │ response
+                                    │  │ response?│            │
+                                    │  └──────────┘            │
+                                    │       │                  │
+                                    │       │ NO / Expired     │
+                                    │       ▼                  │
+                                    └───────┼──────────────────┘
+                                            │
+                                            ▼
+                                    ┌──────────────────┐
+                                    │     SERVER       │
+                                    │  (Origin)        │
+                                    └──────────────────┘
 ```
+
 
 ### Update Flow
 
