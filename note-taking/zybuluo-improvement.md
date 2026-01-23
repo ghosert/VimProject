@@ -7,6 +7,7 @@
 - [ ] [[#Integrate AI to Cmd Markdown]]
 - [ ] latest release
     - [ ] redirect zybuluo.com to zybuluo.com/cmd instead of /mdeditor for google seo and advertise
+    - [ ] search anywhere I'm still using development.ini, should be replaced by development-uwsgi.ini instead.
 - [ ] figure out why amazon fee is still high, use ai to analize the access.log for cost
 - [ ] make zybuluo.com work for offline and update notification for both cmd markdown app and website by introducing service-worker to replace application cache.
 - [ ] check all the zybuluo changes at zybuluo.com my notes.
