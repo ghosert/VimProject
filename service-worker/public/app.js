@@ -100,6 +100,10 @@ function showUpdateNotification(registration) {
 
     const updateBtn = document.getElementById('update-btn');
     updateBtn.onclick = async () => {
+        // Provide visual feedback while updating
+        updateBtn.disabled = true;
+        updateBtn.textContent = 'Updating...';
+
         // Check for any newer version before activating.
         // This handles the case where v3 was deployed while the v2 notification was showing.
         try {
