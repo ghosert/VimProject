@@ -8,8 +8,12 @@
 - [ ] latest release
     - [ ] redirect zybuluo.com to zybuluo.com/cmd instead of /mdeditor for google seo and advertise
     - [ ] search anywhere I'm still using development.ini, should be replaced by development-uwsgi.ini instead.
+- [ ] make page load faster when open note and switch notes.
+- [ ] Polish theme
+    - [ ] Enhance the current black and white theme
+    - [ ] How to switch theme better
+    - [ ] new theme like nintendo switch fc style, red and white theme
 - [ ] figure out why amazon fee is still high, use ai to analize the access.log for cost
-- [ ] make zybuluo.com work for offline and update notification for both cmd markdown app and website by introducing service-worker to replace application cache.
 - [ ] check all the zybuluo changes at zybuluo.com my notes.
 - [ ] Use local LLM to detect bad notes/users and delete them in both local and prod database
 - [ ] select count(1) from user_notes limit 100 and date range is slow in prod. this impacts /admin/user_notes page, timeout issue. check how to enhance timeout and make sql faster
@@ -34,6 +38,7 @@
 - [ ] Upgrade python2 to python3 and other libs like SQLAlchemy and Pyramid.
 - [ ] When updating the version of NW.js make sure it works in offline mode, this issue is reported here: https://github.com/nwjs/nw.js/issues/3361
 - [ ] Mobile app for zybuluo.com
+- [x] make zybuluo.com work for offline and update notification for both cmd markdown app and website by introducing service-worker to replace application cache.
 - [x] [[#Integrate Chatgpt to detect and block bad note when publishing]]
 - [x] [[#Make the latest mermaid work on zybuluo]]
 - [x] clear up password auto-fill when publishing note
@@ -49,42 +54,41 @@
 - [x] not allowing qiniu referer empty blocks the traffic to download installation files, but it also makess pictures blocked in downloaded pdf, resolve this by introduce client.zybuluo.com which does not allow empty referer anymore.
 - [x] database in mysql docker takes 130GB now, the data is coming from production. if we need that much data, can we re-use the small dataset in home-pc
 
-## Integrate AI to Cmd Markdown
-
-### BD: 2024-12-22
-
-- [ ] release steps for new tables:
-    - [ ] alter `users table` to add new columns: check ~/docker/nvim_db_ui/mysql-dev/maintenance.ddl
-    - [ ]source ~/devenv/bin/activate
-    - [ ] cd ~/productproject/ZuoYeProject
-    - [ ] python setup.py develop (optional: if your virtualenv is not up to date, run this)
-    - [ ] initialize_ZuoYeProject_db development-uwsgi.ini (optional: for creating new table `user-ai-tokens` table here) or replace it with production-uwsgi.ini for production
-    - [ ] for local: backup mysql-data.tar.gz one more time to include new tables created above.
-
-- [ ] A workable AI popup and available dropdown when pressing space in ACE editor
-- [ ] Integrate with gpt-4o-mini for questions asked from AI popup in ACE editor, insert answer to current cursor position in the ACE editor
-- [ ] Complete ai-dropdown menu items
-    - [ ] Complete Writing
-    - [ ] Complete Summary
-    - [ ] Complete Diagram
-    - [ ] Complete Table
-    - [ ] Complete Coding
-    - [ ] Complete Formula
-    - [ ] Complete Draft Email
-    - [ ] Complete Draft Outline
-    - [ ] Complete Draft Meeting
-    - [ ] Complete Draft anything
-    - [ ] Complete Act as Translator
-    - [ ] Complete Act as Code Analysis
-    - [ ] Complete Act as Linux Termminal
-    - [ ] Complete Act as Math Teacher
-    - [ ] Complete Act as anything
-    - [ ] Complete Recent
-- [ ] A sub system to check question history and count tokens for each question, set threshold for AI calls
-- [ ] A new chat-mode page, and result can be easily added to ace editor
-
-
 ## Done Tasks
+
+### Integrate AI to Cmd Markdown
+
+#### BD: 2024-12-22 CD: 2025-04-16
+
+- [x] release steps for new tables:
+    - [x] alter `users table` to add new columns: check ~/docker/nvim_db_ui/mysql-dev/maintenance.ddl
+    - [x]source ~/devenv/bin/activate
+    - [x] cd ~/productproject/ZuoYeProject
+    - [x] python setup.py develop (optional: if your virtualenv is not up to date, run this)
+    - [x] initialize_ZuoYeProject_db development-uwsgi.ini (optional: for creating new table `user-ai-tokens` table here) or replace it with production-uwsgi.ini for production
+    - [x] for local: backup mysql-data.tar.gz one more time to include new tables created above.
+
+- [x] A workable AI popup and available dropdown when pressing space in ACE editor
+- [x] Integrate with gpt-4o-mini for questions asked from AI popup in ACE editor, insert answer to current cursor position in the ACE editor
+- [x] Complete ai-dropdown menu items
+    - [x] Complete Writing
+    - [x] Complete Summary
+    - [x] Complete Diagram
+    - [x] Complete Table
+    - [x] Complete Coding
+    - [x] Complete Formula
+    - [x] Complete Draft Email
+    - [x] Complete Draft Outline
+    - [x] Complete Draft Meeting
+    - [x] Complete Draft anything
+    - [x] Complete Act as Translator
+    - [x] Complete Act as Code Analysis
+    - [x] Complete Act as Linux Termminal
+    - [x] Complete Act as Math Teacher
+    - [x] Complete Act as anything
+    - [x] Complete Recent
+- [x] A sub system to check question history and count tokens for each question, set threshold for AI calls
+- [x] A new chat-mode page, and result can be easily added to ace editor
 
 ### Stop abusing on zybuluo
 

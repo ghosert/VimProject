@@ -18,6 +18,13 @@
 
 Tips: Put immediately next actions here, deffered next actions to google cal or wechat reminder.
 
+- [ ] Setup Claude code skills
+- [ ] Setup OpenClaw, mini pc or lenovo 9i and how to access from outside.
+    - [ ] Think of some tasks for open claw
+    - [ ] stock analysis and reminder
+    - [ ] new AI tech tracker from youtube or articles
+    - [ ] ebay price or hot item tracker
+    - [ ] any other hotspot tracker
 - [ ] Write a wechat moment on how daughter learned python, jupyter, google colab, data science from coursera
 - [ ] how to play 3A games in oppo
 - [ ] sell my xiaomi phone, google phone and test if this phone market is good enough at ebay, re-take the pictures of my current items and update corresponding descriptions/pcitures, and check if selling second-hand xiaomi 15 ultra is a good idea to go.
