@@ -18,13 +18,9 @@
 
 Tips: Put immediately next actions here, deffered next actions to google cal or wechat reminder.
 
-- [ ] fix claude max subscription issue in avante.nvim, Anthropic blocked the 3rd party to use its claude max subscription.
-- [ ] add a feature to gemini cli / claude code / gemini, whenever i submit my question in English, repeat my question to correct typo/syntax/grammer after giving me the answer to help me improve my English.
 - [ ] Write a wechat moment on how daughter learned python, jupyter, google colab, data science from coursera
-- [ ] learn which old pad is able to install native linux to run docker while running android as well, big screen, powerful gpu sd 8 gen3, I need a portable tablet on android as laptop.
 - [ ] how to play 3A games in oppo
 - [ ] sell my xiaomi phone, google phone and test if this phone market is good enough at ebay, re-take the pictures of my current items and update corresponding descriptions/pcitures, and check if selling second-hand xiaomi 15 ultra is a good idea to go.
-- [ ] ebay holds on my fund, check the status.
 - [ ] build a new idea to make something useful and sell at eBay by my coding and customization ability.
 - [ ] use gemini in browser to check my aws bill and avoid more costs from AWS data transfer
 - [ ] learn about remotion to make videos programmatically

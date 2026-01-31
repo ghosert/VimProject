@@ -1,5 +1,12 @@
 # Archived Next Actions
 
+## 2026-01-31
+
+- [x] fix claude max subscription issue in avante.nvim, Anthropic blocked the 3rd party to use its claude max subscription.
+- [x] add a feature to gemini cli / claude code / gemini, whenever i submit my question in English, repeat my question to correct typo/syntax/grammer after giving me the answer to help me improve my English.
+- [x] learn which old pad is able to install native linux to run docker while running android as well, big screen, powerful gpu sd 8 gen3, I need a portable tablet on android as laptop.
+- [x] ebay holds on my fund, check the status.
+
 ## 2026-01-01
 
 - [x] there is a partial refund i need to handle, enhance my ebay seller trackere app for it.
