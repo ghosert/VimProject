@@ -8,7 +8,7 @@
 - [ ] latest release
     - [ ] redirect zybuluo.com to zybuluo.com/cmd instead of /mdeditor for google seo and advertise
     - [ ] search anywhere I'm still using development.ini, should be replaced by development-uwsgi.ini instead.
-- [ ] make page load faster when open note and switch notes.
+- [ ] make page load faster when open note and switch notes. check why it's slow to load sw.js, any way to improve.
 - [ ] check AI if there is some way to automate pipeline for coding, testing, backend errors, browser testing, FE errors, UI issues and auto fixing
     - [ ] adding regression testing for AI changes
     - [ ] how to make AI work for browser testing and auto fix bugs
