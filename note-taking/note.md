@@ -18,6 +18,8 @@
 
 Tips: Put immediately next actions here, deffered next actions to google cal or wechat reminder.
 
+- [ ] ALT+G to show gemini up and WIN+H to speak instead of typing, switch input language to make windows understand Chinese or English
+- [ ] Better white/black theme and check gruvbox theme is same to neovim, some people mentioned too yellow?
 - [ ] Setup Claude code skills
 - [ ] Setup OpenClaw, mini pc or lenovo 9i and how to access from outside.
     - [ ] Think of some tasks for open claw
