@@ -18,6 +18,7 @@
 
 Tips: Put immediately next actions here, deffered next actions to google cal or wechat reminder.
 
+- [ ] Install openclaw with the latet GPT-5.4, plus plan to save token, people mentioned GPT now is the best model for openclaw?
 - [ ] ALT+G to show gemini up and WIN+H to speak instead of typing, switch input language to make windows understand Chinese or English
 - [ ] Better white/black theme and check gruvbox theme is same to neovim, some people mentioned too yellow?
 - [ ] For the customer who first time use cmd markdown, give tips on how to use on UI

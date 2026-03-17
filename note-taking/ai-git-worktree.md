@@ -13,8 +13,9 @@
 ### Adding a Worktree
 There are three ways to add a worktree and its branch:
 
-1.  **New Branch:** `git worktree add ../path -b branch-name`
-    *   Creates a *new* branch and a new directory.
+1.  **New Branch:** `git worktree add ../path -b branch-name [start-point]`
+    *   Creates a *new* branch and directory.
+    *   **Pro-Tip:** Use `main` or `origin/main` as the `start-point` to "cut" a new branch from there.
 2.  **Existing Branch:** `git worktree add ../path branch-name`
     *   Uses an *existing* branch (must not be in use elsewhere).
 3.  **Auto-Named Branch:** `git worktree add ../path`
@@ -65,8 +66,8 @@ While worktrees prevent *file-level* overwriting during development, you will st
 
 ## Summary Workflow for AI Power Users
 1.  **Main Repo:** Work on Task A.
-2.  **New Task B?** `git worktree add ../task-b -b feat-b`
-3.  **New Task C?** `git worktree add ../task-c -b feat-c`
+2.  **New Task B?** `git worktree add -b feat-b ../task-b main`
+3.  **New Task C?** `git worktree add -b feat-c ../task-c main`
 4.  **Manage:** Use `git worktree list` to keep track of your "AI Army."
 5.  **Cleanup:** Once a task is merged and deleted, `git worktree remove ../path` to keep your workspace clean.
 6.  **Cleanup:** `git worktree prune`

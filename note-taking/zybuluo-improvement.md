@@ -5,6 +5,10 @@
 ## TODO Tasks
 
 - [ ] [[#Integrate AI to Cmd Markdown]]
+- [ ] latest fix
+    - [ ] 1. fix all the suggestions coming from AI for UI, bug reported from wechat user
+    - [ ] 2. when ask AI to create chinese history table in details, it start scrolling all the time.
+    - [ ] 3. give some animation when switching to full-editor mode or full-reader mode
 - [ ] latest release
     - [ ] redirect zybuluo.com to zybuluo.com/cmd instead of /mdeditor for google seo and advertise
     - [ ] search anywhere I'm still using development.ini, should be replaced by development-uwsgi.ini instead.
