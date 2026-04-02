@@ -69,5 +69,18 @@ While worktrees prevent *file-level* overwriting during development, you will st
 2.  **New Task B?** `git worktree add -b feat-b ../task-b main`
 3.  **New Task C?** `git worktree add -b feat-c ../task-c main`
 4.  **Manage:** Use `git worktree list` to keep track of your "AI Army."
-5.  **Cleanup:** Once a task is merged and deleted, `git worktree remove ../path` to keep your workspace clean.
-6.  **Cleanup:** `git worktree prune`
+5.  **Complete Task:** Inside the worktree folder, commit your changes:
+    ```bash
+    git add . && git commit -m "feat: complete task b"
+    ```
+6.  **Merge:** Return to your main repository or another worktree to merge:
+    ```bash
+    git checkout main
+    git merge feat-b
+    ```
+7.  **Cleanup:** Remove the directory and the branch:
+    ```bash
+    git worktree remove ../task-b
+    git branch -d feat-b
+    git worktree prune
+    ```
