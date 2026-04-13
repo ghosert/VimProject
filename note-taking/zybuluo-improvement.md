@@ -6,10 +6,11 @@
 
 - [ ] [[#Integrate AI to Cmd Markdown]]
 - [ ] latest fix
-    - [ ] 1. fix all the suggestions coming from AI for UI, bug reported from wechat user
-    - [ ] 2. when ask AI to create chinese history table in details, it start scrolling all the time.
-    - [ ] 3. give some animation when switching to full-editor mode or full-reader mode
-    - [ ] 4. Check gmail important notice from gemini: switch gemini flash mode from 2 to 3 before June
+    - [ ] 0. a wechat user asked to remember the position of note where last time closed. So that the position can be reused when reopening the note.
+    - [x] 1. fix all the suggestions coming from AI for UI, bug reported from wechat users
+    - [x] 2. when ask AI to create chinese history table in details, it start scrolling all the time.
+    - [x] 3. give some animation when switching to full-editor mode or full-reader mode
+    - [x] 4. Check gmail important notice from gemini: switch gemini flash mode from 2 to 3 before June
 - [ ] latest release
     - [ ] redirect zybuluo.com to zybuluo.com/cmd instead of /mdeditor for google seo and advertise
     - [ ] search anywhere I'm still using development.ini, should be replaced by development-uwsgi.ini instead.
