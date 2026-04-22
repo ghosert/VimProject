@@ -9,6 +9,7 @@
     - [ ] 0. a wechat user asked to remember the position of note where last time closed. So that the position can be reused when reopening the note.
     - [ ] 1. a wechat user asked to make editor/preview mode work on phone screen in some way
     - [ ] 2. vscode written by typescript and electron has been rewritten with Tauri+Rust, if we can do the same for Cmd Markdown client app to reduce the size by using webview instead of chromium browser. 
+    - [ ] 3. by default use gemini ai instead of chatgpt, use gemini ai for git diagram along with the other two, the rest diagrams still go with chatgpt
 - [ ] latest release
     - [ ] redirect zybuluo.com to zybuluo.com/cmd instead of /mdeditor for google seo and advertise
     - [ ] search anywhere I'm still using development.ini, should be replaced by development-uwsgi.ini instead.
