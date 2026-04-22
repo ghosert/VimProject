@@ -7,10 +7,8 @@
 - [ ] [[#Integrate AI to Cmd Markdown]]
 - [ ] latest fix
     - [ ] 0. a wechat user asked to remember the position of note where last time closed. So that the position can be reused when reopening the note.
-    - [x] 1. fix all the suggestions coming from AI for UI, bug reported from wechat users
-    - [x] 2. when ask AI to create chinese history table in details, it start scrolling all the time.
-    - [x] 3. give some animation when switching to full-editor mode or full-reader mode
-    - [x] 4. Check gmail important notice from gemini: switch gemini flash mode from 2 to 3 before June
+    - [ ] 1. a wechat user asked to make editor/preview mode work on phone screen in some way
+    - [ ] 2. vscode written by typescript and electron has been rewritten with Tauri+Rust, if we can do the same for Cmd Markdown client app to reduce the size by using webview instead of chromium browser. 
 - [ ] latest release
     - [ ] redirect zybuluo.com to zybuluo.com/cmd instead of /mdeditor for google seo and advertise
     - [ ] search anywhere I'm still using development.ini, should be replaced by development-uwsgi.ini instead.
@@ -48,6 +46,10 @@
 - [ ] Upgrade python2 to python3 and other libs like SQLAlchemy and Pyramid.
 - [ ] When updating the version of NW.js make sure it works in offline mode, this issue is reported here: https://github.com/nwjs/nw.js/issues/3361
 - [ ] Mobile app for zybuluo.com
+- [x] fix all the suggestions coming from AI for UI, bug reported from wechat users
+- [x] when ask AI to create chinese history table in details, it start scrolling all the time, solved by upgrading gemini modal.
+- [x] give some animation when switching to full-editor mode or full-reader mode
+- [x] Check gmail important notice from gemini: switch gemini flash mode from 2 to 3 before June
 - [x] make zybuluo.com work for offline and update notification for both cmd markdown app and website by introducing service-worker to replace application cache.
 - [x] [[#Integrate Chatgpt to detect and block bad note when publishing]]
 - [x] [[#Make the latest mermaid work on zybuluo]]
