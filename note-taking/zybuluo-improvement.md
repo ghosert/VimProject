@@ -14,6 +14,7 @@
     - [ ] redirect zybuluo.com to zybuluo.com/cmd instead of /mdeditor for google seo and advertise
     - [ ] search anywhere I'm still using development.ini, should be replaced by development-uwsgi.ini instead.
 - [ ] make page load faster when open note and switch notes. check why it's slow to load sw.js, any way to improve.
+- [ ] Markdown should be the source of the truth, while an interactive html should be generated for final outcome and easy to share, make the html more fancy and customize for the paid user. i have a wechat article about this sending to myself in wechat.
 - [ ] check AI if there is some way to automate pipeline for coding, testing, backend errors, browser testing, FE errors, UI issues and auto fixing
     - [ ] adding regression testing for AI changes
     - [ ] how to make AI work for browser testing and auto fix bugs
